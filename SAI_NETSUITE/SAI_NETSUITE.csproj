@@ -1,0 +1,587 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{A4F61ABB-8416-425E-9DB3-A1CAF23AC446}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SAI_NETSUITE</RootNamespace>
+    <AssemblyName>SAI_NETSUITE</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DevExpress.BonusSkins.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Charts.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Dashboard.v17.2.Win, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Data.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.DataAccess.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Mvvm.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Office.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.PivotGrid.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Printing.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Sparkline.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Utils.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraBars.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.2.UI, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraCharts.v17.2.Wizard, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraEditors.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGrid.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPivotGrid.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPrinting.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="MaterialSkin, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Client, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Client.4.2.0\lib\net45\NuGet.Client.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Common, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Common.4.2.0\lib\net45\NuGet.Common.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.ContentModel, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.ContentModel.4.2.0\lib\net45\NuGet.ContentModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Frameworks, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Frameworks.4.2.0\lib\net45\NuGet.Frameworks.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Packaging, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Packaging.4.2.0\lib\net45\NuGet.Packaging.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Packaging.Core, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Packaging.Core.4.2.0\lib\net45\NuGet.Packaging.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Packaging.Core.Types, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Packaging.Core.Types.4.2.0\lib\net45\NuGet.Packaging.Core.Types.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Repositories, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Repositories.4.2.0\lib\net45\NuGet.Repositories.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.RuntimeModel, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.RuntimeModel.4.2.0\lib\net45\NuGet.RuntimeModel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NuGet.Versioning, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\NuGet.Versioning.4.2.0\lib\net45\NuGet.Versioning.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Runtime.Remoting" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UIAutomationClient" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Address.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Ventas\SaleOrderSentController.cs" />
+    <Compile Include="Customers.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Eventos.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="FormaEnvio.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Items.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IWS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IWS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IWS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IWS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IWS.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="IWS\Connection.cs" />
+    <Compile Include="IWS\Token.cs" />
+    <Compile Include="IWS\TokenAction.cs" />
+    <Compile Include="ListaPrecios.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Locations.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Catalogos\AdressListCombo.cs" />
+    <Compile Include="Models\Catalogos\CustomerListCombo.cs" />
+    <Compile Include="Models\Catalogos\EventosListCombo.cs" />
+    <Compile Include="Models\Catalogos\FormaEnvioListCombo.cs" />
+    <Compile Include="Models\Catalogos\ItemsListCombo.cs" />
+    <Compile Include="Models\Catalogos\LocationListCombo.cs" />
+    <Compile Include="Models\Catalogos\RutaListCombo.cs" />
+    <Compile Include="Models\SaleOrderSentModel.cs" />
+    <Compile Include="Models\Transaccion\ItemInfobyCode.cs" />
+    <Compile Include="Models\Transaccion\LineItemDT.cs" />
+    <Compile Include="Models\Transaccion\SaleOrder.cs" />
+    <Compile Include="Models\Transaccion\SplitSaleOrderModel.cs" />
+    <Compile Include="Models\Transaccion\UnsplitSaleOrderModel.cs" />
+    <Compile Include="Principal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Principal.Designer.cs">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ruta.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ventas\SaleOrderSentVista.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Ventas\SaleOrderSentVista.Designer.cs">
+      <DependentUpon>SaleOrderSentVista.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ventas\WaitForm1.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Ventas\WaitForm1.Designer.cs">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\administracion\AsignaUbicaciones.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\administracion\AsignaUbicaciones.designer.cs">
+      <DependentUpon>AsignaUbicaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\administracion\bloquearPedido.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\administracion\bloquearPedido.designer.cs">
+      <DependentUpon>bloquearPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\CodigoBarras.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\CodigoBarras.Designer.cs">
+      <DependentUpon>CodigoBarras.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\credencialWMS.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WMS\credencialWMS.designer.cs">
+      <DependentUpon>credencialWMS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Empaque\cantidadArticulo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WMS\Empaque\cantidadArticulo.designer.cs">
+      <DependentUpon>cantidadArticulo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Empaque\detallePedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WMS\Empaque\detallePedido.designer.cs">
+      <DependentUpon>detallePedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Empaque\empaque.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\Empaque\empaque.designer.cs">
+      <DependentUpon>empaque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Empaque\etiqueta.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="WMS\Empaque\etiqueta.designer.cs">
+      <DependentUpon>etiqueta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Empaque\kilogramos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WMS\Empaque\kilogramos.designer.cs">
+      <DependentUpon>kilogramos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\menuWMS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WMS\menuWMS.Designer.cs">
+      <DependentUpon>menuWMS.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Recibo\CambiaMultiplo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\Recibo\CambiaMultiplo.designer.cs">
+      <DependentUpon>CambiaMultiplo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Recibo\SobrePedidoPendientes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\Recibo\SobrePedidoPendientes.designer.cs">
+      <DependentUpon>SobrePedidoPendientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Reportes\detalleReporte.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WMS\Reportes\detalleReporte.designer.cs">
+      <DependentUpon>detalleReporte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Reportes\pickingDetalle.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WMS\Reportes\pickingDetalle.designer.cs">
+      <DependentUpon>pickingDetalle.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Reportes\reportePivote.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\Reportes\reportePivote.designer.cs">
+      <DependentUpon>reportePivote.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Reportes\ReporteSurtidoPicking.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\Reportes\ReporteSurtidoPicking.Designer.cs">
+      <DependentUpon>ReporteSurtidoPicking.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Reportes\reporteSurtipickingPIVOT.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\Reportes\reporteSurtipickingPIVOT.Designer.cs">
+      <DependentUpon>reporteSurtipickingPIVOT.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\sencilloGrid.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\sencilloGrid.Designer.cs">
+      <DependentUpon>sencilloGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Slotting\caducables.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\Slotting\caducables.designer.cs">
+      <DependentUpon>caducables.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Surtido\asignaPiso.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\Surtido\asignaPiso.designer.cs">
+      <DependentUpon>asignaPiso.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Surtido\infoPedidos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WMS\Surtido\infoPedidos.designer.cs">
+      <DependentUpon>infoPedidos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Surtido\PedidosSurtiendose.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\Surtido\PedidosSurtiendose.designer.cs">
+      <DependentUpon>PedidosSurtiendose.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\Surtido\SurtidoresConectado.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\Surtido\SurtidoresConectado.designer.cs">
+      <DependentUpon>SurtidoresConectado.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS\wms_usuarios.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WMS\wms_usuarios.Designer.cs">
+      <DependentUpon>wms_usuarios.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WMS_NivelPicking.cs">
+      <DependentUpon>WMS_NivelPicking.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="WMS_NivelPicking.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>WMS_NivelPicking.xsd</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Principal.resx">
+      <DependentUpon>Principal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\licenses.licx" />
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Views\Ventas\SaleOrderSentVista.resx">
+      <DependentUpon>SaleOrderSentVista.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Ventas\WaitForm1.resx">
+      <DependentUpon>WaitForm1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\administracion\AsignaUbicaciones.resx">
+      <DependentUpon>AsignaUbicaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\administracion\bloquearPedido.resx">
+      <DependentUpon>bloquearPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\CodigoBarras.resx">
+      <DependentUpon>CodigoBarras.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\credencialWMS.resx">
+      <DependentUpon>credencialWMS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Empaque\cantidadArticulo.resx">
+      <DependentUpon>cantidadArticulo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Empaque\detallePedido.resx">
+      <DependentUpon>detallePedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Empaque\empaque.resx">
+      <DependentUpon>empaque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Empaque\etiqueta.resx">
+      <DependentUpon>etiqueta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Empaque\kilogramos.resx">
+      <DependentUpon>kilogramos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\menuWMS.resx">
+      <DependentUpon>menuWMS.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Recibo\CambiaMultiplo.resx">
+      <DependentUpon>CambiaMultiplo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Recibo\SobrePedidoPendientes.resx">
+      <DependentUpon>SobrePedidoPendientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Reportes\detalleReporte.resx">
+      <DependentUpon>detalleReporte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Reportes\pickingDetalle.resx">
+      <DependentUpon>pickingDetalle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Reportes\reportePivote.resx">
+      <DependentUpon>reportePivote.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Reportes\ReporteSurtidoPicking.resx">
+      <DependentUpon>ReporteSurtidoPicking.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Reportes\reporteSurtipickingPIVOT.resx">
+      <DependentUpon>reporteSurtipickingPIVOT.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\sencilloGrid.resx">
+      <DependentUpon>sencilloGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Slotting\caducables.resx">
+      <DependentUpon>caducables.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Surtido\asignaPiso.resx">
+      <DependentUpon>asignaPiso.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Surtido\infoPedidos.resx">
+      <DependentUpon>infoPedidos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Surtido\PedidosSurtiendose.resx">
+      <DependentUpon>PedidosSurtiendose.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\Surtido\SurtidoresConectado.resx">
+      <DependentUpon>SurtidoresConectado.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WMS\wms_usuarios.resx">
+      <DependentUpon>wms_usuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EntityDeploy Include="IWS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>IWS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="IWS.edmx.diagram">
+      <DependentUpon>IWS.edmx</DependentUpon>
+    </None>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <None Include="WMS_NivelPicking.xsc">
+      <DependentUpon>WMS_NivelPicking.xsd</DependentUpon>
+    </None>
+    <None Include="WMS_NivelPicking.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>WMS_NivelPicking.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="WMS_NivelPicking.xss">
+      <DependentUpon>WMS_NivelPicking.xsd</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Logo_Indar.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\ezgif.com-gif-maker.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\835 %282%29.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\home-interface.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\management.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\management %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\growth.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\accounting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\buy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\premium.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\people-trading.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\advertising.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\warehouse.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\icons8-Pallet-50.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\palet02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\barcode.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\barcode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="CteRecoge\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\receipt.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\xls.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\xls %281%29.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="IWS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IWS.edmx</DependentUpon>
+      <LastGenOutput>IWS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="IWS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>IWS.edmx</DependentUpon>
+      <LastGenOutput>IWS.cs</LastGenOutput>
+    </Content>
+    <None Include="Resources\contract.png" />
+    <None Include="Resources\logistics.png" />
+    <None Include="Resources\seo.png" />
+    <None Include="Resources\factura.png" />
+    <None Include="Resources\bill.png" />
+    <None Include="Resources\paper-plane.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

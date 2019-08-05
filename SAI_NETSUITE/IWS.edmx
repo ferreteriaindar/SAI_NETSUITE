@@ -1,0 +1,695 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IWSModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityContainer Name="IWSModelStoreContainer">
+          <EntitySet Name="Address" EntityType="IWSModel.Store.Address" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Customers" EntityType="IWSModel.Store.Customers" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Eventos" EntityType="IWSModel.Store.Eventos" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="FormaEnvio" EntityType="IWSModel.Store.FormaEnvio" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Items" EntityType="IWSModel.Store.Items" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ListaPrecios" EntityType="IWSModel.Store.ListaPrecios" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Locations" EntityType="IWSModel.Store.Locations" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Ruta" EntityType="IWSModel.Store.Ruta" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK__Customers__Price__477199F1" Association="IWSModel.Store.FK__Customers__Price__477199F1">
+            <End Role="ListaPrecios" EntitySet="ListaPrecios" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Customers__Route__40C49C62" Association="IWSModel.Store.FK__Customers__Route__40C49C62">
+            <End Role="Ruta" EntitySet="Ruta" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Customers__shipp__3A179ED3" Association="IWSModel.Store.FK__Customers__shipp__3A179ED3">
+            <End Role="FormaEnvio" EntitySet="FormaEnvio" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="addressID" />
+          </Key>
+          <Property Name="addressID" Type="int" Nullable="false" />
+          <Property Name="country" Type="varchar" MaxLength="50" />
+          <Property Name="addr1" Type="varchar" MaxLength="100" />
+          <Property Name="addr2" Type="varchar" MaxLength="100" />
+          <Property Name="city" Type="varchar" MaxLength="50" />
+          <Property Name="state" Type="varchar" MaxLength="50" />
+          <Property Name="postalCode" Type="varchar" MaxLength="6" />
+          <Property Name="defaultbilling" Type="bit" />
+          <Property Name="defaultshipping" Type="bit" />
+          <Property Name="residential" Type="bit" />
+          <Property Name="entity_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="internalid" />
+          </Key>
+          <Property Name="internalid" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="100" />
+          <Property Name="lastName" Type="varchar" MaxLength="100" />
+          <Property Name="numProspect" Type="varchar" MaxLength="20" />
+          <Property Name="idNet" Type="varchar" MaxLength="20" />
+          <Property Name="companyId" Type="varchar" MaxLength="20" />
+          <Property Name="company" Type="varchar" MaxLength="100" />
+          <Property Name="tradeName" Type="varchar" MaxLength="100" />
+          <Property Name="RFC" Type="varchar" MaxLength="13" />
+          <Property Name="account" Type="varchar" MaxLength="20" />
+          <Property Name="phone" Type="varchar" MaxLength="20" />
+          <Property Name="email" Type="varchar" MaxLength="100" />
+          <Property Name="creditLimit" Type="money" />
+          <Property Name="bankReference" Type="varchar" MaxLength="50" />
+          <Property Name="newPagare" Type="bit" />
+          <Property Name="ammountPagare" Type="money" />
+          <Property Name="newCustomerBonus" Type="bit" />
+          <Property Name="limitOrders" Type="money" />
+          <Property Name="newCreditRequest" Type="bit" />
+          <Property Name="modifyExpiration" Type="bit" />
+          <Property Name="shippingWayId" Type="int" />
+          <Property Name="giroId" Type="int" />
+          <Property Name="MethodPayment" Type="int" />
+          <Property Name="TypeCustomer" Type="int" />
+          <Property Name="PaymentTerms" Type="int" />
+          <Property Name="Department" Type="int" />
+          <Property Name="ExtendExpiration" Type="int" />
+          <Property Name="Condition" Type="int" />
+          <Property Name="RouteSale" Type="int" />
+          <Property Name="Route" Type="int" />
+          <Property Name="CrmInfluence" Type="int" />
+          <Property Name="CommercialTerms" Type="int" />
+          <Property Name="BlockDelinquents" Type="int" />
+          <Property Name="Territory" Type="int" />
+          <Property Name="Status" Type="int" />
+          <Property Name="CountedCustomer" Type="int" />
+          <Property Name="Package" Type="int" />
+          <Property Name="PriceList" Type="int" />
+          <Property Name="datecreated" Type="datetime" />
+          <Property Name="userID" Type="int" />
+          <Property Name="customerGroup" Type="int" />
+          <Property Name="salesRep" Type="int" />
+          <Property Name="salesSupport" Type="int" />
+          <Property Name="serviceAgent" Type="int" />
+          <Property Name="accountingAssistant" Type="int" />
+          <Property Name="lastModifiedDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Eventos">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Name="LIST_ID" Type="int" Nullable="false" />
+          <Property Name="LIST_ITEM_NAME" Type="nvarchar" MaxLength="50" />
+          <Property Name="IsInactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="FormaEnvio">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Name="LIST_ID" Type="int" Nullable="false" />
+          <Property Name="LIST_ITEM_NAME" Type="varchar" MaxLength="255" />
+          <Property Name="isInactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="varchar" Nullable="false" MaxLength="20" />
+          <Property Name="type" Type="varchar" MaxLength="128" />
+          <Property Name="itemid" Type="varchar" MaxLength="20" />
+          <Property Name="displayname" Type="varchar" MaxLength="100" />
+          <Property Name="unitstype" Type="int" />
+          <Property Name="unitstypeText" Type="varchar" MaxLength="40" />
+          <Property Name="stockunit" Type="int" />
+          <Property Name="stockunitText" Type="varchar" MaxLength="40" />
+          <Property Name="purchaseunit" Type="int" />
+          <Property Name="purchaseunitText" Type="varchar" MaxLength="40" />
+          <Property Name="saleunit" Type="int" />
+          <Property Name="saleunitText" Type="varchar" MaxLength="40" />
+          <Property Name="baseunit" Type="int" />
+          <Property Name="baseunitText" Type="varchar" MaxLength="40" />
+          <Property Name="vendorname" Type="varchar" MaxLength="40" />
+          <Property Name="upccode" Type="varchar" MaxLength="180" />
+          <Property Name="department" Type="int" />
+          <Property Name="departmentText" Type="varchar" MaxLength="100" />
+          <Property Name="location" Type="int" />
+          <Property Name="cost" Type="money" />
+          <Property Name="purchasedescription" Type="varchar" MaxLength="100" />
+          <Property Name="taxschedule" Type="int" />
+          <Property Name="taxscheduleText" Type="varchar" MaxLength="180" />
+          <Property Name="custitem_tipo_articulo" Type="int" />
+          <Property Name="custitem_tipo_articuloText" Type="varchar" MaxLength="20" />
+          <Property Name="custitem_fabricante_articulo" Type="int" />
+          <Property Name="custitem_fabricante_articuloText" Type="varchar" MaxLength="20" />
+          <Property Name="custitem_linea_articulo" Type="int" />
+          <Property Name="custitem_linea_articuloText" Type="varchar" MaxLength="20" />
+          <Property Name="custitem_categoria_articulo" Type="int" />
+          <Property Name="custitem_categoria_articuloText" Type="varchar" MaxLength="20" />
+          <Property Name="fechaActualizacion" Type="datetime" />
+          <Property Name="syncWMS" Type="bit" />
+          <Property Name="custitem_tipo_clasif_art" Type="int" />
+          <Property Name="custitem_tipo_clasif_artText" Type="nchar" MaxLength="20" />
+          <Property Name="custitem_presentacion_individual" Type="int" />
+          <Property Name="custitem_codigo_sustituto" Type="varchar" MaxLength="20" />
+          <Property Name="custitem_costo_estandar" Type="money" />
+          <Property Name="custitem_familia_articulo" Type="int" />
+          <Property Name="custitem_grupo_articulo" Type="int" />
+          <Property Name="custitem_indar_excepcion" Type="varchar" MaxLength="50" />
+          <Property Name="custitem_indar_explicacion" Type="varchar" MaxLength="100" />
+          <Property Name="custitem_mensaje_emergente" Type="varchar" MaxLength="50" />
+          <Property Name="custitem_multiplos_ordenar" Type="float" />
+          <Property Name="custitem_nivel_indar" Type="int" />
+          <Property Name="custitem_rama_articulo" Type="int" />
+          <Property Name="custitem_ranking_imp" Type="int" />
+          <Property Name="custitem_ranking_pza" Type="int" />
+          <Property Name="custitem_sustitutos" Type="bit" />
+          <Property Name="custitem_temporada_articulo" Type="int" />
+          <Property Name="PrecioLista" Type="money" />
+          <Property Name="Precio2" Type="money" />
+          <Property Name="Precio3" Type="money" />
+          <Property Name="Precio4" Type="money" />
+          <Property Name="Precio5" Type="money" />
+          <Property Name="Precio6" Type="money" />
+          <Property Name="Precio7" Type="money" />
+          <Property Name="Precio8" Type="money" />
+          <Property Name="Precio9" Type="money" />
+          <Property Name="Precio10" Type="money" />
+          <Property Name="maximumquantity" Type="float" />
+          <Property Name="minimunquantity" Type="float" />
+          <Property Name="isInactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="ListaPrecios">
+          <Key>
+            <PropertyRef Name="price_type_id" />
+          </Key>
+          <Property Name="price_type_id" Type="int" Nullable="false" />
+          <Property Name="name" Type="varchar" MaxLength="255" />
+          <Property Name="isInactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="LOCATION_ID" />
+          </Key>
+          <Property Name="LOCATION_ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="255" />
+          <Property Name="isInactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="Ruta">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Name="LIST_ID" Type="int" Nullable="false" />
+          <Property Name="LIST_ITEM_NAME" Type="varchar" MaxLength="255" />
+          <Property Name="isInactive" Type="bit" />
+        </EntityType>
+        <Association Name="FK__Customers__Price__477199F1">
+          <End Role="ListaPrecios" Type="IWSModel.Store.ListaPrecios" Multiplicity="0..1" />
+          <End Role="Customers" Type="IWSModel.Store.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListaPrecios">
+              <PropertyRef Name="price_type_id" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="PriceList" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Customers__Route__40C49C62">
+          <End Role="Ruta" Type="IWSModel.Store.Ruta" Multiplicity="0..1" />
+          <End Role="Customers" Type="IWSModel.Store.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruta">
+              <PropertyRef Name="LIST_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="Route" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Customers__shipp__3A179ED3">
+          <End Role="FormaEnvio" Type="IWSModel.Store.FormaEnvio" Multiplicity="0..1" />
+          <End Role="Customers" Type="IWSModel.Store.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormaEnvio">
+              <PropertyRef Name="LIST_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="shippingWayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IWSModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="IWSEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Customers" EntityType="IWSModel.Customers" />
+          <EntitySet Name="Locations" EntityType="IWSModel.Locations" />
+          <EntitySet Name="Address" EntityType="IWSModel.Address" />
+          <EntitySet Name="FormaEnvio" EntityType="IWSModel.FormaEnvio" />
+          <AssociationSet Name="FK__Customers__shipp__3A179ED3" Association="IWSModel.FK__Customers__shipp__3A179ED3">
+            <End Role="FormaEnvio" EntitySet="FormaEnvio" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <EntitySet Name="Ruta" EntityType="IWSModel.Ruta" />
+          <AssociationSet Name="FK__Customers__Route__40C49C62" Association="IWSModel.FK__Customers__Route__40C49C62">
+            <End Role="Ruta" EntitySet="Ruta" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <EntitySet Name="Items" EntityType="IWSModel.Items" />
+          <EntitySet Name="ListaPrecios" EntityType="IWSModel.ListaPrecios" />
+          <AssociationSet Name="FK__Customers__Price__477199F1" Association="IWSModel.FK__Customers__Price__477199F1">
+            <End Role="ListaPrecios" EntitySet="ListaPrecios" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <EntitySet Name="Eventos" EntityType="IWSModel.Eventos" />
+        </EntityContainer>
+        <EntityType Name="Customers">
+          <Key>
+            <PropertyRef Name="internalid" />
+          </Key>
+          <Property Name="internalid" Type="Int32" Nullable="false" />
+          <Property Name="name" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="lastName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="numProspect" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="idNet" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="companyId" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="company" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="tradeName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="RFC" Type="String" MaxLength="13" Unicode="false" FixedLength="false" />
+          <Property Name="account" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="phone" Type="String" MaxLength="20" Unicode="false" FixedLength="false" />
+          <Property Name="email" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="creditLimit" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="bankReference" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="newPagare" Type="Boolean" />
+          <Property Name="ammountPagare" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="newCustomerBonus" Type="Boolean" />
+          <Property Name="limitOrders" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="newCreditRequest" Type="Boolean" />
+          <Property Name="modifyExpiration" Type="Boolean" />
+          <Property Name="shippingWayId" Type="Int32" />
+          <Property Name="giroId" Type="Int32" />
+          <Property Name="MethodPayment" Type="Int32" />
+          <Property Name="TypeCustomer" Type="Int32" />
+          <Property Name="PaymentTerms" Type="Int32" />
+          <Property Name="Department" Type="Int32" />
+          <Property Name="ExtendExpiration" Type="Int32" />
+          <Property Name="Condition" Type="Int32" />
+          <Property Name="RouteSale" Type="Int32" />
+          <Property Name="Route" Type="Int32" />
+          <Property Name="CrmInfluence" Type="Int32" />
+          <Property Name="CommercialTerms" Type="Int32" />
+          <Property Name="BlockDelinquents" Type="Int32" />
+          <Property Name="Territory" Type="Int32" />
+          <Property Name="Status" Type="Int32" />
+          <Property Name="CountedCustomer" Type="Int32" />
+          <Property Name="Package" Type="Int32" />
+          <Property Name="PriceList" Type="Int32" />
+          <Property Name="datecreated" Type="DateTime" Precision="3" />
+          <Property Name="userID" Type="Int32" />
+          <Property Name="customerGroup" Type="Int32" />
+          <Property Name="salesRep" Type="Int32" />
+          <Property Name="salesSupport" Type="Int32" />
+          <Property Name="serviceAgent" Type="Int32" />
+          <Property Name="accountingAssistant" Type="Int32" />
+          <Property Name="lastModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="FormaEnvio" Relationship="IWSModel.FK__Customers__shipp__3A179ED3" FromRole="Customers" ToRole="FormaEnvio" />
+          <NavigationProperty Name="Ruta" Relationship="IWSModel.FK__Customers__Route__40C49C62" FromRole="Customers" ToRole="Ruta" />
+          <NavigationProperty Name="ListaPrecios" Relationship="IWSModel.FK__Customers__Price__477199F1" FromRole="Customers" ToRole="ListaPrecios" />
+        </EntityType>
+        <EntityType Name="Locations">
+          <Key>
+            <PropertyRef Name="LOCATION_ID" />
+          </Key>
+          <Property Type="Int32" Name="LOCATION_ID" Nullable="false" />
+          <Property Type="String" Name="NAME" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="isInactive" />
+        </EntityType>
+        <EntityType Name="Address">
+          <Key>
+            <PropertyRef Name="addressID" />
+          </Key>
+          <Property Type="Int32" Name="addressID" Nullable="false" />
+          <Property Type="String" Name="country" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="addr1" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="addr2" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="city" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="state" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="postalCode" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="defaultbilling" />
+          <Property Type="Boolean" Name="defaultshipping" />
+          <Property Type="Boolean" Name="residential" />
+          <Property Type="Int32" Name="entity_id" />
+        </EntityType>
+        <EntityType Name="FormaEnvio">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Type="Int32" Name="LIST_ID" Nullable="false" />
+          <Property Type="String" Name="LIST_ITEM_NAME" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="isInactive" />
+          <NavigationProperty Name="Customers" Relationship="IWSModel.FK__Customers__shipp__3A179ED3" FromRole="FormaEnvio" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK__Customers__shipp__3A179ED3">
+          <End Type="IWSModel.FormaEnvio" Role="FormaEnvio" Multiplicity="0..1" />
+          <End Type="IWSModel.Customers" Role="Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormaEnvio">
+              <PropertyRef Name="LIST_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="shippingWayId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Ruta">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Type="Int32" Name="LIST_ID" Nullable="false" />
+          <Property Type="String" Name="LIST_ITEM_NAME" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="isInactive" />
+          <NavigationProperty Name="Customers" Relationship="IWSModel.FK__Customers__Route__40C49C62" FromRole="Ruta" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK__Customers__Route__40C49C62">
+          <End Type="IWSModel.Ruta" Role="Ruta" Multiplicity="0..1" />
+          <End Type="IWSModel.Customers" Role="Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ruta">
+              <PropertyRef Name="LIST_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="Route" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Items">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Type="String" Name="id" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="type" MaxLength="128" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="itemid" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="displayname" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="unitstype" />
+          <Property Type="String" Name="unitstypeText" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="stockunit" />
+          <Property Type="String" Name="stockunitText" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="purchaseunit" />
+          <Property Type="String" Name="purchaseunitText" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="saleunit" />
+          <Property Type="String" Name="saleunitText" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="baseunit" />
+          <Property Type="String" Name="baseunitText" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="vendorname" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="upccode" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="department" />
+          <Property Type="String" Name="departmentText" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="location" />
+          <Property Type="Decimal" Name="cost" Precision="19" Scale="4" />
+          <Property Type="String" Name="purchasedescription" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="taxschedule" />
+          <Property Type="String" Name="taxscheduleText" MaxLength="180" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="custitem_tipo_articulo" />
+          <Property Type="String" Name="custitem_tipo_articuloText" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="custitem_fabricante_articulo" />
+          <Property Type="String" Name="custitem_fabricante_articuloText" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="custitem_linea_articulo" />
+          <Property Type="String" Name="custitem_linea_articuloText" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Int32" Name="custitem_categoria_articulo" />
+          <Property Type="String" Name="custitem_categoria_articuloText" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="fechaActualizacion" Precision="3" />
+          <Property Type="Boolean" Name="syncWMS" />
+          <Property Type="Int32" Name="custitem_tipo_clasif_art" />
+          <Property Type="String" Name="custitem_tipo_clasif_artText" MaxLength="20" FixedLength="true" Unicode="true" />
+          <Property Type="Int32" Name="custitem_presentacion_individual" />
+          <Property Type="String" Name="custitem_codigo_sustituto" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Type="Decimal" Name="custitem_costo_estandar" Precision="19" Scale="4" />
+          <Property Type="Int32" Name="custitem_familia_articulo" />
+          <Property Type="Int32" Name="custitem_grupo_articulo" />
+          <Property Type="String" Name="custitem_indar_excepcion" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="custitem_indar_explicacion" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="custitem_mensaje_emergente" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="custitem_multiplos_ordenar" />
+          <Property Type="Int32" Name="custitem_nivel_indar" />
+          <Property Type="Int32" Name="custitem_rama_articulo" />
+          <Property Type="Int32" Name="custitem_ranking_imp" />
+          <Property Type="Int32" Name="custitem_ranking_pza" />
+          <Property Type="Boolean" Name="custitem_sustitutos" />
+          <Property Type="Int32" Name="custitem_temporada_articulo" />
+          <Property Type="Decimal" Name="PrecioLista" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Precio2" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Precio3" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Precio4" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Precio5" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Precio6" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Precio7" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Precio8" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Precio9" Precision="19" Scale="4" />
+          <Property Type="Decimal" Name="Precio10" Precision="19" Scale="4" />
+          <Property Type="Double" Name="maximumquantity" />
+          <Property Type="Double" Name="minimunquantity" />
+          <Property Type="Boolean" Name="isInactive" />
+        </EntityType>
+        <EntityType Name="ListaPrecios">
+          <Key>
+            <PropertyRef Name="price_type_id" />
+          </Key>
+          <Property Type="Int32" Name="price_type_id" Nullable="false" />
+          <Property Type="String" Name="name" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="isInactive" />
+          <NavigationProperty Name="Customers" Relationship="IWSModel.FK__Customers__Price__477199F1" FromRole="ListaPrecios" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK__Customers__Price__477199F1">
+          <End Type="IWSModel.ListaPrecios" Role="ListaPrecios" Multiplicity="0..1" />
+          <End Type="IWSModel.Customers" Role="Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ListaPrecios">
+              <PropertyRef Name="price_type_id" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="PriceList" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Eventos">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Type="Int32" Name="LIST_ID" Nullable="false" />
+          <Property Type="String" Name="LIST_ITEM_NAME" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsInactive" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IWSModelStoreContainer" CdmEntityContainer="IWSEntities">
+          <EntitySetMapping Name="Customers">
+            <EntityTypeMapping TypeName="IWSModel.Customers">
+              <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="internalid" ColumnName="internalid" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="lastName" ColumnName="lastName" />
+                <ScalarProperty Name="numProspect" ColumnName="numProspect" />
+                <ScalarProperty Name="idNet" ColumnName="idNet" />
+                <ScalarProperty Name="companyId" ColumnName="companyId" />
+                <ScalarProperty Name="company" ColumnName="company" />
+                <ScalarProperty Name="tradeName" ColumnName="tradeName" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="account" ColumnName="account" />
+                <ScalarProperty Name="phone" ColumnName="phone" />
+                <ScalarProperty Name="email" ColumnName="email" />
+                <ScalarProperty Name="creditLimit" ColumnName="creditLimit" />
+                <ScalarProperty Name="bankReference" ColumnName="bankReference" />
+                <ScalarProperty Name="newPagare" ColumnName="newPagare" />
+                <ScalarProperty Name="ammountPagare" ColumnName="ammountPagare" />
+                <ScalarProperty Name="newCustomerBonus" ColumnName="newCustomerBonus" />
+                <ScalarProperty Name="limitOrders" ColumnName="limitOrders" />
+                <ScalarProperty Name="newCreditRequest" ColumnName="newCreditRequest" />
+                <ScalarProperty Name="modifyExpiration" ColumnName="modifyExpiration" />
+                <ScalarProperty Name="shippingWayId" ColumnName="shippingWayId" />
+                <ScalarProperty Name="giroId" ColumnName="giroId" />
+                <ScalarProperty Name="MethodPayment" ColumnName="MethodPayment" />
+                <ScalarProperty Name="TypeCustomer" ColumnName="TypeCustomer" />
+                <ScalarProperty Name="PaymentTerms" ColumnName="PaymentTerms" />
+                <ScalarProperty Name="Department" ColumnName="Department" />
+                <ScalarProperty Name="ExtendExpiration" ColumnName="ExtendExpiration" />
+                <ScalarProperty Name="Condition" ColumnName="Condition" />
+                <ScalarProperty Name="RouteSale" ColumnName="RouteSale" />
+                <ScalarProperty Name="Route" ColumnName="Route" />
+                <ScalarProperty Name="CrmInfluence" ColumnName="CrmInfluence" />
+                <ScalarProperty Name="CommercialTerms" ColumnName="CommercialTerms" />
+                <ScalarProperty Name="BlockDelinquents" ColumnName="BlockDelinquents" />
+                <ScalarProperty Name="Territory" ColumnName="Territory" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="CountedCustomer" ColumnName="CountedCustomer" />
+                <ScalarProperty Name="Package" ColumnName="Package" />
+                <ScalarProperty Name="PriceList" ColumnName="PriceList" />
+                <ScalarProperty Name="datecreated" ColumnName="datecreated" />
+                <ScalarProperty Name="userID" ColumnName="userID" />
+                <ScalarProperty Name="customerGroup" ColumnName="customerGroup" />
+                <ScalarProperty Name="salesRep" ColumnName="salesRep" />
+                <ScalarProperty Name="salesSupport" ColumnName="salesSupport" />
+                <ScalarProperty Name="serviceAgent" ColumnName="serviceAgent" />
+                <ScalarProperty Name="accountingAssistant" ColumnName="accountingAssistant" />
+                <ScalarProperty Name="lastModifiedDate" ColumnName="lastModifiedDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Locations">
+            <EntityTypeMapping TypeName="IWSModel.Locations">
+              <MappingFragment StoreEntitySet="Locations">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="LOCATION_ID" ColumnName="LOCATION_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Address">
+            <EntityTypeMapping TypeName="IWSModel.Address">
+              <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="entity_id" ColumnName="entity_id" />
+                <ScalarProperty Name="residential" ColumnName="residential" />
+                <ScalarProperty Name="defaultshipping" ColumnName="defaultshipping" />
+                <ScalarProperty Name="defaultbilling" ColumnName="defaultbilling" />
+                <ScalarProperty Name="postalCode" ColumnName="postalCode" />
+                <ScalarProperty Name="state" ColumnName="state" />
+                <ScalarProperty Name="city" ColumnName="city" />
+                <ScalarProperty Name="addr2" ColumnName="addr2" />
+                <ScalarProperty Name="addr1" ColumnName="addr1" />
+                <ScalarProperty Name="country" ColumnName="country" />
+                <ScalarProperty Name="addressID" ColumnName="addressID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormaEnvio">
+            <EntityTypeMapping TypeName="IWSModel.FormaEnvio">
+              <MappingFragment StoreEntitySet="FormaEnvio">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
+                <ScalarProperty Name="LIST_ITEM_NAME" ColumnName="LIST_ITEM_NAME" />
+                <ScalarProperty Name="LIST_ID" ColumnName="LIST_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ruta">
+            <EntityTypeMapping TypeName="IWSModel.Ruta">
+              <MappingFragment StoreEntitySet="Ruta">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
+                <ScalarProperty Name="LIST_ITEM_NAME" ColumnName="LIST_ITEM_NAME" />
+                <ScalarProperty Name="LIST_ID" ColumnName="LIST_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Items">
+            <EntityTypeMapping TypeName="IWSModel.Items">
+              <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
+                <ScalarProperty Name="minimunquantity" ColumnName="minimunquantity" />
+                <ScalarProperty Name="maximumquantity" ColumnName="maximumquantity" />
+                <ScalarProperty Name="Precio10" ColumnName="Precio10" />
+                <ScalarProperty Name="Precio9" ColumnName="Precio9" />
+                <ScalarProperty Name="Precio8" ColumnName="Precio8" />
+                <ScalarProperty Name="Precio7" ColumnName="Precio7" />
+                <ScalarProperty Name="Precio6" ColumnName="Precio6" />
+                <ScalarProperty Name="Precio5" ColumnName="Precio5" />
+                <ScalarProperty Name="Precio4" ColumnName="Precio4" />
+                <ScalarProperty Name="Precio3" ColumnName="Precio3" />
+                <ScalarProperty Name="Precio2" ColumnName="Precio2" />
+                <ScalarProperty Name="PrecioLista" ColumnName="PrecioLista" />
+                <ScalarProperty Name="custitem_temporada_articulo" ColumnName="custitem_temporada_articulo" />
+                <ScalarProperty Name="custitem_sustitutos" ColumnName="custitem_sustitutos" />
+                <ScalarProperty Name="custitem_ranking_pza" ColumnName="custitem_ranking_pza" />
+                <ScalarProperty Name="custitem_ranking_imp" ColumnName="custitem_ranking_imp" />
+                <ScalarProperty Name="custitem_rama_articulo" ColumnName="custitem_rama_articulo" />
+                <ScalarProperty Name="custitem_nivel_indar" ColumnName="custitem_nivel_indar" />
+                <ScalarProperty Name="custitem_multiplos_ordenar" ColumnName="custitem_multiplos_ordenar" />
+                <ScalarProperty Name="custitem_mensaje_emergente" ColumnName="custitem_mensaje_emergente" />
+                <ScalarProperty Name="custitem_indar_explicacion" ColumnName="custitem_indar_explicacion" />
+                <ScalarProperty Name="custitem_indar_excepcion" ColumnName="custitem_indar_excepcion" />
+                <ScalarProperty Name="custitem_grupo_articulo" ColumnName="custitem_grupo_articulo" />
+                <ScalarProperty Name="custitem_familia_articulo" ColumnName="custitem_familia_articulo" />
+                <ScalarProperty Name="custitem_costo_estandar" ColumnName="custitem_costo_estandar" />
+                <ScalarProperty Name="custitem_codigo_sustituto" ColumnName="custitem_codigo_sustituto" />
+                <ScalarProperty Name="custitem_presentacion_individual" ColumnName="custitem_presentacion_individual" />
+                <ScalarProperty Name="custitem_tipo_clasif_artText" ColumnName="custitem_tipo_clasif_artText" />
+                <ScalarProperty Name="custitem_tipo_clasif_art" ColumnName="custitem_tipo_clasif_art" />
+                <ScalarProperty Name="syncWMS" ColumnName="syncWMS" />
+                <ScalarProperty Name="fechaActualizacion" ColumnName="fechaActualizacion" />
+                <ScalarProperty Name="custitem_categoria_articuloText" ColumnName="custitem_categoria_articuloText" />
+                <ScalarProperty Name="custitem_categoria_articulo" ColumnName="custitem_categoria_articulo" />
+                <ScalarProperty Name="custitem_linea_articuloText" ColumnName="custitem_linea_articuloText" />
+                <ScalarProperty Name="custitem_linea_articulo" ColumnName="custitem_linea_articulo" />
+                <ScalarProperty Name="custitem_fabricante_articuloText" ColumnName="custitem_fabricante_articuloText" />
+                <ScalarProperty Name="custitem_fabricante_articulo" ColumnName="custitem_fabricante_articulo" />
+                <ScalarProperty Name="custitem_tipo_articuloText" ColumnName="custitem_tipo_articuloText" />
+                <ScalarProperty Name="custitem_tipo_articulo" ColumnName="custitem_tipo_articulo" />
+                <ScalarProperty Name="taxscheduleText" ColumnName="taxscheduleText" />
+                <ScalarProperty Name="taxschedule" ColumnName="taxschedule" />
+                <ScalarProperty Name="purchasedescription" ColumnName="purchasedescription" />
+                <ScalarProperty Name="cost" ColumnName="cost" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="departmentText" ColumnName="departmentText" />
+                <ScalarProperty Name="department" ColumnName="department" />
+                <ScalarProperty Name="upccode" ColumnName="upccode" />
+                <ScalarProperty Name="vendorname" ColumnName="vendorname" />
+                <ScalarProperty Name="baseunitText" ColumnName="baseunitText" />
+                <ScalarProperty Name="baseunit" ColumnName="baseunit" />
+                <ScalarProperty Name="saleunitText" ColumnName="saleunitText" />
+                <ScalarProperty Name="saleunit" ColumnName="saleunit" />
+                <ScalarProperty Name="purchaseunitText" ColumnName="purchaseunitText" />
+                <ScalarProperty Name="purchaseunit" ColumnName="purchaseunit" />
+                <ScalarProperty Name="stockunitText" ColumnName="stockunitText" />
+                <ScalarProperty Name="stockunit" ColumnName="stockunit" />
+                <ScalarProperty Name="unitstypeText" ColumnName="unitstypeText" />
+                <ScalarProperty Name="unitstype" ColumnName="unitstype" />
+                <ScalarProperty Name="displayname" ColumnName="displayname" />
+                <ScalarProperty Name="itemid" ColumnName="itemid" />
+                <ScalarProperty Name="type" ColumnName="type" />
+                <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ListaPrecios">
+            <EntityTypeMapping TypeName="IWSModel.ListaPrecios">
+              <MappingFragment StoreEntitySet="ListaPrecios">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="price_type_id" ColumnName="price_type_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Eventos">
+            <EntityTypeMapping TypeName="IWSModel.Eventos">
+              <MappingFragment StoreEntitySet="Eventos">
+                <ScalarProperty Name="IsInactive" ColumnName="IsInactive" />
+                <ScalarProperty Name="LIST_ITEM_NAME" ColumnName="LIST_ITEM_NAME" />
+                <ScalarProperty Name="LIST_ID" ColumnName="LIST_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
