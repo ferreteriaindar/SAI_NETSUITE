@@ -20,7 +20,9 @@ using SAI_NETSUITE.IWS;
 namespace SAI_NETSUITE.Views.Ventas
 {
 
-
+    /// <summary>
+    /// prueba
+    /// </summary>
     public partial class SaleOrderSentVista : DevExpress.XtraEditors.XtraUserControl
     {
 
