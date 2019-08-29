@@ -25,7 +25,6 @@ namespace SAI_NETSUITE
             throw new UnintentionalCodeFirstException();
         }
     
-        public DbSet<Customers> Customers { get; set; }
         public DbSet<Locations> Locations { get; set; }
         public DbSet<Address> Address { get; set; }
         public DbSet<FormaEnvio> FormaEnvio { get; set; }
@@ -33,5 +32,11 @@ namespace SAI_NETSUITE
         public DbSet<Items> Items { get; set; }
         public DbSet<ListaPrecios> ListaPrecios { get; set; }
         public DbSet<Eventos> Eventos { get; set; }
+        public DbSet<CustomerType> CustomerType { get; set; }
+        public DbSet<Territorios> Territorios { get; set; }
+        public DbSet<Customers> Customers { get; set; }
+        public DbSet<Entity> Entity { get; set; }
+        public DbSet<IRD> IRD { get; set; }
+        public DbSet<IR> IR { get; set; }
     }
 }

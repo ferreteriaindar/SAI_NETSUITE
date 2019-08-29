@@ -256,7 +256,7 @@ namespace SAI_NETSUITE.Views.Ventas
                     for (int i = 0; i < gv.RowCount; i++)
                     {
                         dtItem.Rows[i][3] = gv.GetRowCellValue(i, "Cantidad").ToString();
-                        dtItem.Rows[i][6] = Convert.ToDouble(regresaPromoPorCiento(gv.GetRowCellValue(i, "Articulo").ToString(), Convert.ToDouble(dtItem.Rows[i][4].ToString())));
+                        dtItem.Rows[i][6] = Convert.ToDouble(regresaPromoPorCiento(gv.GetRowCellValue(i, "Articulo").ToString(), Convert.ToDouble(dtItem.Rows[i]["cantidad"].ToString())));
                     }
                     Console.WriteLine(dtItem.Rows[0][4].ToString());
                     Console.WriteLine("ARTICULO"+dtItem.Rows[0][1].ToString()+"PROMO"+dtItem.Rows[0][5].ToString());
@@ -284,7 +284,7 @@ namespace SAI_NETSUITE.Views.Ventas
         public double regresaPromoPorCiento(string articulo, double cantidad)
         {
             List<PromoIndar> lista = new List<PromoIndar>();
-            foreach (var item in ListaItem.Where(s=> s.code.Equals(articulo)))
+            foreach (var item in ListaItem.Where(s=> s.code.ToLower().Equals(articulo)))
             {
                 if (item.PromoIndar != null)
                 {
@@ -303,7 +303,7 @@ namespace SAI_NETSUITE.Views.Ventas
             }
 
             double descuento = lista.Where(s => s.Min <= cantidad && s.Max >= cantidad).Select(s => s.Discount).FirstOrDefault();
-            Console.WriteLine("Descuento",descuento+"");
+            Console.WriteLine("Descuento",descuento+"*");
          return descuento;
         }
 
@@ -421,6 +421,7 @@ namespace SAI_NETSUITE.Views.Ventas
                        ds.Tables[1].Rows[i]["descuentoArt"] = dtItem.Rows[J]["promo"];
                        ds.Tables[1].Rows[i]["precio"] = dtItem.Rows[J]["price"];
                        ds.Tables[1].Rows[i]["iva"] = dtItem.Rows[J]["iva"];
+                       //ds.Tables[1].Rows[i]["pp"]=ds.Tables[0].Select("")
 
 
                    }
@@ -462,6 +463,7 @@ namespace SAI_NETSUITE.Views.Ventas
             //
             Connection conn = new Connection();
             var json = conn.GET("api/Item/GetByCode?code="+articulo+"&customerId="+cliente, token.token);
+            Console.WriteLine(json);
             ResultItembyCode result = JsonConvert.DeserializeObject<ResultItembyCode>(json);
             ItemInfobyCode item = result.Result;
             return item;

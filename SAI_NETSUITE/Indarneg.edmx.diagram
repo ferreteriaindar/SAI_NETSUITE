@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ea8eb532ae734a189aa37aedc724dbb7" Name="Diagram1" ZoomLevel="34">
+        <EntityTypeShape EntityType="IndarnegModel.EmbarquesD" Width="1.5" PointX="3" PointY="1" />
+        <EntityTypeShape EntityType="IndarnegModel.Embarques" Width="1.5" PointX="0.75" PointY="1.25" />
+        <AssociationConnector Association="IndarnegModel.FK_EmbarquesD_Embarques" />
+        <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuite" Width="1.5" PointX="0.75" PointY="5" />
+        <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuiteC" Width="1.5" PointX="2.75" PointY="5" />
+        <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" />
+        <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuiteD" Width="1.5" PointX="2.75" PointY="7.25" />
+        <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

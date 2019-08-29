@@ -55,6 +55,8 @@
             this.colDetailIva = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDetailIVAImporte = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTotal = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDetailPP = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDetailPPImporte = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControl3 = new DevExpress.XtraGrid.GridControl();
             this.gridView9 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colCardDescuento = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -166,7 +168,9 @@
             this.colDetailImporte,
             this.colDetailIva,
             this.colDetailIVAImporte,
-            this.colTotal});
+            this.colTotal,
+            this.colDetailPP,
+            this.colDetailPPImporte});
             this.gridView8.GridControl = this.gridControl3;
             this.gridView8.Name = "gridView8";
             this.gridView8.OptionsDetail.DetailMode = DevExpress.XtraGrid.Views.Grid.DetailMode.Classic;
@@ -234,7 +238,8 @@
             this.colDetailImporte.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "colDetailIVAImporte", "IVA:{0:c}", "Importe"),
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "colDetailImporte", "Importe={0:c}", "IVA"),
-            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "colTotal", "Total:{0:c}")});
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "colTotal", "Total:{0:c}"),
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "colDetailPPImporte", "Total PP:{0:c}")});
             this.colDetailImporte.UnboundExpression = "[precio] * [quantity] * (1 - [descuentoArt] / 100)";
             this.colDetailImporte.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             this.colDetailImporte.Visible = true;
@@ -265,6 +270,21 @@
             this.colTotal.Name = "colTotal";
             this.colTotal.UnboundExpression = "[precio] * [quantity] * (1 - [descuentoArt] / 100) * (1 + [iva] / 100)";
             this.colTotal.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
+            // 
+            // colDetailPP
+            // 
+            this.colDetailPP.Caption = "%PP";
+            this.colDetailPP.FieldName = "pp";
+            this.colDetailPP.Name = "colDetailPP";
+            // 
+            // colDetailPPImporte
+            // 
+            this.colDetailPPImporte.Caption = "ImportePP";
+            this.colDetailPPImporte.FieldName = "colDetailPPImporte";
+            this.colDetailPPImporte.Name = "colDetailPPImporte";
+            this.colDetailPPImporte.UnboundExpression = "[precio] * [quantity] * (1 - [descuentoArt] / 100) * (1 + [iva] / 100) * (1 - [pp" +
+    "] / 100)";
+            this.colDetailPPImporte.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             // 
             // gridControl3
             // 
@@ -1192,6 +1212,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colTotal;
         private DevExpress.XtraEditors.LabelControl labelControl6;
         private DevExpress.XtraEditors.LabelControl labelControl8;
-
+        private DevExpress.XtraGrid.Columns.GridColumn colDetailPP;
+        private DevExpress.XtraGrid.Columns.GridColumn colDetailPPImporte;
     }
 }

@@ -28,23 +28,32 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.TileItemElement tileItemElement26 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement9 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement1 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement2 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement3 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement4 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement5 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement8 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement6 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement7 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement10 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement13 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement12 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement11 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement14 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement15 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement16 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement22 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement17 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement20 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement18 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement19 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement20 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement21 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement24 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement22 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement23 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement25 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement30 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement27 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement28 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement29 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement31 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement24 = new DevExpress.XtraEditors.TileItemElement();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
-            DevExpress.XtraEditors.TileItemElement tileItemElement32 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement25 = new DevExpress.XtraEditors.TileItemElement();
             this.tileNavPane1 = new DevExpress.XtraBars.Navigation.TileNavPane();
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.navButton2 = new DevExpress.XtraBars.Navigation.NavButton();
@@ -57,11 +66,20 @@
             this.tileNavItem6 = new DevExpress.XtraBars.Navigation.TileNavItem();
             this.tileNavWMS = new DevExpress.XtraBars.Navigation.TileNavSubItem();
             this.tileNavSubItem2 = new DevExpress.XtraBars.Navigation.TileNavSubItem();
-            this.tileNavVentas = new DevExpress.XtraBars.Navigation.TileNavItem();
+            this.tileNavCategory5 = new DevExpress.XtraBars.Navigation.TileNavCategory();
             this.tileNavCategory4 = new DevExpress.XtraBars.Navigation.TileNavCategory();
+            this.tileNavItem10 = new DevExpress.XtraBars.Navigation.TileNavItem();
+            this.btnGenerarIR = new DevExpress.XtraBars.Navigation.TileNavSubItem();
+            this.tileNavCategory6 = new DevExpress.XtraBars.Navigation.TileNavCategory();
+            this.tileNavCategory7 = new DevExpress.XtraBars.Navigation.TileNavCategory();
+            this.tileNavCategory8 = new DevExpress.XtraBars.Navigation.TileNavCategory();
+            this.tileNavCategory9 = new DevExpress.XtraBars.Navigation.TileNavCategory();
             this.tileNavItem7 = new DevExpress.XtraBars.Navigation.TileNavItem();
             this.tileNavItem8 = new DevExpress.XtraBars.Navigation.TileNavItem();
+            this.btnEmbarqueMasivo = new DevExpress.XtraBars.Navigation.TileNavSubItem();
+            this.btnNumeroGuia = new DevExpress.XtraBars.Navigation.TileNavSubItem();
             this.tileNavItem9 = new DevExpress.XtraBars.Navigation.TileNavItem();
+            this.tileNavVentas = new DevExpress.XtraBars.Navigation.TileNavCategory();
             this.tileBarItem2 = new DevExpress.XtraBars.Navigation.TileBarItem();
             this.tileBarItem3 = new DevExpress.XtraBars.Navigation.TileBarItem();
             ((System.ComponentModel.ISupportInitialize)(this.tileNavPane1)).BeginInit();
@@ -75,7 +93,13 @@
             this.tileNavPane1.Buttons.Add(this.navButton2);
             this.tileNavPane1.Categories.AddRange(new DevExpress.XtraBars.Navigation.TileNavCategory[] {
             this.tileNavCategory3,
-            this.tileNavCategory4});
+            this.tileNavCategory5,
+            this.tileNavCategory4,
+            this.tileNavCategory6,
+            this.tileNavCategory7,
+            this.tileNavCategory8,
+            this.tileNavCategory9,
+            this.tileNavVentas});
             // 
             // tileNavCategory1
             // 
@@ -123,17 +147,17 @@
             this.tileNavItem4,
             this.tileNavItem3,
             this.tileNavItem5,
-            this.tileNavItem6,
-            this.tileNavVentas});
+            this.tileNavItem6});
             this.tileNavCategory3.Name = "tileNavCategory3";
             this.tileNavCategory3.OwnerCollection = this.tileNavPane1.Categories;
             // 
             // 
             // 
             this.tileNavCategory3.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement26.Image = global::SAI_NETSUITE.Properties.Resources.management__1_;
-            tileItemElement26.Text = "Transacciones";
-            this.tileNavCategory3.Tile.Elements.Add(tileItemElement26);
+            tileItemElement9.Image = global::SAI_NETSUITE.Properties.Resources.management__1_;
+            tileItemElement9.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement9.Text = "Transacciones";
+            this.tileNavCategory3.Tile.Elements.Add(tileItemElement9);
             // 
             // tileNavItem1
             // 
@@ -148,10 +172,10 @@
             this.tileNavItem1.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavItem1.Tile.AppearanceItem.Normal.Options.UseForeColor = true;
             this.tileNavItem1.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement17.Image = global::SAI_NETSUITE.Properties.Resources.bill;
-            tileItemElement17.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
-            tileItemElement17.Text = "Contabilidad";
-            this.tileNavItem1.Tile.Elements.Add(tileItemElement17);
+            tileItemElement1.Image = global::SAI_NETSUITE.Properties.Resources.bill;
+            tileItemElement1.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement1.Text = "Contabilidad";
+            this.tileNavItem1.Tile.Elements.Add(tileItemElement1);
             this.tileNavItem1.Tile.Name = "tileBarItem1";
             // 
             // tileNavItem2
@@ -165,10 +189,10 @@
             this.tileNavItem2.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(131)))), ((int)(((byte)(186)))));
             this.tileNavItem2.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavItem2.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement18.Image = global::SAI_NETSUITE.Properties.Resources.contract;
-            tileItemElement18.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
-            tileItemElement18.Text = "Compras";
-            this.tileNavItem2.Tile.Elements.Add(tileItemElement18);
+            tileItemElement2.Image = global::SAI_NETSUITE.Properties.Resources.contract;
+            tileItemElement2.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement2.Text = "Compras";
+            this.tileNavItem2.Tile.Elements.Add(tileItemElement2);
             this.tileNavItem2.Tile.Name = "tileBarItem4";
             // 
             // tileNavItem4
@@ -182,10 +206,10 @@
             this.tileNavItem4.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(104)))), ((int)(((byte)(129)))));
             this.tileNavItem4.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavItem4.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement19.Image = global::SAI_NETSUITE.Properties.Resources.premium;
-            tileItemElement19.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
-            tileItemElement19.Text = "Cte Recoge";
-            this.tileNavItem4.Tile.Elements.Add(tileItemElement19);
+            tileItemElement3.Image = global::SAI_NETSUITE.Properties.Resources.premium;
+            tileItemElement3.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement3.Text = "Cte Recoge";
+            this.tileNavItem4.Tile.Elements.Add(tileItemElement3);
             this.tileNavItem4.Tile.Name = "tileBarItem6";
             // 
             // tileNavItem3
@@ -199,10 +223,10 @@
             this.tileNavItem3.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(144)))), ((int)(((byte)(206)))));
             this.tileNavItem3.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavItem3.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement20.Image = global::SAI_NETSUITE.Properties.Resources.people_trading;
-            tileItemElement20.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
-            tileItemElement20.Text = "Cxc";
-            this.tileNavItem3.Tile.Elements.Add(tileItemElement20);
+            tileItemElement4.Image = global::SAI_NETSUITE.Properties.Resources.people_trading;
+            tileItemElement4.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement4.Text = "Cxc";
+            this.tileNavItem3.Tile.Elements.Add(tileItemElement4);
             this.tileNavItem3.Tile.Name = "tileBarItem5";
             // 
             // tileNavItem5
@@ -216,10 +240,10 @@
             this.tileNavItem5.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(193)))), ((int)(((byte)(181)))));
             this.tileNavItem5.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavItem5.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement21.Image = global::SAI_NETSUITE.Properties.Resources.seo;
-            tileItemElement21.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
-            tileItemElement21.Text = "Mkt";
-            this.tileNavItem5.Tile.Elements.Add(tileItemElement21);
+            tileItemElement5.Image = global::SAI_NETSUITE.Properties.Resources.seo;
+            tileItemElement5.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement5.Text = "Mkt";
+            this.tileNavItem5.Tile.Elements.Add(tileItemElement5);
             this.tileNavItem5.Tile.Name = "tileBarItem7";
             // 
             // tileNavItem6
@@ -236,10 +260,10 @@
             this.tileNavItem6.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(198)))), ((int)(((byte)(119)))));
             this.tileNavItem6.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavItem6.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement24.Image = global::SAI_NETSUITE.Properties.Resources.logistics;
-            tileItemElement24.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
-            tileItemElement24.Text = "Almacen";
-            this.tileNavItem6.Tile.Elements.Add(tileItemElement24);
+            tileItemElement8.Image = global::SAI_NETSUITE.Properties.Resources.logistics;
+            tileItemElement8.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement8.Text = "Almacen";
+            this.tileNavItem6.Tile.Elements.Add(tileItemElement8);
             this.tileNavItem6.Tile.Name = "tileBarItem8";
             // 
             // tileNavWMS
@@ -254,8 +278,8 @@
             this.tileNavWMS.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
             this.tileNavWMS.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavWMS.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement22.Text = "WMS";
-            this.tileNavWMS.Tile.Elements.Add(tileItemElement22);
+            tileItemElement6.Text = "WMS";
+            this.tileNavWMS.Tile.Elements.Add(tileItemElement6);
             this.tileNavWMS.Tile.Name = "tileBarItem1";
             // 
             // tileNavSubItem2
@@ -268,102 +292,273 @@
             this.tileNavSubItem2.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
             this.tileNavSubItem2.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavSubItem2.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement23.Text = "Distribucion";
-            this.tileNavSubItem2.Tile.Elements.Add(tileItemElement23);
+            tileItemElement7.Text = "Distribucion";
+            this.tileNavSubItem2.Tile.Elements.Add(tileItemElement7);
             this.tileNavSubItem2.Tile.Name = "tileBarItem4";
             // 
-            // tileNavVentas
+            // tileNavCategory5
             // 
-            this.tileNavVentas.Caption = "Ventas";
-            this.tileNavVentas.Name = "tileNavVentas";
-            this.tileNavVentas.OwnerCollection = this.tileNavCategory3.Items;
+            this.tileNavCategory5.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.tileNavCategory5.Appearance.Options.UseFont = true;
+            this.tileNavCategory5.Caption = "Contabilidad";
+            this.tileNavCategory5.Name = "tileNavCategory5";
+            this.tileNavCategory5.OwnerCollection = this.tileNavPane1.Categories;
             // 
             // 
             // 
-            this.tileNavVentas.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement25.Image = global::SAI_NETSUITE.Properties.Resources.factura;
-            tileItemElement25.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
-            tileItemElement25.Text = "Ventas";
-            this.tileNavVentas.Tile.Elements.Add(tileItemElement25);
-            this.tileNavVentas.Tile.Name = "tileBarItem1";
+            this.tileNavCategory5.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(79)))), ((int)(((byte)(189)))), ((int)(((byte)(222)))));
+            this.tileNavCategory5.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileNavCategory5.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement10.Image = global::SAI_NETSUITE.Properties.Resources.bill;
+            tileItemElement10.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement10.Text = "Contabilidad";
+            this.tileNavCategory5.Tile.Elements.Add(tileItemElement10);
+            this.tileNavCategory5.Tile.Name = "tileBarItem4";
             // 
             // tileNavCategory4
             // 
-            this.tileNavCategory4.Caption = "tileNavCategory4";
+            this.tileNavCategory4.Caption = "Compras";
             this.tileNavCategory4.Items.AddRange(new DevExpress.XtraBars.Navigation.TileNavItem[] {
-            this.tileNavItem7,
-            this.tileNavItem8,
-            this.tileNavItem9});
+            this.tileNavItem10});
             this.tileNavCategory4.Name = "tileNavCategory4";
             this.tileNavCategory4.OwnerCollection = this.tileNavPane1.Categories;
             // 
             // 
             // 
+            this.tileNavCategory4.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(124)))), ((int)(((byte)(131)))), ((int)(((byte)(186)))));
+            this.tileNavCategory4.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavCategory4.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement30.Image = global::SAI_NETSUITE.Properties.Resources.growth;
-            tileItemElement30.Text = "Reportes";
-            this.tileNavCategory4.Tile.Elements.Add(tileItemElement30);
-            this.tileNavCategory4.Tile.Name = "tileBarItem4";
+            tileItemElement13.Image = global::SAI_NETSUITE.Properties.Resources.contract;
+            tileItemElement13.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement13.Text = "Compras";
+            this.tileNavCategory4.Tile.Elements.Add(tileItemElement13);
+            this.tileNavCategory4.Tile.Name = "tileBarItem5";
+            // 
+            // tileNavItem10
+            // 
+            this.tileNavItem10.Appearance.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(0)))));
+            this.tileNavItem10.Appearance.Options.UseForeColor = true;
+            this.tileNavItem10.Caption = "Entradas";
+            this.tileNavItem10.GlyphAlignment = DevExpress.XtraBars.Navigation.NavButtonAlignment.Right;
+            this.tileNavItem10.Name = "tileNavItem10";
+            this.tileNavItem10.OwnerCollection = this.tileNavCategory4.Items;
+            this.tileNavItem10.SubItems.AddRange(new DevExpress.XtraBars.Navigation.TileNavSubItem[] {
+            this.btnGenerarIR});
+            // 
+            // 
+            // 
+            this.tileNavItem10.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.tileNavItem10.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileNavItem10.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement12.Image = global::SAI_NETSUITE.Properties.Resources.mailbox;
+            tileItemElement12.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement12.Text = "Entradas";
+            this.tileNavItem10.Tile.Elements.Add(tileItemElement12);
+            this.tileNavItem10.Tile.Name = "tileBarItem1";
+            // 
+            // btnGenerarIR
+            // 
+            this.btnGenerarIR.Caption = "Generar IR";
+            this.btnGenerarIR.Name = "btnGenerarIR";
+            // 
+            // 
+            // 
+            this.btnGenerarIR.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.MediumSlateBlue;
+            this.btnGenerarIR.Tile.AppearanceItem.Normal.ForeColor = System.Drawing.Color.GhostWhite;
+            this.btnGenerarIR.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.btnGenerarIR.Tile.AppearanceItem.Normal.Options.UseForeColor = true;
+            this.btnGenerarIR.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement11.Image = global::SAI_NETSUITE.Properties.Resources.merge;
+            tileItemElement11.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement11.Text = "Generar IR";
+            this.btnGenerarIR.Tile.Elements.Add(tileItemElement11);
+            this.btnGenerarIR.Tile.Name = "tileBarItem4";
+            // 
+            // tileNavCategory6
+            // 
+            this.tileNavCategory6.Caption = "Cte. Recoge";
+            this.tileNavCategory6.Name = "tileNavCategory6";
+            this.tileNavCategory6.OwnerCollection = this.tileNavPane1.Categories;
+            // 
+            // 
+            // 
+            this.tileNavCategory6.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(172)))), ((int)(((byte)(104)))), ((int)(((byte)(129)))));
+            this.tileNavCategory6.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileNavCategory6.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement14.Image = global::SAI_NETSUITE.Properties.Resources.premium;
+            tileItemElement14.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement14.Text = "Cte. Recoge";
+            this.tileNavCategory6.Tile.Elements.Add(tileItemElement14);
+            this.tileNavCategory6.Tile.Name = "tileBarItem6";
+            // 
+            // tileNavCategory7
+            // 
+            this.tileNavCategory7.Caption = "CxC";
+            this.tileNavCategory7.Name = "tileNavCategory7";
+            this.tileNavCategory7.OwnerCollection = this.tileNavPane1.Categories;
+            // 
+            // 
+            // 
+            this.tileNavCategory7.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(144)))), ((int)(((byte)(206)))));
+            this.tileNavCategory7.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileNavCategory7.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement15.Image = global::SAI_NETSUITE.Properties.Resources.people_trading;
+            tileItemElement15.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement15.Text = "CxC";
+            this.tileNavCategory7.Tile.Elements.Add(tileItemElement15);
+            this.tileNavCategory7.Tile.Name = "tileBarItem7";
+            // 
+            // tileNavCategory8
+            // 
+            this.tileNavCategory8.Caption = "Mkt";
+            this.tileNavCategory8.Name = "tileNavCategory8";
+            this.tileNavCategory8.OwnerCollection = this.tileNavPane1.Categories;
+            // 
+            // 
+            // 
+            this.tileNavCategory8.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(193)))), ((int)(((byte)(181)))));
+            this.tileNavCategory8.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileNavCategory8.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement16.Image = global::SAI_NETSUITE.Properties.Resources.seo;
+            tileItemElement16.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement16.Text = "Mkt";
+            this.tileNavCategory8.Tile.Elements.Add(tileItemElement16);
+            this.tileNavCategory8.Tile.Name = "tileBarItem8";
+            // 
+            // tileNavCategory9
+            // 
+            this.tileNavCategory9.Caption = "Logistica";
+            this.tileNavCategory9.Items.AddRange(new DevExpress.XtraBars.Navigation.TileNavItem[] {
+            this.tileNavItem7,
+            this.tileNavItem8,
+            this.tileNavItem9});
+            this.tileNavCategory9.Name = "tileNavCategory9";
+            this.tileNavCategory9.OwnerCollection = this.tileNavPane1.Categories;
+            // 
+            // 
+            // 
+            this.tileNavCategory9.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(249)))), ((int)(((byte)(198)))), ((int)(((byte)(119)))));
+            this.tileNavCategory9.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileNavCategory9.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement22.Image = global::SAI_NETSUITE.Properties.Resources.logistics;
+            tileItemElement22.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement22.Text = "Logistica";
+            this.tileNavCategory9.Tile.Elements.Add(tileItemElement22);
+            this.tileNavCategory9.Tile.Name = "tileBarItem9";
             // 
             // tileNavItem7
             // 
-            this.tileNavItem7.Caption = "tileNavItem7";
+            this.tileNavItem7.Caption = "WMS";
             this.tileNavItem7.Name = "tileNavItem7";
-            this.tileNavItem7.OwnerCollection = this.tileNavCategory4.Items;
+            this.tileNavItem7.OwnerCollection = this.tileNavCategory9.Items;
             // 
             // 
             // 
-            this.tileNavItem7.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.tileNavItem7.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(185)))), ((int)(((byte)(0)))));
             this.tileNavItem7.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavItem7.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement27.Text = "tileNavItem7";
-            this.tileNavItem7.Tile.Elements.Add(tileItemElement27);
+            tileItemElement17.Text = "WMS";
+            this.tileNavItem7.Tile.Elements.Add(tileItemElement17);
             this.tileNavItem7.Tile.Name = "tileBarItem1";
             // 
             // tileNavItem8
             // 
-            this.tileNavItem8.Caption = "tileNavItem8";
+            this.tileNavItem8.Caption = "Distribucion";
             this.tileNavItem8.Name = "tileNavItem8";
-            this.tileNavItem8.OwnerCollection = this.tileNavCategory4.Items;
+            this.tileNavItem8.OwnerCollection = this.tileNavCategory9.Items;
+            this.tileNavItem8.SubItems.AddRange(new DevExpress.XtraBars.Navigation.TileNavSubItem[] {
+            this.btnEmbarqueMasivo,
+            this.btnNumeroGuia});
             // 
             // 
             // 
-            this.tileNavItem8.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.tileNavItem8.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(247)))), ((int)(((byte)(99)))), ((int)(((byte)(12)))));
             this.tileNavItem8.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavItem8.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement28.Text = "tileNavItem8";
-            this.tileNavItem8.Tile.Elements.Add(tileItemElement28);
-            this.tileNavItem8.Tile.Name = "tileBarItem4";
+            tileItemElement20.Text = "Distribucion";
+            this.tileNavItem8.Tile.Elements.Add(tileItemElement20);
+            this.tileNavItem8.Tile.Name = "tileBarItem11";
+            // 
+            // btnEmbarqueMasivo
+            // 
+            this.btnEmbarqueMasivo.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnEmbarqueMasivo.Appearance.Options.UseForeColor = true;
+            this.btnEmbarqueMasivo.Caption = "Embarque Masivo";
+            this.btnEmbarqueMasivo.Name = "btnEmbarqueMasivo";
+            // 
+            // 
+            // 
+            this.btnEmbarqueMasivo.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(148)))), ((int)(((byte)(67)))));
+            this.btnEmbarqueMasivo.Tile.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.btnEmbarqueMasivo.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.btnEmbarqueMasivo.Tile.AppearanceItem.Normal.Options.UseForeColor = true;
+            this.btnEmbarqueMasivo.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement18.Text = "Embarque Masivo";
+            this.btnEmbarqueMasivo.Tile.Elements.Add(tileItemElement18);
+            this.btnEmbarqueMasivo.Tile.Name = "tileBarItem13";
+            // 
+            // btnNumeroGuia
+            // 
+            this.btnNumeroGuia.Caption = "Numero Guía";
+            this.btnNumeroGuia.Name = "btnNumeroGuia";
+            // 
+            // 
+            // 
+            this.btnNumeroGuia.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(148)))), ((int)(((byte)(67)))));
+            this.btnNumeroGuia.Tile.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.btnNumeroGuia.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.btnNumeroGuia.Tile.AppearanceItem.Normal.Options.UseForeColor = true;
+            this.btnNumeroGuia.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement19.Text = "Numero Guía";
+            this.btnNumeroGuia.Tile.Elements.Add(tileItemElement19);
+            this.btnNumeroGuia.Tile.Name = "tileBarItem14";
             // 
             // tileNavItem9
             // 
             this.tileNavItem9.Caption = "tileNavItem9";
             this.tileNavItem9.Name = "tileNavItem9";
-            this.tileNavItem9.OwnerCollection = this.tileNavCategory4.Items;
+            this.tileNavItem9.OwnerCollection = this.tileNavCategory9.Items;
             // 
             // 
             // 
-            this.tileNavItem9.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            this.tileNavItem9.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(218)))), ((int)(((byte)(59)))), ((int)(((byte)(1)))));
             this.tileNavItem9.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
             this.tileNavItem9.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement29.Text = "tileNavItem9";
-            this.tileNavItem9.Tile.Elements.Add(tileItemElement29);
-            this.tileNavItem9.Tile.Name = "tileBarItem5";
+            tileItemElement21.Text = "tileNavItem9";
+            this.tileNavItem9.Tile.Elements.Add(tileItemElement21);
+            this.tileNavItem9.Tile.Name = "tileBarItem12";
+            // 
+            // tileNavVentas
+            // 
+            this.tileNavVentas.Caption = "Ventas";
+            this.tileNavVentas.Name = "tileNavVentas";
+            this.tileNavVentas.OwnerCollection = this.tileNavPane1.Categories;
+            // 
+            // 
+            // 
+            this.tileNavVentas.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(138)))), ((int)(((byte)(101)))));
+            this.tileNavVentas.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.tileNavVentas.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement23.Image = global::SAI_NETSUITE.Properties.Resources.factura;
+            tileItemElement23.ImageAlignment = DevExpress.XtraEditors.TileItemContentAlignment.MiddleRight;
+            tileItemElement23.Text = "Ventas";
+            this.tileNavVentas.Tile.Elements.Add(tileItemElement23);
+            this.tileNavVentas.Tile.Name = "tileBarItem10";
             // 
             // tileBarItem2
             // 
             this.tileBarItem2.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement31.Image = ((System.Drawing.Image)(resources.GetObject("tileItemElement31.Image")));
-            tileItemElement31.Text = "Transacciones";
-            this.tileBarItem2.Elements.Add(tileItemElement31);
+            tileItemElement24.Image = ((System.Drawing.Image)(resources.GetObject("tileItemElement24.Image")));
+            tileItemElement24.Text = "Transacciones";
+            this.tileBarItem2.Elements.Add(tileItemElement24);
             this.tileBarItem2.Name = "tileBarItem2";
             // 
             // tileBarItem3
             // 
             this.tileBarItem3.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement32.Image = global::SAI_NETSUITE.Properties.Resources.management;
-            tileItemElement32.Text = "Transacciones";
-            this.tileBarItem3.Elements.Add(tileItemElement32);
+            tileItemElement25.Image = global::SAI_NETSUITE.Properties.Resources.management;
+            tileItemElement25.Text = "Transacciones";
+            this.tileBarItem3.Elements.Add(tileItemElement25);
             this.tileBarItem3.Name = "tileBarItem3";
             // 
             // Principal
@@ -388,7 +583,6 @@
         private DevExpress.XtraBars.Navigation.NavButton navButton2;
         private DevExpress.XtraBars.Navigation.TileBarItem tileBarItem2;
         private DevExpress.XtraBars.Navigation.TileNavCategory tileNavCategory3;
-        private DevExpress.XtraBars.Navigation.TileNavCategory tileNavCategory4;
         private DevExpress.XtraBars.Navigation.TileBarItem tileBarItem3;
         private DevExpress.XtraEditors.PanelControl panelControl1;
         private DevExpress.XtraBars.Navigation.TileNavItem tileNavItem1;
@@ -397,11 +591,21 @@
         private DevExpress.XtraBars.Navigation.TileNavItem tileNavItem3;
         private DevExpress.XtraBars.Navigation.TileNavItem tileNavItem5;
         private DevExpress.XtraBars.Navigation.TileNavItem tileNavItem6;
+        private DevExpress.XtraBars.Navigation.TileNavSubItem tileNavWMS;
+        private DevExpress.XtraBars.Navigation.TileNavSubItem tileNavSubItem2;
+        private DevExpress.XtraBars.Navigation.TileNavCategory tileNavCategory5;
+        private DevExpress.XtraBars.Navigation.TileNavCategory tileNavCategory4;
+        private DevExpress.XtraBars.Navigation.TileNavCategory tileNavCategory6;
+        private DevExpress.XtraBars.Navigation.TileNavCategory tileNavCategory7;
+        private DevExpress.XtraBars.Navigation.TileNavCategory tileNavCategory8;
+        private DevExpress.XtraBars.Navigation.TileNavCategory tileNavCategory9;
+        private DevExpress.XtraBars.Navigation.TileNavCategory tileNavVentas;
         private DevExpress.XtraBars.Navigation.TileNavItem tileNavItem7;
         private DevExpress.XtraBars.Navigation.TileNavItem tileNavItem8;
         private DevExpress.XtraBars.Navigation.TileNavItem tileNavItem9;
-        private DevExpress.XtraBars.Navigation.TileNavSubItem tileNavWMS;
-        private DevExpress.XtraBars.Navigation.TileNavSubItem tileNavSubItem2;
-        private DevExpress.XtraBars.Navigation.TileNavItem tileNavVentas;
+        private DevExpress.XtraBars.Navigation.TileNavSubItem btnEmbarqueMasivo;
+        private DevExpress.XtraBars.Navigation.TileNavSubItem btnNumeroGuia;
+        private DevExpress.XtraBars.Navigation.TileNavItem tileNavItem10;
+        private DevExpress.XtraBars.Navigation.TileNavSubItem btnGenerarIR;
     }
 }

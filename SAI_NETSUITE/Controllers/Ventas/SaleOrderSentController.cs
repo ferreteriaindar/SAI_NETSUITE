@@ -227,6 +227,7 @@ namespace SAI_NETSUITE.Controllers.Ventas
             dtBo.Columns.Add("descuentoArt", typeof(double));
             dtBo.Columns.Add("precio", typeof(double));
             dtBo.Columns.Add("iva", typeof(double));
+            dtBo.Columns.Add("pp", typeof(double));
 
             DataColumn keyColumn = dtCa.Columns["id"];
             DataColumn foreignKeyColumn = dtBo.Columns["id"];
@@ -243,7 +244,7 @@ namespace SAI_NETSUITE.Controllers.Ventas
                 dtCa.Rows.Add(id, pedidos.CustomerId, pedidos.Discount, pedidos.PaymentTerm, pedidos.GroupName);
                 foreach (var item in pedidos.items)
                 {
-                    dtBo.Rows.Add(id,item.itemId, item.quantity, item.inventoryQty);
+                    dtBo.Rows.Add(id,item.itemId, item.quantity, item.inventoryQty,"",0,0,0,pedidos.Discount);
                 }
 
             }

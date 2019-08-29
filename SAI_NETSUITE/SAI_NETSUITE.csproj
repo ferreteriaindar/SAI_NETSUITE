@@ -11,6 +11,21 @@
     <AssemblyName>SAI_NETSUITE</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -40,19 +55,26 @@
     <Reference Include="DevExpress.DataAccess.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Mvvm.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.PivotGrid.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.RichEdit.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.RichEdit.v17.2.Export, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Sparkline.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Utils.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Utils.v17.2.UI, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.Xpo.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.XtraBars.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v17.2.UI, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraCharts.v17.2.Wizard, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraEditors.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraGauges.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPivotGrid.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraReports.v17.2.Extensions, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -134,14 +156,49 @@
     <Compile Include="Address.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\Compras\Entradas\IRController.cs" />
+    <Compile Include="Controllers\Logistica\Distribucion\NumeroGuiaController.cs" />
     <Compile Include="Controllers\Ventas\SaleOrderSentController.cs" />
     <Compile Include="Customers.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="CustomerType.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Embarques.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EmbarquesD.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Entity.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="Eventos.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="FormaEnvio.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Indarneg.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Indarneg.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Indarneg.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Indarneg.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Indarneg.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="IR.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="IRD.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="Items.cs">
@@ -179,17 +236,30 @@
     </Compile>
     <Compile Include="Models\Catalogos\AdressListCombo.cs" />
     <Compile Include="Models\Catalogos\CustomerListCombo.cs" />
+    <Compile Include="Models\Catalogos\Empleado.cs" />
     <Compile Include="Models\Catalogos\EventosListCombo.cs" />
     <Compile Include="Models\Catalogos\FormaEnvioListCombo.cs" />
     <Compile Include="Models\Catalogos\ItemsListCombo.cs" />
     <Compile Include="Models\Catalogos\LocationListCombo.cs" />
     <Compile Include="Models\Catalogos\RutaListCombo.cs" />
     <Compile Include="Models\SaleOrderSentModel.cs" />
+    <Compile Include="Models\Transaccion\IRDModel.cs" />
+    <Compile Include="Models\Transaccion\IRModel.cs" />
     <Compile Include="Models\Transaccion\ItemInfobyCode.cs" />
     <Compile Include="Models\Transaccion\LineItemDT.cs" />
+    <Compile Include="Models\Transaccion\NumeroGuiaModel.cs" />
     <Compile Include="Models\Transaccion\SaleOrder.cs" />
     <Compile Include="Models\Transaccion\SplitSaleOrderModel.cs" />
     <Compile Include="Models\Transaccion\UnsplitSaleOrderModel.cs" />
+    <Compile Include="NumeroGuiaNetsuite.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NumeroGuiaNetsuiteC.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="NumeroGuiaNetsuiteD.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -200,6 +270,54 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Ruta.cs">
       <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spWMS_InsertaIR_Result.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Territorios.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Compras\Entradas\hojaIR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Compras\Entradas\hojaIR.Designer.cs">
+      <DependentUpon>hojaIR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Compras\Entradas\IR.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Compras\Entradas\IR.Designer.cs">
+      <DependentUpon>IR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\AutorizacionJefe.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\AutorizacionJefe.designer.cs">
+      <DependentUpon>AutorizacionJefe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\Embarque.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\Embarque.Designer.cs">
+      <DependentUpon>Embarque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\embarqueMasivo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\embarqueMasivo.Designer.cs">
+      <DependentUpon>embarqueMasivo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\NumerodGuia2cs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\NumerodGuia2cs.designer.cs">
+      <DependentUpon>NumerodGuia2cs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\numeroGuiaView.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\numeroGuiaView.Designer.cs">
+      <DependentUpon>numeroGuiaView.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Ventas\SaleOrderSentVista.cs">
       <SubType>UserControl</SubType>
@@ -382,6 +500,27 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\Compras\Entradas\hojaIR.resx">
+      <DependentUpon>hojaIR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Compras\Entradas\IR.resx">
+      <DependentUpon>IR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Distribucion\AutorizacionJefe.resx">
+      <DependentUpon>AutorizacionJefe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Distribucion\Embarque.resx">
+      <DependentUpon>Embarque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Distribucion\embarqueMasivo.resx">
+      <DependentUpon>embarqueMasivo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Distribucion\NumerodGuia2cs.resx">
+      <DependentUpon>NumerodGuia2cs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Distribucion\numeroGuiaView.resx">
+      <DependentUpon>numeroGuiaView.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Ventas\SaleOrderSentVista.resx">
       <DependentUpon>SaleOrderSentVista.cs</DependentUpon>
     </EmbeddedResource>
@@ -464,6 +603,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>IWS.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="Indarneg.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>Indarneg.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="Indarneg.edmx.diagram">
+      <DependentUpon>Indarneg.edmx</DependentUpon>
+    </None>
     <None Include="IWS.edmx.diagram">
       <DependentUpon>IWS.edmx</DependentUpon>
     </None>
@@ -545,6 +691,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="CteRecoge\" />
+    <Folder Include="Properties\DataSources\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\receipt.png" />
@@ -556,6 +703,16 @@
     <None Include="Resources\xls %281%29.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Indarneg.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Indarneg.edmx</DependentUpon>
+      <LastGenOutput>Indarneg.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Indarneg.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>Indarneg.edmx</DependentUpon>
+      <LastGenOutput>Indarneg.cs</LastGenOutput>
+    </Content>
     <Content Include="IWS.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>IWS.edmx</DependentUpon>
@@ -566,6 +723,10 @@
       <DependentUpon>IWS.edmx</DependentUpon>
       <LastGenOutput>IWS.cs</LastGenOutput>
     </Content>
+    <None Include="Resources\merge.png" />
+    <None Include="Resources\mailbox.png" />
+    <None Include="Resources\Error_icon.png" />
+    <None Include="Resources\Accept_icon.png" />
     <None Include="Resources\contract.png" />
     <None Include="Resources\logistics.png" />
     <None Include="Resources\seo.png" />
@@ -575,6 +736,18 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

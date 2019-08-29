@@ -1,0 +1,343 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="IndarnegModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Embarques">
+          <Key>
+            <PropertyRef Name="idEmbarque" />
+          </Key>
+          <Property Name="entity_id" Type="int" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="comentarios" Type="nvarchar" MaxLength="200" />
+          <Property Name="estatus" Type="nvarchar" MaxLength="200" />
+          <Property Name="idEmbarque" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idPaqueteria" Type="int" />
+        </EntityType>
+        <EntityType Name="EmbarquesD">
+          <Key>
+            <PropertyRef Name="idEmbarque" />
+          </Key>
+          <Property Name="idEmbarque" Type="int" Nullable="false" />
+          <Property Name="factura" Type="nvarchar" MaxLength="50" />
+          <Property Name="entity_id" Type="varchar" MaxLength="150" />
+          <Property Name="formaEnvio" Type="nvarchar" MaxLength="50" />
+          <Property Name="paqueteria" Type="nvarchar" MaxLength="50" />
+          <Property Name="estado" Type="nvarchar" MaxLength="50" />
+          <Property Name="persona" Type="nvarchar" MaxLength="50" />
+          <Property Name="fechaHora" Type="nvarchar" MaxLength="50" />
+          <Property Name="comentarios" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="NumeroGuiaNetsuite">
+          <Key>
+            <PropertyRef Name="idNumeroGuia" />
+          </Key>
+          <Property Name="idNumeroGuia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumeroGuia" Type="varchar" MaxLength="50" />
+          <Property Name="idPaqueteria" Type="int" />
+          <Property Name="ImporteTotal" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Usuario" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="NumeroGuiaNetsuiteC">
+          <Key>
+            <PropertyRef Name="idNumeroGuia" />
+          </Key>
+          <Property Name="idNumeroGuia" Type="int" Nullable="false" />
+          <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Cantidad" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="Importe" Type="decimal" Precision="18" Scale="2" />
+        </EntityType>
+        <EntityType Name="NumeroGuiaNetsuiteD">
+          <Key>
+            <PropertyRef Name="idNumeroGuia" />
+          </Key>
+          <Property Name="idNumeroGuia" Type="int" Nullable="false" />
+          <Property Name="idFactura" Type="int" />
+          <Property Name="Factura" Type="nvarchar" MaxLength="50" />
+          <Property Name="RazonAutorizacion" Type="nvarchar" MaxLength="50" />
+          <Property Name="Autorizacion" Type="int" />
+        </EntityType>
+        <Association Name="FK_EmbarquesD_Embarques">
+          <End Role="Embarques" Type="Self.Embarques" Multiplicity="1" />
+          <End Role="EmbarquesD" Type="Self.EmbarquesD" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Embarques">
+              <PropertyRef Name="idEmbarque" />
+            </Principal>
+            <Dependent Role="EmbarquesD">
+              <PropertyRef Name="idEmbarque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
+          <End Role="NumeroGuiaNetsuite" Type="Self.NumeroGuiaNetsuite" Multiplicity="1" />
+          <End Role="NumeroGuiaNetsuiteC" Type="Self.NumeroGuiaNetsuiteC" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="NumeroGuiaNetsuite">
+              <PropertyRef Name="idNumeroGuia" />
+            </Principal>
+            <Dependent Role="NumeroGuiaNetsuiteC">
+              <PropertyRef Name="idNumeroGuia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
+          <End Role="NumeroGuiaNetsuite" Type="Self.NumeroGuiaNetsuite" Multiplicity="1" />
+          <End Role="NumeroGuiaNetsuiteD" Type="Self.NumeroGuiaNetsuiteD" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="NumeroGuiaNetsuite">
+              <PropertyRef Name="idNumeroGuia" />
+            </Principal>
+            <Dependent Role="NumeroGuiaNetsuiteD">
+              <PropertyRef Name="idNumeroGuia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="spWMS_InsertaIR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="IndarnegModelStoreContainer">
+          <EntitySet Name="Embarques" EntityType="Self.Embarques" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmbarquesD" EntityType="Self.EmbarquesD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NumeroGuiaNetsuite" EntityType="Self.NumeroGuiaNetsuite" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NumeroGuiaNetsuiteC" EntityType="Self.NumeroGuiaNetsuiteC" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NumeroGuiaNetsuiteD" EntityType="Self.NumeroGuiaNetsuiteD" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_EmbarquesD_Embarques" Association="Self.FK_EmbarquesD_Embarques">
+            <End Role="Embarques" EntitySet="Embarques" />
+            <End Role="EmbarquesD" EntitySet="EmbarquesD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" Association="Self.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
+            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
+            <End Role="NumeroGuiaNetsuiteC" EntitySet="NumeroGuiaNetsuiteC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" Association="Self.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
+            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
+            <End Role="NumeroGuiaNetsuiteD" EntitySet="NumeroGuiaNetsuiteD" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="IndarnegModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="IndarnegEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EmbarquesD" EntityType="IndarnegModel.EmbarquesD" />
+          <EntitySet Name="Embarques" EntityType="IndarnegModel.Embarques" />
+          <AssociationSet Name="FK_EmbarquesD_Embarques" Association="IndarnegModel.FK_EmbarquesD_Embarques">
+            <End Role="Embarques" EntitySet="Embarques" />
+            <End Role="EmbarquesD" EntitySet="EmbarquesD" />
+          </AssociationSet>
+          <EntitySet Name="NumeroGuiaNetsuite" EntityType="IndarnegModel.NumeroGuiaNetsuite" />
+          <EntitySet Name="NumeroGuiaNetsuiteC" EntityType="IndarnegModel.NumeroGuiaNetsuiteC" />
+          <AssociationSet Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
+            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
+            <End Role="NumeroGuiaNetsuiteC" EntitySet="NumeroGuiaNetsuiteC" />
+          </AssociationSet>
+          <EntitySet Name="NumeroGuiaNetsuiteD" EntityType="IndarnegModel.NumeroGuiaNetsuiteD" />
+          <AssociationSet Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
+            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
+            <End Role="NumeroGuiaNetsuiteD" EntitySet="NumeroGuiaNetsuiteD" />
+          </AssociationSet>
+          <FunctionImport Name="spWMS_InsertaIR" ReturnType="Collection(IndarnegModel.spWMS_InsertaIR_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <EntityType Name="EmbarquesD">
+          <Key>
+            <PropertyRef Name="idEmbarque" />
+          </Key>
+          <Property Name="idEmbarque" Type="Int32" Nullable="false" />
+          <Property Name="factura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="entity_id" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="formaEnvio" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="paqueteria" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="persona" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaHora" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="comentarios" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Embarques" Relationship="IndarnegModel.FK_EmbarquesD_Embarques" FromRole="EmbarquesD" ToRole="Embarques" />
+        </EntityType>
+        <EntityType Name="Embarques">
+          <Key>
+            <PropertyRef Name="idEmbarque" />
+          </Key>
+          <Property Name="entity_id" Type="Int32" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="comentarios" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="estatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="idEmbarque" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPaqueteria" Type="Int32" />
+          <NavigationProperty Name="EmbarquesD" Relationship="IndarnegModel.FK_EmbarquesD_Embarques" FromRole="Embarques" ToRole="EmbarquesD" />
+        </EntityType>
+        <Association Name="FK_EmbarquesD_Embarques">
+          <End Type="IndarnegModel.Embarques" Role="Embarques" Multiplicity="1" />
+          <End Type="IndarnegModel.EmbarquesD" Role="EmbarquesD" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Embarques">
+              <PropertyRef Name="idEmbarque" />
+            </Principal>
+            <Dependent Role="EmbarquesD">
+              <PropertyRef Name="idEmbarque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NumeroGuiaNetsuite">
+          <Key>
+            <PropertyRef Name="idNumeroGuia" />
+          </Key>
+          <Property Name="idNumeroGuia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroGuia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idPaqueteria" Type="Int32" />
+          <Property Name="ImporteTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NumeroGuiaNetsuiteC" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteC" />
+          <NavigationProperty Name="NumeroGuiaNetsuiteD" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteD" />
+        </EntityType>
+        <EntityType Name="NumeroGuiaNetsuiteC">
+          <Key>
+            <PropertyRef Name="idNumeroGuia" />
+          </Key>
+          <Property Name="idNumeroGuia" Type="Int32" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cantidad" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Importe" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="NumeroGuiaNetsuite" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuiteC" ToRole="NumeroGuiaNetsuite" />
+        </EntityType>
+        <Association Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
+          <End Type="IndarnegModel.NumeroGuiaNetsuite" Role="NumeroGuiaNetsuite" Multiplicity="1" />
+          <End Type="IndarnegModel.NumeroGuiaNetsuiteC" Role="NumeroGuiaNetsuiteC" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="NumeroGuiaNetsuite">
+              <PropertyRef Name="idNumeroGuia" />
+            </Principal>
+            <Dependent Role="NumeroGuiaNetsuiteC">
+              <PropertyRef Name="idNumeroGuia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NumeroGuiaNetsuiteD">
+          <Key>
+            <PropertyRef Name="idNumeroGuia" />
+          </Key>
+          <Property Name="idNumeroGuia" Type="Int32" Nullable="false" />
+          <Property Name="idFactura" Type="Int32" />
+          <Property Name="Factura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RazonAutorizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Autorizacion" Type="Int32" />
+          <NavigationProperty Name="NumeroGuiaNetsuite" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuiteD" ToRole="NumeroGuiaNetsuite" />
+        </EntityType>
+        <Association Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
+          <End Type="IndarnegModel.NumeroGuiaNetsuite" Role="NumeroGuiaNetsuite" Multiplicity="1" />
+          <End Type="IndarnegModel.NumeroGuiaNetsuiteD" Role="NumeroGuiaNetsuiteD" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="NumeroGuiaNetsuite">
+              <PropertyRef Name="idNumeroGuia" />
+            </Principal>
+            <Dependent Role="NumeroGuiaNetsuiteD">
+              <PropertyRef Name="idNumeroGuia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spWMS_InsertaIR_Result">
+          <Property Type="Int32" Name="rows" Nullable="false" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="IndarnegModelStoreContainer" CdmEntityContainer="IndarnegEntities">
+          <EntitySetMapping Name="EmbarquesD">
+            <EntityTypeMapping TypeName="IndarnegModel.EmbarquesD">
+              <MappingFragment StoreEntitySet="EmbarquesD">
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="fechaHora" ColumnName="fechaHora" />
+                <ScalarProperty Name="persona" ColumnName="persona" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="paqueteria" ColumnName="paqueteria" />
+                <ScalarProperty Name="formaEnvio" ColumnName="formaEnvio" />
+                <ScalarProperty Name="entity_id" ColumnName="entity_id" />
+                <ScalarProperty Name="factura" ColumnName="factura" />
+                <ScalarProperty Name="idEmbarque" ColumnName="idEmbarque" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Embarques">
+            <EntityTypeMapping TypeName="IndarnegModel.Embarques">
+              <MappingFragment StoreEntitySet="Embarques">
+                <ScalarProperty Name="idPaqueteria" ColumnName="idPaqueteria" />
+                <ScalarProperty Name="idEmbarque" ColumnName="idEmbarque" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="entity_id" ColumnName="entity_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NumeroGuiaNetsuite">
+            <EntityTypeMapping TypeName="IndarnegModel.NumeroGuiaNetsuite">
+              <MappingFragment StoreEntitySet="NumeroGuiaNetsuite">
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ImporteTotal" ColumnName="ImporteTotal" />
+                <ScalarProperty Name="idPaqueteria" ColumnName="idPaqueteria" />
+                <ScalarProperty Name="NumeroGuia" ColumnName="NumeroGuia" />
+                <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NumeroGuiaNetsuiteC">
+            <EntityTypeMapping TypeName="IndarnegModel.NumeroGuiaNetsuiteC">
+              <MappingFragment StoreEntitySet="NumeroGuiaNetsuiteC">
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NumeroGuiaNetsuiteD">
+            <EntityTypeMapping TypeName="IndarnegModel.NumeroGuiaNetsuiteD">
+              <MappingFragment StoreEntitySet="NumeroGuiaNetsuiteD">
+                <ScalarProperty Name="Autorizacion" ColumnName="Autorizacion" />
+                <ScalarProperty Name="RazonAutorizacion" ColumnName="RazonAutorizacion" />
+                <ScalarProperty Name="Factura" ColumnName="Factura" />
+                <ScalarProperty Name="idFactura" ColumnName="idFactura" />
+                <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spWMS_InsertaIR" FunctionName="IndarnegModel.Store.spWMS_InsertaIR" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IndarnegModel.spWMS_InsertaIR_Result">
+                <ScalarProperty Name="rows" ColumnName="rows" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

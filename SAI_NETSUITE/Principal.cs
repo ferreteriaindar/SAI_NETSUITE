@@ -46,8 +46,39 @@ namespace SAI_NETSUITE
                         panelControl1.Controls.Add(sosv);
                         sosv.BringToFront();
                         break;
+                    case "btnEmbarqueMasivo":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Distribucion.embarqueMasivo em = new Views.Logistica.Distribucion.embarqueMasivo();
+                        em.Parent = panelControl1;
+                        em.Dock = DockStyle.Fill;
+                        panelControl1.Controls.Add(em);
+                        em.BringToFront();
+                        break;
+                    case "btnNumeroGuia":
+                        panelControl1.Controls.Clear();
+                        //  Views.Logistica.Distribucion.NumerodGuia2cs ng2 = new Views.Logistica.Distribucion.NumerodGuia2cs(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString, "");
+                        Views.Logistica.Distribucion.numeroGuiaView ng2 = new Views.Logistica.Distribucion.numeroGuiaView();
+                        ng2.Parent = panelControl1;
+                        ng2.Dock = DockStyle.Fill;
+                        panelControl1.Controls.Add(ng2);
+                        ng2.BringToFront();
+                        break;
+                    case "btnGenerarIR":
+                        panelControl1.Controls.Clear();
+                        Views.Compras.Entradas.IR iR = new Views.Compras.Entradas.IR
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        panelControl1.Controls.Add(iR);
+                        iR.BringToFront();
+                        break;
 
-                
+
+
+
+
+
                 }
 
 

@@ -37,7 +37,6 @@ namespace SAI_NETSUITE
         public Nullable<int> shippingWayId { get; set; }
         public Nullable<int> giroId { get; set; }
         public Nullable<int> MethodPayment { get; set; }
-        public Nullable<int> TypeCustomer { get; set; }
         public Nullable<int> PaymentTerms { get; set; }
         public Nullable<int> Department { get; set; }
         public Nullable<int> ExtendExpiration { get; set; }
@@ -47,7 +46,7 @@ namespace SAI_NETSUITE
         public Nullable<int> CrmInfluence { get; set; }
         public Nullable<int> CommercialTerms { get; set; }
         public Nullable<int> BlockDelinquents { get; set; }
-        public Nullable<int> Territory { get; set; }
+        public Nullable<int> customerZone { get; set; }
         public Nullable<int> Status { get; set; }
         public Nullable<int> CountedCustomer { get; set; }
         public Nullable<int> Package { get; set; }
@@ -60,9 +59,14 @@ namespace SAI_NETSUITE
         public Nullable<int> serviceAgent { get; set; }
         public Nullable<int> accountingAssistant { get; set; }
         public Nullable<System.DateTime> lastModifiedDate { get; set; }
+        public Nullable<bool> syncWMS { get; set; }
+        public Nullable<int> categoryId { get; set; }
+        public Nullable<int> financialDiscount { get; set; }
+        public string checkCredit { get; set; }
+        public string creditDays { get; set; }
     
-        public virtual FormaEnvio FormaEnvio { get; set; }
-        public virtual Ruta Ruta { get; set; }
         public virtual ListaPrecios ListaPrecios { get; set; }
+        public virtual Ruta Ruta { get; set; }
+        public virtual FormaEnvio FormaEnvio { get; set; }
     }
 }

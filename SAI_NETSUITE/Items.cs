@@ -77,5 +77,9 @@ namespace SAI_NETSUITE
         public Nullable<double> maximumquantity { get; set; }
         public Nullable<double> minimunquantity { get; set; }
         public Nullable<bool> isInactive { get; set; }
+        public Nullable<int> vendorID { get; set; }
+        public Nullable<decimal> maximoCompra { get; set; }
+        public Nullable<decimal> multiploCompra { get; set; }
+        public Nullable<decimal> multiploVenta { get; set; }
     }
 }
