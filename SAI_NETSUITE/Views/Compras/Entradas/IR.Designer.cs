@@ -78,7 +78,7 @@
             // 
             // btnEnviar
             // 
-            this.btnEnviar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
+            this.btnEnviar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.btnEnviar.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnEnviar.ImageOptions.Image")));
             this.btnEnviar.Location = new System.Drawing.Point(1162, 29);
             this.btnEnviar.Name = "btnEnviar";
@@ -89,7 +89,7 @@
             // 
             // btnActualizar
             // 
-            this.btnActualizar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
+            this.btnActualizar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.btnActualizar.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizar.ImageOptions.Image")));
             this.btnActualizar.Location = new System.Drawing.Point(157, 28);
             this.btnActualizar.Name = "btnActualizar";
@@ -100,7 +100,7 @@
             // 
             // BTNImprimir
             // 
-            this.BTNImprimir.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
+            this.BTNImprimir.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.BTNImprimir.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("BTNImprimir.ImageOptions.Image")));
             this.BTNImprimir.Location = new System.Drawing.Point(27, 29);
             this.BTNImprimir.Name = "BTNImprimir";

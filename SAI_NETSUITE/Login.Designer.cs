@@ -107,9 +107,9 @@
             this.labelControl1.Appearance.Options.UseForeColor = true;
             this.labelControl1.Location = new System.Drawing.Point(282, 52);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(57, 23);
+            this.labelControl1.Size = new System.Drawing.Size(74, 23);
             this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "Email:";
+            this.labelControl1.Text = "Usuario:";
             this.labelControl1.Click += new System.EventHandler(this.labelControl1_Click);
             // 
             // defaultLookAndFeel1
@@ -245,6 +245,7 @@
             this.Controls.Add(this.panel1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Login";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.panel1.ResumeLayout(false);

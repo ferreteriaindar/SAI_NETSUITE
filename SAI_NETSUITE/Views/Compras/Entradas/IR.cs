@@ -91,7 +91,7 @@ namespace SAI_NETSUITE.Views.Compras.Entradas
                         if (result.rows != null && result.rows < 1)
                         {
 
-
+                            MessageBox.Show("Error al insertar al WMS");
                         }
                         else
                         {
@@ -155,9 +155,15 @@ namespace SAI_NETSUITE.Views.Compras.Entradas
             DataSet ds = new DataSet();
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"select ir.id,ir.mov,ir.vendor,ir.date,IRD.itemid,ird.sourceTran,ird.sourceNumber from  iws.dbo.ir IR
+                /*string query = @"select ir.id,ir.mov,ir.vendor,ir.date,IRD.itemid,ird.sourceTran,ird.sourceNumber from  iws.dbo.ir IR
                                 left join iws.dbo.IRD IRD ON ir.id=IRD.idIR
-                                where ir.id="+id;
+                                where ir.id="+id;*/
+                 string query= @"select ir.id,ir.mov,ir.vendor,ir.date,IRD.itemid,ird.sourceTran,
+                                    sourceNumber = (select ',' + CONVERT(varchar(10), ird2.sourceNumber) from iws.dbo.IRD ird2 where ird2.idIR = IR.id and ird2.itemid = IRD.itemid for xml path('') )
+                                from iws.dbo.ir IR
+                                left join iws.dbo.IRD IRD ON ir.id = IRD.idIR
+                                            where ir.id = "+id.ToString()+@"
+                                group by IR.id,ir.mov,ir.vendor,ir.date,IRD.itemid,ird.sourceTran";
                 SqlDataAdapter da =  new SqlDataAdapter(query, myConnection);
               
                 da.Fill(ds);

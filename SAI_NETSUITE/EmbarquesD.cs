@@ -23,6 +23,7 @@ namespace SAI_NETSUITE
         public string persona { get; set; }
         public string fechaHora { get; set; }
         public string comentarios { get; set; }
+        public int IdEmbarqueD { get; set; }
     
         public virtual Embarques Embarques { get; set; }
     }

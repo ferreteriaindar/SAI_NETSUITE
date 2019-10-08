@@ -46,6 +46,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>rayo.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="DevExpress.BonusSkins.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Charts.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -56,6 +59,7 @@
     <Reference Include="DevExpress.Mvvm.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Office.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Pdf.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.Pdf.v17.2.Drawing, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.PivotGrid.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Printing.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.RichEdit.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
@@ -71,10 +75,13 @@
     <Reference Include="DevExpress.XtraEditors.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGauges.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraGrid.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraLayout.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.XtraPdfViewer.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPivotGrid.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraPrinting.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.XtraReports.v17.2.Extensions, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
+    <Reference Include="DevExpress.XtraTreeList.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
       <Private>True</Private>
@@ -87,9 +94,8 @@
       <HintPath>..\packages\MaterialSkin.0.2.1\lib\MaterialSkin.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.6.0.4\lib\net45\Newtonsoft.Json.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="NuGet.Client, Version=4.2.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\NuGet.Client.4.2.0\lib\net45\NuGet.Client.dll</HintPath>
@@ -157,7 +163,12 @@
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\Compras\Entradas\IRController.cs" />
+    <Compile Include="Controllers\IWS\Connection.cs" />
+    <Compile Include="Controllers\Logistica\Distribucion\desembarqueController.cs" />
     <Compile Include="Controllers\Logistica\Distribucion\NumeroGuiaController.cs" />
+    <Compile Include="Controllers\Logistica\Empaque\empaquePantallaController.cs" />
+    <Compile Include="Controllers\Logistica\Empaque\pdfController.cs" />
+    <Compile Include="Controllers\PostVenta\ConfirmacionController.cs" />
     <Compile Include="Controllers\Ventas\SaleOrderSentController.cs" />
     <Compile Include="Customers.cs">
       <DependentUpon>IWS.tt</DependentUpon>
@@ -241,14 +252,19 @@
     <Compile Include="Models\Catalogos\FormaEnvioListCombo.cs" />
     <Compile Include="Models\Catalogos\ItemsListCombo.cs" />
     <Compile Include="Models\Catalogos\LocationListCombo.cs" />
+    <Compile Include="Models\Catalogos\respuesta.cs" />
     <Compile Include="Models\Catalogos\RutaListCombo.cs" />
     <Compile Include="Models\SaleOrderSentModel.cs" />
     <Compile Include="Models\Transaccion\IRDModel.cs" />
     <Compile Include="Models\Transaccion\IRModel.cs" />
+    <Compile Include="Models\Transaccion\ItemFullfilmentModel.cs" />
     <Compile Include="Models\Transaccion\ItemInfobyCode.cs" />
     <Compile Include="Models\Transaccion\LineItemDT.cs" />
     <Compile Include="Models\Transaccion\NumeroGuiaModel.cs" />
+    <Compile Include="Models\Transaccion\pedidoFulfill.cs" />
+    <Compile Include="Models\Transaccion\responseStructure.cs" />
     <Compile Include="Models\Transaccion\SaleOrder.cs" />
+    <Compile Include="Models\Transaccion\SaleOrderToInvoiceModel.cs" />
     <Compile Include="Models\Transaccion\SplitSaleOrderModel.cs" />
     <Compile Include="Models\Transaccion\UnsplitSaleOrderModel.cs" />
     <Compile Include="NumeroGuiaNetsuite.cs">
@@ -259,6 +275,9 @@
     </Compile>
     <Compile Include="NumeroGuiaNetsuiteD.cs">
       <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Paqueteria.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
@@ -271,11 +290,26 @@
     <Compile Include="Ruta.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
+    <Compile Include="sai_usuario.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
     <Compile Include="spWMS_InsertaIR_Result.cs">
       <DependentUpon>Indarneg.tt</DependentUpon>
     </Compile>
     <Compile Include="Territorios.cs">
       <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\almacenCteRecoge.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\almacenCteRecoge.designer.cs">
+      <DependentUpon>almacenCteRecoge.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\registroCliente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\registroCliente.designer.cs">
+      <DependentUpon>registroCliente.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Compras\Entradas\hojaIR.cs">
       <SubType>Component</SubType>
@@ -289,11 +323,60 @@
     <Compile Include="Views\Compras\Entradas\IR.Designer.cs">
       <DependentUpon>IR.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\ClienteRecoge\borrarClienteFila.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\borrarClienteFila.designer.cs">
+      <DependentUpon>borrarClienteFila.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\CteCredencial\cteRecogeCredencial.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\CteCredencial\cteRecogeCredencial.designer.cs">
+      <DependentUpon>cteRecogeCredencial.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\cteRecogeVendedorEntrega.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\cteRecogeVendedorEntrega.designer.cs">
+      <DependentUpon>cteRecogeVendedorEntrega.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\entregaPedido.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\entregaPedido.designer.cs">
+      <DependentUpon>entregaPedido.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\infoFactura.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\infoFactura.designer.cs">
+      <DependentUpon>infoFactura.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\miniCFDI3.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\miniCFDI3.designer.cs">
+      <DependentUpon>miniCFDI3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\recibo3.3.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\recibo3.3.designer.cs">
+      <DependentUpon>recibo3.3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\RegexUtilities.cs" />
     <Compile Include="Views\Logistica\Distribucion\AutorizacionJefe.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Views\Logistica\Distribucion\AutorizacionJefe.designer.cs">
       <DependentUpon>AutorizacionJefe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\desembarque.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\desembarque.Designer.cs">
+      <DependentUpon>desembarque.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Logistica\Distribucion\Embarque.cs">
       <SubType>Component</SubType>
@@ -318,6 +401,72 @@
     </Compile>
     <Compile Include="Views\Logistica\Distribucion\numeroGuiaView.Designer.cs">
       <DependentUpon>numeroGuiaView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\reporteEmbarques.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\reporteEmbarques.Designer.cs">
+      <DependentUpon>reporteEmbarques.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\empaquePantalla.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\empaquePantalla.Designer.cs">
+      <DependentUpon>empaquePantalla.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.Designer.cs">
+      <DependentUpon>ListaEmpaquePedidoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\PDFEmpaque.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\PDFEmpaque.Designer.cs">
+      <DependentUpon>PDFEmpaque.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\ResumenEmpaqueCliente.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\ResumenEmpaqueCliente.Designer.cs">
+      <DependentUpon>ResumenEmpaqueCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PostVenta\Confirmacion.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PostVenta\Confirmacion.Designer.cs">
+      <DependentUpon>Confirmacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ventas\Reportes\infoCTe.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Ventas\Reportes\infoCTe.Designer.cs">
+      <DependentUpon>infoCTe.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ventas\Reportes\rastrearART.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Ventas\Reportes\rastrearART.Designer.cs">
+      <DependentUpon>rastrearART.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ventas\Reportes\reporteExistencias.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Ventas\Reportes\reporteExistencias.Designer.cs">
+      <DependentUpon>reporteExistencias.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ventas\Reportes\reporteExistenciasAlmacen.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Ventas\Reportes\reporteExistenciasAlmacen.Designer.cs">
+      <DependentUpon>reporteExistenciasAlmacen.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ventas\Reportes\ventasCte.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Ventas\Reportes\ventasCte.Designer.cs">
+      <DependentUpon>ventasCte.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Ventas\SaleOrderSentVista.cs">
       <SubType>UserControl</SubType>
@@ -500,14 +649,44 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\ClienteRecoge\almacenCteRecoge.resx">
+      <DependentUpon>almacenCteRecoge.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ClienteRecoge\registroCliente.resx">
+      <DependentUpon>registroCliente.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Compras\Entradas\hojaIR.resx">
       <DependentUpon>hojaIR.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Compras\Entradas\IR.resx">
       <DependentUpon>IR.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ClienteRecoge\borrarClienteFila.resx">
+      <DependentUpon>borrarClienteFila.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ClienteRecoge\CteCredencial\cteRecogeCredencial.resx">
+      <DependentUpon>cteRecogeCredencial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ClienteRecoge\cteRecogeVendedorEntrega.resx">
+      <DependentUpon>cteRecogeVendedorEntrega.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ClienteRecoge\entregaPedido.resx">
+      <DependentUpon>entregaPedido.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ClienteRecoge\infoFactura.resx">
+      <DependentUpon>infoFactura.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ClienteRecoge\miniCFDI3.resx">
+      <DependentUpon>miniCFDI3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ClienteRecoge\recibo3.3.resx">
+      <DependentUpon>recibo3.3.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Distribucion\AutorizacionJefe.resx">
       <DependentUpon>AutorizacionJefe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Distribucion\desembarque.resx">
+      <DependentUpon>desembarque.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Distribucion\Embarque.resx">
       <DependentUpon>Embarque.cs</DependentUpon>
@@ -520,6 +699,39 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Distribucion\numeroGuiaView.resx">
       <DependentUpon>numeroGuiaView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Distribucion\reporteEmbarques.resx">
+      <DependentUpon>reporteEmbarques.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Empaque\empaquePantalla.resx">
+      <DependentUpon>empaquePantalla.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.resx">
+      <DependentUpon>ListaEmpaquePedidoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Empaque\PDFEmpaque.resx">
+      <DependentUpon>PDFEmpaque.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Empaque\ResumenEmpaqueCliente.resx">
+      <DependentUpon>ResumenEmpaqueCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PostVenta\Confirmacion.resx">
+      <DependentUpon>Confirmacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Ventas\Reportes\infoCTe.resx">
+      <DependentUpon>infoCTe.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Ventas\Reportes\rastrearART.resx">
+      <DependentUpon>rastrearART.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Ventas\Reportes\reporteExistencias.resx">
+      <DependentUpon>reporteExistencias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Ventas\Reportes\reporteExistenciasAlmacen.resx">
+      <DependentUpon>reporteExistenciasAlmacen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Ventas\Reportes\ventasCte.resx">
+      <DependentUpon>ventasCte.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Ventas\SaleOrderSentVista.resx">
       <DependentUpon>SaleOrderSentVista.cs</DependentUpon>
@@ -723,6 +935,22 @@
       <DependentUpon>IWS.edmx</DependentUpon>
       <LastGenOutput>IWS.cs</LastGenOutput>
     </Content>
+    <Content Include="rayo.ico" />
+    <None Include="Resources\pdf.png" />
+    <None Include="Resources\printviapdf_16x161.png" />
+    <None Include="Resources\printviapdf_16x16.png" />
+    <None Include="Resources\exporttoxls_16x161.png" />
+    <None Include="Resources\textbox_16x16.png" />
+    <None Include="Resources\exporttoxls_16x16.png" />
+    <None Include="Resources\recurrence_16x16.png" />
+    <None Include="Resources\product_16x16.png" />
+    <None Include="Resources\apply_16x16.png" />
+    <None Include="Resources\task_16x16.png" />
+    <None Include="Resources\template_16x16.png" />
+    <None Include="Resources\postventa.png" />
+    <None Include="Resources\productshipments_16x16.png" />
+    <None Include="Resources\search_16x16.png" />
+    <None Include="Resources\export_16x16.png" />
     <None Include="Resources\merge.png" />
     <None Include="Resources\mailbox.png" />
     <None Include="Resources\Error_icon.png" />

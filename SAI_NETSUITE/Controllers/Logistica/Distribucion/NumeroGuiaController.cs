@@ -60,12 +60,31 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
                 SqlCommand cmd = new SqlCommand("", myConnectio);
                 cmd.CommandText = "SELECT COUNT(*) AS RESULTADO FROM Indarneg.DBO.EmbarquesD where  factura = '" + factura + "'";
                 var resultado = cmd.ExecuteScalar().ToString();
+
                 if (resultado.ToString().Equals("0"))
                     return false;
                 else return true;
             }
+                      
+        }
 
-           
+        public bool tieneNumerodeGuia(string factura)
+        {
+            using (SqlConnection myConnectio = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                myConnectio.Open();
+                SqlCommand cmd = new SqlCommand("", myConnectio);
+                cmd.CommandText = @"select top 1 NumeroGuia from Indarneg.dbo.NumeroGuiaNetsuiteD  D
+                                left join Indarneg.dbo.NumeroGuiaNetsuite N on d.idNumeroGuia = n.idNumeroGuia
+                                where Factura = '"+factura+@"'
+                                order by n.idNumeroGuia desc";
+                var resultado = cmd.ExecuteScalar().ToString();
+                if (resultado != null)
+                    return true;
+                else return false;
+                
+            }
+
         }
         
     }

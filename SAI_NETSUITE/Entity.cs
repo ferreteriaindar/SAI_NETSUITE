@@ -143,5 +143,7 @@ namespace SAI_NETSUITE
         public Nullable<int> VAT_REGISTRATION_NO { get; set; }
         public string ZIPCODE { get; set; }
         public string ZONA_ID { get; set; }
+        public Nullable<int> ESTATUS_CLIENTE_INDAR_ID { get; set; }
+        public string NO_BORRAR { get; set; }
     }
 }

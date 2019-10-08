@@ -14,13 +14,22 @@ namespace SAI_NETSUITE
     
     public partial class Embarques
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Embarques()
+        {
+            this.EmbarquesD = new HashSet<EmbarquesD>();
+        }
+    
         public Nullable<int> entity_id { get; set; }
         public Nullable<System.DateTime> fecha { get; set; }
         public string comentarios { get; set; }
         public string estatus { get; set; }
         public int idEmbarque { get; set; }
         public Nullable<int> idPaqueteria { get; set; }
+        public Nullable<System.DateTime> fechaConcluido { get; set; }
+        public string usuario { get; set; }
     
-        public virtual EmbarquesD EmbarquesD { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<EmbarquesD> EmbarquesD { get; set; }
     }
 }

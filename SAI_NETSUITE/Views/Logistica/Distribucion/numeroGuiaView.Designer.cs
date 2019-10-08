@@ -28,18 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(numeroGuiaView));
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule4 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
-            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule3 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
-            DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions buttonImageOptions1 = new DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions buttonImageOptions2 = new DevExpress.XtraEditors.ButtonsPanelControl.ButtonImageOptions();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             this.colcheckFactura = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.btnFactura = new DevExpress.XtraEditors.SimpleButton();
-            this.btnSalir = new DevExpress.XtraEditors.SimpleButton();
+            this.btnReiniciar = new DevExpress.XtraEditors.SimpleButton();
             this.btnGuardar = new DevExpress.XtraEditors.SimpleButton();
             this.label4 = new System.Windows.Forms.Label();
             this.txtFactura = new DevExpress.XtraEditors.TextEdit();
@@ -73,7 +72,8 @@
             this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colFacturaEND = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAutoriza = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
+            this.colembarqueFinal = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtFactura.Properties)).BeginInit();
@@ -110,7 +110,7 @@
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupControl1.Controls.Add(this.btnFactura);
-            this.groupControl1.Controls.Add(this.btnSalir);
+            this.groupControl1.Controls.Add(this.btnReiniciar);
             this.groupControl1.Controls.Add(this.btnGuardar);
             this.groupControl1.Controls.Add(this.label4);
             this.groupControl1.Controls.Add(this.txtFactura);
@@ -138,19 +138,21 @@
             this.btnFactura.Text = "Buscar";
             this.btnFactura.Click += new System.EventHandler(this.simpleButton2_Click);
             // 
-            // btnSalir
+            // btnReiniciar
             // 
-            this.btnSalir.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
-            this.btnSalir.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.ImageOptions.Image")));
-            this.btnSalir.Location = new System.Drawing.Point(668, 54);
-            this.btnSalir.Name = "btnSalir";
-            this.btnSalir.Size = new System.Drawing.Size(89, 23);
-            this.btnSalir.TabIndex = 21;
-            this.btnSalir.Text = "Reiniciar";
+            this.btnReiniciar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
+            this.btnReiniciar.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnSalir.ImageOptions.Image")));
+            this.btnReiniciar.Location = new System.Drawing.Point(668, 54);
+            this.btnReiniciar.Name = "btnReiniciar";
+            this.btnReiniciar.Size = new System.Drawing.Size(89, 23);
+            this.btnReiniciar.TabIndex = 21;
+            this.btnReiniciar.Text = "Reiniciar";
+            this.btnReiniciar.Click += new System.EventHandler(this.btnReiniciar_Click);
             // 
             // btnGuardar
             // 
             this.btnGuardar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
+            this.btnGuardar.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.export_16x16;
             this.btnGuardar.Location = new System.Drawing.Point(568, 54);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(94, 23);
@@ -198,9 +200,9 @@
             this.searchFletera.Properties.ValueMember = "id";
             this.searchFletera.Size = new System.Drawing.Size(206, 22);
             this.searchFletera.TabIndex = 16;
-            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule1.ErrorText = "This value is not valid";
-            this.dxValidationProvider1.SetValidationRule(this.searchFletera, conditionValidationRule1);
+            conditionValidationRule4.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule4.ErrorText = "This value is not valid";
+            this.dxValidationProvider1.SetValidationRule(this.searchFletera, conditionValidationRule4);
             // 
             // gridView5
             // 
@@ -238,9 +240,9 @@
             this.txtImporteTotal.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             this.txtImporteTotal.Size = new System.Drawing.Size(122, 24);
             this.txtImporteTotal.TabIndex = 5;
-            conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule2.ErrorText = "This value is not valid";
-            this.dxValidationProvider1.SetValidationRule(this.txtImporteTotal, conditionValidationRule2);
+            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule1.ErrorText = "This value is not valid";
+            this.dxValidationProvider1.SetValidationRule(this.txtImporteTotal, conditionValidationRule1);
             // 
             // label3
             // 
@@ -260,9 +262,9 @@
             this.txtNumGuia.Properties.Appearance.Options.UseFont = true;
             this.txtNumGuia.Size = new System.Drawing.Size(205, 26);
             this.txtNumGuia.TabIndex = 3;
-            conditionValidationRule3.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule3.ErrorText = "This value is not valid";
-            this.dxValidationProvider1.SetValidationRule(this.txtNumGuia, conditionValidationRule3);
+            conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule2.ErrorText = "This value is not valid";
+            this.dxValidationProvider1.SetValidationRule(this.txtNumGuia, conditionValidationRule2);
             // 
             // label2
             // 
@@ -287,12 +289,12 @@
             // gridControl1
             // 
             this.gridControl1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridControl1.Location = new System.Drawing.Point(2, 27);
+            this.gridControl1.Location = new System.Drawing.Point(2, 25);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryCombo});
-            this.gridControl1.Size = new System.Drawing.Size(384, 281);
+            this.gridControl1.Size = new System.Drawing.Size(384, 283);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.UseEmbeddedNavigator = true;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -358,9 +360,9 @@
             this.groupControl3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
             this.groupControl3.Controls.Add(this.gridEmbarques);
-            buttonImageOptions1.Image = ((System.Drawing.Image)(resources.GetObject("buttonImageOptions1.Image")));
+            buttonImageOptions2.Image = ((System.Drawing.Image)(resources.GetObject("buttonImageOptions2.Image")));
             this.groupControl3.CustomHeaderButtons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] {
-            new DevExpress.XtraEditors.ButtonsPanelControl.GroupBoxButton("Capturar Facturas", true, buttonImageOptions1, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, "btnFac", -1)});
+            new DevExpress.XtraEditors.ButtonsPanelControl.GroupBoxButton("Capturar Facturas", true, buttonImageOptions2, DevExpress.XtraBars.Docking2010.ButtonStyle.PushButton, "", -1, true, null, true, false, true, "btnFac", -1)});
             this.groupControl3.Location = new System.Drawing.Point(3, 426);
             this.groupControl3.Name = "groupControl3";
             this.groupControl3.Size = new System.Drawing.Size(386, 174);
@@ -372,10 +374,10 @@
             // gridEmbarques
             // 
             this.gridEmbarques.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.gridEmbarques.Location = new System.Drawing.Point(2, 27);
+            this.gridEmbarques.Location = new System.Drawing.Point(2, 33);
             this.gridEmbarques.MainView = this.gridView2;
             this.gridEmbarques.Name = "gridEmbarques";
-            this.gridEmbarques.Size = new System.Drawing.Size(382, 145);
+            this.gridEmbarques.Size = new System.Drawing.Size(382, 139);
             this.gridEmbarques.TabIndex = 0;
             this.gridEmbarques.UseEmbeddedNavigator = true;
             this.gridEmbarques.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -420,15 +422,15 @@
             this.colCliente1,
             this.colEmbarque1,
             this.colcheckFactura});
-            gridFormatRule1.ApplyToRow = true;
-            gridFormatRule1.Column = this.colcheckFactura;
-            gridFormatRule1.ColumnApplyTo = this.colcheckFactura;
-            gridFormatRule1.Name = "Format0";
-            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
-            formatConditionRuleValue1.PredefinedName = "Green Fill, Green Text";
-            formatConditionRuleValue1.Value1 = true;
-            gridFormatRule1.Rule = formatConditionRuleValue1;
-            this.gridView3.FormatRules.Add(gridFormatRule1);
+            gridFormatRule2.ApplyToRow = true;
+            gridFormatRule2.Column = this.colcheckFactura;
+            gridFormatRule2.ColumnApplyTo = this.colcheckFactura;
+            gridFormatRule2.Name = "Format0";
+            formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
+            formatConditionRuleValue2.PredefinedName = "Green Fill, Green Text";
+            formatConditionRuleValue2.Value1 = true;
+            gridFormatRule2.Rule = formatConditionRuleValue2;
+            this.gridView3.FormatRules.Add(gridFormatRule2);
             this.gridView3.GridControl = this.gridFacturas1;
             this.gridView3.Name = "gridView3";
             this.gridView3.OptionsView.ShowGroupPanel = false;
@@ -475,7 +477,8 @@
             // 
             this.gridView4.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colFacturaEND,
-            this.colAutoriza});
+            this.colAutoriza,
+            this.colembarqueFinal});
             this.gridView4.GridControl = this.gridfinal;
             this.gridView4.Name = "gridView4";
             this.gridView4.OptionsView.ShowGroupPanel = false;
@@ -495,6 +498,12 @@
             this.colAutoriza.Name = "colAutoriza";
             this.colAutoriza.Visible = true;
             this.colAutoriza.VisibleIndex = 1;
+            // 
+            // colembarqueFinal
+            // 
+            this.colembarqueFinal.Caption = "Embarque";
+            this.colembarqueFinal.FieldName = "embarque";
+            this.colembarqueFinal.Name = "colembarqueFinal";
             // 
             // numeroGuiaView
             // 
@@ -571,9 +580,10 @@
         private DevExpress.XtraGrid.GridControl gridfinal;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView4;
         private DevExpress.XtraEditors.SimpleButton btnFactura;
-        private DevExpress.XtraEditors.SimpleButton btnSalir;
+        private DevExpress.XtraEditors.SimpleButton btnReiniciar;
         private DevExpress.XtraGrid.Columns.GridColumn colFacturaEND;
         private DevExpress.XtraGrid.Columns.GridColumn colAutoriza;
         private DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider dxValidationProvider1;
+        private DevExpress.XtraGrid.Columns.GridColumn colembarqueFinal;
     }
 }

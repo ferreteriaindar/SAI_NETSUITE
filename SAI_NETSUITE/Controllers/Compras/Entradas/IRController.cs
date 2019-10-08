@@ -19,9 +19,9 @@ namespace SAI_NETSUITE.Controllers.Compras.Entradas
             {
                 
                 string query = @"select WMS.id, wms.type,wms.idReceipt,l.NAME as Location, p.NAME as Vendor,I.itemid,wms.itemquantity from  IWS.dbo.ItemReceiptWMS WMS
-                                    LEFT JOIN IWS.DBO.Entity  P ON  WMS.entity=P.ENTITY_ID
-                                    left join iws.dbo.Locations L on wms.location=l.LOCATION_ID
-                                    left join iws.dbo.Items I on wms.item=I.id
+                                    inner JOIN IWS.DBO.Entity  P ON  WMS.entity=P.ENTITY_ID
+                                    inner join iws.dbo.Locations L on wms.location=l.LOCATION_ID
+                                    inner join iws.dbo.Items I on wms.item=I.id
                                     where wms.location=16 and p.NAME is not null AND WMS.syncWMS IS NULL";
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.Fill(ds);

@@ -27,11 +27,12 @@ namespace SAI_NETSUITE
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<NumeroGuiaNetsuite> NumeroGuiaNetsuite { get; set; }
+        public virtual DbSet<NumeroGuiaNetsuiteD> NumeroGuiaNetsuiteD { get; set; }
+        public virtual DbSet<NumeroGuiaNetsuiteC> NumeroGuiaNetsuiteC { get; set; }
+        public virtual DbSet<sai_usuario> sai_usuario { get; set; }
         public virtual DbSet<EmbarquesD> EmbarquesD { get; set; }
         public virtual DbSet<Embarques> Embarques { get; set; }
-        public virtual DbSet<NumeroGuiaNetsuite> NumeroGuiaNetsuite { get; set; }
-        public virtual DbSet<NumeroGuiaNetsuiteC> NumeroGuiaNetsuiteC { get; set; }
-        public virtual DbSet<NumeroGuiaNetsuiteD> NumeroGuiaNetsuiteD { get; set; }
     
         public virtual ObjectResult<spWMS_InsertaIR_Result> spWMS_InsertaIR(Nullable<int> iD)
         {
@@ -40,6 +41,11 @@ namespace SAI_NETSUITE
                 new ObjectParameter("ID", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spWMS_InsertaIR_Result>("spWMS_InsertaIR", iDParameter);
+        }
+    
+        public virtual int spEmpaquePantallaNetsuite()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spEmpaquePantallaNetsuite");
         }
     }
 }

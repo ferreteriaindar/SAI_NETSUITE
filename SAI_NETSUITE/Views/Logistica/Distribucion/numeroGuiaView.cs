@@ -58,6 +58,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             
             dtFacturas.Columns.Add("factura", typeof(string));
             dtFacturas.Columns.Add("autoriza", typeof(string));
+            dtFacturas.Columns.Add("embarque", typeof(string));
         }
 
         private void numeroGuiaView_Load(object sender, EventArgs e)
@@ -128,7 +129,9 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 if(factura.ToUpper().Equals(gridView3.GetRowCellValue(i,colFactura1).ToString()))
                 {
                     bandera = 1;
-                    dtFacturas.Rows.Add(factura, "");
+                    if(!new Controllers.Logistica.Distribucion.NumeroGuiaController().tieneNumerodeGuia(factura.ToUpper()))
+                    dtFacturas.Rows.Add(factura, "", gridView3.GetRowCellValue(i, colEmbarque1).ToString()) ;
+                    else dtFacturas.Rows.Add(factura, "Ya tiene numero de guia", gridView3.GetRowCellValue(i, colEmbarque1).ToString());
                 }
 
             }
@@ -167,7 +170,10 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
         {
             if (dxValidationProvider1.Validate() && gridView1.RowCount > 0 && gridView2.RowCount > 0 && gridView4.RowCount > 0)
             {
-                guardaNumeroGuia();
+                if(guardaNumeroGuia())
+                    MessageBox.Show("Proceso Existoso");
+                else MessageBox.Show("Error al guardar el  numero de guía");
+
             }
             else MessageBox.Show("Falta Informacion");
         }
@@ -204,6 +210,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     {
                         idNumeroGuia = ngn.idNumeroGuia,
                         Factura = gridView4.GetRowCellValue(i, colFacturaEND).ToString(),
+                        embarque=gridView4.GetRowCellValue(i,colembarqueFinal).ToString()
 
 
 
@@ -216,6 +223,15 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 return true;
             }
             return false;
+        }
+
+        private void btnReiniciar_Click(object sender, EventArgs e)
+        {
+            Views.Logistica.Distribucion.numeroGuiaView ng2 = new Views.Logistica.Distribucion.numeroGuiaView();
+            ng2.Parent = this.Parent;
+            ng2.Dock = DockStyle.Fill;
+            Parent.Controls.Add(ng2);
+            ng2.BringToFront();
         }
     }
 

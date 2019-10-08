@@ -19,6 +19,7 @@ namespace SAI_NETSUITE
         public string Factura { get; set; }
         public string RazonAutorizacion { get; set; }
         public Nullable<int> Autorizacion { get; set; }
+        public string embarque { get; set; }
     
         public virtual NumeroGuiaNetsuite NumeroGuiaNetsuite { get; set; }
     }

@@ -22,7 +22,7 @@ namespace SAI_NETSUITE.WMS.Surtido
         public void cargaInfo()
         {
 
-            SqlConnection myConnection = new SqlConnection(sqlstring);
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             string query = @"SELECT 
                             oe.FormaEnvio,DATEDIFF(MINUTE,Oe.FechaIngreso,GETDATE())as minutosTranscurridos,
                             oe.Mov,

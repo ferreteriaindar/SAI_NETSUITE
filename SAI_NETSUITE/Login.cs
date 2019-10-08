@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Data.Odbc;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -17,7 +18,7 @@ namespace SAI_NETSUITE
     {
 
         string resultado = "";
-        string conString;
+        string conString,usuario,perfil;
         public Login()
         {
             InitializeComponent();
@@ -41,7 +42,7 @@ namespace SAI_NETSUITE
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-
+            /*
             conString = "Dsn=NetSuite;uid="+txtEmail.Text+";pwd="+txtPass.Text;//ConfigurationManager.ConnectionStrings["NetSuite"].ConnectionString;
             try
             {
@@ -61,6 +62,26 @@ namespace SAI_NETSUITE
             {
                 Console.WriteLine(ex.Message);
                 resultado = "Error";
+            }*/
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand("", myConnection);
+                cmd.CommandText = "select usuario,perfil from Indarneg.dbo.sai_usuario where  usuario=@usuario and pass=@pass";
+                cmd.Parameters.AddWithValue("@usuario", txtEmail.Text);
+                cmd.Parameters.AddWithValue("@pass", txtPass.Text);
+                SqlDataReader sdr = cmd.ExecuteReader();
+                if (sdr.HasRows&& sdr.Read())
+                {
+                    usuario = sdr.GetValue(0).ToString();
+                    perfil = sdr.GetValue(1).ToString();
+                    resultado = "OK";
+                }
+                else
+                {
+                    resultado = "Error";
+                   // MessageBox.Show("Usuario y/o Contraseña incorrectos");
+                }
             }
         }
 
@@ -78,7 +99,7 @@ namespace SAI_NETSUITE
             {
                 case "OK":
                     this.Hide();
-                    Principal p = new Principal(conString);
+                    Principal p = new Principal(conString,usuario,perfil);
                     p.Show();
 
                     break;

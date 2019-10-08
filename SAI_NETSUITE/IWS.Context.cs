@@ -38,5 +38,6 @@ namespace SAI_NETSUITE
         public DbSet<Entity> Entity { get; set; }
         public DbSet<IRD> IRD { get; set; }
         public DbSet<IR> IR { get; set; }
+        public DbSet<Paqueteria> Paqueteria { get; set; }
     }
 }

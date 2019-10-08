@@ -21,7 +21,7 @@ namespace SAI_NETSUITE
         public Nullable<System.DateTime> Fecha { get; set; }
         public string Usuario { get; set; }
     
-        public virtual NumeroGuiaNetsuiteC NumeroGuiaNetsuiteC { get; set; }
         public virtual NumeroGuiaNetsuiteD NumeroGuiaNetsuiteD { get; set; }
+        public virtual NumeroGuiaNetsuiteC NumeroGuiaNetsuiteC { get; set; }
     }
 }

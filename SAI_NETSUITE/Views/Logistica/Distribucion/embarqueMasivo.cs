@@ -18,9 +18,10 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
     {
         string sqlString10 = SAI_NETSUITE.Properties.Settings.Default.SERVER10;
         DataTable dt = new DataTable();
-        public embarqueMasivo()
+        string usuario;
+        public embarqueMasivo(string usuario)
         {
-
+            this.usuario = usuario;
             InicializaTabla();
             InitializeComponent();
         }
@@ -85,7 +86,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             {
                 string query = @"if exists(select ed.factura from Indarneg.dbo.EmbarquesD  ED
                                         LEFT JOIN Indarneg.DBO.Embarques E ON ED.idEmbarque = E.idEmbarque
-                                        WHERE ED.factura = '"+txtFactura.Text+ @"')
+                                        WHERE ed.estado not like 'DESEMBARQUE%' and ED.factura = '" + txtFactura.Text+ @"')
                                         select  TOP 1 ed.idEmbarque from Indarneg.dbo.EmbarquesD  ED
                                         LEFT JOIN Indarneg.DBO.Embarques E ON ED.idEmbarque = E.idEmbarque
                                         WHERE ED.factura = '" + txtFactura.Text + @"' ORDER BY E.idEmbarque DESC
@@ -132,7 +133,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             using (IWSEntities ctx = new IWSEntities())
             {
 
-                var rl = from x in ctx.Ruta.Where(s => s.isInactive == false) select new Models.Catalogos.RutaListCombo() { LIST_ID = x.LIST_ID, LIST_ITEM_NAME = x.LIST_ITEM_NAME };
+                var rl = from x in ctx.Paqueteria.Where(s => s.isInactive == false) select new Models.Catalogos.RutaListCombo() { LIST_ID = x.LIST_ID, LIST_ITEM_NAME = x.LIST_ITEM_NAME };
                 return rl.ToList();
             }
             
@@ -143,11 +144,11 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
         {
             bool existe = false;
             DataRow dataRow = dt.NewRow();
-            using (SqlConnection myConnection = new SqlConnection(sqlString10))
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
                 myConnection.Open();
                 SqlCommand cmd = new SqlCommand("", myConnection);
-                cmd.CommandText = "exec sp_consultaFacturaNetSuite '" + txtFactura.Text + "'";
+                cmd.CommandText = "exec indarneg.dbo.sp_consultaFacturaNetSuite '" + txtFactura.Text + "'";
                 SqlDataReader sdr = cmd.ExecuteReader();
             
                 while (sdr.Read() && sdr.HasRows)
@@ -181,6 +182,8 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             pictureEdit1.Visible = false;
+            txtFactura.Text = "";
+            txtFactura.Focus();
            
         }
 
@@ -252,11 +255,12 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             dtFac.Columns.Add("estatus", typeof(string));*/
 
             DataSet ds = new DataSet();
-            dt = regresaCabeceraReporte(idEmbarque).Copy();
+           // dt = regresaCabeceraReporte(idEmbarque).Copy();
             dtFac= regresaDetalleReporte(idEmbarque).Copy();
-            ds.Tables.Add(dt);
+            Console.WriteLine(dtFac.Rows.Count);
+          //  ds.Tables.Add(dt);
             ds.Tables.Add(dtFac);
-          //  ds.WriteXmlSchema(@"S:\XML\Almacen\Distribucion\embarqueNetsuite.xml");
+            ds.WriteXmlSchema(@"S:\XML\Almacen\Distribucion\embarqueNetsuite.xml");
             Embarque emb = new Embarque();
             emb.DataSource = ds;
             using (ReportPrintTool printTool = new ReportPrintTool(emb))
@@ -278,21 +282,42 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
         }
 
         public DataTable regresaDetalleReporte(int idEmbarque)
-        {
-            using (SqlConnection myConnection = new SqlConnection(sqlString10))
+        {/*
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"select TRANSACTION_NUMBER,p.list_item_name AS PAQUETERIA ,c.name,SHIPADDRESS,MX_TOTAL_AMOUNT_OF_WITHHOLDIN,t.STATUS from  [NETSUITE].[Ferreteria indar SA de CV].[Administrator].[TRANSACTIONS]   T
-                                LEFT JOIN INDGDLSQL01.IWS.dbo.customers C on t.entity_id=c.internalid
-                                left join INDGDLSQL01.IWS.dbo.Paqueteria P on t.PAQUETERIA_ID=p.list_id
-                                LEFT JOIN INDGDLSQL01.INDARNEG.DBO.embarquesD  embd on T.TRANSACTION_NUMBER=embd.factura
-                                left join INDGDLSQL01.INDARNEG.DBO.embarques emb on embd.idEmbarque=emb.idembarque
-                                where  transaction_type='INVOICE' and  emb.idembarque=" + idEmbarque.ToString();
+                string query = @"select  TranId as TRANSACTION_NUMBER,p.list_item_name AS PAQUETERIA ,c.name,SHIPADDRESS,i.AmountDue,'ESTATUS' AS STATUS,i.DescuentoTotalPP,i.DescuentoEvento,i.DescuentoTotalImporte,i.Total from  iws.dbo.Invoices I
+								LEFT JOIN INDGDLSQL01.IWS.dbo.customers C on I.Entity=c.internalid
+								left join INDGDLSQL01.IWS.dbo.Paqueteria P on i.Paqueteria=p.list_id
+								 LEFT JOIN INDGDLSQL01.INDARNEG.DBO.embarquesD  embd on i.TranId=REPLACE( embd.factura,'invoice','')
+								  left join INDGDLSQL01.INDARNEG.DBO.embarques emb on embd.idEmbarque=emb.idembarque
+								where   emb.idembarque=" + idEmbarque.ToString();
+                DataSet ds = new DataSet();
+                SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
+                da.Fill(ds);
+                ds.Tables[0].TableName = "detalle";
+                return ds.Tables[0];
+            }*/
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                string query = @"SELECT E.idEmbarque,EN.NAME,e.comentarios,e.fecha,p.LIST_ITEM_NAME,e.estatus,f.*
+								 FROM Indarneg.DBO.Embarques  E
+                                left join IWS.dbo.Entity EN on e.entity_id=EN.ENTITY_ID
+                                left join IWS.DBO.Paqueteria P ON e.idPaqueteria=p.LIST_ID								
+								LEFT JOIN (
+								select  emb.idembarque,TranId as TRANSACTION_NUMBER,p.list_item_name AS PAQUETERIA ,c.name,SHIPADDRESS,i.AmountDue,'ESTATUS' AS STATUS,i.DescuentoTotalPP,i.DescuentoEvento,i.DescuentoTotalImporte,i.Total from  iws.dbo.Invoices I
+								LEFT JOIN INDGDLSQL01.IWS.dbo.customers C on I.Entity=c.internalid
+								left join INDGDLSQL01.IWS.dbo.Paqueteria P on i.Paqueteria=p.list_id
+								 LEFT JOIN INDGDLSQL01.INDARNEG.DBO.embarquesD  embd on i.TranId=REPLACE( embd.factura,'invoice','')
+								  left join INDGDLSQL01.INDARNEG.DBO.embarques emb on embd.idEmbarque=emb.idembarque
+								where   emb.idembarque="+idEmbarque.ToString()+@") F on e.idEmbarque=f.idEmbarque
+                                WHERE E.idEmbarque="+idEmbarque.ToString();
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.Fill(ds);
                 ds.Tables[0].TableName = "detalle";
                 return ds.Tables[0];
             }
+
 
         }
 
@@ -324,7 +349,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     entity_id = GridView1.GetRowCellValue(i, colcompanyid).ToString(),
                     estado = "TRANSITO",
                     factura = GridView1.GetRowCellValue(i, colTRANSACTION_NUMBER).ToString(),
-                    fechaHora = DateTime.Now.ToString("dd/MM/yyyy HH:mm"),
+                    //fechaHora = DateTime.Now.ToString("dd/MM/yyyy HH:mm"),
                     formaEnvio=GridView1.GetRowCellValue(i,colFORMAENVIO).ToString(),
                     paqueteria = searchPaqueteria.EditValue.ToString()
 
@@ -343,7 +368,9 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 entity_id = Convert.ToInt32(searchEmpleado.EditValue.ToString()),
                 comentarios = txtComentarios.Text,
                 estatus = "TRANSITO",
-                idPaqueteria = Convert.ToInt32(searchPaqueteria.EditValue.ToString())               
+                idPaqueteria = Convert.ToInt32(searchPaqueteria.EditValue.ToString()),
+                usuario = usuario
+                
 
 
             };
@@ -358,7 +385,14 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
         private void btnImprimir_Click(object sender, EventArgs e)
         {
-            generaReporte(7);
+            try
+            {
+                generaReporte(Convert.ToInt32(txtNumEmbarque.Text));
+            }
+            catch (Exception ex)
+            {
+                txtNumEmbarque.ErrorText = ex.Message.ToString();
+            }
         }
     }
 }

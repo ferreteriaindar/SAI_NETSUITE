@@ -75,6 +75,7 @@
           <Property Name="financialDiscount" Type="int" />
           <Property Name="checkCredit" Type="varchar" MaxLength="50" />
           <Property Name="creditDays" Type="varchar" MaxLength="10" />
+          <Property Name="usoCFDI" Type="int" />
         </EntityType>
         <EntityType Name="CustomerType">
           <Key>
@@ -133,6 +134,7 @@
           <Property Name="ENTITY_EXTID" Type="varchar" MaxLength="255" />
           <Property Name="ENTITY_ID" Type="int" Nullable="false" />
           <Property Name="ENTITY_TYPE" Type="varchar" MaxLength="255" />
+          <Property Name="ESTATUS_CLIENTE_INDAR_ID" Type="int" />
           <Property Name="ES_AGENTE" Type="varchar" MaxLength="255" />
           <Property Name="FAMILIA_ID" Type="int" />
           <Property Name="FECHA_DE_CUMPLEAOS" Type="datetime" />
@@ -171,6 +173,7 @@
           <Property Name="NOMBRE_COMERCIAL" Type="varchar" MaxLength="255" />
           <Property Name="NOMBRE_EXTRANJERO_DIOT" Type="varchar" MaxLength="255" />
           <Property Name="NOTES" Type="varchar" MaxLength="255" />
+          <Property Name="NO_BORRAR" Type="varchar" MaxLength="6" />
           <Property Name="NO_PROSPECTO" Type="varchar" MaxLength="255" />
           <Property Name="NUMERO_ID_FISCAL_EXTRANJERO" Type="varchar" MaxLength="255" />
           <Property Name="NUMREGIDTRIB" Type="varchar" MaxLength="255" />
@@ -343,6 +346,14 @@
           <Property Name="NAME" Type="varchar" MaxLength="255" />
           <Property Name="isInactive" Type="bit" />
         </EntityType>
+        <EntityType Name="Paqueteria">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Name="LIST_ID" Type="int" Nullable="false" />
+          <Property Name="LIST_ITEM_NAME" Type="varchar" MaxLength="255" />
+          <Property Name="isInactive" Type="bit" />
+        </EntityType>
         <EntityType Name="Ruta">
           <Key>
             <PropertyRef Name="LIST_ID" />
@@ -359,6 +370,18 @@
           <Property Name="NAME" Type="varchar" MaxLength="255" />
           <Property Name="isInactive" Type="int" />
         </EntityType>
+        <Association Name="FK__Customers__Packa__4A4E069C">
+          <End Role="Paqueteria" Type="Self.Paqueteria" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paqueteria">
+              <PropertyRef Name="LIST_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="Package" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Customers__Price__477199F1">
           <End Role="ListaPrecios" Type="Self.ListaPrecios" Multiplicity="0..1" />
           <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
@@ -419,8 +442,13 @@
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListaPrecios" EntityType="Self.ListaPrecios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Paqueteria" EntityType="Self.Paqueteria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ruta" EntityType="Self.Ruta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Territorios" EntityType="Self.Territorios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Customers__Packa__4A4E069C" Association="Self.FK__Customers__Packa__4A4E069C">
+            <End Role="Paqueteria" EntitySet="Paqueteria" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
           <AssociationSet Name="FK__Customers__Price__477199F1" Association="Self.FK__Customers__Price__477199F1">
             <End Role="ListaPrecios" EntitySet="ListaPrecios" />
             <End Role="Customers" EntitySet="Customers" />
@@ -471,6 +499,11 @@
           <AssociationSet Name="FK_EmbarquesD_Embarques" Association="IWSModel.FK_EmbarquesD_Embarques">
             <End Role="IR" EntitySet="IR" />
             <End Role="IRD" EntitySet="IRD" />
+          </AssociationSet>
+          <EntitySet Name="Paqueteria" EntityType="IWSModel.Paqueteria" />
+          <AssociationSet Name="FK__Customers__Packa__4A4E069C" Association="IWSModel.FK__Customers__Packa__4A4E069C">
+            <End Role="Paqueteria" EntitySet="Paqueteria" />
+            <End Role="Customers" EntitySet="Customers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Locations">
@@ -677,6 +710,8 @@
           <NavigationProperty Name="ListaPrecios" Relationship="IWSModel.FK__Customers__Price__477199F1" FromRole="Customers" ToRole="ListaPrecios" />
           <NavigationProperty Name="Ruta" Relationship="IWSModel.FK__Customers__Route__40C49C62" FromRole="Customers" ToRole="Ruta" />
           <NavigationProperty Name="FormaEnvio" Relationship="IWSModel.FK__Customers__shipp__3A179ED3" FromRole="Customers" ToRole="FormaEnvio" />
+          <Property Name="usoCFDI" Type="Int32" />
+          <NavigationProperty Name="Paqueteria" Relationship="IWSModel.FK__Customers__Packa__4A4E069C" FromRole="Customers" ToRole="Paqueteria" />
         </EntityType>
         <Association Name="FK__Customers__Price__477199F1">
           <End Type="IWSModel.ListaPrecios" Role="ListaPrecios" Multiplicity="0..1" />
@@ -847,6 +882,8 @@
           <Property Name="VAT_REGISTRATION_NO" Type="Int32" />
           <Property Name="ZIPCODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="ZONA_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ESTATUS_CLIENTE_INDAR_ID" Type="Int32" />
+          <Property Name="NO_BORRAR" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="IRD">
           <Key>
@@ -880,6 +917,27 @@
             </Principal>
             <Dependent Role="IRD">
               <PropertyRef Name="idIR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Paqueteria">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Name="LIST_ID" Type="Int32" Nullable="false" />
+          <Property Name="LIST_ITEM_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="isInactive" Type="Boolean" />
+          <NavigationProperty Name="Customers" Relationship="IWSModel.FK__Customers__Packa__4A4E069C" FromRole="Paqueteria" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK__Customers__Packa__4A4E069C">
+          <End Type="IWSModel.Paqueteria" Role="Paqueteria" Multiplicity="0..1" />
+          <End Type="IWSModel.Customers" Role="Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Paqueteria">
+              <PropertyRef Name="LIST_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="Package" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1045,6 +1103,7 @@
           <EntitySetMapping Name="Customers">
             <EntityTypeMapping TypeName="IWSModel.Customers">
               <MappingFragment StoreEntitySet="Customers">
+                <ScalarProperty Name="usoCFDI" ColumnName="usoCFDI" />
                 <ScalarProperty Name="creditDays" ColumnName="creditDays" />
                 <ScalarProperty Name="checkCredit" ColumnName="checkCredit" />
                 <ScalarProperty Name="financialDiscount" ColumnName="financialDiscount" />
@@ -1101,6 +1160,8 @@
           <EntitySetMapping Name="Entity">
             <EntityTypeMapping TypeName="IWSModel.Entity">
               <MappingFragment StoreEntitySet="Entity">
+                <ScalarProperty Name="NO_BORRAR" ColumnName="NO_BORRAR" />
+                <ScalarProperty Name="ESTATUS_CLIENTE_INDAR_ID" ColumnName="ESTATUS_CLIENTE_INDAR_ID" />
                 <ScalarProperty Name="ZONA_ID" ColumnName="ZONA_ID" />
                 <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
                 <ScalarProperty Name="VAT_REGISTRATION_NO" ColumnName="VAT_REGISTRATION_NO" />
@@ -1253,6 +1314,15 @@
                 <ScalarProperty Name="vendor" ColumnName="vendor" />
                 <ScalarProperty Name="mov" ColumnName="mov" />
                 <ScalarProperty Name="id" ColumnName="id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Paqueteria">
+            <EntityTypeMapping TypeName="IWSModel.Paqueteria">
+              <MappingFragment StoreEntitySet="Paqueteria">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
+                <ScalarProperty Name="LIST_ITEM_NAME" ColumnName="LIST_ITEM_NAME" />
+                <ScalarProperty Name="LIST_ID" ColumnName="LIST_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
