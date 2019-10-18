@@ -97,7 +97,7 @@ namespace SAI_NETSUITE
                         break;
                     case "btnConfirmarDistribucion": case "btnConfirmarApoyos": case "btnConfirmarPostVenta":
                             panelControl1.Controls.Clear();
-                        Views.PostVenta.Confirmacion c = new Views.PostVenta.Confirmacion(perfil, usuario)
+                        Views.PostVenta.Confirmacion c = new Views.PostVenta.Confirmacion(perfil, usuario,token)
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill
@@ -180,7 +180,12 @@ namespace SAI_NETSUITE
                         acr.Show();
                         
                         break;
-
+                    //btnRegistraCliente
+                    case "btnRegistraCliente": ///borrar pruebas anyelo
+                        panelControl1.Controls.Clear();
+                        Views.ClienteRecoge.registroCliente rc = new Views.ClienteRecoge.registroCliente(usuario, perfil);
+                        rc.Show();
+                        break;
 
                 }
 

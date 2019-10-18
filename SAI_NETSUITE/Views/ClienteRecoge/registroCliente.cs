@@ -12,26 +12,26 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 {
     public partial class registroCliente : Form
     {
-        SqlConnection myConnection;
+        
         string nombre, perfil,sqlString;
         AutoCompleteStringCollection namesCollection = new AutoCompleteStringCollection();
-        SqlConnection myConnection2 = new SqlConnection("Data Source=192.168.87.100;" + "Initial Catalog=Indarneg;" + "User id=sa;" + "Password=7Ind4r7;");
+       // SqlConnection myConnection2 = new SqlConnection("Data Source=192.168.87.100;" + "Initial Catalog=Indarneg;" + "User id=sa;" + "Password=7Ind4r7;");
 
-        public registroCliente(SqlConnection conn, string nom,string profile,string sql)
+        public registroCliente( string nom,string profile)
         {
-            myConnection=conn;
+          
             nombre=nom;
             perfil=profile;
-            sqlString = sql;
+           
             InitializeComponent();
         }
 
         private void registroCliente_Load(object sender, EventArgs e)
         {
-
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             myConnection.Open();
 
-            string querry = @" select nombre from cte";
+            string querry = @" SELECT company FROM  IWS.DBO.CUSTOMERS";
             // make connection to databse and get data using datareader
             SqlCommand cmd = new SqlCommand(querry, myConnection);
             SqlDataReader dr = cmd.ExecuteReader();
@@ -55,9 +55,9 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
         public string regresaCodigo(string nombre)
         {
-            SqlConnection myConnection = new SqlConnection(sqlString);
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             myConnection.Open();
-            string query = "select cliente from cte where nombre='" + txtEmpresa.Text + "' ";
+            string query = "select companyid from iws.dbo.customers where company='" + txtEmpresa.Text + "' ";
             SqlCommand cmd = new SqlCommand(query, myConnection);
            var  resultaldo ="";
               resultaldo = cmd.ExecuteScalar().ToString();
@@ -67,7 +67,8 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
         private void btnRegistrar_Click(object sender, EventArgs e)
         {
-
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
+            SqlConnection myConnection2 = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             string cliente = "";
             if (checkVendedor.Checked == true)
             {
@@ -75,7 +76,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                 {
                     myConnection.Close();
                     myConnection.Open();
-                    string query = "select cliente from cte where nombre='" + txtEmpresa.Text + "' and estatus in ('ALTA','BLOQUEADO')";
+                    string query = "select companyid from iws.dbo.customers where company='" + txtEmpresa.Text + "' ";
                     SqlCommand cmd = new SqlCommand(query, myConnection);
                     cliente = cmd.ExecuteScalar().ToString();
                     myConnection.Close();
@@ -95,7 +96,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             }
             else 
             {
-                SqlConnection myConnectionInt = new SqlConnection(sqlString);
+                SqlConnection myConnectionInt = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
                 myConnectionInt.Open();
                 SqlCommand cmdInt = new SqlCommand("", myConnectionInt);
                 if (checkGDL.Checked)
@@ -110,7 +111,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                 {
                     if (!txtCodigo.Text.Equals(""))
                     cmdInt.CommandText = " set dateformat dmy insert into indarneg.dbo.cterecogeclientes (cliente,nombre,hora) values('" + txtCodigo.Text + "','" + textBox1.Text + "',getdate())";
-                    else cmdInt.CommandText = "set dateformat dmy insert into indarneg.dbo.cterecogeclientes(cliente,nombre,hora) select cliente,nombre,getdate() as sucursal from cte where cliente='" + regresaCodigo(txtEmpresa.Text) + "'";
+                    else cmdInt.CommandText = "set dateformat dmy insert into indarneg.dbo.cterecogeclientes(cliente,nombre,hora) select COMPANYID,COMPANY,getdate() as sucursal from IWS.DBO.CUSTOMERS where COMPANYID='" + regresaCodigo(txtEmpresa.Text) + "'";
 
                     Console.WriteLine("NORMAL");
                 }

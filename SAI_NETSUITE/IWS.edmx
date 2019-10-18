@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="IWSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="IWSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Address">
           <Key>
             <PropertyRef Name="addressID" />
@@ -237,6 +237,50 @@
           <Property Name="LIST_ITEM_NAME" Type="varchar" MaxLength="255" />
           <Property Name="isInactive" Type="bit" />
         </EntityType>
+        <EntityType Name="Invoices">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="int" Nullable="false" />
+          <Property Name="TranType" Type="varchar" MaxLength="50" />
+          <Property Name="Entity" Type="int" />
+          <Property Name="TranDate" Type="datetime" />
+          <Property Name="Memo" Type="varchar" MaxLength="23" />
+          <Property Name="SubTotal" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="DiscountTotal" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="TaxTotal" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="Total" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="DescuentoTotalImporte" Type="numeric" Precision="10" Scale="4" />
+          <Property Name="DescuentoTotalPP" Type="int" />
+          <Property Name="DescuentoEspecial" Type="varchar" MaxLength="30" />
+          <Property Name="DescuentoEvento" Type="varchar" MaxLength="30" />
+          <Property Name="AutorizacionEspecial" Type="varchar" MaxLength="30" />
+          <Property Name="AmountDue" Type="numeric" Precision="10" Scale="2" />
+          <Property Name="SaleDate" Type="datetime" />
+          <Property Name="LeadSource" Type="varchar" MaxLength="30" />
+          <Property Name="DepartamentoCliente" Type="varchar" MaxLength="150" />
+          <Property Name="TipoPedido" Type="int" />
+          <Property Name="ClienteContado" Type="int" />
+          <Property Name="RFC" Type="nvarchar" MaxLength="14" />
+          <Property Name="UUID" Type="nvarchar" MaxLength="50" />
+          <Property Name="OrdenCompra" Type="varchar" MaxLength="30" />
+          <Property Name="Usuario" Type="varchar" MaxLength="100" />
+          <Property Name="createdfrom" Type="int" />
+          <Property Name="ShippingWay" Type="int" />
+          <Property Name="Paqueteria" Type="int" />
+          <Property Name="FechaRecepcionCliente" Type="datetime" />
+          <Property Name="ShipAddress" Type="varchar" MaxLength="167" />
+          <Property Name="TerminosPago" Type="int" />
+          <Property Name="CondicionVencimiento" Type="int" />
+          <Property Name="FechaVencimiento" Type="datetime" />
+          <Property Name="BillAddress" Type="varchar" MaxLength="167" />
+          <Property Name="ExchangeRate" Type="bit" />
+          <Property Name="Currency" Type="bit" />
+          <Property Name="FechaProntoPago" Type="datetime" />
+          <Property Name="AprobacionDescuentos" Type="bit" />
+          <Property Name="fechaActualizacion" Type="datetime" />
+          <Property Name="internalId" Type="int" />
+        </EntityType>
         <EntityType Name="IR">
           <Key>
             <PropertyRef Name="id" />
@@ -437,6 +481,7 @@
           <EntitySet Name="Entity" EntityType="Self.Entity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Eventos" EntityType="Self.Eventos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FormaEnvio" EntityType="Self.FormaEnvio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Invoices" EntityType="Self.Invoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IR" EntityType="Self.IR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IRD" EntityType="Self.IRD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
@@ -505,6 +550,7 @@
             <End Role="Paqueteria" EntitySet="Paqueteria" />
             <End Role="Customers" EntitySet="Customers" />
           </AssociationSet>
+          <EntitySet Name="Invoices" EntityType="IWSModel.Invoices" />
         </EntityContainer>
         <EntityType Name="Locations">
           <Key>
@@ -941,6 +987,50 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Invoices">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="Int32" Nullable="false" />
+          <Property Name="TranType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Entity" Type="Int32" />
+          <Property Name="TranDate" Type="DateTime" Precision="3" />
+          <Property Name="Memo" Type="String" MaxLength="23" FixedLength="false" Unicode="false" />
+          <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DiscountTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TaxTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DescuentoTotalImporte" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="DescuentoTotalPP" Type="Int32" />
+          <Property Name="DescuentoEspecial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DescuentoEvento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AutorizacionEspecial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AmountDue" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="SaleDate" Type="DateTime" Precision="3" />
+          <Property Name="LeadSource" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DepartamentoCliente" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPedido" Type="Int32" />
+          <Property Name="ClienteContado" Type="Int32" />
+          <Property Name="RFC" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="UUID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrdenCompra" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdfrom" Type="Int32" />
+          <Property Name="ShippingWay" Type="Int32" />
+          <Property Name="Paqueteria" Type="Int32" />
+          <Property Name="FechaRecepcionCliente" Type="DateTime" Precision="3" />
+          <Property Name="ShipAddress" Type="String" MaxLength="167" FixedLength="false" Unicode="false" />
+          <Property Name="TerminosPago" Type="Int32" />
+          <Property Name="CondicionVencimiento" Type="Int32" />
+          <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
+          <Property Name="BillAddress" Type="String" MaxLength="167" FixedLength="false" Unicode="false" />
+          <Property Name="ExchangeRate" Type="Boolean" />
+          <Property Name="Currency" Type="Boolean" />
+          <Property Name="FechaProntoPago" Type="DateTime" Precision="3" />
+          <Property Name="AprobacionDescuentos" Type="Boolean" />
+          <Property Name="fechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="internalId" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1326,6 +1416,51 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="IWSModel.Invoices">
+              <MappingFragment StoreEntitySet="Invoices">
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="fechaActualizacion" ColumnName="fechaActualizacion" />
+                <ScalarProperty Name="AprobacionDescuentos" ColumnName="AprobacionDescuentos" />
+                <ScalarProperty Name="FechaProntoPago" ColumnName="FechaProntoPago" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
+                <ScalarProperty Name="BillAddress" ColumnName="BillAddress" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="CondicionVencimiento" ColumnName="CondicionVencimiento" />
+                <ScalarProperty Name="TerminosPago" ColumnName="TerminosPago" />
+                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
+                <ScalarProperty Name="FechaRecepcionCliente" ColumnName="FechaRecepcionCliente" />
+                <ScalarProperty Name="Paqueteria" ColumnName="Paqueteria" />
+                <ScalarProperty Name="ShippingWay" ColumnName="ShippingWay" />
+                <ScalarProperty Name="createdfrom" ColumnName="createdfrom" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="OrdenCompra" ColumnName="OrdenCompra" />
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="ClienteContado" ColumnName="ClienteContado" />
+                <ScalarProperty Name="TipoPedido" ColumnName="TipoPedido" />
+                <ScalarProperty Name="DepartamentoCliente" ColumnName="DepartamentoCliente" />
+                <ScalarProperty Name="LeadSource" ColumnName="LeadSource" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
+                <ScalarProperty Name="AutorizacionEspecial" ColumnName="AutorizacionEspecial" />
+                <ScalarProperty Name="DescuentoEvento" ColumnName="DescuentoEvento" />
+                <ScalarProperty Name="DescuentoEspecial" ColumnName="DescuentoEspecial" />
+                <ScalarProperty Name="DescuentoTotalPP" ColumnName="DescuentoTotalPP" />
+                <ScalarProperty Name="DescuentoTotalImporte" ColumnName="DescuentoTotalImporte" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="TaxTotal" ColumnName="TaxTotal" />
+                <ScalarProperty Name="DiscountTotal" ColumnName="DiscountTotal" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="TranDate" ColumnName="TranDate" />
+                <ScalarProperty Name="Entity" ColumnName="Entity" />
+                <ScalarProperty Name="TranType" ColumnName="TranType" />
+                <ScalarProperty Name="TranId" ColumnName="TranId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1343,7 +1478,7 @@
         <DesignerProperty Name="EnablePluralization" Value="False" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
-        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
       </DesignerInfoPropertySet>
     </Options>
     <!-- Diagram content (shape and connector positions) -->

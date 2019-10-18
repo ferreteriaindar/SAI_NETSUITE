@@ -33,6 +33,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             dt.Columns.Add("CREATE_DATE", typeof(string));
             dt.Columns.Add("FORMAENVIO", typeof(string));
             dt.Columns.Add("PAQUETERIA", typeof(string));
+            dt.Columns.Add("TRANID", typeof(string));
             
 
         }
@@ -160,6 +161,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     dataRow[2] = sdr.GetValue(3).ToString();
                     dataRow[3] = sdr.GetValue(4).ToString();
                     dataRow[4] = sdr.GetValue(5).ToString();
+                    dataRow[5] = sdr.GetValue(0).ToString();
                 }
                 sdr.Close();
                 cmd.Dispose();
@@ -351,7 +353,9 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     factura = GridView1.GetRowCellValue(i, colTRANSACTION_NUMBER).ToString(),
                     //fechaHora = DateTime.Now.ToString("dd/MM/yyyy HH:mm"),
                     formaEnvio=GridView1.GetRowCellValue(i,colFORMAENVIO).ToString(),
-                    paqueteria = searchPaqueteria.EditValue.ToString()
+                    paqueteria = searchPaqueteria.EditValue.ToString(),
+                    facturaid=Convert.ToInt32( GridView1.GetRowCellValue(i,colTRANID).ToString())
+                    
 
                 };
                 emb.Add(embd);

@@ -39,5 +39,6 @@ namespace SAI_NETSUITE
         public DbSet<IRD> IRD { get; set; }
         public DbSet<IR> IR { get; set; }
         public DbSet<Paqueteria> Paqueteria { get; set; }
+        public DbSet<Invoices> Invoices { get; set; }
     }
 }

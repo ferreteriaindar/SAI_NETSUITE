@@ -28,8 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.labelAvance = new System.Windows.Forms.Label();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.separatorControl3 = new DevExpress.XtraEditors.SeparatorControl();
             this.btnBuscarEmbarque = new DevExpress.XtraEditors.SimpleButton();
             this.txtEmbarque = new DevExpress.XtraEditors.TextEdit();
@@ -52,8 +54,11 @@
             this.colPersona = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colcomentarios = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.colfacturaid = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl3)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmbarque.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl2)).BeginInit();
@@ -71,6 +76,8 @@
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.labelAvance);
+            this.groupControl1.Controls.Add(this.pictureBox1);
             this.groupControl1.Controls.Add(this.separatorControl3);
             this.groupControl1.Controls.Add(this.btnBuscarEmbarque);
             this.groupControl1.Controls.Add(this.txtEmbarque);
@@ -91,6 +98,25 @@
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "Controles";
             this.groupControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.groupControl1_Paint);
+            // 
+            // labelAvance
+            // 
+            this.labelAvance.AutoSize = true;
+            this.labelAvance.Location = new System.Drawing.Point(380, 55);
+            this.labelAvance.Name = "labelAvance";
+            this.labelAvance.Size = new System.Drawing.Size(29, 17);
+            this.labelAvance.TabIndex = 13;
+            this.labelAvance.Text = "0/1";
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = global::SAI_NETSUITE.Properties.Resources._835;
+            this.pictureBox1.Location = new System.Drawing.Point(338, 46);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(35, 38);
+            this.pictureBox1.TabIndex = 12;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Visible = false;
             // 
             // separatorControl3
             // 
@@ -182,9 +208,9 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEdit1.Size = new System.Drawing.Size(173, 22);
             this.dateEdit1.TabIndex = 4;
-            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule1.ErrorText = "This value is not valid";
-            this.dxValidationProvider1.SetValidationRule(this.dateEdit1, conditionValidationRule1);
+            conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule2.ErrorText = "This value is not valid";
+            this.dxValidationProvider1.SetValidationRule(this.dateEdit1, conditionValidationRule2);
             // 
             // separatorControl1
             // 
@@ -246,7 +272,8 @@
             this.colEstado,
             this.colfechaHora,
             this.colPersona,
-            this.colcomentarios});
+            this.colcomentarios,
+            this.colfacturaid});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.MultiSelect = true;
@@ -303,6 +330,19 @@
             this.colcomentarios.Visible = true;
             this.colcomentarios.VisibleIndex = 5;
             // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // colfacturaid
+            // 
+            this.colfacturaid.Caption = "facturaid";
+            this.colfacturaid.FieldName = "facturaid";
+            this.colfacturaid.Name = "colfacturaid";
+            // 
             // Confirmacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -315,6 +355,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl3)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmbarque.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl2)).EndInit();
@@ -355,5 +396,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn colPersona;
         private DevExpress.XtraGrid.Columns.GridColumn colcomentarios;
         private DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider dxValidationProvider1;
+        private System.Windows.Forms.Label labelAvance;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private DevExpress.XtraGrid.Columns.GridColumn colfacturaid;
     }
 }

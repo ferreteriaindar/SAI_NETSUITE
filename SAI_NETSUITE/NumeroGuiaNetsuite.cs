@@ -14,6 +14,12 @@ namespace SAI_NETSUITE
     
     public partial class NumeroGuiaNetsuite
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public NumeroGuiaNetsuite()
+        {
+            this.NumeroGuiaNetsuiteD = new HashSet<NumeroGuiaNetsuiteD>();
+        }
+    
         public int idNumeroGuia { get; set; }
         public string NumeroGuia { get; set; }
         public Nullable<int> idPaqueteria { get; set; }
@@ -21,7 +27,8 @@ namespace SAI_NETSUITE
         public Nullable<System.DateTime> Fecha { get; set; }
         public string Usuario { get; set; }
     
-        public virtual NumeroGuiaNetsuiteD NumeroGuiaNetsuiteD { get; set; }
         public virtual NumeroGuiaNetsuiteC NumeroGuiaNetsuiteC { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NumeroGuiaNetsuiteD> NumeroGuiaNetsuiteD { get; set; }
     }
 }

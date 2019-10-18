@@ -29,15 +29,15 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.StyleFormatCondition styleFormatCondition2 = new DevExpress.XtraGrid.StyleFormatCondition();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule5 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression4 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule6 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression5 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule7 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression6 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule8 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.StyleFormatCondition styleFormatCondition1 = new DevExpress.XtraGrid.StyleFormatCondition();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression1 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression2 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule3 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression3 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule4 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(entregaPedido));
             this.colEstatus = new DevExpress.XtraGrid.Columns.GridColumn();
             this.coltarjeta = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -170,7 +170,7 @@
             this.colImporte,
             this.colcheck});
             this.gridView1.FormatConditions.AddRange(new DevExpress.XtraGrid.StyleFormatCondition[] {
-            styleFormatCondition2});
+            styleFormatCondition1});
             this.gridView1.GridControl = this.gridFacturas;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.MultiSelect = true;
@@ -343,35 +343,35 @@
             this.colprueba,
             this.colClienteid,
             this.coltarjeta});
-            gridFormatRule5.Column = this.colEstatus;
-            gridFormatRule5.Name = "Format0";
-            formatConditionRuleExpression4.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
-            formatConditionRuleExpression4.Appearance.Options.UseBackColor = true;
-            formatConditionRuleExpression4.Expression = "DateDiffMinute([hora],LocalDateTimeNow()) <=3";
-            gridFormatRule5.Rule = formatConditionRuleExpression4;
-            gridFormatRule6.Column = this.colEstatus;
-            gridFormatRule6.Name = "Format1";
-            formatConditionRuleExpression5.Appearance.BackColor = System.Drawing.Color.Yellow;
-            formatConditionRuleExpression5.Appearance.Options.UseBackColor = true;
-            formatConditionRuleExpression5.Expression = "DateDiffMinute([hora],LocalDateTimeNow()) >=3  And DateDiffMinute([hora],LocalDat" +
+            gridFormatRule1.Column = this.colEstatus;
+            gridFormatRule1.Name = "Format0";
+            formatConditionRuleExpression1.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(0)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            formatConditionRuleExpression1.Appearance.Options.UseBackColor = true;
+            formatConditionRuleExpression1.Expression = "DateDiffMinute([hora],LocalDateTimeNow()) <=3";
+            gridFormatRule1.Rule = formatConditionRuleExpression1;
+            gridFormatRule2.Column = this.colEstatus;
+            gridFormatRule2.Name = "Format1";
+            formatConditionRuleExpression2.Appearance.BackColor = System.Drawing.Color.Yellow;
+            formatConditionRuleExpression2.Appearance.Options.UseBackColor = true;
+            formatConditionRuleExpression2.Expression = "DateDiffMinute([hora],LocalDateTimeNow()) >=3  And DateDiffMinute([hora],LocalDat" +
     "eTimeNow())<=10";
-            gridFormatRule6.Rule = formatConditionRuleExpression5;
-            gridFormatRule7.Column = this.colEstatus;
-            gridFormatRule7.Name = "Format2";
-            formatConditionRuleExpression6.Appearance.BackColor = System.Drawing.Color.Red;
-            formatConditionRuleExpression6.Appearance.Options.UseBackColor = true;
-            formatConditionRuleExpression6.Expression = "DateDiffMinute([hora],LocalDateTimeNow()) >10";
-            gridFormatRule7.Rule = formatConditionRuleExpression6;
-            gridFormatRule8.Column = this.coltarjeta;
-            gridFormatRule8.ColumnApplyTo = this.colnombre;
-            gridFormatRule8.Name = "FaltaTarjeta";
-            formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
-            formatConditionRuleValue2.PredefinedName = "Yellow Fill, Yellow Text";
-            gridFormatRule8.Rule = formatConditionRuleValue2;
-            this.gridView4.FormatRules.Add(gridFormatRule5);
-            this.gridView4.FormatRules.Add(gridFormatRule6);
-            this.gridView4.FormatRules.Add(gridFormatRule7);
-            this.gridView4.FormatRules.Add(gridFormatRule8);
+            gridFormatRule2.Rule = formatConditionRuleExpression2;
+            gridFormatRule3.Column = this.colEstatus;
+            gridFormatRule3.Name = "Format2";
+            formatConditionRuleExpression3.Appearance.BackColor = System.Drawing.Color.Red;
+            formatConditionRuleExpression3.Appearance.Options.UseBackColor = true;
+            formatConditionRuleExpression3.Expression = "DateDiffMinute([hora],LocalDateTimeNow()) >10";
+            gridFormatRule3.Rule = formatConditionRuleExpression3;
+            gridFormatRule4.Column = this.coltarjeta;
+            gridFormatRule4.ColumnApplyTo = this.colnombre;
+            gridFormatRule4.Name = "FaltaTarjeta";
+            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
+            formatConditionRuleValue1.PredefinedName = "Yellow Fill, Yellow Text";
+            gridFormatRule4.Rule = formatConditionRuleValue1;
+            this.gridView4.FormatRules.Add(gridFormatRule1);
+            this.gridView4.FormatRules.Add(gridFormatRule2);
+            this.gridView4.FormatRules.Add(gridFormatRule3);
+            this.gridView4.FormatRules.Add(gridFormatRule4);
             this.gridView4.GridControl = this.gridclientes;
             this.gridView4.Name = "gridView4";
             this.gridView4.OptionsView.ColumnAutoWidth = false;
@@ -433,6 +433,7 @@
             // 
             // checkGDL
             // 
+            this.checkGDL.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.checkGDL.AutoSize = true;
             this.checkGDL.Location = new System.Drawing.Point(311, 114);
             this.checkGDL.Margin = new System.Windows.Forms.Padding(4);
@@ -487,6 +488,7 @@
             // 
             // btnReImprimir
             // 
+            this.btnReImprimir.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btnReImprimir.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.btnReImprimir.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnReImprimir.ImageOptions.Image")));
             this.btnReImprimir.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.TopCenter;
@@ -661,7 +663,6 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1175, 860);
             this.Controls.Add(this.simpleButton2);
             this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.groupControl6);
@@ -672,7 +673,7 @@
             this.Controls.Add(this.groupControl1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "entregaPedido";
-            this.Text = "EMBARQUES";
+            this.Size = new System.Drawing.Size(1175, 860);
             this.Load += new System.EventHandler(this.entregaPedido_Load);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);

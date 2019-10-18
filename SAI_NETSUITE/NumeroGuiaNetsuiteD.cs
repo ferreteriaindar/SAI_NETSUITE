@@ -14,6 +14,7 @@ namespace SAI_NETSUITE
     
     public partial class NumeroGuiaNetsuiteD
     {
+        public int idNumeroGuiaD { get; set; }
         public int idNumeroGuia { get; set; }
         public Nullable<int> idFactura { get; set; }
         public string Factura { get; set; }

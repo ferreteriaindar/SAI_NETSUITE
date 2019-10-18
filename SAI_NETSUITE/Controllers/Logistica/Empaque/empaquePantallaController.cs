@@ -9,6 +9,7 @@ using SAI_NETSUITE.Models.Transaccion;
 using Newtonsoft.Json;
 using SAI_NETSUITE.Controllers.IWS;
 using SAI_NETSUITE.Models.Catalogos;
+using System.IO;
 
 namespace SAI_NETSUITE.Controllers.Logistica.Empaque
 {
@@ -50,8 +51,8 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
 
         public string regresaNumFactura(string mov, string pedido)
         {
-            string query = @"if exists (select TranId from iws.dbo.Invoices where createdfrom =(select id from iws.dbo.SaleOrders where tranid="+pedido+@"))
-                            select TranId from iws.dbo.Invoices where createdfrom = (select id from iws.dbo.SaleOrders where tranid = "+pedido+@")
+            string query = @"if exists (select TranId from iws.dbo.Invoices where createdfrom =(select internalId from iws.dbo.SaleOrders where tranid=" + pedido+ @"))
+                            select TranId from iws.dbo.Invoices where createdfrom = (select internalId from iws.dbo.SaleOrders where tranid = " + pedido+@")
                             ELSE PRINT 'NO'";
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
@@ -65,12 +66,30 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             return "TIMBRAR CFDI";
         }
 
+
+        public string YaestaTimbrada(string mov, string pedido,string valorArterior)
+        {
+            string query = @"if exists (select internalid from iws.dbo.Invoices where createdfrom =(select internalId from iws.dbo.SaleOrders where tranid=" + pedido + @") and LEN(uuid) >5 )
+                            select tranid from iws.dbo.Invoices where createdfrom = (select internalId from iws.dbo.SaleOrders where tranid = " + pedido + @")
+                            ELSE PRINT 'NO'";
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand(query, myConnection);
+                var resultado = cmd.ExecuteScalar();
+                if (resultado != null && !resultado.ToString().Equals("NO"))
+                    return "Imprime factura" + resultado.ToString();
+                else return valorArterior;
+            }
+            return "TIMBRAR CFDI";
+        }
+
         public pedidoFulfill fulfillment(pedidoFulfill pedido)
         {
 
 
-            string query = @"select SO.id,SO.transactionnumber,I.id,FO.CantidadesSurtidas from  IWS.dbo.SaleOrders SO
-                        LEFT JOIN INDAR_INACTIONWMS.int.Facturar_Out  FO on Movimiento=so.baserecordtype COLLATE Modern_Spanish_CI_AI and MovId=so.tranid
+            string query = @"select SO.internalId,'' as transactionnumber,I.id,FO.CantidadesSurtidas from  IWS.dbo.SaleOrders SO
+                        LEFT JOIN INDAR_INACTIONWMS.int.Facturar_Out  FO on Movimiento='salesorder' COLLATE Modern_Spanish_CI_AI and MovId=so.tranid
                         LEFT JOIN IWS.dbo.Items I on FO.Articulo=I.itemid COLLATE Modern_Spanish_CI_AI
                         WHERE FO.Movimiento='" + pedido.mov + "' and FO.MovId=" + pedido.movid;
             Console.WriteLine(query);
@@ -117,7 +136,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             }
              string  json = JsonConvert.SerializeObject(iffm, Formatting.Indented);
             Connection connection = new Connection();
-            string resultado = connection.POST("api/Inventory/ItemFullfilment", json, SAI_NETSUITE.Properties.Resources.token);
+            string resultado = connection.POST("api/Inventory/ItemFullfilment", json, SAI_NETSUITE.Properties.Resources.token,true);
                       
             pedido.error = resultado;
 
@@ -128,11 +147,47 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                 SaleOrderToInvoiceModel sotim = new SaleOrderToInvoiceModel();
                 sotim.salesOrderInternalId = iffm.createdfrom.id.ToString();
                 string jsonBill = JsonConvert.SerializeObject(sotim, Formatting.Indented);
-                string resultadoBill = connection.POST("api/Invoice/CreateInvoice", jsonBill, SAI_NETSUITE.Properties.Resources.token);
+                string resultadoBill = connection.POST("api/Invoice/CreateInvoice", jsonBill, SAI_NETSUITE.Properties.Resources.token,true);
                 pedido.error = resultadoBill;
             }
 
                 return pedido;
+        }
+
+        public void ImprimirDirecto(string pedido,string tipo)
+        {
+            int internalID=0;
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                myConnection.Open();
+                string query = @"select internalid from iws.dbo.Invoices where createdfrom =(select internalId from iws.dbo.SaleOrders where tranid=" + pedido + @")";
+                SqlCommand cmd = new SqlCommand(query, myConnection);
+                internalID = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+            };
+
+             byte [] pdf=GetPDF(internalID);
+
+            MemoryStream ms = new MemoryStream(pdf);
+            var pdfViewer2 = new DevExpress.XtraPdfViewer.PdfViewer();
+            pdfViewer2.LoadDocument(ms);
+            pdfViewer2.Print();
+            pdfController pdfc = new pdfController();
+            pdfc.imprimePDFyPacking(internalID.ToString(), tipo);
+
+        }
+
+        public byte[] GetPDF(int v)
+        {
+            Connection connection = new Connection();
+            UpdateInvoiceModel UIM = new UpdateInvoiceModel();
+            UIM.internalId = v;
+            string json = JsonConvert.SerializeObject(UIM, Formatting.Indented);
+            string resultado = connection.POST("api/Invoice/GetPDF", json, SAI_NETSUITE.Properties.Resources.token, true);
+            respuesta r = JsonConvert.DeserializeObject<respuesta>(resultado);
+            
+            byte[] sPDFDecoded = Convert.FromBase64String(r.result);
+            return sPDFDecoded;
+
         }
 
         public void insertaErrorFulfilment(pedidoFulfill pedido)

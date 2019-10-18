@@ -206,6 +206,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Indarneg.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Invoices.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
     <Compile Include="IR.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
@@ -267,6 +270,7 @@
     <Compile Include="Models\Transaccion\SaleOrderToInvoiceModel.cs" />
     <Compile Include="Models\Transaccion\SplitSaleOrderModel.cs" />
     <Compile Include="Models\Transaccion\UnsplitSaleOrderModel.cs" />
+    <Compile Include="Models\Transaccion\UpdateInvoiceModel.cs" />
     <Compile Include="NumeroGuiaNetsuite.cs">
       <DependentUpon>Indarneg.tt</DependentUpon>
     </Compile>

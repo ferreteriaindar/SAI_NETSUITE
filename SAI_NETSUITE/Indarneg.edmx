@@ -9,14 +9,15 @@
           <Key>
             <PropertyRef Name="idEmbarque" />
           </Key>
+          <Property Name="idEmbarque" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="entity_id" Type="int" />
           <Property Name="fecha" Type="datetime" />
           <Property Name="comentarios" Type="nvarchar" MaxLength="200" />
           <Property Name="estatus" Type="nvarchar" MaxLength="200" />
-          <Property Name="idEmbarque" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idPaqueteria" Type="int" />
           <Property Name="fechaConcluido" Type="datetime" />
           <Property Name="usuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="fechaActualizacion" Type="datetime" />
         </EntityType>
         <EntityType Name="EmbarquesD">
           <Key>
@@ -32,6 +33,8 @@
           <Property Name="fechaHora" Type="nvarchar" MaxLength="50" />
           <Property Name="comentarios" Type="nvarchar" MaxLength="200" />
           <Property Name="IdEmbarqueD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="facturaid" Type="int" />
+          <Property Name="idNetsuite" Type="int" />
         </EntityType>
         <EntityType Name="NumeroGuiaNetsuite">
           <Key>
@@ -55,8 +58,9 @@
         </EntityType>
         <EntityType Name="NumeroGuiaNetsuiteD">
           <Key>
-            <PropertyRef Name="idNumeroGuia" />
+            <PropertyRef Name="idNumeroGuiaD" />
           </Key>
+          <Property Name="idNumeroGuiaD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="idNumeroGuia" Type="int" Nullable="false" />
           <Property Name="idFactura" Type="int" />
           <Property Name="Factura" Type="nvarchar" MaxLength="50" />
@@ -107,7 +111,7 @@
         </Association>
         <Association Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
           <End Role="NumeroGuiaNetsuite" Type="Self.NumeroGuiaNetsuite" Multiplicity="1" />
-          <End Role="NumeroGuiaNetsuiteD" Type="Self.NumeroGuiaNetsuiteD" Multiplicity="0..1" />
+          <End Role="NumeroGuiaNetsuiteD" Type="Self.NumeroGuiaNetsuiteD" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NumeroGuiaNetsuite">
               <PropertyRef Name="idNumeroGuia" />
@@ -147,11 +151,6 @@
       <Schema Namespace="IndarnegModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="IndarnegEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="NumeroGuiaNetsuite" EntityType="IndarnegModel.NumeroGuiaNetsuite" />
-          <EntitySet Name="NumeroGuiaNetsuiteD" EntityType="IndarnegModel.NumeroGuiaNetsuiteD" />
-          <AssociationSet Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
-            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
-            <End Role="NumeroGuiaNetsuiteD" EntitySet="NumeroGuiaNetsuiteD" />
-          </AssociationSet>
           <FunctionImport Name="spWMS_InsertaIR" ReturnType="Collection(IndarnegModel.spWMS_InsertaIR_Result)">
           <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -162,11 +161,16 @@
             <End Role="NumeroGuiaNetsuiteC" EntitySet="NumeroGuiaNetsuiteC" />
           </AssociationSet>
           <EntitySet Name="sai_usuario" EntityType="IndarnegModel.sai_usuario" />
-          <EntitySet Name="EmbarquesD" EntityType="IndarnegModel.EmbarquesD" />
           <EntitySet Name="Embarques" EntityType="IndarnegModel.Embarques" />
+          <EntitySet Name="EmbarquesD" EntityType="IndarnegModel.EmbarquesD" />
           <AssociationSet Name="FK_EmbarquesD_Embarques" Association="IndarnegModel.FK_EmbarquesD_Embarques">
             <End Role="Embarques" EntitySet="Embarques" />
             <End Role="EmbarquesD" EntitySet="EmbarquesD" />
+          </AssociationSet>
+          <EntitySet Name="NumeroGuiaNetsuiteD" EntityType="IndarnegModel.NumeroGuiaNetsuiteD" />
+          <AssociationSet Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
+            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
+            <End Role="NumeroGuiaNetsuiteD" EntitySet="NumeroGuiaNetsuiteD" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="NumeroGuiaNetsuite">
@@ -179,33 +183,9 @@
           <Property Name="ImporteTotal" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Fecha" Type="DateTime" Precision="3" />
           <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NumeroGuiaNetsuiteD" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteD" />
           <NavigationProperty Name="NumeroGuiaNetsuiteC" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteC" />
+          <NavigationProperty Name="NumeroGuiaNetsuiteD" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteD" />
         </EntityType>
-        <EntityType Name="NumeroGuiaNetsuiteD">
-          <Key>
-            <PropertyRef Name="idNumeroGuia" />
-          </Key>
-          <Property Name="idNumeroGuia" Type="Int32" Nullable="false" />
-          <Property Name="idFactura" Type="Int32" />
-          <Property Name="Factura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="RazonAutorizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Autorizacion" Type="Int32" />
-          <NavigationProperty Name="NumeroGuiaNetsuite" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuiteD" ToRole="NumeroGuiaNetsuite" />
-          <Property Name="embarque" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-        </EntityType>
-        <Association Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
-          <End Type="IndarnegModel.NumeroGuiaNetsuite" Role="NumeroGuiaNetsuite" Multiplicity="1" />
-          <End Type="IndarnegModel.NumeroGuiaNetsuiteD" Role="NumeroGuiaNetsuiteD" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="NumeroGuiaNetsuite">
-              <PropertyRef Name="idNumeroGuia" />
-            </Principal>
-            <Dependent Role="NumeroGuiaNetsuiteD">
-              <PropertyRef Name="idNumeroGuia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <ComplexType Name="spWMS_InsertaIR_Result">
           <Property Type="Int32" Name="rows" Nullable="false" />
         </ComplexType>
@@ -248,6 +228,21 @@
           <Property Name="sucursal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="area" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
         </EntityType>
+        <EntityType Name="Embarques">
+          <Key>
+            <PropertyRef Name="idEmbarque" />
+          </Key>
+          <Property Name="entity_id" Type="Int32" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="comentarios" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="estatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="idEmbarque" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idPaqueteria" Type="Int32" />
+          <Property Name="fechaConcluido" Type="DateTime" Precision="3" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaActualizacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="EmbarquesD" Relationship="IndarnegModel.FK_EmbarquesD_Embarques" FromRole="Embarques" ToRole="EmbarquesD" />
+        </EntityType>
         <EntityType Name="EmbarquesD">
           <Key>
             <PropertyRef Name="IdEmbarqueD" />
@@ -262,21 +257,9 @@
           <Property Name="fechaHora" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="comentarios" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="IdEmbarqueD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="facturaid" Type="Int32" />
+          <Property Name="idNetsuite" Type="Int32" />
           <NavigationProperty Name="Embarques" Relationship="IndarnegModel.FK_EmbarquesD_Embarques" FromRole="EmbarquesD" ToRole="Embarques" />
-        </EntityType>
-        <EntityType Name="Embarques">
-          <Key>
-            <PropertyRef Name="idEmbarque" />
-          </Key>
-          <Property Name="entity_id" Type="Int32" />
-          <Property Name="fecha" Type="DateTime" Precision="3" />
-          <Property Name="comentarios" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="estatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="idEmbarque" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idPaqueteria" Type="Int32" />
-          <Property Name="fechaConcluido" Type="DateTime" Precision="3" />
-          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="EmbarquesD" Relationship="IndarnegModel.FK_EmbarquesD_Embarques" FromRole="Embarques" ToRole="EmbarquesD" />
         </EntityType>
         <Association Name="FK_EmbarquesD_Embarques">
           <End Type="IndarnegModel.Embarques" Role="Embarques" Multiplicity="1" />
@@ -287,6 +270,31 @@
             </Principal>
             <Dependent Role="EmbarquesD">
               <PropertyRef Name="idEmbarque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="NumeroGuiaNetsuiteD">
+          <Key>
+            <PropertyRef Name="idNumeroGuiaD" />
+          </Key>
+          <Property Name="idNumeroGuiaD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idNumeroGuia" Type="Int32" Nullable="false" />
+          <Property Name="idFactura" Type="Int32" />
+          <Property Name="Factura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="RazonAutorizacion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Autorizacion" Type="Int32" />
+          <Property Name="embarque" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="NumeroGuiaNetsuite" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuiteD" ToRole="NumeroGuiaNetsuite" />
+        </EntityType>
+        <Association Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
+          <End Type="IndarnegModel.NumeroGuiaNetsuite" Role="NumeroGuiaNetsuite" Multiplicity="1" />
+          <End Type="IndarnegModel.NumeroGuiaNetsuiteD" Role="NumeroGuiaNetsuiteD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NumeroGuiaNetsuite">
+              <PropertyRef Name="idNumeroGuia" />
+            </Principal>
+            <Dependent Role="NumeroGuiaNetsuiteD">
+              <PropertyRef Name="idNumeroGuia" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -304,18 +312,6 @@
                 <ScalarProperty Name="ImporteTotal" ColumnName="ImporteTotal" />
                 <ScalarProperty Name="idPaqueteria" ColumnName="idPaqueteria" />
                 <ScalarProperty Name="NumeroGuia" ColumnName="NumeroGuia" />
-                <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="NumeroGuiaNetsuiteD">
-            <EntityTypeMapping TypeName="IndarnegModel.NumeroGuiaNetsuiteD">
-              <MappingFragment StoreEntitySet="NumeroGuiaNetsuiteD">
-                <ScalarProperty Name="embarque" ColumnName="embarque" />
-                <ScalarProperty Name="Autorizacion" ColumnName="Autorizacion" />
-                <ScalarProperty Name="RazonAutorizacion" ColumnName="RazonAutorizacion" />
-                <ScalarProperty Name="Factura" ColumnName="Factura" />
-                <ScalarProperty Name="idFactura" ColumnName="idFactura" />
                 <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -356,9 +352,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Embarques">
+            <EntityTypeMapping TypeName="IndarnegModel.Embarques">
+              <MappingFragment StoreEntitySet="Embarques">
+                <ScalarProperty Name="fechaActualizacion" ColumnName="fechaActualizacion" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="fechaConcluido" ColumnName="fechaConcluido" />
+                <ScalarProperty Name="idPaqueteria" ColumnName="idPaqueteria" />
+                <ScalarProperty Name="idEmbarque" ColumnName="idEmbarque" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="entity_id" ColumnName="entity_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="EmbarquesD">
             <EntityTypeMapping TypeName="IndarnegModel.EmbarquesD">
               <MappingFragment StoreEntitySet="EmbarquesD">
+                <ScalarProperty Name="idNetsuite" ColumnName="idNetsuite" />
+                <ScalarProperty Name="facturaid" ColumnName="facturaid" />
                 <ScalarProperty Name="IdEmbarqueD" ColumnName="IdEmbarqueD" />
                 <ScalarProperty Name="comentarios" ColumnName="comentarios" />
                 <ScalarProperty Name="fechaHora" ColumnName="fechaHora" />
@@ -372,17 +385,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Embarques">
-            <EntityTypeMapping TypeName="IndarnegModel.Embarques">
-              <MappingFragment StoreEntitySet="Embarques">
-                <ScalarProperty Name="usuario" ColumnName="usuario" />
-                <ScalarProperty Name="fechaConcluido" ColumnName="fechaConcluido" />
-                <ScalarProperty Name="idPaqueteria" ColumnName="idPaqueteria" />
-                <ScalarProperty Name="idEmbarque" ColumnName="idEmbarque" />
-                <ScalarProperty Name="estatus" ColumnName="estatus" />
-                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="entity_id" ColumnName="entity_id" />
+          <EntitySetMapping Name="NumeroGuiaNetsuiteD">
+            <EntityTypeMapping TypeName="IndarnegModel.NumeroGuiaNetsuiteD">
+              <MappingFragment StoreEntitySet="NumeroGuiaNetsuiteD">
+                <ScalarProperty Name="embarque" ColumnName="embarque" />
+                <ScalarProperty Name="Autorizacion" ColumnName="Autorizacion" />
+                <ScalarProperty Name="RazonAutorizacion" ColumnName="RazonAutorizacion" />
+                <ScalarProperty Name="Factura" ColumnName="Factura" />
+                <ScalarProperty Name="idFactura" ColumnName="idFactura" />
+                <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
+                <ScalarProperty Name="idNumeroGuiaD" ColumnName="idNumeroGuiaD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -16,13 +16,13 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 {
     public partial class recibo3 : Form
     {
-        string sqlString,agente,cte,agenteNombre,sucursal,folioEmail;
+        string agente,cte,agenteNombre,sucursal,folioEmail;
         int intento = 0;
         DataTable dt;
         List<string> facturas;
-        public recibo3(string  sql,string agt,string cliente,List<string> facs,string suc)
+        public recibo3(string agt,string cliente,List<string> facs,string suc)
         {
-            sqlString = sql;
+          
             agente = agt;
             cte = cliente;
             facturas = facs;
@@ -50,11 +50,11 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             dt.Columns.Add("despp", typeof(double));
             dt.Columns.Add("importepagar", typeof(double));
             dt.Columns.Add("comentario", typeof(string));
-            SqlConnection myConnection =new SqlConnection(sqlString);
+            SqlConnection myConnection =new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             SqlCommand cmd = new SqlCommand("",myConnection);
             myConnection.Open();
-            cmd.CommandText = @"  select mov,movid,round((importe+impuestos),2) as importe,case when(isnull(indardescnormal,0)+isnull(indardescnegociado,0))=0 then 4 ELSE (isnull(indardescnormal,0)+isnull(indardescnegociado,0)) END as despp,round((importe+impuestos),2) as importepagar,'' as comentario from  venta
-          where movid in ('" +string.Join("','", facturas)+"') and mov='Factura Indar' and estatus='Concluido'"  ; 
+            cmd.CommandText = @"  		  select TranType as mov,TranId as movid,(SubTotal+TaxTotal) as importe,case when isnull( DescuentoTotalPP,0)=0 then 4 else isnull( DescuentoTotalPP,0) end  as despp,(SubTotal+TaxTotal) as importepagar,'' as comentario from iws.dbo.Invoices
+                                    where tranid in (" + string.Join(",", facturas)+") and status='Open'"  ; 
           Console.WriteLine(cmd.CommandText);
           if (facturas.Count > 0)
           {
@@ -76,10 +76,10 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             
                 txtNumCte.Text = cte;
                 txtfecha.Text = DateTime.Now.ToShortDateString();
-                SqlConnection myConnection = new SqlConnection(sqlString);
+                SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
                 SqlCommand cmd = new SqlCommand("", myConnection);
                 myConnection.Open();
-                cmd.CommandText = "select isnull(nombre,'No existe') from cte where cliente='" + cte + "'";
+                cmd.CommandText = "select isnull(company,'No existe') from iws.dbo.customers where companyid='" + cte + "'";
                 var resultado = cmd.ExecuteScalar().ToString();
                 txtRazonSocial.Text = resultado.ToString();
         
@@ -90,13 +90,15 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
         {
             try
             {
-                SqlConnection myConnection = new SqlConnection(sqlString);
+                SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
 
                 string query = "select * ,isnull((select  case when(isnull(indardescnormal,0)+isnull(indardescnegociado,0))=0 then 4 ELSE (isnull(indardescnormal,0)+isnull(indardescnegociado,0)) END from venta where venta.movid=q.movid and venta.mov=q.mov),0) as despp  from (" +
                                 "SELECT MOV,MOVID,SALDO,mov+' '+movid+'   $'+STR(saldo, 8, 2) as completo  FROM dbo.fnCxcInfo('FIN', '" + cte + "', '" + cte + "') " +
                                 "  WHERE Mov NOT IN ('Cobro Posfechado') AND Moneda = 'Pesos' " +
                                 "  AND Mov not in('Redondeo'))as q " +
                                 "  ORDER BY  Mov, MovID ";
+                
+
                 Console.WriteLine(query);
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.SelectCommand.CommandTimeout = 0;
@@ -155,7 +157,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             GridView view = searchLookUpEdit1.Properties.View;
             int rowHandle = view.FocusedRowHandle;
             object mov = view.GetRowCellValue(rowHandle, "MOV");
-            SqlConnection myConnection = new SqlConnection(sqlString);
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("", myConnection);
             cmd.CommandText = "select isnull(cteRecogeFolio,'LIBRE') AS resultado from cxc where MovID='" + searchLookUpEdit1.EditValue.ToString() + "' and mov='"+mov+"'";
@@ -240,7 +242,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             {
                 try
                 {
-                    SqlConnection myConnection = new SqlConnection(sqlString);
+                    SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
                     myConnection.Open();
                     SqlCommand cmd = new SqlCommand("", myConnection);
                     cmd.CommandText = "select top 1 isnull(eMail,'sistemas@indar.com.mx') as email from ctecto  where cliente='" + cte + "' AND CFD_Enviar is not null order by id asc";
@@ -261,7 +263,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
         }
         public void registrardocumentosAplicados(string folio)
         {
-            SqlConnection myConnection = new SqlConnection(sqlString);
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("", myConnection);
             for (int i = 0; i <gridView1.RowCount; i++)
@@ -277,7 +279,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
         public int regresaIdBlock(string folio)
         {
             int id_block=0;
-            SqlConnection myConnection = new SqlConnection(sqlString);
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             string query = "select id,nombre from  indarneg.dbo.recibo_folios where " + folio + ">=folio_inicio and " + folio + "<=folio_fin and serie='A'";
             SqlCommand cmd = new SqlCommand(query, myConnection);
             myConnection.Open();
@@ -297,7 +299,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
         public string regresaUltimoFolio(string sucursal)
         {
-            SqlConnection myConnection = new SqlConnection(sqlString);
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("", myConnection);
             if (sucursal.Equals("GDL"))
@@ -325,7 +327,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             try
             {
                 string ultimofolio = regresaUltimoFolio(sucursal);
-                SqlConnection myConnection = new SqlConnection(sqlString);
+                SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
 
                 myConnection.Open();
 
@@ -386,7 +388,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
         try
         {
             string ultimofolio = regresaUltimoFolio(sucursal);
-            SqlConnection myConnection = new SqlConnection(sqlString);
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
 
             myConnection.Open();
 
@@ -502,7 +504,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
         public string regresaAgenteNombre(string agente)
         {
-            SqlConnection myConnection = new SqlConnection(sqlString);
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("", myConnection);
             cmd.CommandText = "select nombre from agente  where agente='" + agente + "'";
@@ -609,7 +611,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
         private void txtFolio_Leave(object sender, EventArgs e)
         {
             var resultado="SI";
-            SqlConnection myConnection = new SqlConnection(sqlString);
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             SqlCommand cmd = new SqlCommand("", myConnection);
             myConnection.Open();
             cmd.CommandText=  @"         if exists(select id from indarneg.dbo.recibo_folios where "+txtFolio.Text+">=folio_inicio and "+txtFolio.Text+@"<=folio_fin )

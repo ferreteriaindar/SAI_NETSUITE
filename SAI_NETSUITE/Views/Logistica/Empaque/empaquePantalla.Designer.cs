@@ -66,6 +66,7 @@
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.btnPDF = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -83,6 +84,7 @@
             this.colerror.Caption = "ERROR";
             this.colerror.FieldName = "error";
             this.colerror.Name = "colerror";
+            this.colerror.OptionsColumn.ReadOnly = true;
             this.colerror.Visible = true;
             this.colerror.VisibleIndex = 7;
             this.colerror.Width = 168;
@@ -99,6 +101,7 @@
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
+            this.gridControl1.DoubleClick += new System.EventHandler(this.gridControl1_DoubleClick);
             // 
             // gridView1
             // 
@@ -170,6 +173,7 @@
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             this.gridView1.RowHeight = 15;
+            this.gridView1.DoubleClick += new System.EventHandler(this.gridView1_DoubleClick);
             // 
             // colTIEMPO_100
             // 
@@ -395,10 +399,22 @@
             this.btnPDF.Text = "PDF";
             this.btnPDF.Click += new System.EventHandler(this.btnPDF_Click);
             // 
+            // simpleButton1
+            // 
+            this.simpleButton1.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.simpleButton1.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.pdf;
+            this.simpleButton1.Location = new System.Drawing.Point(669, 8);
+            this.simpleButton1.Name = "simpleButton1";
+            this.simpleButton1.Size = new System.Drawing.Size(75, 50);
+            this.simpleButton1.TabIndex = 7;
+            this.simpleButton1.Text = "simpleButton1";
+            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
+            // 
             // empaquePantalla
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.simpleButton1);
             this.Controls.Add(this.btnPDF);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox);
@@ -449,5 +465,6 @@
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl3;
         private DevExpress.XtraEditors.SimpleButton btnPDF;
+        private DevExpress.XtraEditors.SimpleButton simpleButton1;
     }
 }

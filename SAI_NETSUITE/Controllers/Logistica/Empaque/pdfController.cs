@@ -67,7 +67,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                     }
                 }
             };
-            ImprimeFacturaPdf(id);
+           // ImprimeFacturaPdf(id);
 
         }
 

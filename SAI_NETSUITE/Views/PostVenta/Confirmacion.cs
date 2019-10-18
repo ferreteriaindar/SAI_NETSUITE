@@ -7,6 +7,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static SAI_NETSUITE.Controllers.PostVenta.ConfirmacionController;
+using SAI_NETSUITE.Models.Transaccion;
+using SAI_NETSUITE.IWS;
+using Newtonsoft.Json;
 
 namespace SAI_NETSUITE.Views.PostVenta
 {
@@ -16,10 +20,12 @@ namespace SAI_NETSUITE.Views.PostVenta
         DataTable dt = new DataTable();
         int tipoPrincipal;
         string usuario, perfil;
-        public Confirmacion(string perfil,string usuario)
+        Token token;
+        public Confirmacion(string perfil,string usuario,Token token)
         {
             this.perfil = perfil;
             this.usuario = usuario;
+            this.token = token;
             InitializeComponent();
         }
 
@@ -40,12 +46,18 @@ namespace SAI_NETSUITE.Views.PostVenta
             dt.Columns.Add("fechaHora", typeof(string));
             dt.Columns.Add("persona", typeof(string));
             dt.Columns.Add("comentarios", typeof(string));
+            dt.Columns.Add("facturaid", typeof(int));
         }
 
         private void txtFactura_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)13)
+            {
                 btnBuscarFactura_Click(null, null);
+                txtFactura.Text = "";
+                txtFactura.Select();
+            }
+
         }
 
         private void buscaFactura(string v)
@@ -113,14 +125,53 @@ namespace SAI_NETSUITE.Views.PostVenta
             btnBuscarEmbarque_Click(null, null);
         }
 
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<UpdateInvoiceModel> lista = (List<UpdateInvoiceModel>)e.Argument;
+            int avance = 0;
+            foreach (var Invoice in lista)
+            {
+
+                Controllers.PostVenta.ConfirmacionController cc = new Controllers.PostVenta.ConfirmacionController();
+               string resultado= cc.insertaFechaVencimientoNetsuite(Invoice,token);
+                if (resultado.Contains("true"))
+                {
+                   
+                    backgroundWorker1.ReportProgress(avance);
+                    avance++;
+                    Console.WriteLine(Invoice.internalId);
+                }
+                else MessageBox.Show("ERROR "+ JsonConvert.SerializeObject(Invoice));
+
+
+            }
+
+
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            labelAvance.Text = e.ProgressPercentage.ToString() + "/" + gridView1.RowCount.ToString();
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Proceso Terminado");
+            gridControl1.DataSource = null;
+            labelAvance.Text = "0/1";
+            pictureBox1.Visible = false;
+        }
+
         private void simpleButton3_Click(object sender, EventArgs e)
         {
+            pictureBox1.Visible = true;
             DataTable data = new DataTable();
             data.Columns.Add("factura", typeof(string));
             data.Columns.Add("estado", typeof(string));
             data.Columns.Add("fechaHora", typeof(string));
             data.Columns.Add("persona", typeof(string));
             data.Columns.Add("comentarios", typeof(string));
+            data.Columns.Add("facturaid", typeof(int));
 
             for (int i = 0; i < gridView1.RowCount; i++)
             {
@@ -129,7 +180,8 @@ namespace SAI_NETSUITE.Views.PostVenta
                                 gridView1.GetRowCellValue(i, colEstado).ToString(),
                                 gridView1.GetRowCellValue(i, colfechaHora).ToString(),
                                 gridView1.GetRowCellValue(i, colPersona).ToString(),
-                                gridView1.GetRowCellValue(i, colcomentarios).ToString()
+                                gridView1.GetRowCellValue(i, colcomentarios).ToString(),
+                               Convert.ToInt32( gridView1.GetRowCellValue(i,colfacturaid).ToString())
                                 );
             }
             bool resultado;
@@ -138,8 +190,23 @@ namespace SAI_NETSUITE.Views.PostVenta
             else resultado = new Controllers.PostVenta.ConfirmacionController().registraEmbarqueConcluido(usuario, data);
             if (resultado)
             {
-                MessageBox.Show("Proceso Terminado");
-                gridControl1.DataSource = null;
+                List<UpdateInvoiceModel> factura = new List<UpdateInvoiceModel>();
+                for (int i = 0; i < gridView1.RowCount; i++)
+                {
+                    UpdateInvoiceModel uim = new UpdateInvoiceModel()
+                    {
+                        internalId = Convert.ToInt32(gridView1.GetRowCellValue(i, colfacturaid).ToString()),
+                        custbody_nso_indr_receipt_date = gridView1.GetRowCellValue(i, colfechaHora).ToString()
+                    };
+                    factura.Add(uim);
+                }
+               /* List<UpdateInvoiceModel> lista = new Controllers.PostVenta.ConfirmacionController().regresaInternalId(factura);*/
+                labelAvance.Text = "0/" + gridView1.RowCount.ToString();
+                if (!backgroundWorker1.IsBusy)
+                {
+                    backgroundWorker1.RunWorkerAsync(argument: factura);
+                    
+                }
             }
             else
                 MessageBox.Show("Error en la transaccion");

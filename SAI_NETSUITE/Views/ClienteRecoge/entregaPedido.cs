@@ -144,11 +144,11 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
             ////PEDIDOS
             query = @"
-                        select SO.id,so.tranid as movid,SO.total as importe,so.trandate AS fechaemision,S.NAME as situacion,f.LIST_ITEM_NAME as formaenvio from iws.dbo.SaleOrders SO
-                        INNER JOIN IWS.DBO.Status S on so.orderstatus=s.status
-                        inner join iws.dbo.FormaEnvio f on so.formaEnvio_id=f.LIST_ID
-                        inner join IWS.dbo.Customers C on so.entity=c.internalid
-                        where so.orderstatus NOT IN ('H','G') and c.companyId='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "'";
+                        select SO.internalId,so.tranid as movid,SO.total as importe,so.trandate AS fechaemision,S.NAME as situacion,f.LIST_ITEM_NAME as formaenvio from iws.dbo.SaleOrders SO
+                        INNER JOIN IWS.DBO.Status S on so.status=s.status
+                        inner join iws.dbo.FormaEnvio f on so.shippingWay=f.LIST_ID
+                        inner join IWS.dbo.Customers C on so.idCustomer=c.internalid
+                        where so.status NOT IN ('H','G') and c.companyId='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "'";
             Console.WriteLine(query);
             SqlDataAdapter da3 = new SqlDataAdapter(query, myConnection);
             da3.SelectCommand.CommandTimeout = 0;
@@ -409,7 +409,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             if (checkGDL.Checked)
                 sucursal = "GDL";
             else sucursal = "0";
-                recibo3 r3 = new recibo3(sqlString, txtAgente.Text, txtCliente.Text, facturas,sucursal);
+                recibo3 r3 = new recibo3( usuario, txtCliente.Text, facturas,sucursal);
                 r3.Show();
          //   }
               gridFacturas.DataSource = null;
@@ -588,7 +588,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             if (checkGDL.Checked)
                 sucursal = "GDL";
             else sucursal = "0";
-            recibo3 r3 = new recibo3(sqlString, txtAgente.Text, txtCliente.Text, facturas,sucursal);
+            recibo3 r3 = new recibo3(usuario, txtCliente.Text, facturas,sucursal);
             r3.Show();
 
 

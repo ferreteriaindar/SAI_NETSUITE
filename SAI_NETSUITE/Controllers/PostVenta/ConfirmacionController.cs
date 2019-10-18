@@ -1,10 +1,14 @@
-﻿using System;
+﻿using SAI_NETSUITE.Controllers.IWS;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SAI_NETSUITE.IWS;
+using Newtonsoft.Json;
+using SAI_NETSUITE.Models.Transaccion;
 
 namespace SAI_NETSUITE.Controllers.PostVenta
 {
@@ -16,7 +20,7 @@ namespace SAI_NETSUITE.Controllers.PostVenta
             DataSet ds = new DataSet();
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"select ED.factura,ED.estado,ED.fechaHora,ED.persona,ED.comentarios from Indarneg.dbo.Embarques E
+                string query = @"select ED.factura,ED.estado,ED.fechaHora,ED.persona,ED.comentarios,ED.facturaid from Indarneg.dbo.Embarques E
 			                    left join Indarneg.dbo.EmbarquesD ED ON E.idEmbarque=ED.idEmbarque
 			                    WHERE  E.estatus='TRANSITO' AND E.idEmbarque=" + idembarque;
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
@@ -36,11 +40,11 @@ namespace SAI_NETSUITE.Controllers.PostVenta
 			                        SELECT 'ENTREGADA' AS RESULTADO
 			                        ELSE
 				                        BEGIN 
-				                        if exists(select factura from indarneg.dbo.embarquesD where factura='"+factura+@"')
+				                        if exists(select factura from indarneg.dbo.embarquesD where factura='"+factura+ @"')
 					                        begin
-						                        SELECT i.TranId as factura,estado='ENTREGADO',fechaHora='',persona='',comentarios='' FROM IWS.DBO.Invoices I 
+						                        SELECT i.TranId as factura,estado='ENTREGADO',fechaHora='',persona='',comentarios='',I.internalid FROM IWS.DBO.Invoices I 
 						                        left join iws.dbo.Customers C on i.Entity=c.internalid
-						                        where  i.TranId="+factura+@"
+						                        where  i.TranId=" + factura+@"
 					                        end
 				                        else
 				                        select 'NO EXISTE' AS RESULTADO
@@ -58,6 +62,7 @@ namespace SAI_NETSUITE.Controllers.PostVenta
                     drr["fechaHora"] = sdr.GetValue(2).ToString();
                     drr["persona"] = sdr.GetValue(3).ToString();
                     drr["comentarios"] = sdr.GetValue(4).ToString();
+                    drr["facturaid"] = Convert.ToInt32(sdr.GetValue(5).ToString());
 
 
                 }
@@ -73,20 +78,25 @@ namespace SAI_NETSUITE.Controllers.PostVenta
                 using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
                 {
                     myConnection.Open();
-                    SqlCommand cmd = new SqlCommand("", myConnection);
+                   
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
-                        cmd.CommandText = "update indarneg.dbo.embarquesD set fechahora=@fechahora,persona=@persona,estado=@estado,comentarios=@comentarios where idembarque=@idembarque and factura=@factura";
+                        SqlCommand cmd = new SqlCommand("", myConnection);
+                        cmd.CommandText = "update indarneg.dbo.embarquesD set fechahora=@fechahora,persona=@persona,estado=@estado,comentarios=@comentarios,facturaid=@facturaid where idembarque=@idembarque and factura=@factura";
                         cmd.Parameters.AddWithValue("@fechahora", dt.Rows[i]["fechahora"].ToString());
                         cmd.Parameters.AddWithValue("@persona", dt.Rows[i]["persona"].ToString());
                         cmd.Parameters.AddWithValue("@estado", dt.Rows[i]["estado"].ToString());
                         cmd.Parameters.AddWithValue("@comentarios", dt.Rows[i]["comentarios"].ToString());
                         cmd.Parameters.AddWithValue("@idembarque", embarque);
                         cmd.Parameters.AddWithValue("@factura", dt.Rows[i]["factura"].ToString());
+                        cmd.Parameters.AddWithValue("@facturaid",Convert.ToInt32( dt.Rows[i]["facturaid"].ToString()));
                         cmd.ExecuteNonQuery();
                     }
-                    cmd.CommandText = "update indarneg.dbo.embarques set estatus='CONCLUIDO',fechaconcluido=getdate() WHERE IDEMBARQUE=" + embarque;
-                    cmd.ExecuteNonQuery();
+                    myConnection.Close();
+                    myConnection.Open();
+                    SqlCommand cmd2 = new SqlCommand("", myConnection);
+                    cmd2.CommandText = "update indarneg.dbo.embarques set estatus='CONCLUIDO',fechaconcluido=getdate() WHERE IDEMBARQUE=" + embarque;
+                    cmd2.ExecuteNonQuery();
 
                 }
                 return true;
@@ -156,6 +166,50 @@ namespace SAI_NETSUITE.Controllers.PostVenta
             }
 
             return emb;
+        }
+
+
+        public List<UpdateInvoiceModel> regresaInternalId(List<UpdateInvoiceModel> lista)
+        {
+            List<UpdateInvoiceModel> l = new List<UpdateInvoiceModel>();
+            using (IWSEntities ctx = new IWSEntities())
+            {
+                foreach (var invoice in lista)
+                {
+                    UpdateInvoiceModel ium = new UpdateInvoiceModel();
+
+
+                    ium.internalId = (from s in ctx.Invoices
+                                      where s.TranId.Equals(invoice.internalId)
+                                      select s.internalId.Value
+
+                                      ).FirstOrDefault();
+                    ium.custbody_nso_indr_receipt_date = invoice.custbody_nso_indr_receipt_date;
+                    l.Add(ium);
+                }
+
+                return l;
+                
+            }
+
+
+
+
+
+
+        }
+
+        
+
+
+
+        public string insertaFechaVencimientoNetsuite(UpdateInvoiceModel factura, Token token)
+        {
+            IWS.Connection conn = new IWS.Connection();
+            string json = JsonConvert.SerializeObject(factura);
+            var resultado = conn.POST("api/Invoice/UpdateInvoice", json, token.token,false);
+
+            return resultado.ToString();
         }
     }
 }

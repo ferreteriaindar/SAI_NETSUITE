@@ -60,6 +60,7 @@
             this.txtNumEmbarque = new DevExpress.XtraEditors.TextEdit();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
+            this.colTRANID = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
@@ -153,7 +154,8 @@
             this.colcompanyid,
             this.colCREATE_DATE,
             this.colFORMAENVIO,
-            this.colPAQUETERIA});
+            this.colPAQUETERIA,
+            this.colTRANID});
             this.GridView1.GridControl = this.gridControl1;
             this.GridView1.Name = "GridView1";
             // 
@@ -372,6 +374,12 @@
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
+            // colTRANID
+            // 
+            this.colTRANID.Caption = "TRANID";
+            this.colTRANID.FieldName = "TRANID";
+            this.colTRANID.Name = "colTRANID";
+            // 
             // embarqueMasivo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -438,5 +446,6 @@
         private DevExpress.XtraEditors.SearchLookUpEdit searchPaqueteria;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private System.Windows.Forms.Label label5;
+        private DevExpress.XtraGrid.Columns.GridColumn colTRANID;
     }
 }
