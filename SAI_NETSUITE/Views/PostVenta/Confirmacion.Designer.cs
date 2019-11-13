@@ -28,7 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            this.components = new System.ComponentModel.Container();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.labelAvance = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
@@ -53,9 +54,9 @@
             this.colfechaHora = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPersona = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colcomentarios = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.colfacturaid = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
@@ -171,7 +172,7 @@
             // 
             this.separatorControl2.AutoSizeMode = true;
             this.separatorControl2.LineOrientation = System.Windows.Forms.Orientation.Vertical;
-            this.separatorControl2.Location = new System.Drawing.Point(990, 28);
+            this.separatorControl2.Location = new System.Drawing.Point(1036, 28);
             this.separatorControl2.Name = "separatorControl2";
             this.separatorControl2.Size = new System.Drawing.Size(20, 67);
             this.separatorControl2.TabIndex = 4;
@@ -180,7 +181,7 @@
             // 
             this.btnAplicarFecha.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.btnAplicarFecha.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.task_16x16;
-            this.btnAplicarFecha.Location = new System.Drawing.Point(841, 40);
+            this.btnAplicarFecha.Location = new System.Drawing.Point(898, 40);
             this.btnAplicarFecha.Name = "btnAplicarFecha";
             this.btnAplicarFecha.Size = new System.Drawing.Size(132, 44);
             this.btnAplicarFecha.TabIndex = 6;
@@ -191,7 +192,7 @@
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(711, 28);
+            this.label2.Location = new System.Drawing.Point(711, 26);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(54, 19);
             this.label2.TabIndex = 5;
@@ -200,7 +201,7 @@
             // dateEdit1
             // 
             this.dateEdit1.EditValue = null;
-            this.dateEdit1.Location = new System.Drawing.Point(651, 51);
+            this.dateEdit1.Location = new System.Drawing.Point(715, 51);
             this.dateEdit1.Name = "dateEdit1";
             this.dateEdit1.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
@@ -208,9 +209,9 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.dateEdit1.Size = new System.Drawing.Size(173, 22);
             this.dateEdit1.TabIndex = 4;
-            conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule2.ErrorText = "This value is not valid";
-            this.dxValidationProvider1.SetValidationRule(this.dateEdit1, conditionValidationRule2);
+            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule1.ErrorText = "This value is not valid";
+            this.dxValidationProvider1.SetValidationRule(this.dateEdit1, conditionValidationRule1);
             // 
             // separatorControl1
             // 
@@ -330,18 +331,18 @@
             this.colcomentarios.Visible = true;
             this.colcomentarios.VisibleIndex = 5;
             // 
+            // colfacturaid
+            // 
+            this.colfacturaid.Caption = "facturaid";
+            this.colfacturaid.FieldName = "facturaid";
+            this.colfacturaid.Name = "colfacturaid";
+            // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.WorkerReportsProgress = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // colfacturaid
-            // 
-            this.colfacturaid.Caption = "facturaid";
-            this.colfacturaid.FieldName = "facturaid";
-            this.colfacturaid.Name = "colfacturaid";
             // 
             // Confirmacion
             // 

@@ -166,7 +166,7 @@ namespace SAI_NETSUITE
 
                     case "btnEntregaPedido": ///borrar pruebas anyelo
                         panelControl1.Controls.Clear();
-                        Views.ClienteRecoge.entregaPedido epCTE = new Views.ClienteRecoge.entregaPedido(usuario,perfil,SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString)
+                        Views.ClienteRecoge.entregaPedido epCTE = new Views.ClienteRecoge.entregaPedido(usuario,perfil,SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString,token)
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill
@@ -186,6 +186,84 @@ namespace SAI_NETSUITE
                         Views.ClienteRecoge.registroCliente rc = new Views.ClienteRecoge.registroCliente(usuario, perfil);
                         rc.Show();
                         break;
+
+                    case "btnImprimirFactura":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Empaque.ReimprimirFactura rf = new Views.Logistica.Empaque.ReimprimirFactura()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        rf.BringToFront();
+                        break;
+                    case "btnOrdenCobro":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.OrdenCobroViewcs ocv = new Views.CXC.OrdenCobroViewcs(usuario)
+                        {
+                            Parent=panelControl1,
+                            Dock=DockStyle.Fill
+                        };
+                        ocv.BringToFront();
+                        break;
+                    case "btnConvertirSAD":
+                        panelControl1.Controls.Clear();
+                        Views.Ventas.Apoyos.ConvertirSAD cs = new Views.Ventas.Apoyos.ConvertirSAD(usuario)
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        cs.BringToFront();
+                        break;
+                    case "btnAutorizarSAD":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.AutorizarSAD sad = new Views.CXC.AutorizarSAD(usuario)
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        sad.BringToFront();
+                        break;
+                    case "btnValidarSADCR": case "btnValidarSADALM":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Distribucion.ValidarSAD vscr = new Views.Logistica.Distribucion.ValidarSAD(usuario)
+                        {
+                            Parent=panelControl1,
+                            Dock=DockStyle.Fill
+                        };
+                        break;
+                    case "btnReporteSADCXC": case "btnReporteSADALM":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.ReporteSAD rs = new Views.CXC.ReporteSAD()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        break;
+                    case "btnFacturasEmbarcadas":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.Reportes.FacturasEmbarcadas fe = new Views.CXC.Reportes.FacturasEmbarcadas()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        break;
+                    case "btnReporteOrdenCobro":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.Reportes.ReporteOrdenCobro roc = new Views.CXC.Reportes.ReporteOrdenCobro()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        break;
+                    case "btnReciboDeCobro":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.entrega_block eb = new Views.CXC.entrega_block(usuario,perfil)
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        break;
+
 
                 }
 

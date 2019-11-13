@@ -89,6 +89,9 @@
             this.colFacturaXllegar = new DevExpress.XtraGrid.Columns.GridColumn();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
+            this.labelAvance = new System.Windows.Forms.Label();
+            this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridFacturas)).BeginInit();
@@ -109,6 +112,7 @@
             this.groupControl6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridFacturaXllegar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView5)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // colEstatus
@@ -152,13 +156,13 @@
             // 
             this.gridFacturas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridFacturas.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
-            this.gridFacturas.Location = new System.Drawing.Point(2, 25);
+            this.gridFacturas.Location = new System.Drawing.Point(2, 27);
             this.gridFacturas.MainView = this.gridView1;
             this.gridFacturas.Margin = new System.Windows.Forms.Padding(4);
             this.gridFacturas.Name = "gridFacturas";
             this.gridFacturas.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit1});
-            this.gridFacturas.Size = new System.Drawing.Size(757, 164);
+            this.gridFacturas.Size = new System.Drawing.Size(757, 162);
             this.gridFacturas.TabIndex = 0;
             this.gridFacturas.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -227,11 +231,11 @@
             // 
             this.gridpedido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridpedido.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
-            this.gridpedido.Location = new System.Drawing.Point(2, 25);
+            this.gridpedido.Location = new System.Drawing.Point(2, 27);
             this.gridpedido.MainView = this.gridView3;
             this.gridpedido.Margin = new System.Windows.Forms.Padding(4);
             this.gridpedido.Name = "gridpedido";
-            this.gridpedido.Size = new System.Drawing.Size(1137, 353);
+            this.gridpedido.Size = new System.Drawing.Size(1137, 351);
             this.gridpedido.TabIndex = 0;
             this.gridpedido.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView3});
@@ -416,6 +420,8 @@
             // 
             this.groupControl4.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl4.Controls.Add(this.pictureEdit1);
+            this.groupControl4.Controls.Add(this.labelAvance);
             this.groupControl4.Controls.Add(this.checkGDL);
             this.groupControl4.Controls.Add(this.btnAdminsitraralmacen);
             this.groupControl4.Controls.Add(this.checkBox1);
@@ -612,11 +618,11 @@
             // 
             this.gridFacturaXllegar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridFacturaXllegar.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
-            this.gridFacturaXllegar.Location = new System.Drawing.Point(2, 25);
+            this.gridFacturaXllegar.Location = new System.Drawing.Point(2, 27);
             this.gridFacturaXllegar.MainView = this.gridView5;
             this.gridFacturaXllegar.Margin = new System.Windows.Forms.Padding(4);
             this.gridFacturaXllegar.Name = "gridFacturaXllegar";
-            this.gridFacturaXllegar.Size = new System.Drawing.Size(356, 163);
+            this.gridFacturaXllegar.Size = new System.Drawing.Size(356, 161);
             this.gridFacturaXllegar.TabIndex = 0;
             this.gridFacturaXllegar.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView5});
@@ -633,7 +639,7 @@
             // colFacturaXllegar
             // 
             this.colFacturaXllegar.Caption = "Factura";
-            this.colFacturaXllegar.FieldName = "movid";
+            this.colFacturaXllegar.FieldName = "tranid";
             this.colFacturaXllegar.Name = "colFacturaXllegar";
             this.colFacturaXllegar.Visible = true;
             this.colFacturaXllegar.VisibleIndex = 0;
@@ -658,6 +664,34 @@
             this.simpleButton2.Text = "Borrar recibo embarque";
             this.simpleButton2.Visible = false;
             this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
+            // 
+            // backgroundWorker1
+            // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
+            this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
+            // 
+            // labelAvance
+            // 
+            this.labelAvance.AutoSize = true;
+            this.labelAvance.Location = new System.Drawing.Point(399, 143);
+            this.labelAvance.Name = "labelAvance";
+            this.labelAvance.Size = new System.Drawing.Size(42, 17);
+            this.labelAvance.TabIndex = 14;
+            this.labelAvance.Text = "label5";
+            // 
+            // pictureEdit1
+            // 
+            this.pictureEdit1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureEdit1.EditValue = global::SAI_NETSUITE.Properties.Resources._835;
+            this.pictureEdit1.Location = new System.Drawing.Point(345, 135);
+            this.pictureEdit1.Name = "pictureEdit1";
+            this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit1.Size = new System.Drawing.Size(40, 28);
+            this.pictureEdit1.TabIndex = 15;
+            this.pictureEdit1.Visible = false;
             // 
             // entregaPedido
             // 
@@ -697,6 +731,7 @@
             this.groupControl6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridFacturaXllegar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView5)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -755,5 +790,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colPedId;
         private DevExpress.XtraGrid.Columns.GridColumn colwms;
         private System.Windows.Forms.CheckBox checkGDL;
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
+        private System.Windows.Forms.Label labelAvance;
+        private DevExpress.XtraEditors.PictureEdit pictureEdit1;
     }
 }

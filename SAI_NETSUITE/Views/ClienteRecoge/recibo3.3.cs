@@ -3,6 +3,8 @@ using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraLayout;
 using DevExpress.XtraReports.UI;
+using Newtonsoft.Json;
+using SAI_NETSUITE.Models.Transaccion;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -90,26 +92,41 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
         {
             try
             {
-                SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
+                /*   SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
 
-                string query = "select * ,isnull((select  case when(isnull(indardescnormal,0)+isnull(indardescnegociado,0))=0 then 4 ELSE (isnull(indardescnormal,0)+isnull(indardescnegociado,0)) END from venta where venta.movid=q.movid and venta.mov=q.mov),0) as despp  from (" +
-                                "SELECT MOV,MOVID,SALDO,mov+' '+movid+'   $'+STR(saldo, 8, 2) as completo  FROM dbo.fnCxcInfo('FIN', '" + cte + "', '" + cte + "') " +
-                                "  WHERE Mov NOT IN ('Cobro Posfechado') AND Moneda = 'Pesos' " +
-                                "  AND Mov not in('Redondeo'))as q " +
-                                "  ORDER BY  Mov, MovID ";
-                
+                   string query = "select * ,isnull((select  case when(isnull(indardescnormal,0)+isnull(indardescnegociado,0))=0 then 4 ELSE (isnull(indardescnormal,0)+isnull(indardescnegociado,0)) END from venta where venta.movid=q.movid and venta.mov=q.mov),0) as despp  from (" +
+                                   "SELECT MOV,MOVID,SALDO,mov+' '+movid+'   $'+STR(saldo, 8, 2) as completo  FROM dbo.fnCxcInfo('FIN', '" + cte + "', '" + cte + "') " +
+                                   "  WHERE Mov NOT IN ('Cobro Posfechado') AND Moneda = 'Pesos' " +
+                                   "  AND Mov not in('Redondeo'))as q " +
+                                   "  ORDER BY  Mov, MovID ";
 
-                Console.WriteLine(query);
-                SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
-                da.SelectCommand.CommandTimeout = 0;
-                DataSet ds = new DataSet();
-                da.Fill(ds);
 
-                searchLookUpEdit1.Properties.DataSource = ds.Tables[0];
+                   Console.WriteLine(query);
+                   SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
+                   da.SelectCommand.CommandTimeout = 0;
+                   DataSet ds = new DataSet();
+                   da.Fill(ds);
+
+                   searchLookUpEdit1.Properties.DataSource = ds.Tables[0];
+                   searchLookUpEdit1.Properties.DisplayMember = "completo";
+                   searchLookUpEdit1.Properties.ValueMember = "MOVID";
+                   myConnection.Dispose();
+                   da.Dispose();*/
+                IWS.Connection con = new IWS.Connection();
+                string json = con.GET("api/Customer/GetBalanceDocuments?idcliente=3962", SAI_NETSUITE.Properties.Resources.token);
+                BalanceDocumentsModel balanceDocumentsModel = JsonConvert.DeserializeObject<BalanceDocumentsModel>(json);
+                string documentos = JsonConvert.SerializeObject(balanceDocumentsModel.result.Resultados);
+                //DataTable dsTopics = JsonConvert.DeserializeObject<DataTable>(documentos);
+                DataSet dataSet = JsonConvert.DeserializeObject<DataSet>(documentos);
+
+                DataTable dataTable = dataSet.Tables["Documentos"];
+                foreach (var columns in dataTable.Columns)
+                {
+                    Console.WriteLine(columns.ToString());
+                }
+                searchLookUpEdit1.Properties.DataSource = dataTable;
                 searchLookUpEdit1.Properties.DisplayMember = "completo";
-                searchLookUpEdit1.Properties.ValueMember = "MOVID";
-                myConnection.Dispose();
-                da.Dispose();
+                searchLookUpEdit1.Properties.ValueMember = "No_documento";
             }
             catch (SqlException ex)
             {
@@ -138,11 +155,23 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                 {
                     GridView view = searchLookUpEdit1.Properties.View;
                     int rowHandle = view.FocusedRowHandle;
-                    string fieldName = "SALDO"; // or other field name
+                    string fieldName = "Saldo_documento"; // or other field name
                     object value = view.GetRowCellValue(rowHandle, fieldName);
-                    object mov = view.GetRowCellValue(rowHandle, "MOV");
-                    object despp = view.GetRowCellValue(rowHandle, "despp");
-                    dt.Rows.Add(mov.ToString(), searchLookUpEdit1.EditValue.ToString(), value.ToString(), despp.ToString(), value.ToString(), "");
+                    object mov = view.GetRowCellValue(rowHandle, "Doc");
+                    object despp = view.GetRowCellValue(rowHandle, "Descuento_pronto_pago");
+                    string pp = despp.ToString().Replace(System.Globalization.CultureInfo.CurrentCulture.NumberFormat.PercentSymbol, "");
+                    if (mov.Equals("creditmemo"))
+                    {
+                        mov = "Nota Credito";
+                        value = "-" + value;
+                        pp = "0";
+                    }
+                    if(mov.Equals("invoice"))
+                    {
+                        mov = "Factura";
+
+                    }
+                    dt.Rows.Add(mov.ToString(), searchLookUpEdit1.EditValue.ToString(), value.ToString(), pp, value.ToString(), "");
                     gridControl1.DataSource = dt;
                     actualizaTotal();
                 }
@@ -153,7 +182,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
 
         public string esRepetido()
-        {
+        {/*
             GridView view = searchLookUpEdit1.Properties.View;
             int rowHandle = view.FocusedRowHandle;
             object mov = view.GetRowCellValue(rowHandle, "MOV");
@@ -165,7 +194,8 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             myConnection.Close();
             if(resultado.ToString().Equals("LIBRE"))
                 return "LIBRE";
-            else return resultado.ToString();
+            else return resultado.ToString();*/
+            return "LIBRE";
            
         }
 
@@ -253,7 +283,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
                     return email.ToString();
                 }
-                catch (SqlException ex)
+                catch (SqlException )
                 {
                     return "sistemas@indar.com.mx";
                 }
@@ -263,6 +293,8 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
         }
         public void registrardocumentosAplicados(string folio)
         {
+            //BUSCAR LA MANERA DE  MARCAR ESOS DOCUMENTOS EN NETSUITE
+            /*
             SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("", myConnection);
@@ -274,6 +306,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             cmd.Dispose();
             myConnection.Close();
             myConnection.Dispose();
+            */
         }
 
         public int regresaIdBlock(string folio)
@@ -342,7 +375,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
                     cmd2.Parameters.AddWithValue("@cliente", txtNumCte.Text);
                     cmd2.Parameters.AddWithValue("@nombre_cliente", txtRazonSocial.Text);
-                    cmd2.Parameters.AddWithValue("@agente", agente.ToString());
+                    cmd2.Parameters.AddWithValue("@agente", agente);
                     cmd2.Parameters.AddWithValue("@tipo_pago", radioGroup1.Properties.Items[radioGroup1.SelectedIndex].Description.ToString());
                     cmd2.Parameters.AddWithValue("@mov", gridView1.GetRowCellValue(i, colMov).ToString());
                     cmd2.Parameters.AddWithValue("@num_fac", gridView1.GetRowCellValue(i, colMovid).ToString());
@@ -403,7 +436,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                 
                 cmd2.Parameters.AddWithValue("@cliente", txtNumCte.Text);
                 cmd2.Parameters.AddWithValue("@nombre_cliente", txtRazonSocial.Text);
-                cmd2.Parameters.AddWithValue("@agente", agente.ToString());
+                cmd2.Parameters.AddWithValue("@agente", agente);
                 cmd2.Parameters.AddWithValue("@tipo_pago", radioGroup1.Properties.Items[radioGroup1.SelectedIndex].Description.ToString());
                 cmd2.Parameters.AddWithValue("@mov", gridView1.GetRowCellValue(i, colMov).ToString());
                 cmd2.Parameters.AddWithValue("@num_fac", gridView1.GetRowCellValue(i, colMovid).ToString());
@@ -504,14 +537,15 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
         public string regresaAgenteNombre(string agente)
         {
+            /*
             SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
             myConnection.Open();
             SqlCommand cmd = new SqlCommand("", myConnection);
             cmd.CommandText = "select nombre from agente  where agente='" + agente + "'";
             var resultado = cmd.ExecuteScalar().ToString();
             return resultado.ToString();
-
-        
+            */
+            return agente;
         }
         
         public void generaRecibo(string ultimofolio)
@@ -623,7 +657,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             {
                 resultado = cmd.ExecuteScalar().ToString();
             }
-            catch (SqlException ex)
+            catch (SqlException )
             { 
              resultado="NO";
             }
@@ -672,7 +706,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                 if (radioGroup1.Properties.Items[radioGroup1.SelectedIndex].Description.ToString().Equals("Vale Empleado"))
                     txtTotal.Text = "0.00";
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 txtTotal.Text = "0.00"; 
             }
@@ -716,7 +750,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
         public static void enviaEmails( string cliente, string email, string folio)
         {
 
-            bool error = false;
+            
             using (SmtpClient smtpClient = new SmtpClient("sndr2.vinetworks.net"))
             {
                 smtpClient.Port = 587;

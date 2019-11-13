@@ -28,17 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression1 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule3 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression2 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule4 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule5 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue3 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule6 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression3 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule7 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression4 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule8 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue4 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(empaquePantalla));
-            this.colPorcentajeBultos = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colerror = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPorcentajeBultos = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colTIEMPO_100 = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -65,29 +65,33 @@
             this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.btnPDF = new DevExpress.XtraEditors.SimpleButton();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.labelStatus = new System.Windows.Forms.Label();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.comboReimprmir = new System.Windows.Forms.ComboBox();
+            this.txtReimprimir = new DevExpress.XtraEditors.TextEdit();
+            this.btnReimprimir = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.groupBox1.SuspendLayout();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtReimprimir.Properties)).BeginInit();
             this.SuspendLayout();
-            // 
-            // colPorcentajeBultos
-            // 
-            this.colPorcentajeBultos.Caption = "PORCENTAJE BULTOS";
-            this.colPorcentajeBultos.FieldName = "PORCENTAJE_BULTOS";
-            this.colPorcentajeBultos.Name = "colPorcentajeBultos";
             // 
             // colerror
             // 
             this.colerror.Caption = "ERROR";
             this.colerror.FieldName = "error";
             this.colerror.Name = "colerror";
-            this.colerror.OptionsColumn.ReadOnly = true;
             this.colerror.Visible = true;
             this.colerror.VisibleIndex = 7;
             this.colerror.Width = 168;
+            // 
+            // colPorcentajeBultos
+            // 
+            this.colPorcentajeBultos.Caption = "PORCENTAJE BULTOS";
+            this.colPorcentajeBultos.FieldName = "PORCENTAJE_BULTOS";
+            this.colPorcentajeBultos.Name = "colPorcentajeBultos";
             // 
             // gridControl1
             // 
@@ -131,44 +135,46 @@
             this.colUsuario,
             this.colMesaUsuario,
             this.colerror});
-            gridFormatRule1.ApplyToRow = true;
-            gridFormatRule1.Column = this.colPorcentajeBultos;
-            gridFormatRule1.ColumnApplyTo = this.colPorcentajeBultos;
-            gridFormatRule1.Name = "ruleBultos%";
-            formatConditionRuleValue1.PredefinedName = "Green Fill, Green Text";
-            formatConditionRuleValue1.Value1 = 100;
-            gridFormatRule1.Rule = formatConditionRuleValue1;
-            gridFormatRule2.ApplyToRow = true;
-            gridFormatRule2.Column = this.colPorcentajeBultos;
-            gridFormatRule2.Name = "rulWarning";
-            formatConditionRuleExpression1.Expression = "Iif([PORCENTAJE_BULTOS] = 100 And [TIEMPO_100] Between(5, 10), True, False)";
-            formatConditionRuleExpression1.PredefinedName = "Yellow Fill, Yellow Text";
-            gridFormatRule2.Rule = formatConditionRuleExpression1;
-            gridFormatRule3.ApplyToRow = true;
-            gridFormatRule3.Column = this.colPorcentajeBultos;
-            gridFormatRule3.ColumnApplyTo = this.colPorcentajeBultos;
-            gridFormatRule3.Name = "ruleDANGER";
-            formatConditionRuleExpression2.Expression = "Iif([PORCENTAJE_BULTOS] = 100 And [TIEMPO_100] > 10, True, False)";
-            formatConditionRuleExpression2.PredefinedName = "Red Fill, Red Text";
-            gridFormatRule3.Rule = formatConditionRuleExpression2;
-            gridFormatRule4.ApplyToRow = true;
-            gridFormatRule4.Column = this.colerror;
-            gridFormatRule4.ColumnApplyTo = this.colerror;
-            gridFormatRule4.Name = "ruleCFDI";
-            formatConditionRuleValue2.Appearance.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
-            formatConditionRuleValue2.Appearance.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            formatConditionRuleValue2.Appearance.ForeColor = System.Drawing.Color.Blue;
-            formatConditionRuleValue2.Appearance.Options.UseBackColor = true;
-            formatConditionRuleValue2.Appearance.Options.UseFont = true;
-            formatConditionRuleValue2.Appearance.Options.UseForeColor = true;
-            formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
-            formatConditionRuleValue2.PredefinedName = "Strikeout Text";
-            formatConditionRuleValue2.Value1 = "CFDI TIMBRAR";
-            gridFormatRule4.Rule = formatConditionRuleValue2;
-            this.gridView1.FormatRules.Add(gridFormatRule1);
-            this.gridView1.FormatRules.Add(gridFormatRule2);
-            this.gridView1.FormatRules.Add(gridFormatRule3);
-            this.gridView1.FormatRules.Add(gridFormatRule4);
+            gridFormatRule5.ApplyToRow = true;
+            gridFormatRule5.Column = this.colerror;
+            gridFormatRule5.ColumnApplyTo = this.colerror;
+            gridFormatRule5.Name = "ruleImprimir";
+            formatConditionRuleValue3.Condition = DevExpress.XtraEditors.FormatCondition.Expression;
+            formatConditionRuleValue3.Expression = "Iif(Contains([error], \'Imprime\'), True, False)";
+            formatConditionRuleValue3.PredefinedName = "Green Fill, Green Text";
+            gridFormatRule5.Rule = formatConditionRuleValue3;
+            gridFormatRule6.ApplyToRow = true;
+            gridFormatRule6.Column = this.colPorcentajeBultos;
+            gridFormatRule6.Name = "rulWarning";
+            formatConditionRuleExpression3.Expression = "Iif([PORCENTAJE_BULTOS] = 100 And [TIEMPO_100] Between(5, 10), True, False)";
+            formatConditionRuleExpression3.PredefinedName = "Yellow Fill, Yellow Text";
+            gridFormatRule6.Rule = formatConditionRuleExpression3;
+            gridFormatRule7.ApplyToRow = true;
+            gridFormatRule7.Column = this.colPorcentajeBultos;
+            gridFormatRule7.ColumnApplyTo = this.colPorcentajeBultos;
+            gridFormatRule7.Name = "ruleDANGER";
+            formatConditionRuleExpression4.Expression = "Iif([PORCENTAJE_BULTOS] = 100 And [TIEMPO_100] > 10, True, False)";
+            formatConditionRuleExpression4.PredefinedName = "Red Fill, Red Text";
+            gridFormatRule7.Rule = formatConditionRuleExpression4;
+            gridFormatRule8.ApplyToRow = true;
+            gridFormatRule8.Column = this.colerror;
+            gridFormatRule8.ColumnApplyTo = this.colerror;
+            gridFormatRule8.Name = "ruleCFDI";
+            formatConditionRuleValue4.Appearance.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            formatConditionRuleValue4.Appearance.Font = new System.Drawing.Font("Century Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            formatConditionRuleValue4.Appearance.ForeColor = System.Drawing.Color.Blue;
+            formatConditionRuleValue4.Appearance.Options.UseBackColor = true;
+            formatConditionRuleValue4.Appearance.Options.UseFont = true;
+            formatConditionRuleValue4.Appearance.Options.UseForeColor = true;
+            formatConditionRuleValue4.Condition = DevExpress.XtraEditors.FormatCondition.Expression;
+            formatConditionRuleValue4.Expression = "Iif(Contains([error], \'TIMBRAR\'), True, False)";
+            formatConditionRuleValue4.PredefinedName = "Strikeout Text";
+            formatConditionRuleValue4.Value1 = "CFDI TIMBRAR";
+            gridFormatRule8.Rule = formatConditionRuleValue4;
+            this.gridView1.FormatRules.Add(gridFormatRule5);
+            this.gridView1.FormatRules.Add(gridFormatRule6);
+            this.gridView1.FormatRules.Add(gridFormatRule7);
+            this.gridView1.FormatRules.Add(gridFormatRule8);
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
@@ -323,7 +329,10 @@
             // 
             // backgroundWorker1
             // 
+            this.backgroundWorker1.WorkerReportsProgress = true;
+            this.backgroundWorker1.WorkerSupportsCancellation = true;
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
+            this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
             // pictureBox
@@ -344,7 +353,7 @@
             this.groupBox1.Controls.Add(this.labelControl1);
             this.groupBox1.Location = new System.Drawing.Point(185, 8);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(273, 50);
+            this.groupBox1.Size = new System.Drawing.Size(252, 50);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Nomenclatura";
@@ -352,70 +361,103 @@
             // labelControl3
             // 
             this.labelControl3.Appearance.BackColor = System.Drawing.Color.Red;
+            this.labelControl3.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
             this.labelControl3.Appearance.Options.UseBackColor = true;
+            this.labelControl3.Appearance.Options.UseFont = true;
             this.labelControl3.Appearance.Options.UseForeColor = true;
-            this.labelControl3.Location = new System.Drawing.Point(200, 21);
+            this.labelControl3.Location = new System.Drawing.Point(173, 21);
             this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(58, 16);
+            this.labelControl3.Size = new System.Drawing.Size(66, 17);
             this.labelControl3.TabIndex = 2;
             this.labelControl3.Text = "Retrasado";
             // 
             // labelControl2
             // 
             this.labelControl2.Appearance.BackColor = System.Drawing.Color.LightGreen;
+            this.labelControl2.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl2.Appearance.ForeColor = System.Drawing.Color.Black;
             this.labelControl2.Appearance.Options.UseBackColor = true;
+            this.labelControl2.Appearance.Options.UseFont = true;
             this.labelControl2.Appearance.Options.UseForeColor = true;
             this.labelControl2.Location = new System.Drawing.Point(105, 21);
             this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(78, 16);
+            this.labelControl2.Size = new System.Drawing.Size(53, 17);
             this.labelControl2.TabIndex = 1;
-            this.labelControl2.Text = "Listo Facturar";
+            this.labelControl2.Text = "Imprimir";
             // 
             // labelControl1
             // 
             this.labelControl1.Appearance.BackColor = System.Drawing.SystemColors.Highlight;
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
             this.labelControl1.Appearance.Options.UseBackColor = true;
+            this.labelControl1.Appearance.Options.UseFont = true;
             this.labelControl1.Appearance.Options.UseForeColor = true;
             this.labelControl1.Location = new System.Drawing.Point(6, 21);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(78, 16);
+            this.labelControl1.Size = new System.Drawing.Size(81, 17);
             this.labelControl1.TabIndex = 0;
             this.labelControl1.Text = "Timbrar CDFI";
             this.labelControl1.Click += new System.EventHandler(this.labelControl1_Click);
             // 
-            // btnPDF
+            // labelStatus
             // 
-            this.btnPDF.Appearance.Font = new System.Drawing.Font("Century Gothic", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnPDF.Appearance.Options.UseFont = true;
-            this.btnPDF.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.btnPDF.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.printviapdf_16x161;
-            this.btnPDF.Location = new System.Drawing.Point(865, 18);
-            this.btnPDF.Name = "btnPDF";
-            this.btnPDF.Size = new System.Drawing.Size(132, 30);
-            this.btnPDF.TabIndex = 6;
-            this.btnPDF.Text = "PDF";
-            this.btnPDF.Click += new System.EventHandler(this.btnPDF_Click);
+            this.labelStatus.AutoSize = true;
+            this.labelStatus.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelStatus.Location = new System.Drawing.Point(943, 29);
+            this.labelStatus.Name = "labelStatus";
+            this.labelStatus.Size = new System.Drawing.Size(45, 19);
+            this.labelStatus.TabIndex = 5;
+            this.labelStatus.Text = "Inicio";
+            this.labelStatus.Visible = false;
             // 
-            // simpleButton1
+            // groupBox2
             // 
-            this.simpleButton1.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.simpleButton1.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.pdf;
-            this.simpleButton1.Location = new System.Drawing.Point(669, 8);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.Size = new System.Drawing.Size(75, 50);
-            this.simpleButton1.TabIndex = 7;
-            this.simpleButton1.Text = "simpleButton1";
-            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
+            this.groupBox2.Controls.Add(this.btnReimprimir);
+            this.groupBox2.Controls.Add(this.txtReimprimir);
+            this.groupBox2.Controls.Add(this.comboReimprmir);
+            this.groupBox2.Location = new System.Drawing.Point(461, 8);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(285, 50);
+            this.groupBox2.TabIndex = 6;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Reimprimir Bulto/Packing";
+            // 
+            // comboReimprmir
+            // 
+            this.comboReimprmir.FormattingEnabled = true;
+            this.comboReimprmir.Items.AddRange(new object[] {
+            "FACTURA",
+            "CONS"});
+            this.comboReimprmir.Location = new System.Drawing.Point(7, 19);
+            this.comboReimprmir.Name = "comboReimprmir";
+            this.comboReimprmir.Size = new System.Drawing.Size(77, 24);
+            this.comboReimprmir.TabIndex = 0;
+            // 
+            // txtReimprimir
+            // 
+            this.txtReimprimir.Location = new System.Drawing.Point(90, 19);
+            this.txtReimprimir.Name = "txtReimprimir";
+            this.txtReimprimir.Size = new System.Drawing.Size(100, 22);
+            this.txtReimprimir.TabIndex = 1;
+            // 
+            // btnReimprimir
+            // 
+            this.btnReimprimir.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.btnReimprimir.Location = new System.Drawing.Point(196, 19);
+            this.btnReimprimir.Name = "btnReimprimir";
+            this.btnReimprimir.Size = new System.Drawing.Size(75, 23);
+            this.btnReimprimir.TabIndex = 2;
+            this.btnReimprimir.Text = "Imprimir";
+            this.btnReimprimir.Click += new System.EventHandler(this.btnReimprimir_Click);
             // 
             // empaquePantalla
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.simpleButton1);
-            this.Controls.Add(this.btnPDF);
+            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.labelStatus);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.simpleButton2);
@@ -429,6 +471,8 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.txtReimprimir.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -464,7 +508,10 @@
         private DevExpress.XtraEditors.LabelControl labelControl2;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl3;
-        private DevExpress.XtraEditors.SimpleButton btnPDF;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private System.Windows.Forms.Label labelStatus;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private DevExpress.XtraEditors.SimpleButton btnReimprimir;
+        private DevExpress.XtraEditors.TextEdit txtReimprimir;
+        private System.Windows.Forms.ComboBox comboReimprmir;
     }
 }

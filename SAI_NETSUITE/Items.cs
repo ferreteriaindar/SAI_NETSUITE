@@ -14,6 +14,11 @@ namespace SAI_NETSUITE
     
     public partial class Items
     {
+        public Items()
+        {
+            this.SaleOrdersDetails = new HashSet<SaleOrdersDetails>();
+        }
+    
         public string id { get; set; }
         public string type { get; set; }
         public string itemid { get; set; }
@@ -81,5 +86,7 @@ namespace SAI_NETSUITE
         public Nullable<decimal> maximoCompra { get; set; }
         public Nullable<decimal> multiploCompra { get; set; }
         public Nullable<decimal> multiploVenta { get; set; }
+    
+        public virtual ICollection<SaleOrdersDetails> SaleOrdersDetails { get; set; }
     }
 }

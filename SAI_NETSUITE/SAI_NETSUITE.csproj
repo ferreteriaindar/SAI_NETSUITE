@@ -163,6 +163,7 @@
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\Compras\Entradas\IRController.cs" />
+    <Compile Include="Controllers\CXC\OrdenCobroController.cs" />
     <Compile Include="Controllers\IWS\Connection.cs" />
     <Compile Include="Controllers\Logistica\Distribucion\desembarqueController.cs" />
     <Compile Include="Controllers\Logistica\Distribucion\NumeroGuiaController.cs" />
@@ -258,6 +259,7 @@
     <Compile Include="Models\Catalogos\respuesta.cs" />
     <Compile Include="Models\Catalogos\RutaListCombo.cs" />
     <Compile Include="Models\SaleOrderSentModel.cs" />
+    <Compile Include="Models\Transaccion\BalanceDocumentsModel.cs" />
     <Compile Include="Models\Transaccion\IRDModel.cs" />
     <Compile Include="Models\Transaccion\IRModel.cs" />
     <Compile Include="Models\Transaccion\ItemFullfilmentModel.cs" />
@@ -280,6 +282,12 @@
     <Compile Include="NumeroGuiaNetsuiteD.cs">
       <DependentUpon>Indarneg.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrdenCobro.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OrdenCobroD.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
     <Compile Include="Paqueteria.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
@@ -294,7 +302,22 @@
     <Compile Include="Ruta.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
+    <Compile Include="SAD.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
     <Compile Include="sai_usuario.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SaleOrders.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SaleOrdersDetails.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spReporteOrdenCobro_Result.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="spReporteOrdenCobro_Result1.cs">
       <DependentUpon>Indarneg.tt</DependentUpon>
     </Compile>
     <Compile Include="spWMS_InsertaIR_Result.cs">
@@ -370,6 +393,48 @@
       <DependentUpon>recibo3.3.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ClienteRecoge\RegexUtilities.cs" />
+    <Compile Include="Views\CXC\AutorizarSAD.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CXC\AutorizarSAD.Designer.cs">
+      <DependentUpon>AutorizarSAD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CXC\entrega_block.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CXC\entrega_block.designer.cs">
+      <DependentUpon>entrega_block.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CXC\HojaOrdenCobro.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\CXC\HojaOrdenCobro.Designer.cs">
+      <DependentUpon>HojaOrdenCobro.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CXC\OrdenCobroViewcs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CXC\OrdenCobroViewcs.Designer.cs">
+      <DependentUpon>OrdenCobroViewcs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CXC\ReporteSAD.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CXC\ReporteSAD.Designer.cs">
+      <DependentUpon>ReporteSAD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CXC\Reportes\FacturasEmbarcadas.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CXC\Reportes\FacturasEmbarcadas.Designer.cs">
+      <DependentUpon>FacturasEmbarcadas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CXC\Reportes\ReporteOrdenCobro.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CXC\Reportes\ReporteOrdenCobro.Designer.cs">
+      <DependentUpon>ReporteOrdenCobro.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Logistica\Distribucion\AutorizacionJefe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -412,6 +477,12 @@
     <Compile Include="Views\Logistica\Distribucion\reporteEmbarques.Designer.cs">
       <DependentUpon>reporteEmbarques.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Logistica\Distribucion\ValidarSAD.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\ValidarSAD.Designer.cs">
+      <DependentUpon>ValidarSAD.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Logistica\Empaque\empaquePantalla.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -424,11 +495,11 @@
     <Compile Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.Designer.cs">
       <DependentUpon>ListaEmpaquePedidoCliente.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\Logistica\Empaque\PDFEmpaque.cs">
-      <SubType>Form</SubType>
+    <Compile Include="Views\Logistica\Empaque\ReimprimirFactura.cs">
+      <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="Views\Logistica\Empaque\PDFEmpaque.Designer.cs">
-      <DependentUpon>PDFEmpaque.cs</DependentUpon>
+    <Compile Include="Views\Logistica\Empaque\ReimprimirFactura.Designer.cs">
+      <DependentUpon>ReimprimirFactura.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Logistica\Empaque\ResumenEmpaqueCliente.cs">
       <SubType>Component</SubType>
@@ -441,6 +512,12 @@
     </Compile>
     <Compile Include="Views\PostVenta\Confirmacion.Designer.cs">
       <DependentUpon>Confirmacion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ventas\Apoyos\ConvertirSAD.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Ventas\Apoyos\ConvertirSAD.Designer.cs">
+      <DependentUpon>ConvertirSAD.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Ventas\Reportes\infoCTe.cs">
       <SubType>UserControl</SubType>
@@ -686,6 +763,27 @@
     <EmbeddedResource Include="Views\ClienteRecoge\recibo3.3.resx">
       <DependentUpon>recibo3.3.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CXC\AutorizarSAD.resx">
+      <DependentUpon>AutorizarSAD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CXC\entrega_block.resx">
+      <DependentUpon>entrega_block.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CXC\HojaOrdenCobro.resx">
+      <DependentUpon>HojaOrdenCobro.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CXC\OrdenCobroViewcs.resx">
+      <DependentUpon>OrdenCobroViewcs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CXC\ReporteSAD.resx">
+      <DependentUpon>ReporteSAD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CXC\Reportes\FacturasEmbarcadas.resx">
+      <DependentUpon>FacturasEmbarcadas.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CXC\Reportes\ReporteOrdenCobro.resx">
+      <DependentUpon>ReporteOrdenCobro.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Distribucion\AutorizacionJefe.resx">
       <DependentUpon>AutorizacionJefe.cs</DependentUpon>
     </EmbeddedResource>
@@ -707,20 +805,26 @@
     <EmbeddedResource Include="Views\Logistica\Distribucion\reporteEmbarques.resx">
       <DependentUpon>reporteEmbarques.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Distribucion\ValidarSAD.resx">
+      <DependentUpon>ValidarSAD.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Empaque\empaquePantalla.resx">
       <DependentUpon>empaquePantalla.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.resx">
       <DependentUpon>ListaEmpaquePedidoCliente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Views\Logistica\Empaque\PDFEmpaque.resx">
-      <DependentUpon>PDFEmpaque.cs</DependentUpon>
+    <EmbeddedResource Include="Views\Logistica\Empaque\ReimprimirFactura.resx">
+      <DependentUpon>ReimprimirFactura.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Empaque\ResumenEmpaqueCliente.resx">
       <DependentUpon>ResumenEmpaqueCliente.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PostVenta\Confirmacion.resx">
       <DependentUpon>Confirmacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Ventas\Apoyos\ConvertirSAD.resx">
+      <DependentUpon>ConvertirSAD.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Ventas\Reportes\infoCTe.resx">
       <DependentUpon>infoCTe.cs</DependentUpon>

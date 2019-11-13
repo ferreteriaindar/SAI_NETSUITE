@@ -180,7 +180,7 @@
             // colNAME
             // 
             this.colNAME.Caption = "Asignado";
-            this.colNAME.FieldName = "NAME";
+            this.colNAME.FieldName = "CHOFER";
             this.colNAME.Name = "colNAME";
             this.colNAME.Visible = true;
             this.colNAME.VisibleIndex = 6;

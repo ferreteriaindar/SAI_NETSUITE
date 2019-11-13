@@ -48,6 +48,7 @@
             this.colfactura = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colentity_id = new DevExpress.XtraGrid.Columns.GridColumn();
             this.coltransito = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.comboEstado = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.COLformaenvio = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colcomentario = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -57,6 +58,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtEmbarque.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboEstado)).BeginInit();
             this.SuspendLayout();
             // 
             // colrevisado
@@ -191,6 +193,8 @@
             this.gridControl1.Location = new System.Drawing.Point(209, 3);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
+            this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
+            this.comboEstado});
             this.gridControl1.Size = new System.Drawing.Size(800, 571);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -244,10 +248,18 @@
             // coltransito
             // 
             this.coltransito.Caption = "Estado";
+            this.coltransito.ColumnEdit = this.comboEstado;
             this.coltransito.FieldName = "estado";
             this.coltransito.Name = "coltransito";
             this.coltransito.Visible = true;
             this.coltransito.VisibleIndex = 2;
+            // 
+            // comboEstado
+            // 
+            this.comboEstado.AutoHeight = false;
+            this.comboEstado.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.comboEstado.Name = "comboEstado";
             // 
             // COLformaenvio
             // 
@@ -283,6 +295,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.txtEmbarque.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.comboEstado)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -309,5 +322,6 @@
         private DevExpress.XtraEditors.SimpleButton btnEscanea;
         private DevExpress.XtraGrid.Columns.GridColumn colrevisado;
         private DevExpress.XtraGrid.Columns.GridColumn colcomentario;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox comboEstado;
     }
 }

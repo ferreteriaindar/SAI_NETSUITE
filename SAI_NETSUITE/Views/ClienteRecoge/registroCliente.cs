@@ -12,8 +12,8 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 {
     public partial class registroCliente : Form
     {
-        
-        string nombre, perfil,sqlString;
+
+        string nombre, perfil;
         AutoCompleteStringCollection namesCollection = new AutoCompleteStringCollection();
        // SqlConnection myConnection2 = new SqlConnection("Data Source=192.168.87.100;" + "Initial Catalog=Indarneg;" + "User id=sa;" + "Password=7Ind4r7;");
 

@@ -222,7 +222,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 ctx.SaveChanges();
                 return true;
             }
-            return false;
+            
         }
 
         private void btnReiniciar_Click(object sender, EventArgs e)

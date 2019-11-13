@@ -74,7 +74,7 @@ namespace SAI_NETSUITE.WMS.administracion
             if(dxValidationProvider1.Validate())
             {
                 int resultado = 0;
-                string combo,idusuario;
+                string idusuario;
               
                 idusuario = searchLookUpEdit1.EditValue.ToString();
                 string query = "DELETE FROM UsuarioLocalidad WHERE idusuario=" + idusuario;

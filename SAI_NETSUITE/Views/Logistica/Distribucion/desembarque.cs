@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using DevExpress.XtraEditors.Controls;
+using DevExpress.XtraEditors.Repository;
 
 namespace SAI_NETSUITE.Views.Logistica.Distribucion
 {
@@ -35,7 +37,9 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
         public void cargaEmbarque()
         {
             Controllers.Logistica.Distribucion.desembarqueController dc = new Controllers.Logistica.Distribucion.desembarqueController();
-            gridControl1.DataSource = dc.regresaEmbarque(Convert.ToInt32(txtEmbarque.Text));
+            gridControl1.DataSource = dc.regresaEmbarque(Convert.ToInt32(txtEmbarque.Text),perfil);
+            if(gridView1.RowCount<1)
+                MessageBox.Show("EL EMBARQUE TIENE QUE ESTAR EN TRANSITO");
         }
         
 
@@ -46,7 +50,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 case "admin": case "almacen": case "Jefe Almacen":
                     labelUbicacion.Text = "CCI";
                     break;
-                case "postventa": labelUbicacion.Text = "POSTVENTA";
+                case "postventa":  case "POSTVENTA": labelUbicacion.Text = "POSTVENTA";
                     break;
                 case "apoyoventas": labelUbicacion.Text = regresaUbicacion(usuario);
                     break;
@@ -58,6 +62,23 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
         private void desembarque_Load(object sender, EventArgs e)
         {
             catalogaAcceso(perfil);
+            if (perfil.Equals("POSTVENTA"))
+            {
+                /*
+                ComboBoxItemCollection coll = new ComboBoxItemCollection();
+                coll.AddRange();
+                comboEstado.
+      */
+
+                RepositoryItemComboBox combo = new RepositoryItemComboBox();
+                combo.Items.AddRange(new object[] { "Flete X Confirmar", "DESEMBARQUE POSTVENTA" });
+                gridControl1.RepositoryItems.Add(combo);
+                //gridView1.Columns["coltransito"].ColumnEdit = combo;
+                coltransito.ColumnEdit = combo;
+              
+
+            }
+           
         }
 
         private void txtEmbarque_KeyPress(object sender, KeyPressEventArgs e)
@@ -69,7 +90,11 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
         private void txtEscaneaFac_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == (char)13)
+            {
                 buscarFactura();
+                txtEscaneaFac.Text = "";
+                txtEscaneaFac.Select();
+            }
         }
 
         private void buscarFactura()
@@ -80,6 +105,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 if (txtEscaneaFac.Text.Equals(gridView1.GetRowCellValue(i, colfactura).ToString()))
                 {
                     gridView1.SetRowCellValue(i, colrevisado, 1);
+                    
                     encontrado = true;
                 }
             }
@@ -95,11 +121,12 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 DataTable data = new DataTable();
                 data.Columns.Add("factura", typeof(string));
                 data.Columns.Add("comentario", typeof(string));
+                data.Columns.Add("estado", typeof(string));
                 for (int i = 0; i < gridView1.RowCount; i++)
                 {
-                    data.Rows.Add(gridView1.GetRowCellValue(i, colfactura).ToString(), gridView1.GetRowCellValue(i, colcomentario).ToString());
+                    data.Rows.Add(gridView1.GetRowCellValue(i, colfactura).ToString(), gridView1.GetRowCellValue(i, colcomentario).ToString(),gridView1.GetRowCellValue(i,coltransito).ToString());
                 }
-                if (new Controllers.Logistica.Distribucion.desembarqueController().desembarcarEmbarque(Convert.ToInt32(txtEmbarque.Text), labelUbicacion.Text, data))
+                if (new Controllers.Logistica.Distribucion.desembarqueController().desembarcarEmbarque(Convert.ToInt32(txtEmbarque.Text), labelUbicacion.Text, data,perfil))
                 {
                     gridControl1.DataSource = null;
                     MessageBox.Show("Desembarcado Exitoso");

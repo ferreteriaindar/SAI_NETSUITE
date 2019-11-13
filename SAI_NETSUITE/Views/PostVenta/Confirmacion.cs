@@ -37,7 +37,10 @@ namespace SAI_NETSUITE.Views.PostVenta
         private void Confirmacion_Load(object sender, EventArgs e)
         {
             inicializaDt();
+          
         }
+
+       
 
         private void inicializaDt()
         {

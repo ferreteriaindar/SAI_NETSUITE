@@ -2,6 +2,8 @@
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraReports.UI;
 using Microsoft.Win32;
+using Newtonsoft.Json;
+using SAI_NETSUITE.Models.Transaccion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -11,6 +13,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using SAI_NETSUITE.IWS;
 using System.Windows.Forms;
 
 namespace SAI_NETSUITE.Views.ClienteRecoge
@@ -23,13 +26,16 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
         string nombre, perfil, usuario,sqlString;
         string idClienteFila;
-        public entregaPedido(string nom, string profile,string sql)
+        Token token;
+
+        public entregaPedido(string nom, string profile,string sql, Token token)
         {
         //    myConnection = conn;
             nombre = nom;
             perfil = profile;
             sqlString = sql;
-            
+            this.token = token;
+
             InitializeComponent();
         }
         public entregaPedido( string sql)
@@ -144,11 +150,10 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
             ////PEDIDOS
             query = @"
-                        select SO.internalId,so.tranid as movid,SO.total as importe,so.trandate AS fechaemision,S.NAME as situacion,f.LIST_ITEM_NAME as formaenvio from iws.dbo.SaleOrders SO
-                        INNER JOIN IWS.DBO.Status S on so.status=s.status
+                        select SO.internalId,so.tranid as movid,SO.total as importe,so.trandate AS fechaemision,SO.status as situacion,f.LIST_ITEM_NAME as formaenvio from iws.dbo.SaleOrders SO
                         inner join iws.dbo.FormaEnvio f on so.shippingWay=f.LIST_ID
                         inner join IWS.dbo.Customers C on so.idCustomer=c.internalid
-                        where so.status NOT IN ('H','G') and c.companyId='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "'";
+                        where so.status NOT IN ('Closed','Cerrado') and c.companyId='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "'";
             Console.WriteLine(query);
             SqlDataAdapter da3 = new SqlDataAdapter(query, myConnection);
             da3.SelectCommand.CommandTimeout = 0;
@@ -159,8 +164,9 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
             ///FACTURA TERMINADAS POR LLEGAR A CTERECOGER
             ///
-            query = " set dateformat dmy select v.movid from venta v where not movid  in (select a.factura from indarneg.dbo.almacencterecoge a where a.cliente='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "') and v.cliente='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "' and v.ultimocambio>='" + DateTime.Now.ToShortDateString() + "' and v.mov='Factura Indar' and v.estatus='Concluido' and v.formaenvio in ('CCI Pedido de Empleado','Cte Recoge en GDL 07','Cte Recoge en CCI','Cte Esta en CCI','Cte Esta en CDI','Cte Esta en Suc1', 'Cte Mostrador','Cte Recoge CDI','Cte Recoge Suc 1','Cte Recoge Surtefacil','Vendedor Entrega')";
-            Debug.WriteLine("select v.movid from venta v where not movid  in (select a.factura from indarneg.dbo.almacencterecoge a where a.cliente='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "') and v.cliente='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "' and v.ultimocambio>='" + DateTime.Now.ToShortDateString() + "' and v.mov='Factura Indar' and v.estatus='Concluido'");
+            query = @" select  tranid from IWS.dbo.Invoices where TranId not in (select factura from Indarneg.dbo.almacenCteRecoge where cliente='"+ gridView4.GetFocusedRowCellValue(colcliente).ToString() + @"')
+                        and status in ('Pendiente', 'Open')";
+            //Debug.WriteLine("select v.movid from venta v where not movid  in (select a.factura from indarneg.dbo.almacencterecoge a where a.cliente='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "') and v.cliente='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "' and v.ultimocambio>='" + DateTime.Now.ToShortDateString() + "' and v.mov='Factura Indar' and v.estatus='Concluido'");
             SqlDataAdapter da4 = new SqlDataAdapter(query, myConnection);
             DataSet ds4 = new DataSet();
             da4.Fill(ds4, "venta");
@@ -175,6 +181,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             SqlCommand cmd = new SqlCommand(query, myConnection);
             SqlDataReader sdr = cmd.ExecuteReader();
             sdr.Read();
+            
             txtCliente.Text = sdr.GetValue(0).ToString();
             txtNombreCliente.Text = sdr.GetValue(1).ToString();
             txtCredito.Text = sdr.GetValue(2).ToString();
@@ -281,125 +288,78 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
         private void btnEmbarca_Click(object sender, EventArgs e)
         {
-            string estacion = regresaEstacion();
-            //HAGO EL FILTRO PARA SOLAMENTE LOS CHECADOS
-         //   gridView1.ActiveFilterString = "[check1]= true";
+            DataTable data = new DataTable();
+            data.Columns.Add("factura", typeof(string));
+            data.Columns.Add("estado", typeof(string));
+            data.Columns.Add("fechaHora", typeof(string));
+            data.Columns.Add("persona", typeof(string));
+            data.Columns.Add("comentarios", typeof(string));
+            data.Columns.Add("facturaid", typeof(int));
 
-            DataTable dt = new DataTable();
-            dt.Columns.Add("factura", typeof(string));
-            for (int i = 0; i < gridView1.SelectedRowsCount; i++)
+
+            for (int i = 0; i < gridView1.RowCount; i++)
             {
-                dt.Rows.Add(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colFactura).ToString());
-            }
 
-            //string factura = gridView1.GetRowCellValue(i, colFactura).ToString();
-            myConnection.Close();
-            myConnection.Open();
-
-            SqlCommand cmd = new SqlCommand("", myConnection);
-            /// INSERTA EL NUEVO EMBARQUE
-            cmd.CommandTimeout = 0;
-            cmd.CommandText = " set dateformat dmy INSERT INTO Embarque " +
-             " (Empresa, Mov, MovID, FechaEmision, UltimoCambio, Proyecto, Usuario, Autorizacion, Concepto, Referencia, DocFuente, Observaciones, Estatus, Situacion, SituacionFecha, SituacionUsuario, SituacionNota, Vehiculo, Ruta, Agente, Peso, Volumen, Paquetes, Ejercicio, Periodo, FechaSalida, FechaRetorno, CtaDinero, Proveedor, Importe, Impuestos, Gastos, Sucursal, SucursalOrigen, UEN, PersonalCobrador, KmsSalida, KmsRetorno, TermoInicio, TermoFin)" +
-                 " VALUES " +                /*   DateTime.Now.ToShortDateString()          getdate()       */
-             " ('FIN', 'Embarque', NULL, '" + DateTime.Now.ToShortDateString() + "', getdate(), NULL, '" + usuario + "', NULL, NULL, NULL, NULL, NULL, 'SINAFECTAR', NULL, NULL, NULL, NULL, NULL, NULL, '" + txtAgente.Text + "', NULL, NULL, NULL, 2015, 6, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, NULL, NULL, NULL)  SELECT SCOPE_IDENTITY()";
-          //  cmd.ExecuteNonQuery();
-            ///RECUPERO EL ID DEL NUEVO EMBARQUE
-           // cmd.CommandText = "select max(id) from embarque where usuario='" + usuario + "'";
-            string idEmbarque = cmd.ExecuteScalar().ToString();
-            ////LIMPIO LISTAID (INTELESIS LA USA COMO VARIABLE)
-            cmd.CommandText = "delete listaid where estacion="+estacion;
-            cmd.ExecuteNonQuery();
-
-            ///HACE UN LOOP PARA  ASIGNAR LAS FACTURAS AL EMBARQUE
-
-            for (int i = 0; i < gridView1.SelectedRowsCount; i++)
-            {
-                Debug.WriteLine(gridView1.RowCount);
-               // Debug.WriteLine("+" + gridView1.GetRowCellValue(i, colcheck) + "+");
-
-
-                string factura = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colFactura).ToString();
-                  
-                    ///BUSCO EL ID DEL LA FACTURA QUE ESTA EN EMBARQUEMOV
-                    cmd.CommandText = "select id from embarquemov where movid='" + factura + "' and mov='Factura Indar' and modulo='VTAS'";
-                    string id = cmd.ExecuteScalar().ToString();
-                    Debug.WriteLine("INSERT INTO ListaID (Estacion, ID) VALUES ("+regresaEstacion()+"," + id + " ) ");
-                    cmd.CommandText = "INSERT INTO ListaID (Estacion, ID) VALUES ("+regresaEstacion()+"," + id + " ) ";
-                    cmd.ExecuteNonQuery();
-                  
-
-
-                
-            }
-            /// SP EMBARQUE  PARA ASIGNAR LAS FACTURAS  AL EMBARQUE ACTUAL
-            cmd.CommandText = " exec spEmbarqueAsignar 0, "+regresaEstacion()+", " + idEmbarque;
-            cmd.ExecuteNonQuery();
-
-
-
-
-
-
-            ///primer  Afectar
-            cmd.CommandText = " exec spAfectar 'EMB', " + idEmbarque + ", 'AFECTAR', 'Todo', NULL, '" + usuario + "', @Estacion="+regresaEstacion();
-            cmd.ExecuteNonQuery();
-
-            Debug.WriteLine("PRIMER EFECTAR");
-            if (checkBox1.Checked == false)  /// VERIFICO SI ES VENDEDOR PARA NO HACER EL DOBLE AFECTAR
-            {
-                for (int i = 0; i < gridView1.SelectedRowsCount; i++)
+                int? internalIdFactura;
+                int factura = Convert.ToInt32(gridView1.GetRowCellValue(i, colFactura).ToString());
+                using (IWSEntities ctx = new IWSEntities())
                 {
-                    //Segundo Afectar cuando  se le pone entre entregado
-                    cmd.CommandText = " set dateformat dmy UPDATE EmbarqueD" +  /*      getdate()                                  DateTime.Now.ToString("dd/MM/yyyy hh:mm")            */
-                      "  SET  Estado = 'Entregado',  FechaHora = getdate(),  Persona = '" + DateTime.Now.ToString("dd/MM/yyyy hh:mm") + "' WHERE  ID = " + idEmbarque + " AND Orden = " + (i + 1).ToString();
-                    cmd.ExecuteNonQuery();
-                    Debug.WriteLine("Segundo Afectar con check");
+                    internalIdFactura = (from iv in ctx.Invoices
+                                         where iv.TranId.Equals(factura)
+                                         select iv.internalId).FirstOrDefault();
                 }
-                cmd.CommandText = " exec spAfectar 'EMB', " + idEmbarque + ", 'AFECTAR', 'Todo', NULL, '" + usuario + "', @Estacion=" + regresaEstacion(); ;
-                cmd.ExecuteNonQuery();
-            }
-            myConnection.Close();
+                data.Rows.Add(
+                               gridView1.GetRowCellValue(i, colFactura).ToString(),
+                               "ENTREGADO",
+                               DateTime.Now.ToString(),
+                               "CTE RECOGE",
+                               "",
+                               internalIdFactura);
 
-            Debug.WriteLine("SEGUNDO EFECTAR");
-            Debug.WriteLine("EMBARQUE TERMINADO");
-            ////Ahora  quitar la factura de la lista de del almacen y quitar el usaurio
-            myConnection2.Close();
-            myConnection2.Open();
-            SqlCommand cmd2 = new SqlCommand("", myConnection2);
+
+            }
+
+
+            bool resultado = new Controllers.PostVenta.ConfirmacionController().registraEmbarqueConcluido(nombre, data);
+            if (resultado)
+            {
+                List<UpdateInvoiceModel> factura = new List<UpdateInvoiceModel>();
+                for (int i = 0; i < data.Rows.Count; i++)
+                {
+                    UpdateInvoiceModel uim = new UpdateInvoiceModel()
+                    {
+                        internalId = Convert.ToInt32(data.Rows[i][5].ToString()),
+                        custbody_nso_indr_receipt_date = DateTime.Now.ToString()
+                    };
+                    factura.Add(uim);
+                }
+    
+                labelAvance.Text = "0/" + gridView1.RowCount.ToString();
+                gridclientes.Visible = false;
+                if (!backgroundWorker1.IsBusy)
+                {
+                    backgroundWorker1.RunWorkerAsync(argument: factura);
+
+                }
+            }
+            else
+                MessageBox.Show("Error en la transaccion");
+
+
+
+
+            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
+            SqlCommand cmd2 = new SqlCommand("", myConnection);
+            myConnection.Open();
             for (int i = 0; i < gridView1.SelectedRowsCount; i++)
             {
                 string factura2 = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colFactura).ToString();
-                cmd2.CommandText = "update almacencterecoge set check1=1 where factura='" + factura2 + "'";
+                cmd2.CommandText = "update indarneg.dbo.almacencterecoge set check1=1 where factura='" + factura2 + "'";
                 cmd2.ExecuteNonQuery();
             }
-            cmd2.CommandText = "update cterecogeclientes set horasalida=getdate() where id=" + idClienteFila;
+            cmd2.CommandText = "update indarneg.dbo.cterecogeclientes set horasalida=getdate() where id=" + idClienteFila;
             cmd2.ExecuteNonQuery();
-            //*********************VERSION  ANTIGUA**************************************************
-            //if (txtCredito.Text.Contains("ANTICIPO") || txtCredito.Text.Contains("CONTADO") || txtCredito.Text.Contains("EFECTIVO") || txtCredito.Text.Contains("PAGO ANTICIPADO"))
-            //{
-                
-
-            //    Procesos.CteRecoge.recibo reci = new recibo(myConnection,nombre,perfil,dt,txtCliente.Text,txtNombreCliente.Text,txtAgente.Text,sqlString);
-            //    reci.Show();
-
-            //    //Procesos.Pagos.recibo_cobro recibo = new Pagos.recibo_cobro(myConnection, nombre, perfil);
-            //    //recibo.Show();
-            //}
-            //else
-            //{
-            //    gridFacturas.DataSource = null;
-            //    gridFacturaXllegar.DataSource = null;
-            //    //gridPreFactura.DataSource = null;
-            //    gridpedido.DataSource = null;
-            //    MessageBox.Show("Embarque Realizado");
-            //    entregaPedido_Load(null, null);
-
-            //}
-
-            //*********************VERSION  ANTIGUA**************************************************
-          //  if (!checkGDL.Checked)
-          //  {
+         
                 List<string> facturas = new List<string>();
                 for (int i = 0; i < gridView1.SelectedRowsCount; i++)
                 {
@@ -421,7 +381,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             
             if (checkBox1.Checked == true)
             {
-                imprimeReciboVendedor(idEmbarque);
+              //  imprimeReciboVendedor(idEmbarque);
             }
             checkBox1.Checked = false;
          
@@ -588,7 +548,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             if (checkGDL.Checked)
                 sucursal = "GDL";
             else sucursal = "0";
-            recibo3 r3 = new recibo3(usuario, txtCliente.Text, facturas,sucursal);
+            recibo3 r3 = new recibo3(nombre, txtCliente.Text, facturas,sucursal);
             r3.Show();
 
 
@@ -653,6 +613,42 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
         
         return "635";
         
+        }
+
+        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<UpdateInvoiceModel> lista = (List<UpdateInvoiceModel>)e.Argument;
+            int avance = 0;
+            foreach (var Invoice in lista)
+            {
+
+                Controllers.PostVenta.ConfirmacionController cc = new Controllers.PostVenta.ConfirmacionController();
+                string resultado = cc.insertaFechaVencimientoNetsuite(Invoice, token);
+                if (resultado.Contains("true"))
+                {
+
+                    backgroundWorker1.ReportProgress(avance);
+                    avance++;
+                    Console.WriteLine(Invoice.internalId);
+                }
+                else MessageBox.Show("ERROR " + JsonConvert.SerializeObject(Invoice));
+
+
+            }
+        }
+
+        private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            MessageBox.Show("Proceso Terminado");
+         
+            labelAvance.Text = "0/1";
+         pictureEdit1.Visible = false;
+            gridclientes.Visible = true;
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            labelAvance.Text = e.ProgressPercentage.ToString() + "/" + gridView1.RowCount.ToString();
         }
 
         private void simpleButton2_Click(object sender, EventArgs e)

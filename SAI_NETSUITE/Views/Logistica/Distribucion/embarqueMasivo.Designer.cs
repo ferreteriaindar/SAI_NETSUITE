@@ -28,8 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule3 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule4 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.btnConsultaFactura = new DevExpress.XtraEditors.SimpleButton();
@@ -42,6 +45,7 @@
             this.colCREATE_DATE = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFORMAENVIO = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPAQUETERIA = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colTRANID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.searchPaqueteria = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -59,8 +63,16 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtNumEmbarque = new DevExpress.XtraEditors.TextEdit();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
-            this.colTRANID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
+            this.searchEmpleadoCambiar = new DevExpress.XtraEditors.SearchLookUpEdit();
+            this.gridView3 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
+            this.btnCambiarChofer = new DevExpress.XtraEditors.SimpleButton();
+            this.label6 = new System.Windows.Forms.Label();
+            this.txtEmbarqueCambiar = new DevExpress.XtraEditors.TextEdit();
+            this.dxValidationProvider2 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
@@ -77,6 +89,12 @@
             this.groupControl3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtNumEmbarque.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchEmpleadoCambiar.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
+            this.groupControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEmbarqueCambiar.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider2)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControl1
@@ -142,7 +160,7 @@
             this.gridControl1.Location = new System.Drawing.Point(299, 3);
             this.gridControl1.MainView = this.GridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(828, 551);
+            this.gridControl1.Size = new System.Drawing.Size(828, 665);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GridView1});
@@ -198,6 +216,12 @@
             this.colPAQUETERIA.Name = "colPAQUETERIA";
             this.colPAQUETERIA.Visible = true;
             this.colPAQUETERIA.VisibleIndex = 4;
+            // 
+            // colTRANID
+            // 
+            this.colTRANID.Caption = "TRANID";
+            this.colTRANID.FieldName = "TRANID";
+            this.colTRANID.Name = "colTRANID";
             // 
             // groupControl2
             // 
@@ -368,28 +392,107 @@
             this.txtNumEmbarque.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             this.txtNumEmbarque.Size = new System.Drawing.Size(199, 22);
             this.txtNumEmbarque.TabIndex = 0;
+            this.txtNumEmbarque.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumEmbarque_KeyPress);
             // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // colTRANID
+            // searchEmpleadoCambiar
             // 
-            this.colTRANID.Caption = "TRANID";
-            this.colTRANID.FieldName = "TRANID";
-            this.colTRANID.Name = "colTRANID";
+            this.searchEmpleadoCambiar.Location = new System.Drawing.Point(5, 77);
+            this.searchEmpleadoCambiar.Name = "searchEmpleadoCambiar";
+            this.searchEmpleadoCambiar.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.searchEmpleadoCambiar.Properties.DisplayMember = "nombre";
+            this.searchEmpleadoCambiar.Properties.PopupView = this.gridView3;
+            this.searchEmpleadoCambiar.Properties.ValueMember = "id";
+            this.searchEmpleadoCambiar.Size = new System.Drawing.Size(279, 22);
+            this.searchEmpleadoCambiar.TabIndex = 5;
+            conditionValidationRule3.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule3.ErrorText = "This value is not valid";
+            this.dxValidationProvider2.SetValidationRule(this.searchEmpleadoCambiar, conditionValidationRule3);
+            // 
+            // gridView3
+            // 
+            this.gridView3.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.gridColumn1,
+            this.gridColumn2});
+            this.gridView3.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView3.Name = "gridView3";
+            this.gridView3.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView3.OptionsView.ShowGroupPanel = false;
+            // 
+            // gridColumn1
+            // 
+            this.gridColumn1.Caption = "Nombre";
+            this.gridColumn1.FieldName = "nombre";
+            this.gridColumn1.Name = "gridColumn1";
+            this.gridColumn1.Visible = true;
+            this.gridColumn1.VisibleIndex = 0;
+            // 
+            // gridColumn2
+            // 
+            this.gridColumn2.Caption = "ID";
+            this.gridColumn2.FieldName = "id";
+            this.gridColumn2.Name = "gridColumn2";
+            // 
+            // groupControl4
+            // 
+            this.groupControl4.Controls.Add(this.btnCambiarChofer);
+            this.groupControl4.Controls.Add(this.label6);
+            this.groupControl4.Controls.Add(this.searchEmpleadoCambiar);
+            this.groupControl4.Controls.Add(this.txtEmbarqueCambiar);
+            this.groupControl4.Location = new System.Drawing.Point(3, 495);
+            this.groupControl4.Name = "groupControl4";
+            this.groupControl4.Size = new System.Drawing.Size(290, 148);
+            this.groupControl4.TabIndex = 5;
+            this.groupControl4.Text = "Cambiar Chofer";
+            // 
+            // btnCambiarChofer
+            // 
+            this.btnCambiarChofer.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.btnCambiarChofer.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.recurrence_16x16;
+            this.btnCambiarChofer.Location = new System.Drawing.Point(102, 105);
+            this.btnCambiarChofer.Name = "btnCambiarChofer";
+            this.btnCambiarChofer.Size = new System.Drawing.Size(86, 23);
+            this.btnCambiarChofer.TabIndex = 7;
+            this.btnCambiarChofer.Text = "Cambiar";
+            this.btnCambiarChofer.Click += new System.EventHandler(this.btnCambiarChofer_Click);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label6.Location = new System.Drawing.Point(6, 56);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(55, 19);
+            this.label6.TabIndex = 6;
+            this.label6.Text = "Chofer";
+            // 
+            // txtEmbarqueCambiar
+            // 
+            this.txtEmbarqueCambiar.Location = new System.Drawing.Point(5, 31);
+            this.txtEmbarqueCambiar.Name = "txtEmbarqueCambiar";
+            this.txtEmbarqueCambiar.Properties.NullText = "Num. Embarque";
+            this.txtEmbarqueCambiar.Size = new System.Drawing.Size(280, 22);
+            this.txtEmbarqueCambiar.TabIndex = 0;
+            conditionValidationRule4.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule4.ErrorText = "This value is not valid";
+            this.dxValidationProvider2.SetValidationRule(this.txtEmbarqueCambiar, conditionValidationRule4);
             // 
             // embarqueMasivo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.groupControl4);
             this.Controls.Add(this.groupControl3);
             this.Controls.Add(this.groupControl2);
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.groupControl1);
             this.Name = "embarqueMasivo";
-            this.Size = new System.Drawing.Size(1130, 557);
+            this.Size = new System.Drawing.Size(1130, 671);
             this.Load += new System.EventHandler(this.embarqueMasivo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
@@ -410,6 +513,13 @@
             this.groupControl3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtNumEmbarque.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchEmpleadoCambiar.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
+            this.groupControl4.ResumeLayout(false);
+            this.groupControl4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEmbarqueCambiar.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider2)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -447,5 +557,14 @@
         private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
         private System.Windows.Forms.Label label5;
         private DevExpress.XtraGrid.Columns.GridColumn colTRANID;
+        private DevExpress.XtraEditors.GroupControl groupControl4;
+        private DevExpress.XtraEditors.SimpleButton btnCambiarChofer;
+        private System.Windows.Forms.Label label6;
+        private DevExpress.XtraEditors.SearchLookUpEdit searchEmpleadoCambiar;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView3;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
+        private DevExpress.XtraEditors.TextEdit txtEmbarqueCambiar;
+        private DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider dxValidationProvider2;
     }
 }

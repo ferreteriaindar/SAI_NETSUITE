@@ -68,6 +68,46 @@
           <Property Name="Autorizacion" Type="int" />
           <Property Name="embarque" Type="nvarchar" MaxLength="50" />
         </EntityType>
+        <EntityType Name="OrdenCobro">
+          <Key>
+            <PropertyRef Name="idOrdenCobro" />
+          </Key>
+          <Property Name="idOrdenCobro" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="entity_id" Type="int" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="comentarios" Type="nvarchar" MaxLength="200" />
+          <Property Name="estatus" Type="nvarchar" MaxLength="200" />
+          <Property Name="usuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="fechaActualizacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OrdenCobroD">
+          <Key>
+            <PropertyRef Name="idOrdenCobroD" />
+          </Key>
+          <Property Name="idOrdenCobro" Type="int" Nullable="false" />
+          <Property Name="factura" Type="nvarchar" MaxLength="50" />
+          <Property Name="comentarios" Type="nvarchar" MaxLength="200" />
+          <Property Name="idOrdenCobroD" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="facturaid" Type="int" />
+        </EntityType>
+        <EntityType Name="SAD">
+          <Key>
+            <PropertyRef Name="sadID" />
+          </Key>
+          <Property Name="sadID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="pedidoID" Type="int" />
+          <Property Name="pedido" Type="int" />
+          <Property Name="usuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="fecha" Type="datetime" />
+          <Property Name="excepcion" Type="nvarchar" MaxLength="50" />
+          <Property Name="comentario" Type="nvarchar" MaxLength="150" />
+          <Property Name="cxcMonto" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="cxcAgente" Type="nvarchar" MaxLength="50" />
+          <Property Name="cxcFecha" Type="datetime" />
+          <Property Name="cxcComentario" Type="nvarchar" MaxLength="150" />
+          <Property Name="validaAgente" Type="nvarchar" MaxLength="50" />
+          <Property Name="validadFecha" Type="datetime" />
+        </EntityType>
         <EntityType Name="sai_usuario">
           <Key>
             <PropertyRef Name="id" />
@@ -121,7 +161,22 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_OrdenCorbroD_Ordencobro">
+          <End Role="OrdenCobro" Type="Self.OrdenCobro" Multiplicity="1" />
+          <End Role="OrdenCobroD" Type="Self.OrdenCobroD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenCobro">
+              <PropertyRef Name="idOrdenCobro" />
+            </Principal>
+            <Dependent Role="OrdenCobroD">
+              <PropertyRef Name="idOrdenCobro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Function Name="spEmpaquePantallaNetsuite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spReporteOrdenCobro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+        </Function>
         <Function Name="spWMS_InsertaIR" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
         </Function>
@@ -131,6 +186,9 @@
           <EntitySet Name="NumeroGuiaNetsuite" EntityType="Self.NumeroGuiaNetsuite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NumeroGuiaNetsuiteC" EntityType="Self.NumeroGuiaNetsuiteC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NumeroGuiaNetsuiteD" EntityType="Self.NumeroGuiaNetsuiteD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenCobro" EntityType="Self.OrdenCobro" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenCobroD" EntityType="Self.OrdenCobroD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="SAD" EntityType="Self.SAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sai_usuario" EntityType="Self.sai_usuario" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_EmbarquesD_Embarques" Association="Self.FK_EmbarquesD_Embarques">
             <End Role="Embarques" EntitySet="Embarques" />
@@ -143,6 +201,10 @@
           <AssociationSet Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" Association="Self.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
             <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
             <End Role="NumeroGuiaNetsuiteD" EntitySet="NumeroGuiaNetsuiteD" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenCorbroD_Ordencobro" Association="Self.FK_OrdenCorbroD_Ordencobro">
+            <End Role="OrdenCobro" EntitySet="OrdenCobro" />
+            <End Role="OrdenCobroD" EntitySet="OrdenCobroD" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -172,6 +234,16 @@
             <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
             <End Role="NumeroGuiaNetsuiteD" EntitySet="NumeroGuiaNetsuiteD" />
           </AssociationSet>
+          <EntitySet Name="OrdenCobro" EntityType="IndarnegModel.OrdenCobro" />
+          <EntitySet Name="OrdenCobroD" EntityType="IndarnegModel.OrdenCobroD" />
+          <AssociationSet Name="FK_OrdenCorbroD_Ordencobro" Association="IndarnegModel.FK_OrdenCorbroD_Ordencobro">
+            <End Role="OrdenCobro" EntitySet="OrdenCobro" />
+            <End Role="OrdenCobroD" EntitySet="OrdenCobroD" />
+          </AssociationSet>
+          <FunctionImport Name="spReporteOrdenCobro" ReturnType="Collection(IndarnegModel.spReporteOrdenCobro_Result1)">
+          <Parameter Name="ID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="SAD" EntityType="IndarnegModel.SAD" />
         </EntityContainer>
         <EntityType Name="NumeroGuiaNetsuite">
           <Key>
@@ -298,6 +370,87 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OrdenCobro">
+          <Key>
+            <PropertyRef Name="idOrdenCobro" />
+          </Key>
+          <Property Name="idOrdenCobro" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="entity_id" Type="Int32" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="comentarios" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="estatus" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fechaActualizacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="OrdenCobroD" Relationship="IndarnegModel.FK_OrdenCorbroD_Ordencobro" FromRole="OrdenCobro" ToRole="OrdenCobroD" />
+        </EntityType>
+        <EntityType Name="OrdenCobroD">
+          <Key>
+            <PropertyRef Name="idOrdenCobroD" />
+          </Key>
+          <Property Name="idOrdenCobro" Type="Int32" Nullable="false" />
+          <Property Name="factura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="comentarios" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="idOrdenCobroD" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="facturaid" Type="Int32" />
+          <NavigationProperty Name="OrdenCobro" Relationship="IndarnegModel.FK_OrdenCorbroD_Ordencobro" FromRole="OrdenCobroD" ToRole="OrdenCobro" />
+        </EntityType>
+        <Association Name="FK_OrdenCorbroD_Ordencobro">
+          <End Type="IndarnegModel.OrdenCobro" Role="OrdenCobro" Multiplicity="1" />
+          <End Type="IndarnegModel.OrdenCobroD" Role="OrdenCobroD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenCobro">
+              <PropertyRef Name="idOrdenCobro" />
+            </Principal>
+            <Dependent Role="OrdenCobroD">
+              <PropertyRef Name="idOrdenCobro" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="spReporteOrdenCobro_Result">
+          <Property Type="String" Name="usuario" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fecha" Nullable="true" Precision="23" />
+          <Property Type="String" Name="comentarios" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="estatus" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NAME" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="factura" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="comentarios1" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="AmountDue" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="String" Name="NSO___TRMINOS_DE_PAGO_NAME" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="spReporteOrdenCobro_Result1">
+          <Property Type="String" Name="usuario" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="fecha" Nullable="true" Precision="23" />
+          <Property Type="String" Name="comentarios" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="estatus" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="NAME" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="factura" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="comentarios1" Nullable="true" MaxLength="200" />
+          <Property Type="Decimal" Name="Total" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="Decimal" Name="AmountDue" Nullable="true" Precision="10" Scale="2" />
+          <Property Type="String" Name="NSO___TRMINOS_DE_PAGO_NAME" Nullable="true" MaxLength="255" />
+          <Property Type="String" Name="status" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="idOrdenCobro" Nullable="false" />
+        </ComplexType>
+        <EntityType Name="SAD">
+          <Key>
+            <PropertyRef Name="sadID" />
+          </Key>
+          <Property Name="sadID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="pedidoID" Type="Int32" />
+          <Property Name="pedido" Type="Int32" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="excepcion" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="comentario" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="cxcMonto" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="cxcAgente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="cxcFecha" Type="DateTime" Precision="3" />
+          <Property Name="cxcComentario" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="validaAgente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="validadFecha" Type="DateTime" Precision="3" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -395,6 +548,67 @@
                 <ScalarProperty Name="idFactura" ColumnName="idFactura" />
                 <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
                 <ScalarProperty Name="idNumeroGuiaD" ColumnName="idNumeroGuiaD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenCobro">
+            <EntityTypeMapping TypeName="IndarnegModel.OrdenCobro">
+              <MappingFragment StoreEntitySet="OrdenCobro">
+                <ScalarProperty Name="fechaActualizacion" ColumnName="fechaActualizacion" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="entity_id" ColumnName="entity_id" />
+                <ScalarProperty Name="idOrdenCobro" ColumnName="idOrdenCobro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OrdenCobroD">
+            <EntityTypeMapping TypeName="IndarnegModel.OrdenCobroD">
+              <MappingFragment StoreEntitySet="OrdenCobroD">
+                <ScalarProperty Name="facturaid" ColumnName="facturaid" />
+                <ScalarProperty Name="idOrdenCobroD" ColumnName="idOrdenCobroD" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="factura" ColumnName="factura" />
+                <ScalarProperty Name="idOrdenCobro" ColumnName="idOrdenCobro" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spReporteOrdenCobro" FunctionName="IndarnegModel.Store.spReporteOrdenCobro">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="IndarnegModel.spReporteOrdenCobro_Result1">
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="comentarios" ColumnName="comentarios" />
+                <ScalarProperty Name="estatus" ColumnName="estatus" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="factura" ColumnName="factura" />
+                <ScalarProperty Name="comentarios1" ColumnName="comentarios1" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
+                <ScalarProperty Name="NSO___TRMINOS_DE_PAGO_NAME" ColumnName="NSO___TRMINOS_DE_PAGO_NAME" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="idOrdenCobro" ColumnName="idOrdenCobro" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="SAD">
+            <EntityTypeMapping TypeName="IndarnegModel.SAD">
+              <MappingFragment StoreEntitySet="SAD">
+                <ScalarProperty Name="validadFecha" ColumnName="validadFecha" />
+                <ScalarProperty Name="validaAgente" ColumnName="validaAgente" />
+                <ScalarProperty Name="cxcComentario" ColumnName="cxcComentario" />
+                <ScalarProperty Name="cxcFecha" ColumnName="cxcFecha" />
+                <ScalarProperty Name="cxcAgente" ColumnName="cxcAgente" />
+                <ScalarProperty Name="cxcMonto" ColumnName="cxcMonto" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="excepcion" ColumnName="excepcion" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="pedido" ColumnName="pedido" />
+                <ScalarProperty Name="pedidoID" ColumnName="pedidoID" />
+                <ScalarProperty Name="sadID" ColumnName="sadID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

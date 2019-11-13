@@ -119,8 +119,9 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
         private void embarqueMasivo_Load(object sender, EventArgs e)
         {
-            List<Models.Catalogos.Empleado> lista = llenaEmpleados();
-            searchEmpleado.Properties.DataSource = lista;
+                List<Models.Catalogos.Empleado> lista = llenaEmpleados();
+                searchEmpleado.Properties.DataSource = lista;
+            searchEmpleadoCambiar.Properties.DataSource = lista;
             List<RutaListCombo> listaRuta = Llenaruta();
             searchPaqueteria.Properties.DataSource = listaRuta;
             pictureEdit1.Visible = false;
@@ -143,7 +144,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
-            bool existe = false;
+            bool existe;
             DataRow dataRow = dt.NewRow();
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
@@ -227,7 +228,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     return true;
                 };
             }
-            catch (Exception ex)
+            catch (Exception )
             {
                 return false;
             }
@@ -262,7 +263,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             Console.WriteLine(dtFac.Rows.Count);
           //  ds.Tables.Add(dt);
             ds.Tables.Add(dtFac);
-            ds.WriteXmlSchema(@"S:\XML\Almacen\Distribucion\embarqueNetsuite.xml");
+            //ds.WriteXmlSchema(@"S:\XML\Almacen\Distribucion\embarqueNetsuite.xml");
             Embarque emb = new Embarque();
             emb.DataSource = ds;
             using (ReportPrintTool printTool = new ReportPrintTool(emb))
@@ -301,18 +302,19 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             }*/
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"SELECT E.idEmbarque,EN.NAME,e.comentarios,e.fecha,p.LIST_ITEM_NAME,e.estatus,f.*
-								 FROM Indarneg.DBO.Embarques  E
-                                left join IWS.dbo.Entity EN on e.entity_id=EN.ENTITY_ID
+                string query = @"SELECT E.idEmbarque,en.name as NAME,e.comentarios,e.fecha,p.LIST_ITEM_NAME,e.estatus,f.*
+								 FROM Indarneg.DBO.Embarques  E        
+                                left join IWS.dbo.Entity EN on e.entity_id=EN.ENTITY_ID	
                                 left join IWS.DBO.Paqueteria P ON e.idPaqueteria=p.LIST_ID								
 								LEFT JOIN (
-								select  emb.idembarque,TranId as TRANSACTION_NUMBER,p.list_item_name AS PAQUETERIA ,c.name,SHIPADDRESS,i.AmountDue,'ESTATUS' AS STATUS,i.DescuentoTotalPP,i.DescuentoEvento,i.DescuentoTotalImporte,i.Total from  iws.dbo.Invoices I
+								select  emb.idembarque,TranId as TRANSACTION_NUMBER,p.list_item_name AS PAQUETERIA ,c.company as name,SHIPADDRESS,i.AmountDue,i.status AS STATUS,i.DescuentoTotalPP,i.DescuentoEvento,i.DescuentoTotalImporte,i.Total,pt.name as Terminos from  iws.dbo.Invoices I
 								LEFT JOIN INDGDLSQL01.IWS.dbo.customers C on I.Entity=c.internalid
 								left join INDGDLSQL01.IWS.dbo.Paqueteria P on i.Paqueteria=p.list_id
 								 LEFT JOIN INDGDLSQL01.INDARNEG.DBO.embarquesD  embd on i.TranId=REPLACE( embd.factura,'invoice','')
 								  left join INDGDLSQL01.INDARNEG.DBO.embarques emb on embd.idEmbarque=emb.idembarque
-								where   emb.idembarque="+idEmbarque.ToString()+@") F on e.idEmbarque=f.idEmbarque
-                                WHERE E.idEmbarque="+idEmbarque.ToString();
+								  left join IWS.dbo.PaymentTerms PT on I.TerminosPago=pt.PAYMENT_TERMS_ID
+								where   emb.idembarque=" + idEmbarque.ToString()+ @") F on e.idEmbarque=f.idEmbarque								
+                                WHERE E.idEmbarque=" + idEmbarque.ToString();
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.Fill(ds);
@@ -396,6 +398,53 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             catch (Exception ex)
             {
                 txtNumEmbarque.ErrorText = ex.Message.ToString();
+            }
+        }
+
+        private void txtNumEmbarque_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)13)
+            {
+                btnImprimir_Click(null, null);
+            }
+
+        }
+
+        private void btnCambiarChofer_Click(object sender, EventArgs e)
+        {
+            if (dxValidationProvider2.Validate())
+            {
+                int n;
+                if (int.TryParse(txtEmbarqueCambiar.Text, out n))
+                {
+                    if (existeEmbarque(n))
+                    {
+                        using (IndarnegEntities ctx = new IndarnegEntities())
+                        {
+                            Embarques emb = (from i in ctx.Embarques
+                                             where i.idEmbarque.Equals(n)
+                                             select i).FirstOrDefault();
+                            emb.entity_id = Convert.ToInt32(searchEmpleadoCambiar.EditValue.ToString());
+                            ctx.SaveChanges();
+                            MessageBox.Show("Embarque "+n.ToString()+" actualizado");
+                        }
+                    }
+                }
+            }
+        }
+
+        private bool existeEmbarque(int embarque)
+        {
+
+            using (IndarnegEntities ctx = new IndarnegEntities())
+            {
+                Embarques emb = (from i in ctx.Embarques
+                                where i.idEmbarque.Equals(embarque)
+                                select i).FirstOrDefault();
+                if (emb != null)
+                    return true;
+                else return false;
+
             }
         }
     }

@@ -33,6 +33,9 @@ namespace SAI_NETSUITE
         public virtual DbSet<Embarques> Embarques { get; set; }
         public virtual DbSet<EmbarquesD> EmbarquesD { get; set; }
         public virtual DbSet<NumeroGuiaNetsuiteD> NumeroGuiaNetsuiteD { get; set; }
+        public virtual DbSet<OrdenCobro> OrdenCobro { get; set; }
+        public virtual DbSet<OrdenCobroD> OrdenCobroD { get; set; }
+        public virtual DbSet<SAD> SAD { get; set; }
     
         public virtual ObjectResult<spWMS_InsertaIR_Result> spWMS_InsertaIR(Nullable<int> iD)
         {
@@ -46,6 +49,15 @@ namespace SAI_NETSUITE
         public virtual int spEmpaquePantallaNetsuite()
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("spEmpaquePantallaNetsuite");
+        }
+    
+        public virtual ObjectResult<spReporteOrdenCobro_Result1> spReporteOrdenCobro(Nullable<int> iD)
+        {
+            var iDParameter = iD.HasValue ?
+                new ObjectParameter("ID", iD) :
+                new ObjectParameter("ID", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spReporteOrdenCobro_Result1>("spReporteOrdenCobro", iDParameter);
         }
     }
 }

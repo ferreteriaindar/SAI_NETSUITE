@@ -53,5 +53,7 @@ namespace SAI_NETSUITE
         public Nullable<bool> AprobacionDescuentos { get; set; }
         public Nullable<System.DateTime> fechaActualizacion { get; set; }
         public Nullable<int> internalId { get; set; }
+        public Nullable<int> custbody_refpdf { get; set; }
+        public string status { get; set; }
     }
 }

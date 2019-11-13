@@ -18,13 +18,22 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
 
         public DataSet regresaInfo()
         {
-            DataSet ds = new DataSet();
-            SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
-            string query = "exec  indarneg.dbo.spEmpaquePantallaNetsuite";
-            SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
-            da.Fill(ds);
+            try
+            {
+                DataSet ds = new DataSet();
+                SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
+                string query = "exec  indarneg.dbo.spEmpaquePantallaNetsuite";
+                SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
+                da.Fill(ds);
 
-            return ds;
+                return ds;
+            }
+            catch (Exception ex)
+            {
+                System.Windows.Forms.MessageBox.Show("Error al cargar pantalla principal");
+                DataSet ds = new DataSet();
+                return ds;
+            }
 
         }
 
@@ -51,8 +60,8 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
 
         public string regresaNumFactura(string mov, string pedido)
         {
-            string query = @"if exists (select TranId from iws.dbo.Invoices where createdfrom =(select internalId from iws.dbo.SaleOrders where tranid=" + pedido+ @"))
-                            select TranId from iws.dbo.Invoices where createdfrom = (select internalId from iws.dbo.SaleOrders where tranid = " + pedido+@")
+            string query = @"if exists (select TranId from iws.dbo.Invoices where createdfrom =(select internalId from iws.dbo.SaleOrders where tranid=" + pedido+ @")) --and (status='Open' or status is null))
+                            select TranId from iws.dbo.Invoices where createdfrom = (select internalId from iws.dbo.SaleOrders where tranid = " + pedido+ @") --and (status='Open' or status is null)
                             ELSE PRINT 'NO'";
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
@@ -63,9 +72,77 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                     return "TIMBRAR: " + resultado.ToString();
                 else return "TIMBRAR CFDI";
             }
-            return "TIMBRAR CFDI";
+         
         }
 
+        public string  regresaInfoConsSinTimbrar(string v)
+        {
+            string resultado = "TIMBRAR: ";
+            string query = @"select error = isnull((select top 1 error from iws.dbo.errorFulFillment where movid = NumPedido collate Modern_Spanish_CI_AS order by fecha desc),'Hablar a Sistemas 400')
+                              from indar_inactionwms.dbo.OrdenEmbarque where Consolidado = '"+v+"'";
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand(query, myConnection);
+                SqlDataReader sdr = cmd.ExecuteReader();
+                while (sdr.Read() && sdr.HasRows)
+                {
+                   respuesta respues = new respuesta();
+                    respues = JsonConvert.DeserializeObject<respuesta>(sdr.GetValue(0).ToString());
+                    int ans;
+                    if (Int32.TryParse(respues.result.ToString(), out ans))
+                    {
+
+                        resultado = resultado + regresaFacturaPorID(respues.result.ToString()) + ",";//respues.result.ToString()+",";
+                    }
+
+                }
+
+
+            }
+                return resultado;
+        }
+
+        public string regresaFacturaPorID(string id)
+        {
+            using (SqlConnection myConection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                myConection.Open();
+                string query = @"select tranid from iws.dbo.invoices where internalid=" + id;
+                SqlCommand cmd = new SqlCommand(query, myConection);
+                var resultado = cmd.ExecuteScalar().ToString();
+                if (!resultado.Equals(""))
+                    return resultado;
+                else return "##";
+            }
+
+        }
+        public string  YaestaTimbradaCons(string cons)
+        {
+            string query = @"  DECLARE @SUMA INT
+                              DECLARE @TOTAL INT
+                              SELECT @SUMA=sum(UUID),@TOTAL=COUNT(NumPedido) FROM (
+                              select NumPedido, case when UUID='0' then 0
+                                                     when UUID='' then 0   else 1 end as uuid from (
+                              select 
+                              MOV,
+                              NumPedido,
+                              UUID= isnull((SELECT top 1 UUID FROM IWS.DBO.Invoices WHERE createdfrom =(SELECT  internalId FROM IWS.DBO.SaleOrders WHERE tranId=NumPedido) AND status NOT IN ('Voided') order by internalId desc),'0')
+  
+                                from INDAR_INACTIONWMS.dbo.OrdenEmbarque  where Consolidado='" + cons+@"'
+                             ) as q) AS q2
+                             SELECT @TOTAL-@SUMA";
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand(query, myConnection);
+                var resultado = cmd.ExecuteScalar().ToString();
+                myConnection.Close();
+                if (resultado.ToString().Equals("0"))
+                    return "Imprime " + cons;
+                else return "Timbra las Facturas";
+            };
+        }
 
         public string YaestaTimbrada(string mov, string pedido,string valorArterior)
         {
@@ -81,10 +158,10 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                     return "Imprime factura" + resultado.ToString();
                 else return valorArterior;
             }
-            return "TIMBRAR CFDI";
+           
         }
 
-        public pedidoFulfill fulfillment(pedidoFulfill pedido)
+        public pedidoFulfill fulfillment(pedidoFulfill pedido, System.ComponentModel.BackgroundWorker bw)
         {
 
 
@@ -144,6 +221,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             result.result = pedido.error;
             if (result.result.Contains("true"))
             {
+                bw.ReportProgress(2);
                 SaleOrderToInvoiceModel sotim = new SaleOrderToInvoiceModel();
                 sotim.salesOrderInternalId = iffm.createdfrom.id.ToString();
                 string jsonBill = JsonConvert.SerializeObject(sotim, Formatting.Indented);
@@ -154,13 +232,40 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                 return pedido;
         }
 
-        public void ImprimirDirecto(string pedido,string tipo)
+        public string regresaIdFactura(string text)
+        {
+            int n;
+            if (int.TryParse(text, out n))
+            {
+                using (IWSEntities ctx = new IWSEntities())
+                {
+                    var idFactura = (from i in ctx.Invoices
+                                     where i.TranId.Equals(n)
+                                     select i.internalId).FirstOrDefault();
+                    if (idFactura != null)
+                        return idFactura.ToString();
+                    else return "error";
+
+                };
+            }
+            else return "error";
+        }
+
+        public void ImprimirPackingCons(string cons, string tipo)
+        {
+            pdfController pc = new pdfController();
+            pc.imprimePDFyPackingCons(cons, tipo);
+        }
+
+        public void ImprimirDirecto(string pedido,string tipo, bool CONS,bool reimprimir)
         {
             int internalID=0;
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
                 myConnection.Open();
-                string query = @"select internalid from iws.dbo.Invoices where createdfrom =(select internalId from iws.dbo.SaleOrders where tranid=" + pedido + @")";
+                string query = @"select internalid from iws.dbo.Invoices where createdfrom =(select internalId from iws.dbo.SaleOrders where tranid=" + pedido + @") --and (status='Open' or status is null)";
+                if (reimprimir)
+                    query = @"select internalid from iws.dbo.Invoices where tranid=" + pedido;
                 SqlCommand cmd = new SqlCommand(query, myConnection);
                 internalID = Convert.ToInt32(cmd.ExecuteScalar().ToString());
             };
@@ -172,7 +277,25 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             pdfViewer2.LoadDocument(ms);
             pdfViewer2.Print();
             pdfController pdfc = new pdfController();
-            pdfc.imprimePDFyPacking(internalID.ToString(), tipo);
+            if (!CONS && !reimprimir)
+            {
+                pdfc.imprimePDFyPacking(internalID.ToString(), "2");
+                pdfc.imprimePDFyPacking(internalID.ToString(), "1");
+            }
+            
+
+            /*ACTIVAR PARA EL ARRANQUE DE  NETSUITE
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                myConnection.Open();
+                string query = @" update INDAR_INACTIONWMS.dbo.OrdenEmbarque
+                                      set FacturaIndar=( select TranId from iws.dbo.Invoices where createdfrom =(select internalId from iws.dbo.SaleOrders where tranid="+pedido+@"))
+                                      ,FechaFactura=GETDATE()
+                                        where NumPedido="+pedido;
+                SqlCommand cmd = new SqlCommand(query, myConnection);
+                internalID = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+            };
+            */
 
         }
 
@@ -181,6 +304,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             Connection connection = new Connection();
             UpdateInvoiceModel UIM = new UpdateInvoiceModel();
             UIM.internalId = v;
+        
             string json = JsonConvert.SerializeObject(UIM, Formatting.Indented);
             string resultado = connection.POST("api/Invoice/GetPDF", json, SAI_NETSUITE.Properties.Resources.token, true);
             respuesta r = JsonConvert.DeserializeObject<respuesta>(resultado);

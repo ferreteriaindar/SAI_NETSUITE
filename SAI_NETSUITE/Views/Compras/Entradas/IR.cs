@@ -112,7 +112,7 @@ namespace SAI_NETSUITE.Views.Compras.Entradas
 
                         }
                     }
-                    catch (Exception EX)
+                    catch (Exception)
                     {
                         List<IRD> LIRDs = ctx.IRD.Where(x => x.IR.id == ir.id).ToList();
                         ctx.IRD.RemoveRange(LIRDs);

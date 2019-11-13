@@ -14,6 +14,10 @@
         <AssociationConnector Association="IndarnegModel.FK_EmbarquesD_Embarques" />
         <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuiteD" Width="1.5" PointX="3" PointY="8" />
         <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" />
+        <EntityTypeShape EntityType="IndarnegModel.OrdenCobro" Width="1.5" PointX="5.375" PointY="6" />
+        <EntityTypeShape EntityType="IndarnegModel.OrdenCobroD" Width="1.5" PointX="7.625" PointY="6.125" />
+        <AssociationConnector Association="IndarnegModel.FK_OrdenCorbroD_Ordencobro" />
+        <EntityTypeShape EntityType="IndarnegModel.SAD" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

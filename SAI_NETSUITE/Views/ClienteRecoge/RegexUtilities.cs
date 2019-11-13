@@ -23,7 +23,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                 strIn = Regex.Replace(strIn, @"(@)(.+)$", this.DomainMapper,
                                       RegexOptions.None);
             }
-            catch (Exception Exception)
+            catch (Exception)
             {
                 return false;
             }
@@ -39,7 +39,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                       @"(?(\[)(\[(\d{1,3}\.){3}\d{1,3}\])|(([0-9a-z][-0-9a-z]*[0-9a-z]*\.)+[a-z0-9][\-a-z0-9]{0,22}[a-z0-9]))$",
                       RegexOptions.IgnoreCase);
             }
-            catch (Exception Exception)
+            catch (Exception)
             {
                 return false;
             }

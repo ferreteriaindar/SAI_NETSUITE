@@ -33,18 +33,35 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             for (int i = 0; i < gridView1.RowCount; i++) //REGRESA INFO SI SE SURTIO Y SE FACTURÓ  ENCONTRO ERROR y si encontro estado TIMBRAR CFDI buscar que factura
             {
 
+                if (!gridView1.GetRowCellValue(i, colPedido).ToString().Contains("Cons"))
+                {
 
+                    gridView1.SetRowCellValue(i, colerror, epc.regresaErrorPedido(gridView1.GetRowCellValue(i, colPedido).ToString(), gridView1.GetRowCellValue(i, colMovId).ToString()));
 
-                gridView1.SetRowCellValue(i, colerror, epc.regresaErrorPedido(gridView1.GetRowCellValue(i, colPedido).ToString(), gridView1.GetRowCellValue(i, colMovId).ToString()));
-                
-                /*REVISA SI YA  ESTA  FULL Y FACTURADA PARA INDICAR QUE SE TIMBRE DENTRO DE NETSUITE*/
-                if (gridView1.GetRowCellValue(i,colerror).Equals("TIMBRAR CFDI"))
-                gridView1.SetRowCellValue(i, colerror, epc.regresaNumFactura(gridView1.GetRowCellValue(i, colPedido).ToString(), gridView1.GetRowCellValue(i, colMovId).ToString()));
-                /*REVISA SI ESTA TIMBRADA LA FACTURA*/
-                string error = gridView1.GetRowCellValue(i, colerror).ToString();
-                if (gridView1.GetRowCellValue(i, colerror).ToString().Contains(":"))
-                    gridView1.SetRowCellValue(i, colerror, epc.YaestaTimbrada(gridView1.GetRowCellValue(i, colPedido).ToString(), gridView1.GetRowCellValue(i, colMovId).ToString(), gridView1.GetRowCellValue(i, colerror).ToString()));
-                /***************************************/
+                    /*REVISA SI YA  ESTA  FULL Y FACTURADA PARA INDICAR QUE SE TIMBRE DENTRO DE NETSUITE*/
+                    if (gridView1.GetRowCellValue(i, colerror).Equals("TIMBRAR CFDI"))
+                        gridView1.SetRowCellValue(i, colerror, epc.regresaNumFactura(gridView1.GetRowCellValue(i, colPedido).ToString(), gridView1.GetRowCellValue(i, colMovId).ToString()));
+                    /*REVISA SI ESTA TIMBRADA LA FACTURA*/
+                    string error = gridView1.GetRowCellValue(i, colerror).ToString();
+                    if (gridView1.GetRowCellValue(i, colerror).ToString().Contains(":"))
+                        gridView1.SetRowCellValue(i, colerror, epc.YaestaTimbrada(gridView1.GetRowCellValue(i, colPedido).ToString(), gridView1.GetRowCellValue(i, colMovId).ToString(), gridView1.GetRowCellValue(i, colerror).ToString()));
+                    /***************************************/
+                }
+                else {
+                    string numPedidos, numFacturas;
+                    numPedidos = gridView1.GetRowCellValue(i, colPedidos).ToString();
+                    numFacturas = gridView1.GetRowCellValue(i, colFacturas1).ToString();
+                    if (gridView1.GetRowCellValue(i, colPedidos).ToString().Equals(gridView1.GetRowCellValue(i, colFacturas1).ToString()))
+                        // gridView1.SetRowCellValue(i, colerror, epc.regresaInfoConsSinTimbrar(gridView1.GetRowCellValue(i, colMovId).ToString()));
+                        gridView1.SetRowCellValue(i, colerror, "Timbra las Facturas");
+                    if (gridView1.GetRowCellValue(i, colerror).ToString().Equals("Timbra las Facturas"))
+                    {
+                        //REVISA Si ya estan timbradas las facturas
+                        gridView1.SetRowCellValue(i, colerror,epc.YaestaTimbradaCons(gridView1.GetRowCellValue(i,colMovId).ToString()));
+                    }
+                            
+
+                }
 
             }
 
@@ -63,27 +80,26 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             pedidoFulfill p = new pedidoFulfill();
             p.mov = gridView1.GetFocusedRowCellValue(colPedido).ToString();
             p.movid = gridView1.GetFocusedRowCellValue(colMovId).ToString();
+            p.error = "";
 
 
             if (!backgroundWorker1.IsBusy)
             {
                 pictureBox.Visible = true;
+                labelStatus.Visible = true;
                 simpleButton2.ImageOptions.Image = SAI_NETSUITE.Properties.Resources._835;
-              
+
                 if (!p.mov.Contains("Cons"))
-                    backgroundWorker1.RunWorkerAsync(argument: p);
+                {
+                    List<pedidoFulfill> lista = new List<pedidoFulfill>();
+                    lista.Add(p);
+                    backgroundWorker1.RunWorkerAsync(argument: lista);
+                }
                 else
                 {
                     empaquePantallaController epc = new empaquePantallaController();
-                   List<pedidoFulfill> lista= epc.listadoCons(p.movid);
-                    foreach (var pedido in lista )
-                    {
-                        while (backgroundWorker1.IsBusy)
-                        {
-                            Thread.Sleep(2000);
-                        }
-                        backgroundWorker1.RunWorkerAsync(argument: pedido);
-                    }
+                    List<pedidoFulfill> lista = epc.listadoCons(p.movid);                  
+                    backgroundWorker1.RunWorkerAsync(argument: lista);
                 }
             }
             cargaInfo();
@@ -92,15 +108,30 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
         private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
+
+            /*
             Controllers.Logistica.Empaque.empaquePantallaController emp = new Controllers.Logistica.Empaque.empaquePantallaController();
             pedidoFulfill pedido= emp.fulfillment((Models.Transaccion.pedidoFulfill)e.Argument);
             e.Result = pedido;
-            Console.WriteLine("ya mero termina");
+            Console.WriteLine("ya mero termina");*/
+            List<pedidoFulfill> lista =(List<pedidoFulfill>)e.Argument;
+            List<pedidoFulfill> regreso = new List<pedidoFulfill>();
+            foreach (var pedido in lista)
+            {
+                backgroundWorker1.ReportProgress(1);
+                Controllers.Logistica.Empaque.empaquePantallaController emp = new Controllers.Logistica.Empaque.empaquePantallaController();
+                pedidoFulfill p = emp.fulfillment(pedido, sender as BackgroundWorker);
+                regreso.Add(p);
+            }
+            e.Result = regreso;
+
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             pictureBox.Visible = false;
+            labelStatus.Text = "Inicio";
+            labelStatus.Visible = false;
             simpleButton2.ImageOptions.Image = null;
             if (e.Error != null)
             {
@@ -113,16 +144,20 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             }
             else
             {
-                pedidoFulfill respuestaPedido =(pedidoFulfill) e.Result;
-                respuesta result = new respuesta();
-                result.result = respuestaPedido.error;  //PROBAR  DESERIALIZAR ERROR PARA OBTENER EL ID DE LA FACTURA.
-                empaquePantallaController epc = new empaquePantallaController();
-                epc.insertaErrorFulfilment(respuestaPedido);
-           
-                if(result.result.Contains("result"))
+
+                List<pedidoFulfill> lista = (List<pedidoFulfill>)e.Result;
+                foreach (var pedido in lista)
+                {
+                    pedidoFulfill respuestaPedido = pedido;
+                    respuesta result = new respuesta();
+                    result.result = respuestaPedido.error;  //PROBAR  DESERIALIZAR ERROR PARA OBTENER EL ID DE LA FACTURA.
+                    empaquePantallaController epc = new empaquePantallaController();
+                    epc.insertaErrorFulfilment(respuestaPedido);
+                }
+                if( lista[0].error.Contains("result"))
                     MessageBox.Show("PROCESO TERMINADO");
                 else
-                    MessageBox.Show("ERROR REVISAR");
+                    MessageBox.Show("ERROR REVISAR CON SISTEMAS");
                 cargaInfo();
 
                 Console.WriteLine("terminar");
@@ -141,19 +176,11 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
         private void btnPDF_Click(object sender, EventArgs e)
         {
-            PDFEmpaque pdf = new PDFEmpaque();
-            pdf.Show();
+            
         }
 
         private void simpleButton1_Click(object sender, EventArgs e)
         {
-            empaquePantallaController epc = new empaquePantallaController();
-
-            byte[] pdf= epc.GetPDF(49781);
-            MemoryStream ms = new MemoryStream(pdf);
-            var pdfViewer2 = new DevExpress.XtraPdfViewer.PdfViewer();
-            pdfViewer2.LoadDocument(ms);
-            pdfViewer2.Print();
             
         }
 
@@ -175,9 +202,62 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                 {
                     empaquePantallaController epc = new empaquePantallaController();
                     string tipo = gridView1.GetRowCellValue(info.RowHandle, colFORMA).ToString().Contains("LOCAL") ? "2" : "1";
-                    epc.ImprimirDirecto(gridView1.GetRowCellValue(info.RowHandle, colMovId).ToString(),tipo);
+                    if (gridView1.GetRowCellValue(info.RowHandle, colPedido).ToString().Contains("Cons"))
+                    {
+                        List<pedidoFulfill> listado = new List<pedidoFulfill>();
+                        listado = epc.listadoCons(gridView1.GetRowCellValue(info.RowHandle, colMovId).ToString());
+                        foreach (var pedido in listado)
+                        {
+                            epc.ImprimirDirecto(pedido.movid, tipo,true,false);
+                            
+                        }
+                        epc.ImprimirPackingCons(gridView1.GetRowCellValue(info.RowHandle, colMovId).ToString(), "2");
+                        epc.ImprimirPackingCons(gridView1.GetRowCellValue(info.RowHandle, colMovId).ToString(), "1");
+                    }
+                    else epc.ImprimirDirecto(gridView1.GetRowCellValue(info.RowHandle, colMovId).ToString(),tipo,false,false);
+                }
+                if (gridView1.GetRowCellValue(info.RowHandle, colPedido).ToString().Contains("Cons")&& gridView1.GetRowCellValue(info.RowHandle, colerror).ToString().Contains("Timbra las Facturas"))
+                {//INDICA LAS FACTURAS DE LA CONS QUE TIENE QUE TIMBRAR
+                    empaquePantallaController epc = new empaquePantallaController();
+                    MessageBox.Show( epc.regresaInfoConsSinTimbrar(gridView1.GetRowCellValue(info.RowHandle, colMovId).ToString()));
                 }
             }
+        }
+
+        private void backgroundWorker1_ProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            switch (e.ProgressPercentage.ToString())
+            {
+                case "1":  labelStatus.Text = "Fulfillment";
+                    break;
+                case "2": labelStatus.Text = "Facturando";
+                    break;
+            }
+        }
+
+        private void btnReimprimir_Click(object sender, EventArgs e)
+        {
+            switch (comboReimprmir.Text)
+            {
+                case "FACTURA":
+                    empaquePantallaController epc = new empaquePantallaController();
+                    string idfactura = epc.regresaIdFactura(txtReimprimir.Text);
+                    if (idfactura.Equals("error"))
+                        MessageBox.Show("No existe Factura");
+                    else
+                    {
+                        pdfController pdfc = new pdfController();
+                        pdfc.imprimePDFyPacking(idfactura, "2");
+                        pdfc.imprimePDFyPacking(idfactura, "1");
+                    }
+                    break;
+                case "CONS":
+                    pdfController pc = new pdfController();
+                    pc.imprimePDFyPackingCons(txtReimprimir.Text, "2");
+                    pc.imprimePDFyPackingCons(txtReimprimir.Text, "1");
+                    break;
+            }
+
         }
     }
 

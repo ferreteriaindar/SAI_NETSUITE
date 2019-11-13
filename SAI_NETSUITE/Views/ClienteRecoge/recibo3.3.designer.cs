@@ -498,7 +498,7 @@
             this.searchLookUpEdit1.Properties.DisplayMember = "completo";
             this.searchLookUpEdit1.Properties.NullText = "ESCOGE DOCUMENTO";
             this.searchLookUpEdit1.Properties.PopupView = this.searchLookUpEdit2View;
-            this.searchLookUpEdit1.Properties.ValueMember = "MOVID";
+            this.searchLookUpEdit1.Properties.ValueMember = "No_documento";
             this.searchLookUpEdit1.Size = new System.Drawing.Size(371, 22);
             this.searchLookUpEdit1.TabIndex = 15;
             conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
@@ -530,7 +530,7 @@
             // colDocMov
             // 
             this.colDocMov.Caption = "MOV";
-            this.colDocMov.FieldName = "MOV";
+            this.colDocMov.FieldName = "Doc";
             this.colDocMov.Name = "colDocMov";
             this.colDocMov.Visible = true;
             this.colDocMov.VisibleIndex = 1;
@@ -538,7 +538,7 @@
             // colDocMovid
             // 
             this.colDocMovid.Caption = "MOVID";
-            this.colDocMovid.FieldName = "MOVID";
+            this.colDocMovid.FieldName = "No_documento";
             this.colDocMovid.Name = "colDocMovid";
             this.colDocMovid.Visible = true;
             this.colDocMovid.VisibleIndex = 2;
@@ -548,7 +548,7 @@
             this.colDocSaldo.Caption = "SALDO";
             this.colDocSaldo.DisplayFormat.FormatString = "c2";
             this.colDocSaldo.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colDocSaldo.FieldName = "SALDO";
+            this.colDocSaldo.FieldName = "Saldo_documento";
             this.colDocSaldo.Name = "colDocSaldo";
             this.colDocSaldo.Visible = true;
             this.colDocSaldo.VisibleIndex = 3;
@@ -556,7 +556,7 @@
             // coldocDespp
             // 
             this.coldocDespp.Caption = "Despp";
-            this.coldocDespp.FieldName = "despp";
+            this.coldocDespp.FieldName = "Descuento_pronto_pago";
             this.coldocDespp.Name = "coldocDespp";
             this.coldocDespp.Visible = true;
             this.coldocDespp.VisibleIndex = 4;

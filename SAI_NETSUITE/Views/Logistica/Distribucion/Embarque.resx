@@ -146,6 +146,7 @@
               &lt;xs:element name="DescuentoEvento" type="xs:string" minOccurs="0" /&gt;
               &lt;xs:element name="DescuentoTotalImporte" type="xs:decimal" minOccurs="0" /&gt;
               &lt;xs:element name="Total" type="xs:decimal" minOccurs="0" /&gt;
+              &lt;xs:element name="Terminos" type="xs:string" minOccurs="0" /&gt;
             &lt;/xs:sequence&gt;
           &lt;/xs:complexType&gt;
         &lt;/xs:element&gt;

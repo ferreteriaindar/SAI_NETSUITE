@@ -11,12 +11,19 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
     class desembarqueController
     {
 
-        public DataTable regresaEmbarque(int idEmbarque)
+        public DataTable regresaEmbarque(int idEmbarque,string perfil)
         {
             DataSet ds = new DataSet();
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
-            {
-                string query = @"select  idembarque,factura,entity_id,estado,formaenvio,comentario='',revisado=0 from Indarneg.dbo.EmbarquesD where idembarque=" + idEmbarque.ToString();
+            {               
+
+                string query = @"select  ed.idembarque,factura,ed.entity_id,'' as estado,formaenvio,comentario='',revisado=0 from Indarneg.dbo.EmbarquesD   ED
+                                INNER JOIN Indarneg.dbo.Embarques E on ed.idEmbarque=e.idEmbarque 
+                                where  e.estatus='TRANSITO' AND ed.idembarque=" + idEmbarque.ToString();
+                if (perfil.Equals("POSTVENTA"))
+                    query = @"select  ed.idembarque,factura,ed.entity_id,'Flete X Confirmar' as estado,formaenvio,comentario='',revisado=0 from Indarneg.dbo.EmbarquesD   ED
+                            INNER JOIN Indarneg.dbo.Embarques E on ed.idEmbarque=e.idEmbarque 
+                            where  e.estatus='TRANSITO' AND  ed.idembarque=" + idEmbarque.ToString();
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.Fill(ds);
                 return ds.Tables[0];
@@ -24,7 +31,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
 
         }
 
-        public bool desembarcarEmbarque(int idembarque,string destino,DataTable data)
+        public bool desembarcarEmbarque(int idembarque,string destino,DataTable data,string perfil)
         {
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
@@ -32,7 +39,9 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
                 SqlCommand cmd = new SqlCommand("",myConnection);
                 for (int i = 0; i < data.Rows.Count; i++)
                 {
+                    if(!perfil.Equals("POSTVENTA"))
                     cmd.CommandText = "update  indarneg.dbo.embarquesD set estado='DESEMBARQUE " + destino + "', comentarios='" + data.Rows[i][1].ToString() + "' WHERE IDEMBARQUE=" + idembarque.ToString() + " and factura='" + data.Rows[i][0].ToString()+"'";
+                    else cmd.CommandText = "update  indarneg.dbo.embarquesD set estado='"+data.Rows[i][2].ToString()+ "', comentarios='" + data.Rows[i][1].ToString() + "' WHERE IDEMBARQUE=" + idembarque.ToString() + " and factura='" + data.Rows[i][0].ToString() + "'";
                     cmd.ExecuteNonQuery();
                 }
             
