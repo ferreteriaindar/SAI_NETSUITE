@@ -117,14 +117,33 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="tileItemElement63.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAALdEVYdFRpdGxlAEhvbWU7HnRkOAAAAGxJREFUOE+l
-        kkEOwCAIBHkYb/PrVBoxUHGD9jBJy87uSRKRXxAzI5qi4uc+SY8DLctAvzNnO+DLcGQ5dLKysYyEnw4q
-        G2HktGzMkZuy8Y7clo0WHoUP/R1lJQllJQllJQllJQllJQllQTpH6AEhnuwZi5t2fwAAAABJRU5ErkJg
-        gg==
-</value>
+  <data name="$this.DataSourceSchema" xml:space="preserve">
+    <value>&lt;?xml version="1.0"?&gt;
+&lt;xs:schema id="NewDataSet" xmlns="" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata"&gt;
+  &lt;xs:element name="NewDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true"&gt;
+    &lt;xs:complexType&gt;
+      &lt;xs:choice minOccurs="0" maxOccurs="unbounded"&gt;
+        &lt;xs:element name="Table"&gt;
+          &lt;xs:complexType&gt;
+            &lt;xs:sequence&gt;
+              &lt;xs:element name="IdTOR" type="xs:int" minOccurs="0" /&gt;
+              &lt;xs:element name="baserecordtype" type="xs:string" minOccurs="0" /&gt;
+              &lt;xs:element name="tranid" type="xs:int" minOccurs="0" /&gt;
+              &lt;xs:element name="vendor" type="xs:string" minOccurs="0" /&gt;
+              &lt;xs:element name="fechaIngreso" type="xs:dateTime" minOccurs="0" /&gt;
+              &lt;xs:element name="fechaActualizacion" type="xs:dateTime" minOccurs="0" /&gt;
+              &lt;xs:element name="synWMS" type="xs:boolean" minOccurs="0" /&gt;
+              &lt;xs:element name="IdTORD" type="xs:int" minOccurs="0" /&gt;
+              &lt;xs:element name="IdTOR1" type="xs:int" minOccurs="0" /&gt;
+              &lt;xs:element name="ItemID" type="xs:int" minOccurs="0" /&gt;
+              &lt;xs:element name="ItemText" type="xs:string" minOccurs="0" /&gt;
+              &lt;xs:element name="Quantity" type="xs:int" minOccurs="0" /&gt;
+            &lt;/xs:sequence&gt;
+          &lt;/xs:complexType&gt;
+        &lt;/xs:element&gt;
+      &lt;/xs:choice&gt;
+    &lt;/xs:complexType&gt;
+  &lt;/xs:element&gt;
+&lt;/xs:schema&gt;</value>
   </data>
 </root>

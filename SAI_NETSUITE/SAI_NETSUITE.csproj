@@ -513,6 +513,18 @@
     <Compile Include="Views\PostVenta\Confirmacion.Designer.cs">
       <DependentUpon>Confirmacion.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PostVenta\HojaTOR.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\PostVenta\HojaTOR.Designer.cs">
+      <DependentUpon>HojaTOR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PostVenta\TransferOrder.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PostVenta\TransferOrder.Designer.cs">
+      <DependentUpon>TransferOrder.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Ventas\Apoyos\ConvertirSAD.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -822,6 +834,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PostVenta\Confirmacion.resx">
       <DependentUpon>Confirmacion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PostVenta\HojaTOR.resx">
+      <DependentUpon>HojaTOR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PostVenta\TransferOrder.resx">
+      <DependentUpon>TransferOrder.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Ventas\Apoyos\ConvertirSAD.resx">
       <DependentUpon>ConvertirSAD.cs</DependentUpon>

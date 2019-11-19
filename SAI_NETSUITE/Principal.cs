@@ -263,6 +263,14 @@ namespace SAI_NETSUITE
                             Dock = DockStyle.Fill
                         };
                         break;
+                    case "btnTOR":
+                        panelControl1.Controls.Clear();
+                        Views.PostVenta.TransferOrder tor = new Views.PostVenta.TransferOrder()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        break;
 
 
                 }
