@@ -331,6 +331,7 @@ namespace SAI_NETSUITE
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill
+                            //KJDHKJSHDKS
                         };
                         break;
                             
