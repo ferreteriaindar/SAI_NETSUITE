@@ -113,7 +113,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                    myConnection.Dispose();
                    da.Dispose();*/
                 IWS.Connection con = new IWS.Connection();
-                string json = con.GET("api/Customer/GetBalanceDocuments?idcliente=3962", SAI_NETSUITE.Properties.Resources.token);
+                string json = con.GET("api/Customer/GetBalanceDocuments?idcliente="+cte, SAI_NETSUITE.Properties.Resources.token);
                 BalanceDocumentsModel balanceDocumentsModel = JsonConvert.DeserializeObject<BalanceDocumentsModel>(json);
                 string documentos = JsonConvert.SerializeObject(balanceDocumentsModel.result.Resultados);
                 //DataTable dsTopics = JsonConvert.DeserializeObject<DataTable>(documentos);

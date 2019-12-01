@@ -28,6 +28,52 @@ namespace SAI_NETSUITE
         {
             token = new Token();
              token.token   = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiQWRtaW4iLCJ1bmlxdWVfbmFtZSI6IndpbnNlcnZpY2V3bXMiLCJuYmYiOjE1NjQ0MjE1MTcsImV4cCI6MTg4MDA0MDcxNywiaWF0IjoxNTY0NDIxNTE3fQ.f06XZK3H0nFUS5heHKuX_aez8NBzMA7H5zrHjtjYzRs";
+            cargaPermisos();
+        }
+
+        public void cargaPermisos()
+        {
+            if (!perfil.Equals("admin"))
+            { 
+                CategoriaClienteRecoge.Enabled = false;
+                CategoriaCompras.Enabled = false;
+                CategoriaContabilidad.Enabled = false;
+                CategoriaCXC.Enabled = false;
+                CategoriaLogistica.Enabled = false;
+                Categoriamkt.Enabled = false;
+                CategoriaPostVenta.Enabled = false;
+                CategoriaVentas.Enabled = false;
+            }
+
+            string acceso = perfil.ToUpper();
+            switch (acceso)
+            {
+                case "CONTABILIDAD":
+                    break;
+                case "COMPRAS":
+                    CategoriaCompras.Enabled = true;
+                    break;
+                case "CTERECOGE":
+                    CategoriaClienteRecoge.Enabled = true;
+                    break;
+                case "COBRANZA":
+                    CategoriaCXC.Enabled = true;
+                    break;
+                case "ALMACEN":
+                    CategoriaLogistica.Enabled = true;
+                    break;
+                case "MKT":
+                    Categoriamkt.Enabled = true;
+                    break;
+                case "POSTVENTA":
+                    CategoriaPostVenta.Enabled = true;
+                    break;
+                case "APOYOVENTAS":
+                    CategoriaVentas.Enabled = true;
+                    break;
+                default:
+                    break;
+            }
         }
 
         private void tileNavPane1_ElementClick(object sender, DevExpress.XtraBars.Navigation.NavElementEventArgs e)
@@ -271,6 +317,24 @@ namespace SAI_NETSUITE
                             Dock = DockStyle.Fill
                         };
                         break;
+                    case "btnComprasOcPend":
+                        panelControl1.Controls.Clear();
+                        Views.Compras.Reportes.RepOCPendientes OCPEN = new Views.Compras.Reportes.RepOCPendientes()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        break;
+                    case "btnCompraeRIKA":
+                        panelControl1.Controls.Clear();
+                        Views.Compras.Reportes.RepErikacs repErikacs = new Views.Compras.Reportes.RepErikacs()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        break;
+                            
+                       
 
 
                 }

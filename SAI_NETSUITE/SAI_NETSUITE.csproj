@@ -393,6 +393,18 @@
       <DependentUpon>recibo3.3.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ClienteRecoge\RegexUtilities.cs" />
+    <Compile Include="Views\Compras\Reportes\RepErikacs.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Compras\Reportes\RepErikacs.Designer.cs">
+      <DependentUpon>RepErikacs.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Compras\Reportes\RepOCPendientes.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Compras\Reportes\RepOCPendientes.Designer.cs">
+      <DependentUpon>RepOCPendientes.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CXC\AutorizarSAD.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -774,6 +786,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ClienteRecoge\recibo3.3.resx">
       <DependentUpon>recibo3.3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Compras\Reportes\RepErikacs.resx">
+      <DependentUpon>RepErikacs.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Compras\Reportes\RepOCPendientes.resx">
+      <DependentUpon>RepOCPendientes.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CXC\AutorizarSAD.resx">
       <DependentUpon>AutorizarSAD.cs</DependentUpon>
