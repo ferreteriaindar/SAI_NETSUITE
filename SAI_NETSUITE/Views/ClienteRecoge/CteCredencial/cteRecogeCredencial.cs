@@ -379,7 +379,7 @@ namespace  SAI_NETSUITE.Views.ClienteRecoge.CteCredencial  //SAI_NETSUITE.Proces
                 myConnection.Close();
                 myConnection.Open();
                 SqlCommand cmd2 = new SqlCommand("", myConnection);
-                cmd2.CommandText = "SELECT isnull( TELEFONOS,'0')  FROM cte where cliente='" + barEditClienteTxt.EditValue.ToString() + "'";
+                cmd2.CommandText = "SELECT isnull( TELEFONOS,'0')  FROM indar.dbo.cte where cliente='" + barEditClienteTxt.EditValue.ToString() + "'";
                 txt3Contacto.EditValue = cmd2.ExecuteNonQuery();
             }
 
@@ -411,7 +411,7 @@ namespace  SAI_NETSUITE.Views.ClienteRecoge.CteCredencial  //SAI_NETSUITE.Proces
                 myConnection.Close();
                 myConnection.Open();
                 SqlCommand cmd2 = new SqlCommand("", myConnection);
-                cmd2.CommandText = "SELECT isnull( TELEFONOS,'0')  FROM cte where cliente='" + barEditClienteTxt.EditValue.ToString() + "'";
+                cmd2.CommandText = "SELECT isnull( TELEFONOS,'0')  FROM indar.dbo.cte where cliente='" + barEditClienteTxt.EditValue.ToString() + "'";
                 txt4Contacto.EditValue = cmd2.ExecuteNonQuery();
             }
 

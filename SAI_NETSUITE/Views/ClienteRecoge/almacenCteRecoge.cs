@@ -32,11 +32,11 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
         {
             /*  string query="select movid,(importe+impuestos)as importe, fechaemision, formaenvio,cliente,agente  from venta where  mov='Factura Indar'   and "+
                              " formaenvio in ('CCI Pedido de Empleado','CDI Cliente esta en CDI','CCI Cliente Recoge','CCI Cliente está en CCI','CCI Vendedor Entrega','GDL-07 Cliente Recoge','CDI Cliente Recoge','CCI Cliente está en CCI','Cte Esta en CDI','Cte Esta en Suc1', 'Cte Mostrador','Cte Recoge CDI','Cte Recoge Suc 1','Cte Recoge Surtefacil','Vendedor Entrega','Vendedor Entrega CCI','Cte Esta en CCI','Cte Recoge en CCI','Cte Recoge en GDL 07','GDL-07 Vendedor Entrega','CCI CLIENTE ESTA AQUI','CCI PEDIDO DE EMPLEADO')  and movid='" + textBox1.Text + "'";*/
-            string query = @"SELECT TranId as movid,AmountDue+TaxTotal as importe,SaleDate,f.LIST_ITEM_NAME as formaenvio,c.companyId,e.NAME from   IWS.DBO.Invoices I
+            string query = @"SELECT TranId as movid,AmountDue as importe,SaleDate,f.LIST_ITEM_NAME as formaenvio,c.companyId,e.NAME from   IWS.DBO.Invoices I
                              inner join iws.dbo.FormaEnvio F on i.ShippingWay=f.LIST_ID
                              inner join iws.dbo.Customers c on i.Entity=c.internalid
                              inner join iws.dbo.ZonasIndar ZI on c.customerZone=zi.NSO___ZONAS_CLIENTES_ID
-                             inner join iws.dbo.Entity E on zi.REPRESENTANTE_VENTAS_ID=e.ENTITY_ID
+                             left join iws.dbo.Entity E on zi.REPRESENTANTE_VENTAS_ID=e.ENTITY_ID
                             where ShippingWay in (4,5,10,11,13,14) and  TranId=" + textBox1.Text;
             SqlConnection myConnection2 = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
 

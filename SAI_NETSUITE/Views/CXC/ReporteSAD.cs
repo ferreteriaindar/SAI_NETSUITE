@@ -33,7 +33,8 @@ namespace SAI_NETSUITE.Views.CXC
                                 S.cxcMonto,S.cxcAgente,S.cxcFecha,S.cxcComentario,S.validaAgente,S.validadFecha
                                 FROM Indarneg.dbo.SAD  S
                                 INNER  JOIN IWS.dbo.Invoices I ON S.pedidoID=I.createdfrom
-                                INNER JOIN IWS.DBO.Customers C ON I.Entity=C.internalid
+                                INNER JOIN IWS.DBO.SaleOrders SO ON I.createdfrom=SO.internalId
+                                INNER JOIN IWS.DBO.Customers C ON SO.idCustomer=C.internalid
                                 INNER JOIN IWS.DBO.ZonasIndar ZI on C.customerZone=ZI.NSO___ZONAS_CLIENTES_ID
                                 INNER JOIN IWS.DBO.Entity E on zi.AGENTE_COBRADOR_ID=e.ENTITY_ID";
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);

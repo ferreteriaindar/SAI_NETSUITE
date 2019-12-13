@@ -18,7 +18,7 @@ namespace SAI_NETSUITE
     {
 
         string resultado = "";
-        string conString,usuario,perfil;
+        string conString,usuario,perfil,sucursal;
         public Login()
         {
             InitializeComponent();
@@ -67,7 +67,7 @@ namespace SAI_NETSUITE
             {
                 myConnection.Open();
                 SqlCommand cmd = new SqlCommand("", myConnection);
-                cmd.CommandText = "select usuario,perfil from Indarneg.dbo.sai_usuario where  usuario=@usuario and pass=@pass";
+                cmd.CommandText = "select usuario,perfil,isnull(sucursal,'1')as sucursal from Indarneg.dbo.sai_usuario where  usuario=@usuario and pass=@pass";
                 cmd.Parameters.AddWithValue("@usuario", txtEmail.Text);
                 cmd.Parameters.AddWithValue("@pass", txtPass.Text);
                 SqlDataReader sdr = cmd.ExecuteReader();
@@ -75,6 +75,7 @@ namespace SAI_NETSUITE
                 {
                     usuario = sdr.GetValue(0).ToString();
                     perfil = sdr.GetValue(1).ToString();
+                    sucursal = sdr.GetValue(2).ToString();
                     resultado = "OK";
                 }
                 else
@@ -99,7 +100,7 @@ namespace SAI_NETSUITE
             {
                 case "OK":
                     this.Hide();
-                    Principal p = new Principal(conString,usuario,perfil);
+                    Principal p = new Principal(conString,usuario,perfil,sucursal);
                     p.Show();
 
                     break;

@@ -66,9 +66,9 @@ namespace SAI_NETSUITE
         public string creditDays { get; set; }
         public Nullable<int> usoCFDI { get; set; }
     
+        public virtual Paqueteria Paqueteria { get; set; }
         public virtual ListaPrecios ListaPrecios { get; set; }
         public virtual Ruta Ruta { get; set; }
         public virtual FormaEnvio FormaEnvio { get; set; }
-        public virtual Paqueteria Paqueteria { get; set; }
     }
 }

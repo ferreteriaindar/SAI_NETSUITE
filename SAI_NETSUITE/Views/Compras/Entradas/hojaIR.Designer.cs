@@ -139,13 +139,14 @@
             // 
             // xrBarCode1
             // 
+            this.xrBarCode1.AutoModule = true;
             this.xrBarCode1.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "Concat(Trim([Table].[mov]),Trim(ToStr([Table].[id])) )")});
-            this.xrBarCode1.LocationFloat = new DevExpress.Utils.PointFloat(462.4999F, 66.83332F);
+            this.xrBarCode1.LocationFloat = new DevExpress.Utils.PointFloat(321.6667F, 66.83332F);
             this.xrBarCode1.Name = "xrBarCode1";
             this.xrBarCode1.Padding = new DevExpress.XtraPrinting.PaddingInfo(10, 10, 0, 0, 100F);
             this.xrBarCode1.ShowText = false;
-            this.xrBarCode1.SizeF = new System.Drawing.SizeF(187.5F, 23F);
+            this.xrBarCode1.SizeF = new System.Drawing.SizeF(328.3332F, 23F);
             this.xrBarCode1.Symbology = code128Generator1;
             // 
             // xrLabel13
@@ -245,10 +246,10 @@
             this.xrLabel2.ExpressionBindings.AddRange(new DevExpress.XtraReports.UI.ExpressionBinding[] {
             new DevExpress.XtraReports.UI.ExpressionBinding("BeforePrint", "Text", "Concat(Trim([Table].[mov]),Trim(ToStr([Table].[id])) )")});
             this.xrLabel2.Font = new System.Drawing.Font("Century Gothic", 24F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.xrLabel2.LocationFloat = new DevExpress.Utils.PointFloat(426.6667F, 23.00001F);
+            this.xrLabel2.LocationFloat = new DevExpress.Utils.PointFloat(321.6667F, 23.00001F);
             this.xrLabel2.Name = "xrLabel2";
             this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel2.SizeF = new System.Drawing.SizeF(223.3332F, 43.83331F);
+            this.xrLabel2.SizeF = new System.Drawing.SizeF(328.3332F, 43.83331F);
             this.xrLabel2.StyleName = "HEADER";
             this.xrLabel2.StylePriority.UseFont = false;
             this.xrLabel2.Text = "xrLabel2";

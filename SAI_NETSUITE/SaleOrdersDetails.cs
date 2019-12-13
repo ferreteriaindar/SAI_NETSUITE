@@ -20,6 +20,7 @@ namespace SAI_NETSUITE
         public Nullable<int> listPrice { get; set; }
         public Nullable<decimal> amount { get; set; }
         public Nullable<int> saleOrderId { get; set; }
+        public Nullable<int> backOrdered { get; set; }
     
         public virtual Items Items { get; set; }
         public virtual SaleOrders SaleOrders { get; set; }

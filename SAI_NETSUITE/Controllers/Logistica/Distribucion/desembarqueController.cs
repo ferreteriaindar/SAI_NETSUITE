@@ -19,11 +19,11 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
 
                 string query = @"select  ed.idembarque,factura,ed.entity_id,'' as estado,formaenvio,comentario='',revisado=0 from Indarneg.dbo.EmbarquesD   ED
                                 INNER JOIN Indarneg.dbo.Embarques E on ed.idEmbarque=e.idEmbarque 
-                                where  e.estatus='TRANSITO' AND ed.idembarque=" + idEmbarque.ToString();
+                                where  e.estatus='TRANSITO' and ed.estado='TRANSITO' AND ed.idembarque=" + idEmbarque.ToString();
                 if (perfil.Equals("POSTVENTA"))
                     query = @"select  ed.idembarque,factura,ed.entity_id,'Flete X Confirmar' as estado,formaenvio,comentario='',revisado=0 from Indarneg.dbo.EmbarquesD   ED
                             INNER JOIN Indarneg.dbo.Embarques E on ed.idEmbarque=e.idEmbarque 
-                            where  e.estatus='TRANSITO' AND  ed.idembarque=" + idEmbarque.ToString();
+                            where  e.estatus='TRANSITO'  and ed.estado='TRANSITO' AND  ed.idembarque=" + idEmbarque.ToString();
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.Fill(ds);
                 return ds.Tables[0];
@@ -31,7 +31,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
 
         }
 
-        public bool desembarcarEmbarque(int idembarque,string destino,DataTable data,string perfil)
+        public bool desembarcarEmbarque(int idembarque,string destino,DataTable data,string perfil,bool todoElEmbarque)
         {
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
@@ -44,12 +44,14 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
                     else cmd.CommandText = "update  indarneg.dbo.embarquesD set estado='"+data.Rows[i][2].ToString()+ "', comentarios='" + data.Rows[i][1].ToString() + "' WHERE IDEMBARQUE=" + idembarque.ToString() + " and factura='" + data.Rows[i][0].ToString() + "'";
                     cmd.ExecuteNonQuery();
                 }
-            
-                cmd.CommandText="UPDATE indarneg.dbo.embarques set estatus='DESEMBARQUE "+destino+ "' WHERE IDEMBARQUE=" + idembarque.ToString();
-                int resultado=cmd.ExecuteNonQuery();
-                if (resultado > 0)
+                if (todoElEmbarque)
+                {
+                    cmd.CommandText = "UPDATE indarneg.dbo.embarques set estatus='DESEMBARQUE " + destino + "' WHERE IDEMBARQUE=" + idembarque.ToString();
+                     cmd.ExecuteNonQuery();
+                }
+               
                     return true;
-                else return false;
+              
             }
 
         }

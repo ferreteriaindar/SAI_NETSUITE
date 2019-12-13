@@ -102,8 +102,8 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                 if (checkGDL.Checked)
                 {
                     if(!txtCodigo.Text.Equals(""))
-                    cmdInt.CommandText = "set dateformat dmy insert into indarneg.dbo.cterecogeclientes(cliente,nombre,hora,sucursal) select cliente,nombre,getdate(),'7' as sucursal from cte where cliente='" + txtCodigo.Text + "'";
-                    else cmdInt.CommandText = "set dateformat dmy insert into indarneg.dbo.cterecogeclientes(cliente,nombre,hora,sucursal) select cliente,nombre,getdate(),'7' as sucursal from cte where cliente='" +regresaCodigo(txtEmpresa.Text) + "'";
+                    cmdInt.CommandText = "set dateformat dmy insert into indarneg.dbo.cterecogeclientes(cliente,nombre,hora,sucursal) select companyId,company,getdate(),'7' as sucursal from iws.dbo.customers where companyid='" + txtCodigo.Text + "'";
+                    else cmdInt.CommandText = "set dateformat dmy insert into indarneg.dbo.cterecogeclientes(cliente,nombre,hora,sucursal) select companyId,company,getdate(),'7' as sucursal from iws.dbo.customers where companyid='" + regresaCodigo(txtEmpresa.Text) + "'";
 
                     Console.WriteLine("SI REGISTRA EL 7");
                 }

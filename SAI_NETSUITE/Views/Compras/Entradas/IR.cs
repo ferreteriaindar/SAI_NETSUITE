@@ -65,11 +65,11 @@ namespace SAI_NETSUITE.Views.Compras.Entradas
                         vendor = proveedores.FirstOrDefault()
                     };
                     ctx.IR.Add(ir);
-                    ctx.SaveChanges();
+                   // ctx.SaveChanges();
                     List<IRD> iRDs = new List<IRD>();
                     for (int i = 0; i < gridView1.SelectedRowsCount; i++)
                     {
-                        if (gridView1.GetSelectedRows()[i] > 0)
+                        if (gridView1.GetSelectedRows()[i] >= 0)
                         {
                             IRD iRD = new IRD()
                             {

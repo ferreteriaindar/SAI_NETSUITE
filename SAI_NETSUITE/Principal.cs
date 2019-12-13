@@ -14,13 +14,14 @@ namespace SAI_NETSUITE
 {
     public partial class Principal : DevExpress.XtraEditors.XtraForm
     {
-        string conString,usuario,perfil;
+        string conString, usuario, perfil,sucursal;
         Token token;
-        public Principal(string  conexion,string usuario,string perfil)
+        public Principal(string  conexion,string usuario,string perfil,string sucursal)
         {
             conString = conexion;
             this.usuario = usuario;
             this.perfil = perfil;
+            this.sucursal = sucursal;
             InitializeComponent();
         }
 
@@ -222,7 +223,7 @@ namespace SAI_NETSUITE
                         break;
                     case "btnAlmacenCteRecoge": ///borrar pruebas anyelo
                         panelControl1.Controls.Clear();
-                        Views.ClienteRecoge.almacenCteRecoge acr = new Views.ClienteRecoge.almacenCteRecoge(usuario, perfil, "1");
+                        Views.ClienteRecoge.almacenCteRecoge acr = new Views.ClienteRecoge.almacenCteRecoge(usuario, perfil, sucursal);
                         acr.Show();
                         
                         break;
@@ -334,8 +335,46 @@ namespace SAI_NETSUITE
                             //KJDHKJSHDKS
                         };
                         break;
-                            
-                       
+                    case "btndistribubcionEmbarque":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Distribucion.reporteEmbarques reD = new Views.Logistica.Distribucion.reporteEmbarques()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        reD.BringToFront();
+                        break;
+                    
+                    case "btnPostVentaReportesEmbarques":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Distribucion.reporteEmbarques remb = new Views.Logistica.Distribucion.reporteEmbarques()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        remb.BringToFront();
+                        break;
+                    case "btnApoyosReporteSAD":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.ReporteSAD rasad = new Views.CXC.ReporteSAD()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        rasad.BringToFront();
+                        break;
+                    case "btnApoyosOrdenCobro":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.OrdenCobroViewcs ocapo = new Views.CXC.OrdenCobroViewcs(usuario)
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        ocapo.BringToFront();
+                        break;
+                    default:
+
+                        break;
 
 
                 }

@@ -12,6 +12,8 @@ using System.Data.SqlClient;
 using System.Diagnostics;
 using System.Net.Mail;
 using System.Windows.Forms;
+using System.Data.Linq;
+using System.Linq;
 
 
 namespace SAI_NETSUITE.Views.ClienteRecoge
@@ -113,7 +115,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                    myConnection.Dispose();
                    da.Dispose();*/
                 IWS.Connection con = new IWS.Connection();
-                string json = con.GET("api/Customer/GetBalanceDocuments?idcliente="+cte, SAI_NETSUITE.Properties.Resources.token);
+                string json = con.GET("api/Customer/GetBalanceDocuments?idcliente="+ regresaIdCliente(cte), SAI_NETSUITE.Properties.Resources.token);
                 BalanceDocumentsModel balanceDocumentsModel = JsonConvert.DeserializeObject<BalanceDocumentsModel>(json);
                 string documentos = JsonConvert.SerializeObject(balanceDocumentsModel.result.Resultados);
                 //DataTable dsTopics = JsonConvert.DeserializeObject<DataTable>(documentos);
@@ -746,6 +748,20 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             return attachment;
         }
 
+
+        public string regresaIdCliente(string cliente)
+        {
+            using (IWSEntities ctx = new IWSEntities())
+            {
+                var idcliente = (from i in ctx.Customers
+                                 where i.companyId.Equals(cliente)
+                                 select i.internalid).FirstOrDefault();
+                return idcliente.ToString();
+                               
+
+            }
+           
+        }
 
         public static void enviaEmails( string cliente, string email, string folio)
         {

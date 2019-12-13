@@ -326,6 +326,12 @@
     <Compile Include="Territorios.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Views\ClienteRecoge\administraAlmacen.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\administraAlmacen.designer.cs">
+      <DependentUpon>administraAlmacen.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\ClienteRecoge\almacenCteRecoge.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -337,6 +343,12 @@
     </Compile>
     <Compile Include="Views\ClienteRecoge\registroCliente.designer.cs">
       <DependentUpon>registroCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\reimprimirFolio.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\reimprimirFolio.designer.cs">
+      <DependentUpon>reimprimirFolio.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Compras\Entradas\hojaIR.cs">
       <SubType>Component</SubType>
@@ -754,11 +766,17 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="Views\ClienteRecoge\administraAlmacen.resx">
+      <DependentUpon>administraAlmacen.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\ClienteRecoge\almacenCteRecoge.resx">
       <DependentUpon>almacenCteRecoge.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\ClienteRecoge\registroCliente.resx">
       <DependentUpon>registroCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\ClienteRecoge\reimprimirFolio.resx">
+      <DependentUpon>reimprimirFolio.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Compras\Entradas\hojaIR.resx">
       <DependentUpon>hojaIR.cs</DependentUpon>

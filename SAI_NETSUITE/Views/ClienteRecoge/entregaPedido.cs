@@ -150,10 +150,11 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
             ////PEDIDOS
             query = @"
-                        select SO.internalId,so.tranid as movid,SO.total as importe,so.trandate AS fechaemision,SO.status as situacion,f.LIST_ITEM_NAME as formaenvio from iws.dbo.SaleOrders SO
+                        select SO.internalId as id,so.tranid as movid,SO.total as importe,so.trandate AS fechaemision,SO.status as situacion,f.LIST_ITEM_NAME as formaenvio from iws.dbo.SaleOrders SO
                         inner join iws.dbo.FormaEnvio f on so.shippingWay=f.LIST_ID
                         inner join IWS.dbo.Customers C on so.idCustomer=c.internalid
-                        where so.status NOT IN ('Closed','Cerrado') and c.companyId='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "'";
+                        LEFT join IWS.DBO.Invoices  I on i.createdfrom=so.internalid
+                       where  i.createdfrom is null and so.status NOT IN ('Closed','Cerrado') and c.companyId='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "'";
             Console.WriteLine(query);
             SqlDataAdapter da3 = new SqlDataAdapter(query, myConnection);
             da3.SelectCommand.CommandTimeout = 0;
@@ -275,9 +276,9 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
         private void btncancelar_Click(object sender, EventArgs e)
         {
-          /*  Reportes.reimprimirFolio rf = new Reportes.reimprimirFolio(sqlString);
+            Views.ClienteRecoge.reimprimirFolio rf = new Views.ClienteRecoge.reimprimirFolio(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1);
             rf.Show();
-            */
+            
         }
 
         private void btnactualizar_Click(object sender, EventArgs e)
@@ -297,11 +298,11 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
             data.Columns.Add("facturaid", typeof(int));
 
 
-            for (int i = 0; i < gridView1.RowCount; i++)
+            for (int i = 0; i < gridView1.SelectedRowsCount; i++)
             {
 
                 int? internalIdFactura;
-                int factura = Convert.ToInt32(gridView1.GetRowCellValue(i, colFactura).ToString());
+                int factura = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colFactura).ToString());
                 using (IWSEntities ctx = new IWSEntities())
                 {
                     internalIdFactura = (from iv in ctx.Invoices
@@ -309,7 +310,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                                          select iv.internalId).FirstOrDefault();
                 }
                 data.Rows.Add(
-                               gridView1.GetRowCellValue(i, colFactura).ToString(),
+                               gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colFactura).ToString(),
                                "ENTREGADO",
                                DateTime.Now.ToString(),
                                "CTE RECOGE",
@@ -326,6 +327,8 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                 List<UpdateInvoiceModel> factura = new List<UpdateInvoiceModel>();
                 for (int i = 0; i < data.Rows.Count; i++)
                 {
+
+                    int internalid = Convert.ToInt32(data.Rows[i][5].ToString());
                     UpdateInvoiceModel uim = new UpdateInvoiceModel()
                     {
                         internalId = Convert.ToInt32(data.Rows[i][5].ToString()),
@@ -659,14 +662,19 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
         private void btnAdminsitraralmacen_Click(object sender, EventArgs e)
         {
-           /* administraAlmacen aa = new administraAlmacen(sqlString);
-            aa.Show();*/
+            /* administraAlmacen aa = new administraAlmacen(sqlString);
+             aa.Show();*/
+            Views.ClienteRecoge.administraAlmacen AA = new administraAlmacen(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1);
+            AA.Show();
         }
 
         private void gridView3_DoubleClick(object sender, EventArgs e)
         {
-        /*    Procesos.PostVenta.infoFactura info = new PostVenta.infoFactura(myConnection, nombre, perfil, gridView3.GetFocusedRowCellValue(colPedPedido).ToString(), "PE",gridView3.GetFocusedRowCellValue(colPedId).ToString());
-            info.ShowDialog();*/
+            /*    Procesos.PostVenta.infoFactura info = new PostVenta.infoFactura(myConnection, nombre, perfil, gridView3.GetFocusedRowCellValue(colPedPedido).ToString(), "PE",gridView3.GetFocusedRowCellValue(colPedId).ToString());
+                info.ShowDialog();*/
+
+            infoFactura info = new infoFactura(gridView3.GetFocusedRowCellValue(colPedPedido).ToString(), "PE", gridView3.GetFocusedRowCellValue(colPedId).ToString());
+            info.ShowDialog();
         }
 
         

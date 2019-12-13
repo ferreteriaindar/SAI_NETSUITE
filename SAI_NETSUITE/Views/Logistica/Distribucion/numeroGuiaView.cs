@@ -163,6 +163,8 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             if (e.KeyChar == (char)13)
             {
                 buscaFactura();
+                txtFactura.Text = "";
+                txtFactura.Select();
             }
         }
 

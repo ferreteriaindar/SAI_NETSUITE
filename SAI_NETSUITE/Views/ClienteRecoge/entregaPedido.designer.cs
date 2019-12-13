@@ -68,6 +68,8 @@
             this.colClienteid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.cteRecogeClientesBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
+            this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
+            this.labelAvance = new System.Windows.Forms.Label();
             this.checkGDL = new System.Windows.Forms.CheckBox();
             this.btnAdminsitraralmacen = new DevExpress.XtraEditors.SimpleButton();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
@@ -90,8 +92,6 @@
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            this.labelAvance = new System.Windows.Forms.Label();
-            this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridFacturas)).BeginInit();
@@ -106,13 +106,13 @@
             ((System.ComponentModel.ISupportInitialize)(this.cteRecogeClientesBindingSource)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).BeginInit();
             this.groupControl4.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
             this.groupControl5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl6)).BeginInit();
             this.groupControl6.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridFacturaXllegar)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView5)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // colEstatus
@@ -254,7 +254,6 @@
             this.gridView3.GridControl = this.gridpedido;
             this.gridView3.Name = "gridView3";
             this.gridView3.OptionsBehavior.Editable = false;
-            this.gridView3.DragObjectStart += new DevExpress.XtraGrid.Views.Base.DragObjectStartEventHandler(this.cargaPedido);
             this.gridView3.DoubleClick += new System.EventHandler(this.gridView3_DoubleClick);
             // 
             // colPedPedido
@@ -436,6 +435,27 @@
             this.groupControl4.Size = new System.Drawing.Size(452, 170);
             this.groupControl4.TabIndex = 6;
             this.groupControl4.Text = "Proceso";
+            // 
+            // pictureEdit1
+            // 
+            this.pictureEdit1.Cursor = System.Windows.Forms.Cursors.Default;
+            this.pictureEdit1.EditValue = global::SAI_NETSUITE.Properties.Resources._835;
+            this.pictureEdit1.Location = new System.Drawing.Point(345, 135);
+            this.pictureEdit1.Name = "pictureEdit1";
+            this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
+            this.pictureEdit1.Size = new System.Drawing.Size(40, 28);
+            this.pictureEdit1.TabIndex = 15;
+            this.pictureEdit1.Visible = false;
+            // 
+            // labelAvance
+            // 
+            this.labelAvance.AutoSize = true;
+            this.labelAvance.Location = new System.Drawing.Point(399, 143);
+            this.labelAvance.Name = "labelAvance";
+            this.labelAvance.Size = new System.Drawing.Size(42, 17);
+            this.labelAvance.TabIndex = 14;
+            this.labelAvance.Text = "label5";
             // 
             // checkGDL
             // 
@@ -672,27 +692,6 @@
             this.backgroundWorker1.ProgressChanged += new System.ComponentModel.ProgressChangedEventHandler(this.backgroundWorker1_ProgressChanged);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
             // 
-            // labelAvance
-            // 
-            this.labelAvance.AutoSize = true;
-            this.labelAvance.Location = new System.Drawing.Point(399, 143);
-            this.labelAvance.Name = "labelAvance";
-            this.labelAvance.Size = new System.Drawing.Size(42, 17);
-            this.labelAvance.TabIndex = 14;
-            this.labelAvance.Text = "label5";
-            // 
-            // pictureEdit1
-            // 
-            this.pictureEdit1.Cursor = System.Windows.Forms.Cursors.Default;
-            this.pictureEdit1.EditValue = global::SAI_NETSUITE.Properties.Resources._835;
-            this.pictureEdit1.Location = new System.Drawing.Point(345, 135);
-            this.pictureEdit1.Name = "pictureEdit1";
-            this.pictureEdit1.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
-            this.pictureEdit1.Properties.ShowCameraMenuItem = DevExpress.XtraEditors.Controls.CameraMenuItemVisibility.Auto;
-            this.pictureEdit1.Size = new System.Drawing.Size(40, 28);
-            this.pictureEdit1.TabIndex = 15;
-            this.pictureEdit1.Visible = false;
-            // 
             // entregaPedido
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -724,6 +723,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl4)).EndInit();
             this.groupControl4.ResumeLayout(false);
             this.groupControl4.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
             this.groupControl5.ResumeLayout(false);
             this.groupControl5.PerformLayout();
@@ -731,7 +731,6 @@
             this.groupControl6.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.gridFacturaXllegar)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView5)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).EndInit();
             this.ResumeLayout(false);
 
         }

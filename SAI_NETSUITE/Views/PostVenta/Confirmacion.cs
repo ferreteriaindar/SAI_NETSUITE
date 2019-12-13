@@ -117,6 +117,7 @@ namespace SAI_NETSUITE.Views.PostVenta
                 {
                     // if(gridView1.GetRowCellValue(gridView3.GetSelectedRows()[i], colTablaCheck).ToString().Equals("True"))
                     gridView1.SetRowCellValue(gridView1.GetSelectedRows()[i], colfechaHora, dateEdit1.EditValue.ToString());
+                    gridView1.SetRowCellValue(gridView1.GetSelectedRows()[i], colEstado, "ENTREGADO");
                 }
             }
             else MessageBox.Show("Selecciona al menos un movimiento");

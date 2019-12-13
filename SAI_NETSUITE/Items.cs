@@ -86,6 +86,17 @@ namespace SAI_NETSUITE
         public Nullable<decimal> maximoCompra { get; set; }
         public Nullable<decimal> multiploCompra { get; set; }
         public Nullable<decimal> multiploVenta { get; set; }
+        public string clavefabricante { get; set; }
+        public Nullable<decimal> preciominimo { get; set; }
+        public Nullable<decimal> costopromedio { get; set; }
+        public string CASAT { get; set; }
+        public string competitividad { get; set; }
+        public Nullable<int> EMPAQUEINDIVIDUAL { get; set; }
+        public Nullable<int> EMPAQUEINNER { get; set; }
+        public Nullable<int> EMPAQUEMASTER { get; set; }
+        public Nullable<System.DateTime> fechaAlta { get; set; }
+        public Nullable<System.DateTime> fechaAltaIndar { get; set; }
+        public string moneda { get; set; }
     
         public virtual ICollection<SaleOrdersDetails> SaleOrdersDetails { get; set; }
     }

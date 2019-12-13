@@ -54,6 +54,7 @@
             this.colfechaHora = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPersona = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colcomentarios = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ComboBox2Comentarios = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.colfacturaid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
@@ -70,6 +71,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ComboBox2Comentarios)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -260,7 +262,8 @@
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
             this.gridControl1.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
-            this.repositoryItemComboBox1});
+            this.repositoryItemComboBox1,
+            this.ComboBox2Comentarios});
             this.gridControl1.Size = new System.Drawing.Size(1222, 464);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
@@ -304,7 +307,8 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.repositoryItemComboBox1.Items.AddRange(new object[] {
             "ENTREGADO",
-            "DESEMBARQUE"});
+            "DESEMBARQUE",
+            "CANCELADO"});
             this.repositoryItemComboBox1.Name = "repositoryItemComboBox1";
             // 
             // colfechaHora
@@ -326,10 +330,25 @@
             // colcomentarios
             // 
             this.colcomentarios.Caption = "Comentarios";
+            this.colcomentarios.ColumnEdit = this.ComboBox2Comentarios;
             this.colcomentarios.FieldName = "comentarios";
             this.colcomentarios.Name = "colcomentarios";
             this.colcomentarios.Visible = true;
             this.colcomentarios.VisibleIndex = 5;
+            // 
+            // ComboBox2Comentarios
+            // 
+            this.ComboBox2Comentarios.AutoHeight = false;
+            this.ComboBox2Comentarios.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.ComboBox2Comentarios.Items.AddRange(new object[] {
+            "Efectivo",
+            "Cheque",
+            "Transferencia",
+            "Contra Recibo",
+            "Tarjeta",
+            " "});
+            this.ComboBox2Comentarios.Name = "ComboBox2Comentarios";
             // 
             // colfacturaid
             // 
@@ -367,6 +386,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemComboBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ComboBox2Comentarios)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider1)).EndInit();
             this.ResumeLayout(false);
 
@@ -401,5 +421,6 @@
         private System.Windows.Forms.PictureBox pictureBox1;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private DevExpress.XtraGrid.Columns.GridColumn colfacturaid;
+        private DevExpress.XtraEditors.Repository.RepositoryItemComboBox ComboBox2Comentarios;
     }
 }

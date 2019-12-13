@@ -43,7 +43,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString)) 
             {
                 myConnection.Open();
-                string query = @"select mov,NumPedido from indar_inactionwms.dbo.OrdenEmbarque where Consolidado='" + consolidad0 + "'";
+                string query = @"select mov,NumPedido from indar_inactionwms.dbo.OrdenEmbarque where  IdEstatusOrdenEmbarque=6 and   Consolidado='" + consolidad0 + "'";
                 SqlCommand cmd = new SqlCommand(query, myConnection);
                 SqlDataReader sdr = cmd.ExecuteReader();
                 while (sdr.Read() && sdr.HasRows)
@@ -78,8 +78,8 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
         public string  regresaInfoConsSinTimbrar(string v)
         {
             string resultado = "TIMBRAR: ";
-            string query = @"select error = isnull((select top 1 error from iws.dbo.errorFulFillment where movid = NumPedido collate Modern_Spanish_CI_AS order by fecha desc),'Hablar a Sistemas 400')
-                              from indar_inactionwms.dbo.OrdenEmbarque where Consolidado = '"+v+"'";
+            string query = @"select error = isnull((select top 1 error from iws.dbo.errorFulFillment where error like '%result%' and  movid = NumPedido collate Modern_Spanish_CI_AS order by fecha desc),'Hablar a Sistemas 400')
+                              from indar_inactionwms.dbo.OrdenEmbarque where   IdEstatusOrdenEmbarque=6 and Consolidado = '" + v+"'";
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
                 myConnection.Open();
@@ -129,7 +129,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                               NumPedido,
                               UUID= isnull((SELECT top 1 UUID FROM IWS.DBO.Invoices WHERE createdfrom =(SELECT  internalId FROM IWS.DBO.SaleOrders WHERE tranId=NumPedido) AND status NOT IN ('Voided') order by internalId desc),'0')
   
-                                from INDAR_INACTIONWMS.dbo.OrdenEmbarque  where Consolidado='" + cons+@"'
+                                from INDAR_INACTIONWMS.dbo.OrdenEmbarque  where  IdEstatusOrdenEmbarque=6 and Consolidado='" + cons+@"'
                              ) as q) AS q2
                              SELECT @TOTAL-@SUMA";
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
@@ -284,7 +284,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             }
             
 
-            /*ACTIVAR PARA EL ARRANQUE DE  NETSUITE
+           
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
                 myConnection.Open();
@@ -293,9 +293,11 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                                       ,FechaFactura=GETDATE()
                                         where NumPedido="+pedido;
                 SqlCommand cmd = new SqlCommand(query, myConnection);
-                internalID = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                //internalID = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                cmd.ExecuteScalar();
+
             };
-            */
+            
 
         }
 
@@ -348,8 +350,11 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                 Models.Catalogos.respuesta respues = new respuesta();
                 myConnection.Open();
                 SqlCommand cmd = new SqlCommand("", myConnection);
-               // cmd.CommandText = "select top 1 case when error='{\"result\":true}' then 'CFDI TIMBRAR' ELSE error END as error from iws.dbo.errorfulfillment where  mov='" + mov + "' and movid='" + movid + "' order by fecha desc";
-               cmd.CommandText= "select top 1 error from iws.dbo.errorfulfillment where  mov='" + mov + "' and movid='" + movid + "' order by fecha desc";
+
+                // cmd.CommandText= "select top 1 error from iws.dbo.errorfulfillment where  mov='" + mov + "' and movid='" + movid + "' order by fecha desc";
+                cmd.CommandText = @"if exists(select error  from iws.dbo.errorfulfillment where  mov='" + mov + "' and movid='" + movid + @"' and error like '%result%')
+                                            select top 1 error from iws.dbo.errorfulfillment where  mov='"+mov+@"' and movid='"+movid+@"'   and error like '%result%' order by fecha desc
+                                            else  select 'HABLAR CON SISTEMAS'";
                 var resultado = cmd.ExecuteScalar();
                 try
                 {

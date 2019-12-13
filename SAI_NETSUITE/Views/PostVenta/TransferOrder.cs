@@ -47,7 +47,7 @@ namespace SAI_NETSUITE.Views.PostVenta
         {
             if (gridView1.SelectedRowsCount== 1)
             {            //if(gridView1.GetRowCellValue(gridView3.GetSelectedRows()[], colTablaCheck).ToString())
-                string query= @"insert into INDGDLSQL01.INDAR_INACTIONWMS_pruebas.int.entradacompra (mov,movid,Articulo,Cantidad,Proveedor)
+                string query= @"insert into INDGDLSQL01.INDAR_INACTIONWMS.int.entradacompra (mov,movid,Articulo,Cantidad,Proveedor)
                         SELECT 'TOR'as mov,TOR.tranid,Tord.itemText as Articulo,sum(tord.quantity) as cantidad,'POSTVENTA' from IWS.dbo.TOR 
                         INNER JOIN IWS.DBO.TORD ON TOR.IdTOR=TORD.IdTOR
                         where TOR.Tranid="+ gridView1.GetRowCellValue(gridView1.GetSelectedRows()[0], coltranid).ToString() + @" group by tranid,itemtext";

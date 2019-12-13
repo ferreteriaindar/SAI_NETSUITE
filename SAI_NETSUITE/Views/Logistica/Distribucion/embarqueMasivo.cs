@@ -58,7 +58,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             string factura = txtFactura.Text;
             backgroundWorker1.RunWorkerAsync(argument: factura);
             }
-
+           
             /*
             using (SqlConnection myConnection = new SqlConnection(sqlString10))
             {
@@ -177,6 +177,8 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     }
                 else { txtFactura.ErrorText = "No existe Documento"; }
                 gridControl1.DataSource = dt;
+                txtFactura.Text = "";
+                txtFactura.Select();
             });
 
             // 
@@ -203,7 +205,10 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             if (dxValidationProvider1.Validate() && GridView1.RowCount > 0)
             {
                 if (guardarEmbarque())
+                {
                     MessageBox.Show("Embarque Completado");
+                    gridControl1.DataSource = null;
+                }
                 else MessageBox.Show("ERROR DE EMBARQUE");
             }
         }

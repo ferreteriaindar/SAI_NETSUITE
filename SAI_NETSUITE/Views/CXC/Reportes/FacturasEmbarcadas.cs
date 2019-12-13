@@ -30,11 +30,12 @@ namespace SAI_NETSUITE.Views.CXC.Reportes
             DataSet ds = new DataSet();
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"select ED.factura,I.AmountDue,SubString(ED.fechaHora,1,10) as FechaHora,EN.NAME as Cobrador,E.idEmbarque,ED.estado,ZI.NSO___ZONAS_CLIENTES_NAME as Zona,C.company from indarneg.dbo.EmbarquesD ED
+                string query = @"select ED.factura,I.AmountDue,SubString(ED.fechaHora,1,10) as FechaHora,EN.NAME as Cobrador,EN.ENTITY_ID AS IDCOBRADOR,EN2.NAME AS VENDEDOR,EN2.ENTITY_ID AS IDVENDEDOR,E.idEmbarque,ED.estado,ZI.NSO___ZONAS_CLIENTES_NAME as Zona,C.company from indarneg.dbo.EmbarquesD ED
                             INNER JOIN  IWS.DBO.Invoices I ON ED.factura=I.TranId
                             INNER JOIN  IWS.DBO.Customers C ON I.Entity=c.internalid
                             INNER JOIN  IWS.DBO.ZonasIndar ZI ON C.customerZone=ZI.NSO___ZONAS_CLIENTES_ID
                             INNER JOIN  IWS.DBO.Entity  EN ON ZI.AGENTE_COBRADOR_ID=EN.ENTITY_ID
+							INNER JOIN  IWS.DBO.Entity EN2 ON ZI.REPRESENTANTE_VENTAS_ID=EN2.ENTITY_ID
                             INNER JOIN  Indarneg.dbo.Embarques E ON  ED.idEmbarque=E.idEmbarque
 							INNER JOIN  Indarneg.dbo.sai_usuario SU on e.usuario=su.usuario
                              where (ISNULL(SU.sucursal,''))  not like ('Of%') AND

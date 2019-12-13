@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             this.colrevisado = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.btnEscanea = new DevExpress.XtraEditors.SimpleButton();
@@ -210,17 +210,19 @@
             this.COLformaenvio,
             this.colrevisado,
             this.colcomentario});
-            gridFormatRule1.ApplyToRow = true;
-            gridFormatRule1.Column = this.colrevisado;
-            gridFormatRule1.ColumnApplyTo = this.colrevisado;
-            gridFormatRule1.Name = "formatOK";
-            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
-            formatConditionRuleValue1.PredefinedName = "Green Fill, Green Text";
-            formatConditionRuleValue1.Value1 = "1";
-            gridFormatRule1.Rule = formatConditionRuleValue1;
-            this.gridView1.FormatRules.Add(gridFormatRule1);
+            gridFormatRule2.ApplyToRow = true;
+            gridFormatRule2.Column = this.colrevisado;
+            gridFormatRule2.ColumnApplyTo = this.colrevisado;
+            gridFormatRule2.Name = "formatOK";
+            formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
+            formatConditionRuleValue2.PredefinedName = "Green Fill, Green Text";
+            formatConditionRuleValue2.Value1 = "1";
+            gridFormatRule2.Rule = formatConditionRuleValue2;
+            this.gridView1.FormatRules.Add(gridFormatRule2);
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsSelection.MultiSelect = true;
+            this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             this.gridView1.OptionsView.ShowGroupPanel = false;
             // 
             // colIdembarque
@@ -235,7 +237,7 @@
             this.colfactura.FieldName = "factura";
             this.colfactura.Name = "colfactura";
             this.colfactura.Visible = true;
-            this.colfactura.VisibleIndex = 0;
+            this.colfactura.VisibleIndex = 1;
             // 
             // colentity_id
             // 
@@ -243,7 +245,7 @@
             this.colentity_id.FieldName = "entity_id";
             this.colentity_id.Name = "colentity_id";
             this.colentity_id.Visible = true;
-            this.colentity_id.VisibleIndex = 1;
+            this.colentity_id.VisibleIndex = 2;
             // 
             // coltransito
             // 
@@ -252,7 +254,7 @@
             this.coltransito.FieldName = "estado";
             this.coltransito.Name = "coltransito";
             this.coltransito.Visible = true;
-            this.coltransito.VisibleIndex = 2;
+            this.coltransito.VisibleIndex = 3;
             // 
             // comboEstado
             // 
@@ -267,7 +269,7 @@
             this.COLformaenvio.FieldName = "formaenvio";
             this.COLformaenvio.Name = "COLformaenvio";
             this.COLformaenvio.Visible = true;
-            this.COLformaenvio.VisibleIndex = 3;
+            this.COLformaenvio.VisibleIndex = 4;
             // 
             // colcomentario
             // 
@@ -276,7 +278,7 @@
             this.colcomentario.Name = "colcomentario";
             this.colcomentario.UnboundType = DevExpress.Data.UnboundColumnType.String;
             this.colcomentario.Visible = true;
-            this.colcomentario.VisibleIndex = 4;
+            this.colcomentario.VisibleIndex = 5;
             // 
             // desembarque
             // 

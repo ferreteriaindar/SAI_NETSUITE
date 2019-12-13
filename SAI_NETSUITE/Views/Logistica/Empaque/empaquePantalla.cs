@@ -15,6 +15,7 @@ using DevExpress.Utils;
 using DevExpress.XtraGrid.Views.Grid;
 using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using System.Threading;
+using System.Diagnostics;
 
 namespace SAI_NETSUITE.Views.Logistica.Empaque
 {
@@ -35,7 +36,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
                 if (!gridView1.GetRowCellValue(i, colPedido).ToString().Contains("Cons"))
                 {
-
+                    string pedido = gridView1.GetRowCellValue(i, colMovId).ToString();
                     gridView1.SetRowCellValue(i, colerror, epc.regresaErrorPedido(gridView1.GetRowCellValue(i, colPedido).ToString(), gridView1.GetRowCellValue(i, colMovId).ToString()));
 
                     /*REVISA SI YA  ESTA  FULL Y FACTURADA PARA INDICAR QUE SE TIMBRE DENTRO DE NETSUITE*/
@@ -49,6 +50,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                 }
                 else {
                     string numPedidos, numFacturas;
+                    string cons = gridView1.GetRowCellValue(i, colMovId).ToString();
                     numPedidos = gridView1.GetRowCellValue(i, colPedidos).ToString();
                     numFacturas = gridView1.GetRowCellValue(i, colFacturas1).ToString();
                     if (gridView1.GetRowCellValue(i, colPedidos).ToString().Equals(gridView1.GetRowCellValue(i, colFacturas1).ToString()))
@@ -258,6 +260,19 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                     break;
             }
 
+        }
+
+        private void btnexcel_Click(object sender, EventArgs e)
+        {
+
+            string carpeta = string.Empty;
+            carpeta = System.IO.Path.GetTempPath();
+
+            gridControl1.ExportToXlsx(carpeta + "\\FACTURAS.xlsx");
+            Process pdfexport = new Process();
+            pdfexport.StartInfo.FileName = "EXCEL.exe";
+            pdfexport.StartInfo.Arguments = carpeta + "\\FACTURAS.xlsx";
+            pdfexport.Start();
         }
     }
 

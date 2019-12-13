@@ -114,7 +114,8 @@
             "Cliente recoge, pago anticipado",
             "Embarque local, pago anticipado",
             "Flete foraneo contado, pago anticipado",
-            "Flete Foraneo Ocurre"});
+            "Flete Foraneo Ocurre",
+            "Vendedor Entrega"});
             this.comboBoxEdit1.Size = new System.Drawing.Size(280, 22);
             this.comboBoxEdit1.TabIndex = 153;
             conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;

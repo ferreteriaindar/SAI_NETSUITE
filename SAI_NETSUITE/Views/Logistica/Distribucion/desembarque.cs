@@ -105,7 +105,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 if (txtEscaneaFac.Text.Equals(gridView1.GetRowCellValue(i, colfactura).ToString()))
                 {
                     gridView1.SetRowCellValue(i, colrevisado, 1);
-                    
+                    gridView1.SelectRow(i);
                     encontrado = true;
                 }
             }
@@ -116,23 +116,23 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
         private void btnDesembarcar_Click(object sender, EventArgs e)
         {
-            if (estaCompletoelEmbarque())
-            {
+            bool todo = false;
+            if (gridView1.RowCount == gridView1.SelectedRowsCount)
+                todo = true;
                 DataTable data = new DataTable();
                 data.Columns.Add("factura", typeof(string));
                 data.Columns.Add("comentario", typeof(string));
                 data.Columns.Add("estado", typeof(string));
-                for (int i = 0; i < gridView1.RowCount; i++)
+                for (int i = 0; i < gridView1.SelectedRowsCount; i++)
                 {
-                    data.Rows.Add(gridView1.GetRowCellValue(i, colfactura).ToString(), gridView1.GetRowCellValue(i, colcomentario).ToString(),gridView1.GetRowCellValue(i,coltransito).ToString());
+                    data.Rows.Add(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colfactura).ToString(), gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colcomentario).ToString(),gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], coltransito).ToString());
                 }
-                if (new Controllers.Logistica.Distribucion.desembarqueController().desembarcarEmbarque(Convert.ToInt32(txtEmbarque.Text), labelUbicacion.Text, data,perfil))
+                if (new Controllers.Logistica.Distribucion.desembarqueController().desembarcarEmbarque(Convert.ToInt32(txtEmbarque.Text), labelUbicacion.Text, data,perfil,todo))
                 {
                     gridControl1.DataSource = null;
                     MessageBox.Show("Desembarcado Exitoso");
                 }
-            }
-            else MessageBox.Show("Falta escanear Facturas");
+           
 
         }
 
