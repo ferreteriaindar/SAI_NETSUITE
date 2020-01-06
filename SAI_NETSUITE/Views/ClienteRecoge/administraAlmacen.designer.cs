@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,10 +37,10 @@
             this.label4 = new System.Windows.Forms.Label();
             this.btnBuscar = new DevExpress.XtraEditors.SimpleButton();
             this.btnCambiar = new DevExpress.XtraEditors.SimpleButton();
-            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
+            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
             this.txtFactura = new DevExpress.XtraEditors.TextEdit();
-            this.validadorCombo = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
-            this.validadorOpcion = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
+            this.validadorCombo = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
+            this.validadorOpcion = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
             this.comboOpcion = new DevExpress.XtraEditors.ComboBoxEdit();
             this.lookformaenvio = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.searchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -168,7 +167,6 @@
             new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
             this.lookformaenvio.Properties.DisplayMember = "LIST_ITEM_NAME";
             this.lookformaenvio.Properties.PopupView = this.searchLookUpEdit1View;
-            this.lookformaenvio.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.Standard;
             this.lookformaenvio.Properties.ValueMember = "LIST_ID";
             this.lookformaenvio.Size = new System.Drawing.Size(205, 22);
             this.lookformaenvio.TabIndex = 11;

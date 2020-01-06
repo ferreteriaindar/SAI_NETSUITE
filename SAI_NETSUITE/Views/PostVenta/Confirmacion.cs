@@ -177,15 +177,15 @@ namespace SAI_NETSUITE.Views.PostVenta
             data.Columns.Add("comentarios", typeof(string));
             data.Columns.Add("facturaid", typeof(int));
 
-            for (int i = 0; i < gridView1.RowCount; i++)
+            for (int i = 0; i < gridView1.SelectedRowsCount; i++)
             {
                 data.Rows.Add(
-                                gridView1.GetRowCellValue(i, colFactura).ToString(),
-                                gridView1.GetRowCellValue(i, colEstado).ToString(),
-                                gridView1.GetRowCellValue(i, colfechaHora).ToString(),
-                                gridView1.GetRowCellValue(i, colPersona).ToString(),
-                                gridView1.GetRowCellValue(i, colcomentarios).ToString(),
-                               Convert.ToInt32( gridView1.GetRowCellValue(i,colfacturaid).ToString())
+                                gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colFactura).ToString(),
+                                gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colEstado).ToString(),
+                                gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colfechaHora).ToString(),
+                                gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colPersona).ToString(),
+                                gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colcomentarios).ToString(),
+                               Convert.ToInt32( gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colfacturaid).ToString()==""?"0": gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colfacturaid).ToString())
                                 );
             }
             bool resultado;

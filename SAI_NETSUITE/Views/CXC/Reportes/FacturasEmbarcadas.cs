@@ -39,7 +39,7 @@ namespace SAI_NETSUITE.Views.CXC.Reportes
                             INNER JOIN  Indarneg.dbo.Embarques E ON  ED.idEmbarque=E.idEmbarque
 							INNER JOIN  Indarneg.dbo.sai_usuario SU on e.usuario=su.usuario
                              where (ISNULL(SU.sucursal,''))  not like ('Of%') AND
-                            estado='ENTREGADO' AND  SubString(fechaHora,1,10) ='" + dateEdit1.Text+"'";
+                            estado='ENTREGADO' AND  SubString(fechaHora,1,10) >='" + dateEdit1.Text + "'  ";
                 Console.WriteLine(query);
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.Fill(ds);

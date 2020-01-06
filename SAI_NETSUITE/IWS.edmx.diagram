@@ -29,6 +29,7 @@
         <AssociationConnector Association="IWSModel.FK__Customers__Price__477199F1" />
         <AssociationConnector Association="IWSModel.FK__Customers__Route__40C49C62" />
         <AssociationConnector Association="IWSModel.FK__Customers__shipp__3A179ED3" />
+        <EntityTypeShape EntityType="IWSModel.ZonasIndar" Width="1.5" PointX="0.75" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

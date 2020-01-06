@@ -20,9 +20,9 @@ namespace SAI_NETSUITE.Controllers.PostVenta
             DataSet ds = new DataSet();
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"select ED.factura,ED.estado,ED.fechaHora,ED.persona,ED.comentarios,ED.facturaid from Indarneg.dbo.Embarques E
+                string query = @"select ED.factura,'ENTREGADO' AS estado,ED.fechaHora,ED.persona,ED.comentarios,ED.facturaid from Indarneg.dbo.Embarques E
 			                    left join Indarneg.dbo.EmbarquesD ED ON E.idEmbarque=ED.idEmbarque
-			                    WHERE  E.estatus='TRANSITO' AND E.idEmbarque=" + idembarque;
+			                    WHERE  E.estatus='TRANSITO' and ED.estado='TRANSITO'  AND E.idEmbarque=" + idembarque;
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.Fill(ds);
             }

@@ -42,5 +42,6 @@ namespace SAI_NETSUITE
         public DbSet<SaleOrders> SaleOrders { get; set; }
         public DbSet<SaleOrdersDetails> SaleOrdersDetails { get; set; }
         public DbSet<Customers> Customers { get; set; }
+        public DbSet<ZonasIndar> ZonasIndar { get; set; }
     }
 }

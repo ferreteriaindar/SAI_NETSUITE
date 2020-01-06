@@ -28,11 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btActualizar = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
@@ -133,7 +133,7 @@
             this.colPedido.FieldName = "Pedido";
             this.colPedido.Name = "colPedido";
             this.colPedido.Visible = true;
-            this.colPedido.VisibleIndex = 0;
+            this.colPedido.VisibleIndex = 1;
             // 
             // colImportePedido
             // 
@@ -143,7 +143,7 @@
             this.colImportePedido.FieldName = "ImportePedido";
             this.colImportePedido.Name = "colImportePedido";
             this.colImportePedido.Visible = true;
-            this.colImportePedido.VisibleIndex = 1;
+            this.colImportePedido.VisibleIndex = 2;
             // 
             // colCliente
             // 
@@ -151,7 +151,7 @@
             this.colCliente.FieldName = "Cliente";
             this.colCliente.Name = "colCliente";
             this.colCliente.Visible = true;
-            this.colCliente.VisibleIndex = 2;
+            this.colCliente.VisibleIndex = 3;
             // 
             // colNombre
             // 
@@ -159,7 +159,7 @@
             this.colNombre.FieldName = "Nombre";
             this.colNombre.Name = "colNombre";
             this.colNombre.Visible = true;
-            this.colNombre.VisibleIndex = 3;
+            this.colNombre.VisibleIndex = 4;
             // 
             // colFechaFactura
             // 
@@ -167,7 +167,7 @@
             this.colFechaFactura.FieldName = "FechaFactura";
             this.colFechaFactura.Name = "colFechaFactura";
             this.colFechaFactura.Visible = true;
-            this.colFechaFactura.VisibleIndex = 4;
+            this.colFechaFactura.VisibleIndex = 5;
             // 
             // colFactura
             // 
@@ -175,7 +175,7 @@
             this.colFactura.FieldName = "Factura";
             this.colFactura.Name = "colFactura";
             this.colFactura.Visible = true;
-            this.colFactura.VisibleIndex = 5;
+            this.colFactura.VisibleIndex = 6;
             // 
             // colImporteFactura
             // 
@@ -185,7 +185,7 @@
             this.colImporteFactura.FieldName = "ImporteFactura";
             this.colImporteFactura.Name = "colImporteFactura";
             this.colImporteFactura.Visible = true;
-            this.colImporteFactura.VisibleIndex = 6;
+            this.colImporteFactura.VisibleIndex = 7;
             // 
             // colDescuentoTotalPP
             // 
@@ -193,7 +193,7 @@
             this.colDescuentoTotalPP.FieldName = "DescuentoTotalPP";
             this.colDescuentoTotalPP.Name = "colDescuentoTotalPP";
             this.colDescuentoTotalPP.Visible = true;
-            this.colDescuentoTotalPP.VisibleIndex = 7;
+            this.colDescuentoTotalPP.VisibleIndex = 8;
             // 
             // colImportePP
             // 
@@ -205,7 +205,7 @@
             this.colImportePP.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
             new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "ImportePP", "SUM={0:c2}")});
             this.colImportePP.Visible = true;
-            this.colImportePP.VisibleIndex = 8;
+            this.colImportePP.VisibleIndex = 9;
             // 
             // colexcepcion
             // 
@@ -213,7 +213,7 @@
             this.colexcepcion.FieldName = "excepcion";
             this.colexcepcion.Name = "colexcepcion";
             this.colexcepcion.Visible = true;
-            this.colexcepcion.VisibleIndex = 9;
+            this.colexcepcion.VisibleIndex = 10;
             // 
             // colcomentario
             // 
@@ -221,7 +221,7 @@
             this.colcomentario.FieldName = "comentario";
             this.colcomentario.Name = "colcomentario";
             this.colcomentario.Visible = true;
-            this.colcomentario.VisibleIndex = 10;
+            this.colcomentario.VisibleIndex = 11;
             // 
             // colcxcComentario
             // 
@@ -229,7 +229,7 @@
             this.colcxcComentario.FieldName = "cxcComentario";
             this.colcxcComentario.Name = "colcxcComentario";
             this.colcxcComentario.Visible = true;
-            this.colcxcComentario.VisibleIndex = 11;
+            this.colcxcComentario.VisibleIndex = 12;
             // 
             // colmonto
             // 
@@ -238,7 +238,7 @@
             this.colmonto.Name = "colmonto";
             this.colmonto.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             this.colmonto.Visible = true;
-            this.colmonto.VisibleIndex = 12;
+            this.colmonto.VisibleIndex = 13;
             // 
             // colBTN
             // 
@@ -251,9 +251,9 @@
             // btnAutorizar
             // 
             this.btnAutorizar.AutoHeight = false;
-            editorButtonImageOptions2.Image = global::SAI_NETSUITE.Properties.Resources.Accept_icon;
+            editorButtonImageOptions1.Image = global::SAI_NETSUITE.Properties.Resources.Accept_icon;
             this.btnAutorizar.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
-            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "AUTORIZAR", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "AUTORIZAR", -1, true, true, false, editorButtonImageOptions1, new DevExpress.Utils.KeyShortcut(System.Windows.Forms.Keys.None), serializableAppearanceObject1, serializableAppearanceObject2, serializableAppearanceObject3, serializableAppearanceObject4, "", null, null, DevExpress.Utils.ToolTipAnchor.Default)});
             this.btnAutorizar.Name = "btnAutorizar";
             this.btnAutorizar.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             this.btnAutorizar.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.btnAutorizar_ButtonClick);

@@ -163,6 +163,7 @@
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="Controllers\Compras\Entradas\IRController.cs" />
+    <Compile Include="Controllers\CXC\ArqueoController.cs" />
     <Compile Include="Controllers\CXC\OrdenCobroController.cs" />
     <Compile Include="Controllers\IWS\Connection.cs" />
     <Compile Include="Controllers\Logistica\Distribucion\desembarqueController.cs" />
@@ -258,7 +259,9 @@
     <Compile Include="Models\Catalogos\LocationListCombo.cs" />
     <Compile Include="Models\Catalogos\respuesta.cs" />
     <Compile Include="Models\Catalogos\RutaListCombo.cs" />
+    <Compile Include="Models\Catalogos\ZonaModel.cs" />
     <Compile Include="Models\SaleOrderSentModel.cs" />
+    <Compile Include="Models\Transaccion\ArqueoModel.cs" />
     <Compile Include="Models\Transaccion\BalanceDocumentsModel.cs" />
     <Compile Include="Models\Transaccion\IRDModel.cs" />
     <Compile Include="Models\Transaccion\IRModel.cs" />
@@ -416,6 +419,12 @@
     </Compile>
     <Compile Include="Views\Compras\Reportes\RepOCPendientes.Designer.cs">
       <DependentUpon>RepOCPendientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\CXC\Arqueo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CXC\Arqueo.Designer.cs">
+      <DependentUpon>Arqueo.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\CXC\AutorizarSAD.cs">
       <SubType>UserControl</SubType>
@@ -749,6 +758,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>WMS_NivelPicking.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ZonasIndar.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -810,6 +822,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Compras\Reportes\RepOCPendientes.resx">
       <DependentUpon>RepOCPendientes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CXC\Arqueo.resx">
+      <DependentUpon>Arqueo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CXC\AutorizarSAD.resx">
       <DependentUpon>AutorizarSAD.cs</DependentUpon>

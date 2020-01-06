@@ -20,6 +20,7 @@
           <Property Name="defaultshipping" Type="bit" />
           <Property Name="residential" Type="bit" />
           <Property Name="entity_id" Type="int" />
+          <Property Name="isInactive" Type="varchar" MaxLength="3" />
         </EntityType>
         <EntityType Name="Customers">
           <Key>
@@ -245,7 +246,7 @@
           <Property Name="TranType" Type="varchar" MaxLength="50" />
           <Property Name="Entity" Type="int" />
           <Property Name="TranDate" Type="datetime" />
-          <Property Name="Memo" Type="varchar" MaxLength="23" />
+          <Property Name="Memo" Type="nvarchar" MaxLength="300" />
           <Property Name="SubTotal" Type="numeric" Precision="10" Scale="2" />
           <Property Name="DiscountTotal" Type="numeric" Precision="10" Scale="2" />
           <Property Name="TaxTotal" Type="numeric" Precision="10" Scale="2" />
@@ -474,6 +475,23 @@
           <Property Name="NAME" Type="varchar" MaxLength="255" />
           <Property Name="isInactive" Type="int" />
         </EntityType>
+        <EntityType Name="ZonasIndar">
+          <Key>
+            <PropertyRef Name="NSO___ZONAS_CLIENTES_ID" />
+          </Key>
+          <Property Name="AGENTE_COBRADOR_ID" Type="int" />
+          <Property Name="APOYO_DE_VENTAS_ID" Type="int" />
+          <Property Name="DATE_CREATED" Type="datetime" />
+          <Property Name="DEPARTAMENTO_ID" Type="int" />
+          <Property Name="Isnactive" Type="int" />
+          <Property Name="LAST_MODIFIED_DATE" Type="datetime" />
+          <Property Name="NSO___ZONAS_CLIENTES_EXTID" Type="int" />
+          <Property Name="NSO___ZONAS_CLIENTES_ID" Type="int" Nullable="false" />
+          <Property Name="NSO___ZONAS_CLIENTES_NAME" Type="varchar" MaxLength="255" />
+          <Property Name="PARENT_ID" Type="int" />
+          <Property Name="REPRESENTANTE_VENTAS_ID" Type="int" />
+          <Property Name="ZONA_DE_VENTAS_ID" Type="int" Nullable="false" />
+        </EntityType>
         <Association Name="FK__Customers__Packa__4A4E069C">
           <End Role="Paqueteria" Type="Self.Paqueteria" Multiplicity="0..1" />
           <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
@@ -576,6 +594,7 @@
           <EntitySet Name="SaleOrders" EntityType="Self.SaleOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleOrdersDetails" EntityType="Self.SaleOrdersDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Territorios" EntityType="Self.Territorios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ZonasIndar" EntityType="Self.ZonasIndar" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Customers__Packa__4A4E069C" Association="Self.FK__Customers__Packa__4A4E069C">
             <End Role="Paqueteria" EntitySet="Paqueteria" />
             <End Role="Customers" EntitySet="Customers" />
@@ -655,6 +674,7 @@
             <End Role="FormaEnvio" EntitySet="FormaEnvio" />
             <End Role="Customers" EntitySet="Customers" />
           </AssociationSet>
+          <EntitySet Name="ZonasIndar" EntityType="IWSModel.ZonasIndar" />
         </EntityContainer>
         <EntityType Name="Locations">
           <Key>
@@ -679,6 +699,7 @@
           <Property Type="Boolean" Name="defaultshipping" />
           <Property Type="Boolean" Name="residential" />
           <Property Type="Int32" Name="entity_id" />
+          <Property Name="isInactive" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="FormaEnvio">
           <Key>
@@ -1003,7 +1024,7 @@
           <Property Name="TranType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Entity" Type="Int32" />
           <Property Name="TranDate" Type="DateTime" Precision="3" />
-          <Property Name="Memo" Type="String" MaxLength="23" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
           <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="DiscountTotal" Type="Decimal" Precision="10" Scale="2" />
           <Property Name="TaxTotal" Type="Decimal" Precision="10" Scale="2" />
@@ -1223,6 +1244,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ZonasIndar">
+          <Key>
+            <PropertyRef Name="NSO___ZONAS_CLIENTES_ID" />
+          </Key>
+          <Property Name="AGENTE_COBRADOR_ID" Type="Int32" />
+          <Property Name="APOYO_DE_VENTAS_ID" Type="Int32" />
+          <Property Name="DATE_CREATED" Type="DateTime" Precision="3" />
+          <Property Name="DEPARTAMENTO_ID" Type="Int32" />
+          <Property Name="Isnactive" Type="Int32" />
+          <Property Name="LAST_MODIFIED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="NSO___ZONAS_CLIENTES_EXTID" Type="Int32" />
+          <Property Name="NSO___ZONAS_CLIENTES_ID" Type="Int32" Nullable="false" />
+          <Property Name="NSO___ZONAS_CLIENTES_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PARENT_ID" Type="Int32" />
+          <Property Name="REPRESENTANTE_VENTAS_ID" Type="Int32" />
+          <Property Name="ZONA_DE_VENTAS_ID" Type="Int32" Nullable="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1241,6 +1279,7 @@
           <EntitySetMapping Name="Address">
             <EntityTypeMapping TypeName="IWSModel.Address">
               <MappingFragment StoreEntitySet="Address">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
                 <ScalarProperty Name="entity_id" ColumnName="entity_id" />
                 <ScalarProperty Name="residential" ColumnName="residential" />
                 <ScalarProperty Name="defaultshipping" ColumnName="defaultshipping" />
@@ -1712,6 +1751,24 @@
                 <ScalarProperty Name="lastName" ColumnName="lastName" />
                 <ScalarProperty Name="name" ColumnName="name" />
                 <ScalarProperty Name="internalid" ColumnName="internalid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ZonasIndar">
+            <EntityTypeMapping TypeName="IWSModel.ZonasIndar">
+              <MappingFragment StoreEntitySet="ZonasIndar">
+                <ScalarProperty Name="ZONA_DE_VENTAS_ID" ColumnName="ZONA_DE_VENTAS_ID" />
+                <ScalarProperty Name="REPRESENTANTE_VENTAS_ID" ColumnName="REPRESENTANTE_VENTAS_ID" />
+                <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
+                <ScalarProperty Name="NSO___ZONAS_CLIENTES_NAME" ColumnName="NSO___ZONAS_CLIENTES_NAME" />
+                <ScalarProperty Name="NSO___ZONAS_CLIENTES_ID" ColumnName="NSO___ZONAS_CLIENTES_ID" />
+                <ScalarProperty Name="NSO___ZONAS_CLIENTES_EXTID" ColumnName="NSO___ZONAS_CLIENTES_EXTID" />
+                <ScalarProperty Name="LAST_MODIFIED_DATE" ColumnName="LAST_MODIFIED_DATE" />
+                <ScalarProperty Name="Isnactive" ColumnName="Isnactive" />
+                <ScalarProperty Name="DEPARTAMENTO_ID" ColumnName="DEPARTAMENTO_ID" />
+                <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
+                <ScalarProperty Name="APOYO_DE_VENTAS_ID" ColumnName="APOYO_DE_VENTAS_ID" />
+                <ScalarProperty Name="AGENTE_COBRADOR_ID" ColumnName="AGENTE_COBRADOR_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

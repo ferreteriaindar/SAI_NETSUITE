@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             DevExpress.XtraGrid.StyleFormatCondition styleFormatCondition1 = new DevExpress.XtraGrid.StyleFormatCondition();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression1 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
@@ -66,7 +65,7 @@
             this.colhora = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colprueba = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colClienteid = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.cteRecogeClientesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.cteRecogeClientesBindingSource = new System.Windows.Forms.BindingSource();
             this.groupControl4 = new DevExpress.XtraEditors.GroupControl();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.labelAvance = new System.Windows.Forms.Label();

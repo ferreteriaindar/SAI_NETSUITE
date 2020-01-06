@@ -30,8 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RepOCPendientes));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btnEjecutar = new DevExpress.XtraEditors.SimpleButton();
             this.BTNexcel = new DevExpress.XtraEditors.SimpleButton();
+            this.btnEjecutar = new DevExpress.XtraEditors.SimpleButton();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.groupBox1.SuspendLayout();
@@ -52,27 +52,27 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Controles";
             // 
-            // btnEjecutar
-            // 
-            this.btnEjecutar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.btnEjecutar.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
-            this.btnEjecutar.Location = new System.Drawing.Point(25, 21);
-            this.btnEjecutar.Name = "btnEjecutar";
-            this.btnEjecutar.Size = new System.Drawing.Size(102, 38);
-            this.btnEjecutar.TabIndex = 0;
-            this.btnEjecutar.Text = "Ejecutar";
-            this.btnEjecutar.Click += new System.EventHandler(this.btnEjecutar_Click);
-            // 
             // BTNexcel
             // 
             this.BTNexcel.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.BTNexcel.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.ImageOptions.Image")));
+            this.BTNexcel.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("BTNexcel.ImageOptions.Image")));
             this.BTNexcel.Location = new System.Drawing.Point(166, 21);
             this.BTNexcel.Name = "BTNexcel";
             this.BTNexcel.Size = new System.Drawing.Size(102, 38);
             this.BTNexcel.TabIndex = 1;
             this.BTNexcel.Text = "Excel";
             this.BTNexcel.Click += new System.EventHandler(this.BTNexcel_Click);
+            // 
+            // btnEjecutar
+            // 
+            this.btnEjecutar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.btnEjecutar.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnEjecutar.ImageOptions.Image")));
+            this.btnEjecutar.Location = new System.Drawing.Point(25, 21);
+            this.btnEjecutar.Name = "btnEjecutar";
+            this.btnEjecutar.Size = new System.Drawing.Size(102, 38);
+            this.btnEjecutar.TabIndex = 0;
+            this.btnEjecutar.Text = "Ejecutar";
+            this.btnEjecutar.Click += new System.EventHandler(this.btnEjecutar_Click);
             // 
             // gridControl1
             // 

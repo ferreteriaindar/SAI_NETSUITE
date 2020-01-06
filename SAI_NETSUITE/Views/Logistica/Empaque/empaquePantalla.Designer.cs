@@ -71,7 +71,6 @@
             this.txtReimprimir = new DevExpress.XtraEditors.TextEdit();
             this.comboReimprmir = new System.Windows.Forms.ComboBox();
             this.btnexcel = new DevExpress.XtraEditors.SimpleButton();
-            this.btnMassivo = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
@@ -463,19 +462,10 @@
             this.btnexcel.Text = "excel";
             this.btnexcel.Click += new System.EventHandler(this.btnexcel_Click);
             // 
-            // btnMassivo
-            // 
-            this.btnMassivo.Location = new System.Drawing.Point(844, 22);
-            this.btnMassivo.Name = "btnMassivo";
-            this.btnMassivo.Size = new System.Drawing.Size(75, 23);
-            this.btnMassivo.TabIndex = 8;
-            this.btnMassivo.Text = "masivo";
-            // 
             // empaquePantalla
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnMassivo);
             this.Controls.Add(this.btnexcel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.labelStatus);
@@ -535,6 +525,5 @@
         private DevExpress.XtraEditors.TextEdit txtReimprimir;
         private System.Windows.Forms.ComboBox comboReimprmir;
         private DevExpress.XtraEditors.SimpleButton btnexcel;
-        private DevExpress.XtraEditors.SimpleButton btnMassivo;
     }
 }

@@ -372,6 +372,25 @@ namespace SAI_NETSUITE
                         };
                         ocapo.BringToFront();
                         break;
+                    case "btnArqueo":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.Arqueo ar = new Views.CXC.Arqueo()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        ar.BringToFront();
+                        break;
+                    case "btnReporteOrdenCobroAPoyo":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.Reportes.ReporteOrdenCobro roca = new Views.CXC.Reportes.ReporteOrdenCobro()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        roca.BringToFront();
+                        break;
+
                     default:
 
                         break;

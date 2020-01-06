@@ -28,12 +28,13 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.panel1 = new System.Windows.Forms.Panel();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
-            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel();
+            this.defaultLookAndFeel1 = new DevExpress.LookAndFeel.DefaultLookAndFeel(this.components);
             this.txtEmail = new MaterialSkin.Controls.MaterialSingleLineTextField();
             this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
             this.txtPass = new MaterialSkin.Controls.MaterialSingleLineTextField();

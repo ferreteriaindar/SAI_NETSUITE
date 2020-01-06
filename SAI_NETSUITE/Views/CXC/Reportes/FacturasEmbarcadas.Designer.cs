@@ -77,7 +77,7 @@
             // 
             this.simpleButton2.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.simpleButton2.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.ImageOptions.Image")));
-            this.simpleButton2.Location = new System.Drawing.Point(375, 40);
+            this.simpleButton2.Location = new System.Drawing.Point(720, 45);
             this.simpleButton2.Name = "simpleButton2";
             this.simpleButton2.Size = new System.Drawing.Size(105, 23);
             this.simpleButton2.TabIndex = 3;
@@ -88,7 +88,7 @@
             // 
             this.btnGenerar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.btnGenerar.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnGenerar.ImageOptions.Image")));
-            this.btnGenerar.Location = new System.Drawing.Point(249, 40);
+            this.btnGenerar.Location = new System.Drawing.Point(600, 45);
             this.btnGenerar.Name = "btnGenerar";
             this.btnGenerar.Size = new System.Drawing.Size(105, 23);
             this.btnGenerar.TabIndex = 2;
@@ -101,9 +101,9 @@
             this.label1.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(6, 19);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(54, 19);
+            this.label1.Size = new System.Drawing.Size(80, 19);
             this.label1.TabIndex = 1;
-            this.label1.Text = "FECHA";
+            this.label1.Text = "FECHA DE:";
             // 
             // gridControl1
             // 

@@ -25,5 +25,6 @@ namespace SAI_NETSUITE
         public Nullable<bool> defaultshipping { get; set; }
         public Nullable<bool> residential { get; set; }
         public Nullable<int> entity_id { get; set; }
+        public string isInactive { get; set; }
     }
 }
