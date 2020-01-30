@@ -81,6 +81,7 @@ namespace SAI_NETSUITE
         {
             if (e.IsTile)
             {
+                
                 switch (e.Element.Name.ToString())
                 { 
                     case "tileNavWMS":
@@ -390,6 +391,44 @@ namespace SAI_NETSUITE
                         };
                         roca.BringToFront();
                         break;
+                    case "btnCteRecogeReporteAlmacen":
+                        panelControl1.Controls.Clear();
+                        Views.ClienteRecoge.ReporteAlmacenCterecoge racr = new Views.ClienteRecoge.ReporteAlmacenCterecoge("")
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        racr.BringToFront();
+                        break;
+                    case "btnSurtirEventos":
+                        panelControl1.Controls.Clear();
+                        Views.PostVenta.SurtirEventos se = new Views.PostVenta.SurtirEventos()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        se.BringToFront();
+                        break;
+                    case "btnCxcReportesEmbarques":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Distribucion.reporteEmbarques res = new Views.Logistica.Distribucion.reporteEmbarques()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        res.BringToFront();
+                        break;
+                    case "btnRegresarEventos":
+                        panelControl1.Controls.Clear();
+                        Views.PostVenta.RegresarEventos rev = new Views.PostVenta.RegresarEventos()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        rev.BringToFront();
+                        break;
+
+
 
                     default:
 

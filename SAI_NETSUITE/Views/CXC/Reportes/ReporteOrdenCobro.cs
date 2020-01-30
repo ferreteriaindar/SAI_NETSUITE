@@ -55,5 +55,11 @@ namespace SAI_NETSUITE.Views.CXC.Reportes
             }
 
         }
+
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            CXC.OrdenCobroViewcs ocv = new OrdenCobroViewcs("");
+            ocv.generaReporte(Convert.ToInt32( textBox1.Text));
+        }
     }
 }

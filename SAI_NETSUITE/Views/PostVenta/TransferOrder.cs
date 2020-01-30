@@ -22,7 +22,7 @@ namespace SAI_NETSUITE.Views.PostVenta
         private void TransferOrder_Load(object sender, EventArgs e)
         {
             cargaDatos();
-            generaReporte("24");
+            //generaReporte("24");
         }
 
         public void cargaDatos()

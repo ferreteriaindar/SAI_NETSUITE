@@ -45,6 +45,7 @@
             this.colestado = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colpersona = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colfechaHora = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colComentFactura = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -75,6 +76,7 @@
             this.simpleButton2.Size = new System.Drawing.Size(88, 23);
             this.simpleButton2.TabIndex = 1;
             this.simpleButton2.Text = "Excel";
+            this.simpleButton2.Click += new System.EventHandler(this.simpleButton2_Click);
             // 
             // btnConsultar
             // 
@@ -114,10 +116,12 @@
             this.colfactura,
             this.colestado,
             this.colpersona,
-            this.colfechaHora});
+            this.colfechaHora,
+            this.colComentFactura});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.GroupCount = 1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsFind.AlwaysVisible = true;
             this.gridView1.SortInfo.AddRange(new DevExpress.XtraGrid.Columns.GridColumnSortInfo[] {
             new DevExpress.XtraGrid.Columns.GridColumnSortInfo(this.colidEmbarque, DevExpress.Data.ColumnSortOrder.Ascending)});
             // 
@@ -155,7 +159,7 @@
             // 
             // colcomentarios
             // 
-            this.colcomentarios.Caption = "Paqueteria";
+            this.colcomentarios.Caption = "Comentarios";
             this.colcomentarios.FieldName = "comentarios";
             this.colcomentarios.Name = "colcomentarios";
             this.colcomentarios.Visible = true;
@@ -217,6 +221,14 @@
             this.colfechaHora.Visible = true;
             this.colfechaHora.VisibleIndex = 10;
             // 
+            // colComentFactura
+            // 
+            this.colComentFactura.Caption = "Coment. Factura";
+            this.colComentFactura.FieldName = "comentariosFactura";
+            this.colComentFactura.Name = "colComentFactura";
+            this.colComentFactura.Visible = true;
+            this.colComentFactura.VisibleIndex = 11;
+            // 
             // reporteEmbarques
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -253,5 +265,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colestado;
         private DevExpress.XtraGrid.Columns.GridColumn colpersona;
         private DevExpress.XtraGrid.Columns.GridColumn colfechaHora;
+        private DevExpress.XtraGrid.Columns.GridColumn colComentFactura;
     }
 }

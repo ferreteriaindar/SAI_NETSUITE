@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
+using System.Diagnostics;
 
 namespace SAI_NETSUITE.Views.Logistica.Distribucion
 {
@@ -26,7 +27,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
         public void cargaInfo()
         {
-            string query = @"  select e.idEmbarque,e.fecha,e.fechaConcluido,p.LIST_ITEM_NAME,e.comentarios,e.estatus,e.usuario,ENT.NAME as CHOFER,ed.factura,ed.estado,ed.persona,ed.fechaHora from Indarneg.dbo.Embarques E
+            string query = @"  select e.idEmbarque,e.fecha,e.fechaConcluido,p.LIST_ITEM_NAME,e.comentarios,e.estatus,e.usuario,ENT.NAME as CHOFER,ed.factura,ed.estado,ed.persona,ed.fechaHora,ed.comentarios as comentariosFactura from Indarneg.dbo.Embarques E
                             left join Indarneg.dbo.EmbarquesD ED ON E.idEmbarque = ED.idEmbarque
                             Left join iws.dbo.Entity ENT on E.entity_id = ENT.ENTITY_ID
                             left join iws.dbo.Paqueteria P on e.idPaqueteria = p.LIST_ID
@@ -50,6 +51,19 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
         private void btnConsultar_Click(object sender, EventArgs e)
         {
             cargaInfo();
+        }
+
+        private void simpleButton2_Click(object sender, EventArgs e)
+        {
+
+            string carpeta = string.Empty;
+            carpeta = System.IO.Path.GetTempPath();
+
+            gridControl1.ExportToXlsx(carpeta + "\\embarques.xlsx");
+            Process pdfexport = new Process();
+            pdfexport.StartInfo.FileName = "EXCEL.exe";
+            pdfexport.StartInfo.Arguments = carpeta + "\\embarques.xlsx";
+            pdfexport.Start();
         }
     }
 }

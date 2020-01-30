@@ -36,13 +36,15 @@
             DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression2 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule4 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule5 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue3 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(empaquePantalla));
             this.colerror = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPorcentajeBultos = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colPedido = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colTIEMPO_100 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colPedido = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMovId = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPedidos = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFacturas = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -61,20 +63,15 @@
             this.simpleButton2 = new DevExpress.XtraEditors.SimpleButton();
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.pictureBox = new System.Windows.Forms.PictureBox();
-            this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.labelControl3 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl2 = new DevExpress.XtraEditors.LabelControl();
-            this.labelControl1 = new DevExpress.XtraEditors.LabelControl();
             this.labelStatus = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.btnReimprimir = new DevExpress.XtraEditors.SimpleButton();
             this.txtReimprimir = new DevExpress.XtraEditors.TextEdit();
             this.comboReimprmir = new System.Windows.Forms.ComboBox();
-            this.btnexcel = new DevExpress.XtraEditors.SimpleButton();
+            this.backgroundWorkerEventos = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
-            this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtReimprimir.Properties)).BeginInit();
             this.SuspendLayout();
@@ -93,6 +90,15 @@
             this.colPorcentajeBultos.Caption = "PORCENTAJE BULTOS";
             this.colPorcentajeBultos.FieldName = "PORCENTAJE_BULTOS";
             this.colPorcentajeBultos.Name = "colPorcentajeBultos";
+            // 
+            // colPedido
+            // 
+            this.colPedido.Caption = "Pedido";
+            this.colPedido.FieldName = "Pedido";
+            this.colPedido.Name = "colPedido";
+            this.colPedido.Visible = true;
+            this.colPedido.VisibleIndex = 0;
+            this.colPedido.Width = 150;
             // 
             // gridControl1
             // 
@@ -172,10 +178,22 @@
             formatConditionRuleValue2.PredefinedName = "Strikeout Text";
             formatConditionRuleValue2.Value1 = "CFDI TIMBRAR";
             gridFormatRule4.Rule = formatConditionRuleValue2;
+            gridFormatRule5.ApplyToRow = true;
+            gridFormatRule5.Column = this.colPedido;
+            gridFormatRule5.ColumnApplyTo = this.colPedido;
+            gridFormatRule5.Name = "Traspasos";
+            formatConditionRuleValue3.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            formatConditionRuleValue3.Appearance.ForeColor = System.Drawing.Color.White;
+            formatConditionRuleValue3.Appearance.Options.UseBackColor = true;
+            formatConditionRuleValue3.Appearance.Options.UseForeColor = true;
+            formatConditionRuleValue3.Condition = DevExpress.XtraEditors.FormatCondition.Equal;
+            formatConditionRuleValue3.Value1 = "Traspaso";
+            gridFormatRule5.Rule = formatConditionRuleValue3;
             this.gridView1.FormatRules.Add(gridFormatRule1);
             this.gridView1.FormatRules.Add(gridFormatRule2);
             this.gridView1.FormatRules.Add(gridFormatRule3);
             this.gridView1.FormatRules.Add(gridFormatRule4);
+            this.gridView1.FormatRules.Add(gridFormatRule5);
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.MultiSelect = true;
@@ -187,15 +205,6 @@
             this.colTIEMPO_100.Caption = "TIEMPO_100";
             this.colTIEMPO_100.FieldName = "TIEMPO_100";
             this.colTIEMPO_100.Name = "colTIEMPO_100";
-            // 
-            // colPedido
-            // 
-            this.colPedido.Caption = "Pedido";
-            this.colPedido.FieldName = "Pedido";
-            this.colPedido.Name = "colPedido";
-            this.colPedido.Visible = true;
-            this.colPedido.VisibleIndex = 0;
-            this.colPedido.Width = 150;
             // 
             // colMovId
             // 
@@ -347,61 +356,6 @@
             this.pictureBox.TabStop = false;
             this.pictureBox.Visible = false;
             // 
-            // groupBox1
-            // 
-            this.groupBox1.Controls.Add(this.labelControl3);
-            this.groupBox1.Controls.Add(this.labelControl2);
-            this.groupBox1.Controls.Add(this.labelControl1);
-            this.groupBox1.Location = new System.Drawing.Point(161, 8);
-            this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(252, 50);
-            this.groupBox1.TabIndex = 4;
-            this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "Nomenclatura";
-            // 
-            // labelControl3
-            // 
-            this.labelControl3.Appearance.BackColor = System.Drawing.Color.Red;
-            this.labelControl3.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl3.Appearance.ForeColor = System.Drawing.Color.White;
-            this.labelControl3.Appearance.Options.UseBackColor = true;
-            this.labelControl3.Appearance.Options.UseFont = true;
-            this.labelControl3.Appearance.Options.UseForeColor = true;
-            this.labelControl3.Location = new System.Drawing.Point(173, 21);
-            this.labelControl3.Name = "labelControl3";
-            this.labelControl3.Size = new System.Drawing.Size(66, 17);
-            this.labelControl3.TabIndex = 2;
-            this.labelControl3.Text = "Retrasado";
-            // 
-            // labelControl2
-            // 
-            this.labelControl2.Appearance.BackColor = System.Drawing.Color.LightGreen;
-            this.labelControl2.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl2.Appearance.ForeColor = System.Drawing.Color.Black;
-            this.labelControl2.Appearance.Options.UseBackColor = true;
-            this.labelControl2.Appearance.Options.UseFont = true;
-            this.labelControl2.Appearance.Options.UseForeColor = true;
-            this.labelControl2.Location = new System.Drawing.Point(105, 21);
-            this.labelControl2.Name = "labelControl2";
-            this.labelControl2.Size = new System.Drawing.Size(53, 17);
-            this.labelControl2.TabIndex = 1;
-            this.labelControl2.Text = "Imprimir";
-            // 
-            // labelControl1
-            // 
-            this.labelControl1.Appearance.BackColor = System.Drawing.SystemColors.Highlight;
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelControl1.Appearance.ForeColor = System.Drawing.Color.White;
-            this.labelControl1.Appearance.Options.UseBackColor = true;
-            this.labelControl1.Appearance.Options.UseFont = true;
-            this.labelControl1.Appearance.Options.UseForeColor = true;
-            this.labelControl1.Location = new System.Drawing.Point(6, 21);
-            this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(81, 17);
-            this.labelControl1.TabIndex = 0;
-            this.labelControl1.Text = "Timbrar CDFI";
-            this.labelControl1.Click += new System.EventHandler(this.labelControl1_Click);
-            // 
             // labelStatus
             // 
             this.labelStatus.AutoSize = true;
@@ -418,7 +372,7 @@
             this.groupBox2.Controls.Add(this.btnReimprimir);
             this.groupBox2.Controls.Add(this.txtReimprimir);
             this.groupBox2.Controls.Add(this.comboReimprmir);
-            this.groupBox2.Location = new System.Drawing.Point(461, 8);
+            this.groupBox2.Location = new System.Drawing.Point(173, 8);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(285, 50);
             this.groupBox2.TabIndex = 6;
@@ -453,23 +407,17 @@
             this.comboReimprmir.Size = new System.Drawing.Size(77, 24);
             this.comboReimprmir.TabIndex = 0;
             // 
-            // btnexcel
+            // backgroundWorkerEventos
             // 
-            this.btnexcel.Location = new System.Drawing.Point(752, 23);
-            this.btnexcel.Name = "btnexcel";
-            this.btnexcel.Size = new System.Drawing.Size(75, 23);
-            this.btnexcel.TabIndex = 7;
-            this.btnexcel.Text = "excel";
-            this.btnexcel.Click += new System.EventHandler(this.btnexcel_Click);
+            this.backgroundWorkerEventos.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerEventos_DoWork);
+            this.backgroundWorkerEventos.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerEventos_RunWorkerCompleted);
             // 
             // empaquePantalla
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.Controls.Add(this.btnexcel);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.labelStatus);
-            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.pictureBox);
             this.Controls.Add(this.simpleButton2);
             this.Controls.Add(this.btnActualizar);
@@ -480,8 +428,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
-            this.groupBox1.ResumeLayout(false);
-            this.groupBox1.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtReimprimir.Properties)).EndInit();
             this.ResumeLayout(false);
@@ -515,15 +461,11 @@
         private DevExpress.XtraGrid.Columns.GridColumn colerror;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private System.Windows.Forms.PictureBox pictureBox;
-        private System.Windows.Forms.GroupBox groupBox1;
-        private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.LabelControl labelControl1;
-        private DevExpress.XtraEditors.LabelControl labelControl3;
         private System.Windows.Forms.Label labelStatus;
         private System.Windows.Forms.GroupBox groupBox2;
         private DevExpress.XtraEditors.SimpleButton btnReimprimir;
         private DevExpress.XtraEditors.TextEdit txtReimprimir;
         private System.Windows.Forms.ComboBox comboReimprmir;
-        private DevExpress.XtraEditors.SimpleButton btnexcel;
+        private System.ComponentModel.BackgroundWorker backgroundWorkerEventos;
     }
 }

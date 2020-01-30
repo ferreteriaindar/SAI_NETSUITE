@@ -15,7 +15,7 @@ namespace  SAI_NETSUITE.Views.ClienteRecoge
         string sqlString;
         public administraAlmacen(string sql)
         {
-            sqlString = sql;
+            sqlString = SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1;
             InitializeComponent();
         }
 

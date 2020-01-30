@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using SAI_NETSUITE.Controllers.Ventas;
 using DevExpress.XtraBars.Docking2010.Views.WindowsUI;
 using DevExpress.XtraBars.Docking2010.Customization;
+using SAI_NETSUITE.Controllers.Logistica.Distribucion;
 
 namespace SAI_NETSUITE.Views.Logistica.Distribucion
 {
@@ -103,12 +104,20 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     lista.Add(gridView2.GetRowCellValue(i, colEmbarque).ToString());
                 }
                 gridFacturas1.DataSource=new Controllers.Logistica.Distribucion.NumeroGuiaController().regresaFacturas1(lista);
+                facturasConnumeroDeGuia();
             }
         }
 
+        public void facturasConnumeroDeGuia()
+        {
+            NumeroGuiaController ngc = new NumeroGuiaController();
+            for (int i = 0; i < gridView3.RowCount; i++)
+            {
+                if (ngc.tieneNumerodeGuia(gridView3.GetRowCellValue(i, colFactura1).ToString()))
+                    gridView3.SetRowCellValue(i, colcheckFactura, 1);
+            }
+        }
 
-
-        
         private void groupControl3_Paint(object sender, PaintEventArgs e)
         {
 
@@ -132,6 +141,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     if(!new Controllers.Logistica.Distribucion.NumeroGuiaController().tieneNumerodeGuia(factura.ToUpper()))
                     dtFacturas.Rows.Add(factura, "", gridView3.GetRowCellValue(i, colEmbarque1).ToString()) ;
                     else dtFacturas.Rows.Add(factura, "Ya tiene numero de guia", gridView3.GetRowCellValue(i, colEmbarque1).ToString());
+                    gridView3.SetRowCellValue(i, colcheckFactura, true);
                 }
 
             }
@@ -172,8 +182,15 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
         {
             if (dxValidationProvider1.Validate() && gridView1.RowCount > 0 && gridView2.RowCount > 0 && gridView4.RowCount > 0)
             {
-                if(guardaNumeroGuia())
+                if (guardaNumeroGuia())
+                {
                     MessageBox.Show("Proceso Existoso");
+                    Views.Logistica.Distribucion.numeroGuiaView ng2 = new Views.Logistica.Distribucion.numeroGuiaView();
+                    ng2.Parent = this.Parent;
+                    ng2.Dock = DockStyle.Fill;
+                    Parent.Controls.Add(ng2);
+                    ng2.BringToFront();
+                }
                 else MessageBox.Show("Error al guardar el  numero de guía");
 
             }

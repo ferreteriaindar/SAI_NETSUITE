@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using SAI_NETSUITE.Controllers.IWS;
 using SAI_NETSUITE.Models.Catalogos;
 using System.IO;
+using System.ComponentModel;
 
 namespace SAI_NETSUITE.Controllers.Logistica.Empaque
 {
@@ -299,6 +300,73 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             };
             
 
+        }
+
+        public bool fulfillmentTraspaso(pedidoFulfill pedido, BackgroundWorker backgroundWorker)
+        {
+            string query = @"    SELECT (select top 1 IdPedido from INDAR_INACTIONWMS.dbo.OrdenEmbarque where mov='Traspaso' and NumPedido=" + pedido.movid + @" order by IdOrdenEmbarque desc),
+	                            I.id,fo.CantidadesSurtidas	
+	                             FROM INDAR_INACTIONWMS.INT.Facturar_Out  FO
+	                            INNER JOIN IWS.DBO.Items I  on fo.Articulo=i.itemid collate Modern_Spanish_CI_AI
+	                             where FO.Movimiento='" + pedido.mov + "' and fo.MovId=" + pedido.movid;
+            Console.WriteLine(query);
+            ItemFullfilmentModel iffm = new ItemFullfilmentModel();
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand(query, myConnection);
+                SqlDataReader sdr = cmd.ExecuteReader();
+                List<Line> list = new List<Line>();
+                bool primeravez = true;
+
+                while (sdr.Read() && sdr.HasRows)
+                {
+                    if (primeravez)
+                    {
+                        Createdfrom createdfrom = new Createdfrom();
+                        createdfrom.id = sdr.GetValue(0).ToString();
+                        createdfrom.recordType = "transferorder";
+                        iffm.createdfrom = createdfrom;
+                        iffm.shipcountry = "MX";
+                        Shipstatus shipstatus = new Shipstatus();
+                        shipstatus.value = "C";
+                        shipstatus.txt = "Shipped";
+                        iffm.shipstatus = shipstatus;
+                        primeravez = false;
+                    }
+                    Line line = new Line();
+                    line.itemId = sdr.GetValue(1).ToString();
+                    line.location = "1";
+                    line.quantity = sdr.GetValue(2).ToString();
+                    list.Add(line);
+
+                }
+                iffm.lines = list;
+                if (iffm.lines.Count < 1)
+                {
+                    pedido.error = "No esta en FacturarOut";
+                    return false;
+                }
+
+            }
+            string json = JsonConvert.SerializeObject(iffm, Formatting.Indented);
+            Connection connection = new Connection();
+            string resultado = connection.POST("api/Inventory/ItemFullfilment", json, SAI_NETSUITE.Properties.Resources.token, true);
+
+            pedido.error = resultado;
+
+            respuesta result = new respuesta();
+            result.result = pedido.error;
+            if (result.result.Contains("true"))
+            {
+                SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1);
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand("", myConnection);
+                cmd.CommandText = "	 update  INDAR_INACTIONWMS.dbo.OrdenEmbarque set FacturaIndar=1 where Mov='Traspaso' and NumPedido=" + pedido.movid;
+                cmd.ExecuteNonQuery();
+                return true;
+            }
+            else return false;
         }
 
         public byte[] GetPDF(int v)

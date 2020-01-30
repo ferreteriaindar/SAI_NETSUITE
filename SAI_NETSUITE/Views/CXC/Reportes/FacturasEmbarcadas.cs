@@ -30,7 +30,7 @@ namespace SAI_NETSUITE.Views.CXC.Reportes
             DataSet ds = new DataSet();
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"select ED.factura,I.AmountDue,SubString(ED.fechaHora,1,10) as FechaHora,EN.NAME as Cobrador,EN.ENTITY_ID AS IDCOBRADOR,EN2.NAME AS VENDEDOR,EN2.ENTITY_ID AS IDVENDEDOR,E.idEmbarque,ED.estado,ZI.NSO___ZONAS_CLIENTES_NAME as Zona,C.company from indarneg.dbo.EmbarquesD ED
+                string query = @"select ED.factura,I.AmountDue,SubString(ED.fechaHora,1,10) as FechaHora,EN.NAME as Cobrador,E.usuario,EN.ENTITY_ID AS IDCOBRADOR,EN2.NAME AS VENDEDOR,EN2.ENTITY_ID AS IDVENDEDOR,E.idEmbarque,ED.estado,ZI.NSO___ZONAS_CLIENTES_NAME as Zona,C.company from indarneg.dbo.EmbarquesD ED
                             INNER JOIN  IWS.DBO.Invoices I ON ED.factura=I.TranId
                             INNER JOIN  IWS.DBO.Customers C ON I.Entity=c.internalid
                             INNER JOIN  IWS.DBO.ZonasIndar ZI ON C.customerZone=ZI.NSO___ZONAS_CLIENTES_ID

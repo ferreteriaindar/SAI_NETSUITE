@@ -36,6 +36,13 @@
           <Property Name="facturaid" Type="int" />
           <Property Name="idNetsuite" Type="int" />
         </EntityType>
+        <EntityType Name="EventosSurtidos">
+          <Key>
+            <PropertyRef Name="tranid" />
+          </Key>
+          <Property Name="tranid" Type="int" Nullable="false" />
+          <Property Name="fecha" Type="datetime" />
+        </EntityType>
         <EntityType Name="NumeroGuiaNetsuite">
           <Key>
             <PropertyRef Name="idNumeroGuia" />
@@ -49,12 +56,13 @@
         </EntityType>
         <EntityType Name="NumeroGuiaNetsuiteC">
           <Key>
-            <PropertyRef Name="idNumeroGuia" />
+            <PropertyRef Name="idNumeroGuiaC" />
           </Key>
           <Property Name="idNumeroGuia" Type="int" Nullable="false" />
           <Property Name="Tipo" Type="nvarchar" MaxLength="50" />
           <Property Name="Cantidad" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Importe" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="idNumeroGuiaC" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
         <EntityType Name="NumeroGuiaNetsuiteD">
           <Key>
@@ -139,7 +147,7 @@
         </Association>
         <Association Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
           <End Role="NumeroGuiaNetsuite" Type="Self.NumeroGuiaNetsuite" Multiplicity="1" />
-          <End Role="NumeroGuiaNetsuiteC" Type="Self.NumeroGuiaNetsuiteC" Multiplicity="0..1" />
+          <End Role="NumeroGuiaNetsuiteC" Type="Self.NumeroGuiaNetsuiteC" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="NumeroGuiaNetsuite">
               <PropertyRef Name="idNumeroGuia" />
@@ -183,6 +191,7 @@
         <EntityContainer Name="IndarnegModelStoreContainer">
           <EntitySet Name="Embarques" EntityType="Self.Embarques" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmbarquesD" EntityType="Self.EmbarquesD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EventosSurtidos" EntityType="Self.EventosSurtidos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NumeroGuiaNetsuite" EntityType="Self.NumeroGuiaNetsuite" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NumeroGuiaNetsuiteC" EntityType="Self.NumeroGuiaNetsuiteC" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="NumeroGuiaNetsuiteD" EntityType="Self.NumeroGuiaNetsuiteD" Schema="dbo" store:Type="Tables" />
@@ -217,11 +226,6 @@
           <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <FunctionImport Name="spEmpaquePantallaNetsuite" />
-          <EntitySet Name="NumeroGuiaNetsuiteC" EntityType="IndarnegModel.NumeroGuiaNetsuiteC" />
-          <AssociationSet Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
-            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
-            <End Role="NumeroGuiaNetsuiteC" EntitySet="NumeroGuiaNetsuiteC" />
-          </AssociationSet>
           <EntitySet Name="sai_usuario" EntityType="IndarnegModel.sai_usuario" />
           <EntitySet Name="Embarques" EntityType="IndarnegModel.Embarques" />
           <EntitySet Name="EmbarquesD" EntityType="IndarnegModel.EmbarquesD" />
@@ -244,6 +248,12 @@
           <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
           <EntitySet Name="SAD" EntityType="IndarnegModel.SAD" />
+          <EntitySet Name="EventosSurtidos" EntityType="IndarnegModel.EventosSurtidos" />
+          <EntitySet Name="NumeroGuiaNetsuiteC" EntityType="IndarnegModel.NumeroGuiaNetsuiteC" />
+          <AssociationSet Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
+            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
+            <End Role="NumeroGuiaNetsuiteC" EntitySet="NumeroGuiaNetsuiteC" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="NumeroGuiaNetsuite">
           <Key>
@@ -255,34 +265,12 @@
           <Property Name="ImporteTotal" Type="Decimal" Precision="18" Scale="2" />
           <Property Name="Fecha" Type="DateTime" Precision="3" />
           <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NumeroGuiaNetsuiteC" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteC" />
           <NavigationProperty Name="NumeroGuiaNetsuiteD" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteD" />
+          <NavigationProperty Name="NumeroGuiaNetsuiteC" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteC" />
         </EntityType>
         <ComplexType Name="spWMS_InsertaIR_Result">
           <Property Type="Int32" Name="rows" Nullable="false" />
         </ComplexType>
-        <EntityType Name="NumeroGuiaNetsuiteC">
-          <Key>
-            <PropertyRef Name="idNumeroGuia" />
-          </Key>
-          <Property Name="idNumeroGuia" Type="Int32" Nullable="false" />
-          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Cantidad" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Importe" Type="Decimal" Precision="18" Scale="2" />
-          <NavigationProperty Name="NumeroGuiaNetsuite" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuiteC" ToRole="NumeroGuiaNetsuite" />
-        </EntityType>
-        <Association Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
-          <End Type="IndarnegModel.NumeroGuiaNetsuite" Role="NumeroGuiaNetsuite" Multiplicity="1" />
-          <End Type="IndarnegModel.NumeroGuiaNetsuiteC" Role="NumeroGuiaNetsuiteC" Multiplicity="0..1" />
-          <ReferentialConstraint>
-            <Principal Role="NumeroGuiaNetsuite">
-              <PropertyRef Name="idNumeroGuia" />
-            </Principal>
-            <Dependent Role="NumeroGuiaNetsuiteC">
-              <PropertyRef Name="idNumeroGuia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="sai_usuario">
           <Key>
             <PropertyRef Name="id" />
@@ -451,6 +439,36 @@
           <Property Name="validaAgente" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="validadFecha" Type="DateTime" Precision="3" />
         </EntityType>
+        <EntityType Name="EventosSurtidos">
+          <Key>
+            <PropertyRef Name="tranid" />
+          </Key>
+          <Property Name="tranid" Type="Int32" Nullable="false" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="NumeroGuiaNetsuiteC">
+          <Key>
+            <PropertyRef Name="idNumeroGuiaC" />
+          </Key>
+          <Property Name="idNumeroGuia" Type="Int32" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Cantidad" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Importe" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="idNumeroGuiaC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="NumeroGuiaNetsuite" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuiteC" ToRole="NumeroGuiaNetsuite" />
+        </EntityType>
+        <Association Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
+          <End Type="IndarnegModel.NumeroGuiaNetsuite" Role="NumeroGuiaNetsuite" Multiplicity="1" />
+          <End Type="IndarnegModel.NumeroGuiaNetsuiteC" Role="NumeroGuiaNetsuiteC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NumeroGuiaNetsuite">
+              <PropertyRef Name="idNumeroGuia" />
+            </Principal>
+            <Dependent Role="NumeroGuiaNetsuiteC">
+              <PropertyRef Name="idNumeroGuia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -477,16 +495,6 @@
             </ResultMapping>
           </FunctionImportMapping>
           <FunctionImportMapping FunctionImportName="spEmpaquePantallaNetsuite" FunctionName="IndarnegModel.Store.spEmpaquePantallaNetsuite" />
-          <EntitySetMapping Name="NumeroGuiaNetsuiteC">
-            <EntityTypeMapping TypeName="IndarnegModel.NumeroGuiaNetsuiteC">
-              <MappingFragment StoreEntitySet="NumeroGuiaNetsuiteC">
-                <ScalarProperty Name="Importe" ColumnName="Importe" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="sai_usuario">
             <EntityTypeMapping TypeName="IndarnegModel.sai_usuario">
               <MappingFragment StoreEntitySet="sai_usuario">
@@ -609,6 +617,25 @@
                 <ScalarProperty Name="pedido" ColumnName="pedido" />
                 <ScalarProperty Name="pedidoID" ColumnName="pedidoID" />
                 <ScalarProperty Name="sadID" ColumnName="sadID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EventosSurtidos">
+            <EntityTypeMapping TypeName="IndarnegModel.EventosSurtidos">
+              <MappingFragment StoreEntitySet="EventosSurtidos">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="tranid" ColumnName="tranid" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NumeroGuiaNetsuiteC">
+            <EntityTypeMapping TypeName="IndarnegModel.NumeroGuiaNetsuiteC">
+              <MappingFragment StoreEntitySet="NumeroGuiaNetsuiteC">
+                <ScalarProperty Name="idNumeroGuiaC" ColumnName="idNumeroGuiaC" />
+                <ScalarProperty Name="Importe" ColumnName="Importe" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

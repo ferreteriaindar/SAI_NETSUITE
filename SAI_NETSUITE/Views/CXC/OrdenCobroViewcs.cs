@@ -39,6 +39,9 @@ namespace SAI_NETSUITE.Views.CXC
             dt.Columns.Add("factura", typeof(int));
             dt.Columns.Add("comentarios", typeof(string));
             dt.Columns.Add("facturaid", typeof(int));
+            dt.Columns.Add("cliente", typeof(string));
+            dt.Columns.Add("nombre", typeof(string));
+            dt.Columns.Add("zona", typeof(string));
 
         }
 
@@ -67,8 +70,26 @@ namespace SAI_NETSUITE.Views.CXC
             OrdenCobroController occ = new OrdenCobroController();
             if (occ.existeFacturaEnEmbarque(numFac))
             {
-                dt.Rows.Add(numFac, "", occ.regresaInternalID(numFac));
+      
+                using (IWSEntities ctx = new IWSEntities())
+                {
+                    
+                  var   datos = (from i in ctx.Invoices
+                                join C in ctx.Customers on i.Entity equals C.internalid
+                                join Z in ctx.ZonasIndar on C.customerZone equals Z.NSO___ZONAS_CLIENTES_ID
+                                where i.TranId == numFac
+                                select new regresaDatosFactura { zona= Z.NSO___ZONAS_CLIENTES_NAME, nombre= C.company,cliente= C.companyId }).FirstOrDefault();
+
+
+                    dt.Rows.Add(numFac, "", occ.regresaInternalID(numFac),datos.cliente,datos.nombre,datos.zona);
+                  //  string zona = datos.NSO___ZONAS_CLIENTES_NAME;
+                  
+                }
+
+                  //  dt.Rows.Add(numFac, "", occ.regresaInternalID(numFac),da);
                 gridControl1.DataSource = dt;
+                txtFactura.Text = "";
+                txtFactura.Select();
             }
             else MessageBox.Show("Esta Factura NO ESTA EMBARCADA");
         }
@@ -131,6 +152,13 @@ namespace SAI_NETSUITE.Views.CXC
                 }
             }
 
+        }
+
+        public class regresaDatosFactura
+        {
+            public string zona { get; set; }
+            public string cliente { get; set; }
+            public string nombre { get; set; }
         }
 
         private List<OrdenCobroD> regresaOrdenCobroD(int OrdeCobroID)

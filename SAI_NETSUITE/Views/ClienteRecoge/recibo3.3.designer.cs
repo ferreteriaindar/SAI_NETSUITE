@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(recibo3));
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
@@ -69,7 +70,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.btnAgregarDoc = new DevExpress.XtraEditors.SimpleButton();
             this.btnGuardarEImprimir = new DevExpress.XtraEditors.SimpleButton();
-            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
+            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
             this.searchLookUpEdit1 = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.searchLookUpEdit2View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colDocCompleto = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -77,10 +78,10 @@
             this.colDocMovid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDocSaldo = new DevExpress.XtraGrid.Columns.GridColumn();
             this.coldocDespp = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.validadordatoscte = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
+            this.validadordatoscte = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
             this.masked_fecha = new DevExpress.XtraEditors.TextEdit();
             this.labelFechaCheque = new DevExpress.XtraEditors.LabelControl();
-            this.ValidadorCheque = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
+            this.ValidadorCheque = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
             this.btnCargar = new DevExpress.XtraEditors.SimpleButton();
             this.txtTotal = new DevExpress.XtraEditors.TextEdit();
             this.btnTestBorrar = new System.Windows.Forms.Button();

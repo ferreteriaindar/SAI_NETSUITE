@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(OrdenCobroViewcs));
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
@@ -48,7 +49,10 @@
             this.colFactura = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colComentarios = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFacturaid = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
+            this.colcliente = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNombre = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colZona = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtFactura.Properties)).BeginInit();
@@ -216,7 +220,10 @@
             this.gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colFactura,
             this.colComentarios,
-            this.colFacturaid});
+            this.colFacturaid,
+            this.colcliente,
+            this.colNombre,
+            this.colZona});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             // 
@@ -241,6 +248,30 @@
             this.colFacturaid.Caption = "FacturaId";
             this.colFacturaid.FieldName = "facturaid";
             this.colFacturaid.Name = "colFacturaid";
+            // 
+            // colcliente
+            // 
+            this.colcliente.Caption = "Cliente";
+            this.colcliente.FieldName = "cliente";
+            this.colcliente.Name = "colcliente";
+            this.colcliente.Visible = true;
+            this.colcliente.VisibleIndex = 2;
+            // 
+            // colNombre
+            // 
+            this.colNombre.Caption = "Nombre";
+            this.colNombre.FieldName = "nombre";
+            this.colNombre.Name = "colNombre";
+            this.colNombre.Visible = true;
+            this.colNombre.VisibleIndex = 3;
+            // 
+            // colZona
+            // 
+            this.colZona.Caption = "Zona";
+            this.colZona.FieldName = "zona";
+            this.colZona.Name = "colZona";
+            this.colZona.Visible = true;
+            this.colZona.VisibleIndex = 4;
             // 
             // OrdenCobroViewcs
             // 
@@ -285,5 +316,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colFactura;
         private DevExpress.XtraGrid.Columns.GridColumn colComentarios;
         private DevExpress.XtraGrid.Columns.GridColumn colFacturaid;
+        private DevExpress.XtraGrid.Columns.GridColumn colcliente;
+        private DevExpress.XtraGrid.Columns.GridColumn colNombre;
+        private DevExpress.XtraGrid.Columns.GridColumn colZona;
     }
 }

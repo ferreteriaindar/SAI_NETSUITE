@@ -117,32 +117,4 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="simpleButton1.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAZdEVYdFNvZnR3YXJlAEFkb2JlIEltYWdlUmVhZHlxyWU8AAAADHRFWHRUaXRsZQBQcmludDvI
-        NjLqAAAAkUlEQVQ4T6WTAQrAIAwD/Z6DfWr4qL3Ib3RG6jClE+oKx4hNg4pLIvKLVEqxyAoMte8LCQUm
-        t7RHfhJKN3ulPfKTULrZK+31sw8/XUgkYICBjIaSzuuWFRia/BmiTgvRgDqLEbDEBLDYYSsAuxg7cQO+
-        yvMi4LCLqHZee3nkUQ4EWLrZK/SMN/4zNchPryqOpAfws51arjUEtwAAAABJRU5ErkJggg==
-</value>
-  </data>
-  <data name="btnExcel.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAAddEVYdFRpdGxlAEV4cG9ydDtYcHM7RXhwb3J0VG9Y
-        cHM7WAv1QQAAAHNJREFUOE/dktEJgDAMBZ3aCbKDI/jlEP66VGwKV2wwmuKfB8fDap+hdFLVThHREW8L
-        svy1oJimFszroqNCKzB8Gtux12dLCAv4yBddE6EVsJk/gp/Av3+dwMs6PJ6BJUI4wahQC0p+uwclO20x
-        S1iQV/QEi2dJZJuuo3oAAAAASUVORK5CYII=
-</value>
-  </data>
-  <data name="btnGenerar.ImageOptions.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAABGdBTUEAALGPC/xhBQAAABl0RVh0U29m
-        dHdhcmUAQWRvYmUgSW1hZ2VSZWFkeXHJZTwAAAARdEVYdFRpdGxlAERvd247QXJyb3c7vfyCWAAAAHNJ
-        REFUOE/VjcENgDAMA7tg1mEAlmAEVmC7gCulosZAI148DqkX2xR3/4SUGaS0eXOGM4GUPxs4jsbhQawO
-        4IMHHd+o5TaQHGnlbgDgSGGmK4PuARCi0m0ZXARAeKQMpASnEZvWRWaAlMHTnwMpM0g5jpcdXxzKXDJZ
-        gvUAAAAASUVORK5CYII=
-</value>
-  </data>
 </root>

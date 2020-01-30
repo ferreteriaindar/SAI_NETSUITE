@@ -171,6 +171,8 @@
     <Compile Include="Controllers\Logistica\Empaque\empaquePantallaController.cs" />
     <Compile Include="Controllers\Logistica\Empaque\pdfController.cs" />
     <Compile Include="Controllers\PostVenta\ConfirmacionController.cs" />
+    <Compile Include="Controllers\PostVenta\RegresarEventosController.cs" />
+    <Compile Include="Controllers\PostVenta\SurtirEventosController.cs" />
     <Compile Include="Controllers\Ventas\SaleOrderSentController.cs" />
     <Compile Include="Customers.cs">
       <DependentUpon>IWS.tt</DependentUpon>
@@ -189,6 +191,9 @@
     </Compile>
     <Compile Include="Eventos.cs">
       <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EventosSurtidos.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
     </Compile>
     <Compile Include="FormaEnvio.cs">
       <DependentUpon>IWS.tt</DependentUpon>
@@ -271,9 +276,11 @@
     <Compile Include="Models\Transaccion\NumeroGuiaModel.cs" />
     <Compile Include="Models\Transaccion\pedidoFulfill.cs" />
     <Compile Include="Models\Transaccion\responseStructure.cs" />
+    <Compile Include="Models\Transaccion\ResultadosInventoryEvents.cs" />
     <Compile Include="Models\Transaccion\SaleOrder.cs" />
     <Compile Include="Models\Transaccion\SaleOrderToInvoiceModel.cs" />
     <Compile Include="Models\Transaccion\SplitSaleOrderModel.cs" />
+    <Compile Include="Models\Transaccion\TransferOrderSearchModel.cs" />
     <Compile Include="Models\Transaccion\UnsplitSaleOrderModel.cs" />
     <Compile Include="Models\Transaccion\UpdateInvoiceModel.cs" />
     <Compile Include="NumeroGuiaNetsuite.cs">
@@ -352,6 +359,12 @@
     </Compile>
     <Compile Include="Views\ClienteRecoge\reimprimirFolio.designer.cs">
       <DependentUpon>reimprimirFolio.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\ReporteAlmacenCterecoge.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\ClienteRecoge\ReporteAlmacenCterecoge.designer.cs">
+      <DependentUpon>ReporteAlmacenCterecoge.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Compras\Entradas\hojaIR.cs">
       <SubType>Component</SubType>
@@ -551,6 +564,18 @@
     </Compile>
     <Compile Include="Views\PostVenta\HojaTOR.Designer.cs">
       <DependentUpon>HojaTOR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PostVenta\RegresarEventos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PostVenta\RegresarEventos.Designer.cs">
+      <DependentUpon>RegresarEventos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PostVenta\SurtirEventos.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PostVenta\SurtirEventos.Designer.cs">
+      <DependentUpon>SurtirEventos.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PostVenta\TransferOrder.cs">
       <SubType>UserControl</SubType>
@@ -790,6 +815,9 @@
     <EmbeddedResource Include="Views\ClienteRecoge\reimprimirFolio.resx">
       <DependentUpon>reimprimirFolio.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\ClienteRecoge\ReporteAlmacenCterecoge.resx">
+      <DependentUpon>ReporteAlmacenCterecoge.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Compras\Entradas\hojaIR.resx">
       <DependentUpon>hojaIR.cs</DependentUpon>
     </EmbeddedResource>
@@ -888,6 +916,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PostVenta\HojaTOR.resx">
       <DependentUpon>HojaTOR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PostVenta\RegresarEventos.resx">
+      <DependentUpon>RegresarEventos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PostVenta\SurtirEventos.resx">
+      <DependentUpon>SurtirEventos.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PostVenta\TransferOrder.resx">
       <DependentUpon>TransferOrder.cs</DependentUpon>

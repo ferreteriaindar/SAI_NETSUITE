@@ -12,14 +12,9 @@ namespace SAI_NETSUITE
     using System;
     using System.Collections.Generic;
     
-    public partial class NumeroGuiaNetsuiteC
+    public partial class EventosSurtidos
     {
-        public int idNumeroGuia { get; set; }
-        public string Tipo { get; set; }
-        public Nullable<decimal> Cantidad { get; set; }
-        public Nullable<decimal> Importe { get; set; }
-        public int idNumeroGuiaC { get; set; }
-    
-        public virtual NumeroGuiaNetsuite NumeroGuiaNetsuite { get; set; }
+        public int tranid { get; set; }
+        public Nullable<System.DateTime> fecha { get; set; }
     }
 }

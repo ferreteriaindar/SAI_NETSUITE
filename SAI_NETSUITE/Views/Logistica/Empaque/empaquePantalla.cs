@@ -85,19 +85,30 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             p.error = "";
 
 
-            if (!backgroundWorker1.IsBusy)
+            if (p.mov.Equals("Traspaso"))
+            {
+
+                pictureBox.Visible = true;
+                labelStatus.Visible = true;
+                simpleButton2.ImageOptions.Image = SAI_NETSUITE.Properties.Resources._835;
+                List<pedidoFulfill> lista = new List<pedidoFulfill>();
+                lista.Add(p);
+                backgroundWorkerEventos.RunWorkerAsync(argument: lista);
+
+            }
+            else if (!backgroundWorker1.IsBusy) ///CUANDO ES UN PEDIDO NORMAL O  CONS
             {
                 pictureBox.Visible = true;
                 labelStatus.Visible = true;
                 simpleButton2.ImageOptions.Image = SAI_NETSUITE.Properties.Resources._835;
 
-                if (!p.mov.Contains("Cons"))
+                if (!p.mov.Contains("Cons") && !p.mov.Contains("Traspaso") ) //Cuando es un pedido normal
                 {
                     List<pedidoFulfill> lista = new List<pedidoFulfill>();
                     lista.Add(p);
                     backgroundWorker1.RunWorkerAsync(argument: lista);
                 }
-                else
+                else if(!p.mov.Equals("salesorder") && !p.mov.Contains("Traspaso"))/// cuando es una CONS
                 {
                     empaquePantallaController epc = new empaquePantallaController();
                     List<pedidoFulfill> lista = epc.listadoCons(p.movid);                  
@@ -264,15 +275,48 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
         private void btnexcel_Click(object sender, EventArgs e)
         {
+            
+        }
 
-            string carpeta = string.Empty;
-            carpeta = System.IO.Path.GetTempPath();
+        private void backgroundWorkerEventos_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<pedidoFulfill> lista = (List<pedidoFulfill>)e.Argument;
+            bool regreso=false;
+            foreach (var pedido in lista)
+            {
+               
+                Controllers.Logistica.Empaque.empaquePantallaController emp = new Controllers.Logistica.Empaque.empaquePantallaController();
+                 regreso = emp.fulfillmentTraspaso(pedido, sender as BackgroundWorker);
+               
+            }
+            e.Result = regreso;
+        }
 
-            gridControl1.ExportToXlsx(carpeta + "\\FACTURAS.xlsx");
-            Process pdfexport = new Process();
-            pdfexport.StartInfo.FileName = "EXCEL.exe";
-            pdfexport.StartInfo.Arguments = carpeta + "\\FACTURAS.xlsx";
-            pdfexport.Start();
+        private void backgroundWorkerEventos_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            pictureBox.Visible = false;
+            labelStatus.Text = "Inicio";
+            labelStatus.Visible = false;
+            simpleButton2.ImageOptions.Image = null;
+            if (e.Error != null)
+            {
+                MessageBox.Show("Error reintentar");
+            }
+            else if (e.Cancelled)
+            {
+                MessageBox.Show("Proceso Cancelado");
+
+            }
+            else
+            {
+                bool resultado =(bool)e.Result;
+                if (resultado)
+                {
+                    
+                    MessageBox.Show("Proceso Terminado");
+                }
+                else MessageBox.Show("Error");
+            }
         }
     }
 

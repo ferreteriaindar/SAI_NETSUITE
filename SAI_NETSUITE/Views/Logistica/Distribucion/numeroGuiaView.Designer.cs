@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(numeroGuiaView));
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
@@ -73,7 +74,7 @@
             this.colFacturaEND = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colAutoriza = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colembarqueFinal = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider();
+            this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtFactura.Properties)).BeginInit();
@@ -103,7 +104,6 @@
             this.colcheckFactura.Caption = "gridColumn1";
             this.colcheckFactura.FieldName = "check";
             this.colcheckFactura.Name = "colcheckFactura";
-            this.colcheckFactura.UnboundType = DevExpress.Data.UnboundColumnType.Boolean;
             // 
             // groupControl1
             // 

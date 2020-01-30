@@ -48,5 +48,10 @@ namespace SAI_NETSUITE.Views.Ventas.Reportes
             pdfexport.StartInfo.Arguments = carpeta + "\\articulo.xlsx";
             pdfexport.Start();
         }
+
+        private void gridControl1_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

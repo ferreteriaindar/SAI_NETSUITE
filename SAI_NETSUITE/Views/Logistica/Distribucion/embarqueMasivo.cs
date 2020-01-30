@@ -452,5 +452,10 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
             }
         }
+
+        private void btnCambiarFormaEnvio_Click(object sender, EventArgs e)
+        {
+           
+        }
     }
 }

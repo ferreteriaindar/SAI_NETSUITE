@@ -18,6 +18,7 @@ namespace SAI_NETSUITE
         public NumeroGuiaNetsuite()
         {
             this.NumeroGuiaNetsuiteD = new HashSet<NumeroGuiaNetsuiteD>();
+            this.NumeroGuiaNetsuiteC = new HashSet<NumeroGuiaNetsuiteC>();
         }
     
         public int idNumeroGuia { get; set; }
@@ -27,8 +28,9 @@ namespace SAI_NETSUITE
         public Nullable<System.DateTime> Fecha { get; set; }
         public string Usuario { get; set; }
     
-        public virtual NumeroGuiaNetsuiteC NumeroGuiaNetsuiteC { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NumeroGuiaNetsuiteD> NumeroGuiaNetsuiteD { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NumeroGuiaNetsuiteC> NumeroGuiaNetsuiteC { get; set; }
     }
 }
