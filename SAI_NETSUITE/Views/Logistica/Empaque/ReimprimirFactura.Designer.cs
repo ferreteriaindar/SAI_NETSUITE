@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReimprimirFactura));
-            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule3 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.label1 = new System.Windows.Forms.Label();
@@ -43,6 +43,7 @@
             this.btnPacking = new DevExpress.XtraEditors.SimpleButton();
             this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
             this.dxValidationProvider2 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
+            this.btnPrueba = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtFactura.Properties)).BeginInit();
@@ -104,9 +105,9 @@
             this.txtFactura.Properties.NullValuePromptShowForEmptyValue = true;
             this.txtFactura.Size = new System.Drawing.Size(141, 22);
             this.txtFactura.TabIndex = 4;
-            conditionValidationRule3.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule3.ErrorText = "This value is not valid";
-            this.dxValidationProvider1.SetValidationRule(this.txtFactura, conditionValidationRule3);
+            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule1.ErrorText = "This value is not valid";
+            this.dxValidationProvider1.SetValidationRule(this.txtFactura, conditionValidationRule1);
             // 
             // combotipo
             // 
@@ -127,16 +128,16 @@
             this.txtPedido.Properties.NullValuePromptShowForEmptyValue = true;
             this.txtPedido.Size = new System.Drawing.Size(141, 22);
             this.txtPedido.TabIndex = 7;
-            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule1.ErrorText = "This value is not valid";
-            this.dxValidationProvider2.SetValidationRule(this.txtPedido, conditionValidationRule1);
+            conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule2.ErrorText = "This value is not valid";
+            this.dxValidationProvider2.SetValidationRule(this.txtPedido, conditionValidationRule2);
             // 
             // btnFactura
             // 
             this.btnFactura.Appearance.BackColor = System.Drawing.SystemColors.Control;
             this.btnFactura.Appearance.Options.UseBackColor = true;
             this.btnFactura.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.btnFactura.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.btnFactura.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnFactura.ImageOptions.Image")));
             this.btnFactura.Location = new System.Drawing.Point(4, 111);
             this.btnFactura.Name = "btnFactura";
             this.btnFactura.Size = new System.Drawing.Size(141, 23);
@@ -149,7 +150,7 @@
             this.btnPacking.Appearance.BackColor = System.Drawing.SystemColors.Control;
             this.btnPacking.Appearance.Options.UseBackColor = true;
             this.btnPacking.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.btnPacking.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton2.ImageOptions.Image")));
+            this.btnPacking.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnPacking.ImageOptions.Image")));
             this.btnPacking.Location = new System.Drawing.Point(177, 140);
             this.btnPacking.Name = "btnPacking";
             this.btnPacking.Size = new System.Drawing.Size(141, 23);
@@ -157,10 +158,20 @@
             this.btnPacking.Text = "Imprimir";
             this.btnPacking.Click += new System.EventHandler(this.btnPacking_Click);
             // 
+            // btnPrueba
+            // 
+            this.btnPrueba.Location = new System.Drawing.Point(378, 14);
+            this.btnPrueba.Name = "btnPrueba";
+            this.btnPrueba.Size = new System.Drawing.Size(191, 34);
+            this.btnPrueba.TabIndex = 11;
+            this.btnPrueba.Text = "LayoutSinTimbrar";
+            this.btnPrueba.Click += new System.EventHandler(this.btnPrueba_Click);
+            // 
             // ReimprimirFactura
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnPrueba);
             this.Controls.Add(this.btnPacking);
             this.Controls.Add(this.btnFactura);
             this.Controls.Add(this.combotipo);
@@ -196,5 +207,6 @@
         private DevExpress.XtraEditors.SimpleButton btnPacking;
         private DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider dxValidationProvider1;
         private DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider dxValidationProvider2;
+        private DevExpress.XtraEditors.SimpleButton btnPrueba;
     }
 }

@@ -169,15 +169,21 @@
     <Compile Include="Controllers\Logistica\Distribucion\desembarqueController.cs" />
     <Compile Include="Controllers\Logistica\Distribucion\NumeroGuiaController.cs" />
     <Compile Include="Controllers\Logistica\Empaque\empaquePantallaController.cs" />
+    <Compile Include="Controllers\Logistica\Empaque\FacturaIndarController.cs" />
     <Compile Include="Controllers\Logistica\Empaque\pdfController.cs" />
+    <Compile Include="Controllers\Moneda.cs" />
     <Compile Include="Controllers\PostVenta\ConfirmacionController.cs" />
     <Compile Include="Controllers\PostVenta\RegresarEventosController.cs" />
     <Compile Include="Controllers\PostVenta\SurtirEventosController.cs" />
+    <Compile Include="Controllers\Ventas\PedidoEstatusBOController.cs" />
     <Compile Include="Controllers\Ventas\SaleOrderSentController.cs" />
     <Compile Include="Customers.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="CustomerType.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Departments.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="Embarques.cs">
@@ -214,6 +220,9 @@
       <DependentUpon>Indarneg.edmx</DependentUpon>
     </Compile>
     <Compile Include="Invoices.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InvoicesDetail.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="IR.cs">
@@ -268,6 +277,7 @@
     <Compile Include="Models\SaleOrderSentModel.cs" />
     <Compile Include="Models\Transaccion\ArqueoModel.cs" />
     <Compile Include="Models\Transaccion\BalanceDocumentsModel.cs" />
+    <Compile Include="Models\Transaccion\InvoiceModel.cs" />
     <Compile Include="Models\Transaccion\IRDModel.cs" />
     <Compile Include="Models\Transaccion\IRModel.cs" />
     <Compile Include="Models\Transaccion\ItemFullfilmentModel.cs" />
@@ -279,6 +289,7 @@
     <Compile Include="Models\Transaccion\ResultadosInventoryEvents.cs" />
     <Compile Include="Models\Transaccion\SaleOrder.cs" />
     <Compile Include="Models\Transaccion\SaleOrderToInvoiceModel.cs" />
+    <Compile Include="Models\Transaccion\SalesOrderBOStatusModel.cs" />
     <Compile Include="Models\Transaccion\SplitSaleOrderModel.cs" />
     <Compile Include="Models\Transaccion\TransferOrderSearchModel.cs" />
     <Compile Include="Models\Transaccion\UnsplitSaleOrderModel.cs" />
@@ -332,6 +343,9 @@
     </Compile>
     <Compile Include="spWMS_InsertaIR_Result.cs">
       <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TerminosDePago.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="Territorios.cs">
       <DependentUpon>IWS.tt</DependentUpon>
@@ -535,6 +549,12 @@
     <Compile Include="Views\Logistica\Empaque\empaquePantalla.Designer.cs">
       <DependentUpon>empaquePantalla.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Logistica\Empaque\FacturaIndar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\FacturaIndar.Designer.cs">
+      <DependentUpon>FacturaIndar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -588,6 +608,12 @@
     </Compile>
     <Compile Include="Views\Ventas\Apoyos\ConvertirSAD.Designer.cs">
       <DependentUpon>ConvertirSAD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Ventas\Apoyos\PedidoEstatusBO.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Ventas\Apoyos\PedidoEstatusBO.Designer.cs">
+      <DependentUpon>PedidoEstatusBO.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Ventas\Reportes\infoCTe.cs">
       <SubType>UserControl</SubType>
@@ -902,6 +928,9 @@
     <EmbeddedResource Include="Views\Logistica\Empaque\empaquePantalla.resx">
       <DependentUpon>empaquePantalla.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Empaque\FacturaIndar.resx">
+      <DependentUpon>FacturaIndar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.resx">
       <DependentUpon>ListaEmpaquePedidoCliente.cs</DependentUpon>
     </EmbeddedResource>
@@ -928,6 +957,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Ventas\Apoyos\ConvertirSAD.resx">
       <DependentUpon>ConvertirSAD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Ventas\Apoyos\PedidoEstatusBO.resx">
+      <DependentUpon>PedidoEstatusBO.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Ventas\Reportes\infoCTe.resx">
       <DependentUpon>infoCTe.cs</DependentUpon>

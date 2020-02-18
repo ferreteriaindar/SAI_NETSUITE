@@ -275,7 +275,15 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
         private void btnexcel_Click(object sender, EventArgs e)
         {
-            
+            /*string carpeta = string.Empty;
+            carpeta = System.IO.Path.GetTempPath();
+
+            gridControl1.ExportToXlsx(carpeta + "\\empaque.xlsx");
+            Process pdfexport = new Process();
+            pdfexport.StartInfo.FileName = "EXCEL.exe";
+            pdfexport.StartInfo.Arguments = carpeta + "\\empaque.xlsx";
+            pdfexport.Start();
+            */
         }
 
         private void backgroundWorkerEventos_DoWork(object sender, DoWorkEventArgs e)

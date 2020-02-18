@@ -26,7 +26,9 @@ namespace SAI_NETSUITE.Views.PostVenta
         private void btnCargaIngo_Click(object sender, EventArgs e)
         {
             Controllers.PostVenta.RegresarEventosController rec = new Controllers.PostVenta.RegresarEventosController();
-            gridControl1.DataSource = rec.cargaDatos().result;
+            if(!toggleSwitch1.IsOn)
+            gridControl1.DataSource = rec.cargaDatos().result.Where(i => i.almacen.Equals("150-Mercancía en eventos"));
+            else gridControl1.DataSource = rec.cargaDatos().result.Where(i=>i.almacen.Equals("151-Promos y regalos mercadotec"));
         }
 
         private void btnEnviarSeleccion_Click(object sender, EventArgs e)
@@ -46,7 +48,7 @@ namespace SAI_NETSUITE.Views.PostVenta
                     lista.Add(det);
                 }
                 Controllers.PostVenta.RegresarEventosController rec = new Controllers.PostVenta.RegresarEventosController();
-                rec.InsertIREvento(lista);
+                rec.InsertIREvento(lista,toggleSwitch1.IsOn);
             }
             else MessageBox.Show("Selecciona al menos 1 renglon");
         }

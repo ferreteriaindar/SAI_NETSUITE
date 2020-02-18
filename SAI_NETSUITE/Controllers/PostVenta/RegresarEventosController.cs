@@ -26,14 +26,14 @@ namespace SAI_NETSUITE.Controllers.PostVenta
             return list;
         }
 
-        public bool InsertIREvento(List<DocumentosInventoryEventsToList> lista)
+        public bool InsertIREvento(List<DocumentosInventoryEventsToList> lista,bool almacen)
         {
             using (IWSEntities ctx = new IWSEntities())
             {
                 IR iR = new IR()
                 {
                     date = DateTime.Now,
-                    mov = "IRE",
+                    mov = almacen==true?"IRP":"IRE",
                     vendor="POSTVENTA"
 
                 };

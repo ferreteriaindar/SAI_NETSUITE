@@ -427,6 +427,14 @@ namespace SAI_NETSUITE
                         };
                         rev.BringToFront();
                         break;
+                    case "btnApoyosEstatusPedido":
+                        panelControl1.Controls.Clear();
+                        Views.Ventas.Apoyos.PedidoEstatusBO peo = new Views.Ventas.Apoyos.PedidoEstatusBO()
+                        {
+                            Parent=panelControl1,
+                            Dock=DockStyle.Fill
+                        };
+                        break;
 
 
 

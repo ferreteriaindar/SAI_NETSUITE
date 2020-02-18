@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="9f5577e5d0104cbd9dbbb77acc7d0157" Name="Diagram1" ZoomLevel="29">
+      <Diagram DiagramId="9f5577e5d0104cbd9dbbb77acc7d0157" Name="Diagram1" ZoomLevel="37">
         <EntityTypeShape EntityType="IWSModel.Locations" Width="1.5" PointX="6.3114752016549343" PointY="10.217326467026643" />
         <EntityTypeShape EntityType="IWSModel.Address" Width="1.5" PointX="5.9243222968300442" PointY="0.37922987359540067" />
         <EntityTypeShape EntityType="IWSModel.FormaEnvio" Width="1.5" PointX="3.375" PointY="5.5" />
@@ -19,7 +19,6 @@
         <EntityTypeShape EntityType="IWSModel.IR" Width="1.5" PointX="3.375" PointY="12.875" />
         <AssociationConnector Association="IWSModel.FK_EmbarquesD_Embarques" />
         <EntityTypeShape EntityType="IWSModel.Paqueteria" Width="1.5" PointX="1.25" PointY="21.75" />
-        <EntityTypeShape EntityType="IWSModel.Invoices" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="IWSModel.SaleOrders" Width="1.5" PointX="12.375" PointY="33" />
         <EntityTypeShape EntityType="IWSModel.SaleOrdersDetails" Width="1.5" PointX="14.625" PointY="12.25" />
         <AssociationConnector Association="IWSModel.FK__SaleOrder__itemI__2EFAF1E2" />
@@ -30,6 +29,12 @@
         <AssociationConnector Association="IWSModel.FK__Customers__Route__40C49C62" />
         <AssociationConnector Association="IWSModel.FK__Customers__shipp__3A179ED3" />
         <EntityTypeShape EntityType="IWSModel.ZonasIndar" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="IWSModel.TerminosDePago" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="IWSModel.Invoices" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="IWSModel.Departments" Width="1.5" PointX="0.75" PointY="8.875" />
+        <AssociationConnector Association="IWSModel.FK__Customers__Depar__3EDC53F0" />
+        <EntityTypeShape EntityType="IWSModel.InvoicesDetail" Width="1.5" PointX="16.625" PointY="4" />
+        <AssociationConnector Association="IWSModel.FK_InvoicesDetail_Invoices" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

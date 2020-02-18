@@ -86,6 +86,15 @@
           <Property Name="name" Type="varchar" MaxLength="255" />
           <Property Name="isInactive" Type="int" />
         </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="DEPARTMENT_ID" />
+          </Key>
+          <Property Name="DEPARTMENT_ID" Type="int" Nullable="false" />
+          <Property Name="NAME" Type="varchar" MaxLength="255" />
+          <Property Name="PARENT_ID" Type="int" />
+          <Property Name="isInactive" Type="bit" />
+        </EntityType>
         <EntityType Name="Entity">
           <Key>
             <PropertyRef Name="ENTITY_ID" />
@@ -283,6 +292,26 @@
           <Property Name="internalId" Type="int" />
           <Property Name="custbody_refpdf" Type="int" />
           <Property Name="status" Type="varchar" MaxLength="50" />
+          <Property Name="CfdiMetPagoSat" Type="nvarchar" MaxLength="100" />
+          <Property Name="CFDIFormaDePago" Type="nvarchar" MaxLength="100" />
+          <Property Name="UsoCFDI" Type="nvarchar" MaxLength="100" />
+          <Property Name="CurrencySymbol" Type="nvarchar" MaxLength="7" />
+        </EntityType>
+        <EntityType Name="InvoicesDetail">
+          <Key>
+            <PropertyRef Name="InvoicesDId" />
+          </Key>
+          <Property Name="InvoicesDId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="InvoicesId" Type="int" />
+          <Property Name="item" Type="int" />
+          <Property Name="amount" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="rate" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="tax1amt" Type="decimal" Precision="18" Scale="2" />
+          <Property Name="taxcode" Type="nvarchar" MaxLength="50" />
+          <Property Name="taxcode_display" Type="nvarchar" MaxLength="50" />
+          <Property Name="taxrate1" Type="int" />
+          <Property Name="quantity" Type="int" />
+          <Property Name="DiscountTotal" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="IR">
           <Key>
@@ -467,6 +496,16 @@
           <Property Name="saleOrderId" Type="int" />
           <Property Name="backOrdered" Type="int" />
         </EntityType>
+        <EntityType Name="TerminosDePago">
+          <Key>
+            <PropertyRef Name="nso___TRMINOS_DE_PAGO_ID" />
+          </Key>
+          <Property Name="nso___TRMINOS_DE_PAGO_ID" Type="int" Nullable="false" />
+          <Property Name="TIPO_DE_ENTIDAD_ID" Type="int" />
+          <Property Name="NSO___TRMINOS_DE_PAGO_NAME" Type="varchar" MaxLength="255" />
+          <Property Name="VALOR" Type="int" />
+          <Property Name="isInactive" Type="bit" />
+        </EntityType>
         <EntityType Name="Territorios">
           <Key>
             <PropertyRef Name="TERRITORY_ID" />
@@ -492,6 +531,18 @@
           <Property Name="REPRESENTANTE_VENTAS_ID" Type="int" />
           <Property Name="ZONA_DE_VENTAS_ID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Customers__Depar__3EDC53F0">
+          <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="DEPARTMENT_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="Department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Customers__Packa__4A4E069C">
           <End Role="Paqueteria" Type="Self.Paqueteria" Multiplicity="0..1" />
           <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
@@ -576,14 +627,28 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_InvoicesDetail_Invoices">
+          <End Role="Invoices" Type="Self.Invoices" Multiplicity="0..1" />
+          <End Role="InvoicesDetail" Type="Self.InvoicesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoices">
+              <PropertyRef Name="TranId" />
+            </Principal>
+            <Dependent Role="InvoicesDetail">
+              <PropertyRef Name="InvoicesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="IWSModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerType" EntityType="Self.CustomerType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entity" EntityType="Self.Entity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Eventos" EntityType="Self.Eventos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FormaEnvio" EntityType="Self.FormaEnvio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoices" EntityType="Self.Invoices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="InvoicesDetail" EntityType="Self.InvoicesDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IR" EntityType="Self.IR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IRD" EntityType="Self.IRD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
@@ -593,8 +658,13 @@
           <EntitySet Name="Ruta" EntityType="Self.Ruta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleOrders" EntityType="Self.SaleOrders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleOrdersDetails" EntityType="Self.SaleOrdersDetails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TerminosDePago" EntityType="Self.TerminosDePago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Territorios" EntityType="Self.Territorios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZonasIndar" EntityType="Self.ZonasIndar" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Customers__Depar__3EDC53F0" Association="Self.FK__Customers__Depar__3EDC53F0">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
           <AssociationSet Name="FK__Customers__Packa__4A4E069C" Association="Self.FK__Customers__Packa__4A4E069C">
             <End Role="Paqueteria" EntitySet="Paqueteria" />
             <End Role="Customers" EntitySet="Customers" />
@@ -623,6 +693,10 @@
             <End Role="IR" EntitySet="IR" />
             <End Role="IRD" EntitySet="IRD" />
           </AssociationSet>
+          <AssociationSet Name="FK_InvoicesDetail_Invoices" Association="Self.FK_InvoicesDetail_Invoices">
+            <End Role="Invoices" EntitySet="Invoices" />
+            <End Role="InvoicesDetail" EntitySet="InvoicesDetail" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -646,7 +720,6 @@
             <End Role="IRD" EntitySet="IRD" />
           </AssociationSet>
           <EntitySet Name="Paqueteria" EntityType="IWSModel.Paqueteria" />
-          <EntitySet Name="Invoices" EntityType="IWSModel.Invoices" />
           <EntitySet Name="SaleOrders" EntityType="IWSModel.SaleOrders" />
           <EntitySet Name="SaleOrdersDetails" EntityType="IWSModel.SaleOrdersDetails" />
           <AssociationSet Name="FK__SaleOrder__itemI__2EFAF1E2" Association="IWSModel.FK__SaleOrder__itemI__2EFAF1E2">
@@ -675,6 +748,18 @@
             <End Role="Customers" EntitySet="Customers" />
           </AssociationSet>
           <EntitySet Name="ZonasIndar" EntityType="IWSModel.ZonasIndar" />
+          <EntitySet Name="TerminosDePago" EntityType="IWSModel.TerminosDePago" />
+          <EntitySet Name="Invoices" EntityType="IWSModel.Invoices" />
+          <EntitySet Name="Departments" EntityType="IWSModel.Departments" />
+          <AssociationSet Name="FK__Customers__Depar__3EDC53F0" Association="IWSModel.FK__Customers__Depar__3EDC53F0">
+            <End Role="Departments" EntitySet="Departments" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <EntitySet Name="InvoicesDetail" EntityType="IWSModel.InvoicesDetail" />
+          <AssociationSet Name="FK_InvoicesDetail_Invoices" Association="IWSModel.FK_InvoicesDetail_Invoices">
+            <End Role="Invoices" EntitySet="Invoices" />
+            <End Role="InvoicesDetail" EntitySet="InvoicesDetail" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Locations">
           <Key>
@@ -1016,52 +1101,6 @@
           <Property Name="isInactive" Type="Boolean" />
           <NavigationProperty Name="Customers" Relationship="IWSModel.FK__Customers__Packa__4A4E069C" FromRole="Paqueteria" ToRole="Customers" />
         </EntityType>
-        <EntityType Name="Invoices">
-          <Key>
-            <PropertyRef Name="TranId" />
-          </Key>
-          <Property Name="TranId" Type="Int32" Nullable="false" />
-          <Property Name="TranType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Entity" Type="Int32" />
-          <Property Name="TranDate" Type="DateTime" Precision="3" />
-          <Property Name="Memo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="DiscountTotal" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="TaxTotal" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="DescuentoTotalImporte" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="DescuentoTotalPP" Type="Int32" />
-          <Property Name="DescuentoEspecial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="DescuentoEvento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="AutorizacionEspecial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="AmountDue" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="SaleDate" Type="DateTime" Precision="3" />
-          <Property Name="LeadSource" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="DepartamentoCliente" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="TipoPedido" Type="Int32" />
-          <Property Name="ClienteContado" Type="Int32" />
-          <Property Name="RFC" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
-          <Property Name="UUID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrdenCompra" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="createdfrom" Type="Int32" />
-          <Property Name="ShippingWay" Type="Int32" />
-          <Property Name="Paqueteria" Type="Int32" />
-          <Property Name="FechaRecepcionCliente" Type="DateTime" Precision="3" />
-          <Property Name="ShipAddress" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="TerminosPago" Type="Int32" />
-          <Property Name="CondicionVencimiento" Type="Int32" />
-          <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
-          <Property Name="BillAddress" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="ExchangeRate" Type="Boolean" />
-          <Property Name="Currency" Type="Boolean" />
-          <Property Name="FechaProntoPago" Type="DateTime" Precision="3" />
-          <Property Name="AprobacionDescuentos" Type="Boolean" />
-          <Property Name="fechaActualizacion" Type="DateTime" Precision="3" />
-          <Property Name="internalId" Type="Int32" />
-          <Property Name="custbody_refpdf" Type="Int32" />
-          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-        </EntityType>
         <EntityType Name="SaleOrders">
           <Key>
             <PropertyRef Name="internalId" />
@@ -1195,6 +1234,7 @@
           <NavigationProperty Name="ListaPrecios" Relationship="IWSModel.FK__Customers__Price__477199F1" FromRole="Customers" ToRole="ListaPrecios" />
           <NavigationProperty Name="Ruta" Relationship="IWSModel.FK__Customers__Route__40C49C62" FromRole="Customers" ToRole="Ruta" />
           <NavigationProperty Name="FormaEnvio" Relationship="IWSModel.FK__Customers__shipp__3A179ED3" FromRole="Customers" ToRole="FormaEnvio" />
+          <NavigationProperty Name="Departments" Relationship="IWSModel.FK__Customers__Depar__3EDC53F0" FromRole="Customers" ToRole="Departments" />
         </EntityType>
         <Association Name="FK__Customers__Packa__4A4E069C">
           <End Type="IWSModel.Paqueteria" Role="Paqueteria" Multiplicity="0..1" />
@@ -1261,6 +1301,118 @@
           <Property Name="REPRESENTANTE_VENTAS_ID" Type="Int32" />
           <Property Name="ZONA_DE_VENTAS_ID" Type="Int32" Nullable="false" />
         </EntityType>
+        <EntityType Name="TerminosDePago">
+          <Key>
+            <PropertyRef Name="nso___TRMINOS_DE_PAGO_ID" />
+          </Key>
+          <Property Name="nso___TRMINOS_DE_PAGO_ID" Type="Int32" Nullable="false" />
+          <Property Name="TIPO_DE_ENTIDAD_ID" Type="Int32" />
+          <Property Name="NSO___TRMINOS_DE_PAGO_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="VALOR" Type="Int32" />
+          <Property Name="isInactive" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Invoices">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="Int32" Nullable="false" />
+          <Property Name="TranType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Entity" Type="Int32" />
+          <Property Name="TranDate" Type="DateTime" Precision="3" />
+          <Property Name="Memo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DiscountTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TaxTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DescuentoTotalImporte" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="DescuentoTotalPP" Type="Int32" />
+          <Property Name="DescuentoEspecial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DescuentoEvento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AutorizacionEspecial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AmountDue" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="SaleDate" Type="DateTime" Precision="3" />
+          <Property Name="LeadSource" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DepartamentoCliente" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPedido" Type="Int32" />
+          <Property Name="ClienteContado" Type="Int32" />
+          <Property Name="RFC" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="UUID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrdenCompra" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdfrom" Type="Int32" />
+          <Property Name="ShippingWay" Type="Int32" />
+          <Property Name="Paqueteria" Type="Int32" />
+          <Property Name="FechaRecepcionCliente" Type="DateTime" Precision="3" />
+          <Property Name="ShipAddress" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="TerminosPago" Type="Int32" />
+          <Property Name="CondicionVencimiento" Type="Int32" />
+          <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
+          <Property Name="BillAddress" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="ExchangeRate" Type="Boolean" />
+          <Property Name="Currency" Type="Boolean" />
+          <Property Name="FechaProntoPago" Type="DateTime" Precision="3" />
+          <Property Name="AprobacionDescuentos" Type="Boolean" />
+          <Property Name="fechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="internalId" Type="Int32" />
+          <Property Name="custbody_refpdf" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CfdiMetPagoSat" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CFDIFormaDePago" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UsoCFDI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CurrencySymbol" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InvoicesDetail" Relationship="IWSModel.FK_InvoicesDetail_Invoices" FromRole="Invoices" ToRole="InvoicesDetail" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="DEPARTMENT_ID" />
+          </Key>
+          <Property Name="DEPARTMENT_ID" Type="Int32" Nullable="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PARENT_ID" Type="Int32" />
+          <Property Name="isInactive" Type="Boolean" />
+          <NavigationProperty Name="Customers" Relationship="IWSModel.FK__Customers__Depar__3EDC53F0" FromRole="Departments" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK__Customers__Depar__3EDC53F0">
+          <End Type="IWSModel.Departments" Role="Departments" Multiplicity="0..1" />
+          <End Type="IWSModel.Customers" Role="Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Departments">
+              <PropertyRef Name="DEPARTMENT_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="Department" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="InvoicesDetail">
+          <Key>
+            <PropertyRef Name="InvoicesDId" />
+          </Key>
+          <Property Name="InvoicesDId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoicesId" Type="Int32" />
+          <Property Name="item" Type="Int32" />
+          <Property Name="amount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="rate" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="tax1amt" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="taxcode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="taxcode_display" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="taxrate1" Type="Int32" />
+          <Property Name="quantity" Type="Int32" />
+          <Property Name="DiscountTotal" Type="Decimal" Precision="18" Scale="2" />
+          <NavigationProperty Name="Invoices" Relationship="IWSModel.FK_InvoicesDetail_Invoices" FromRole="InvoicesDetail" ToRole="Invoices" />
+        </EntityType>
+        <Association Name="FK_InvoicesDetail_Invoices">
+          <End Type="IWSModel.Invoices" Role="Invoices" Multiplicity="0..1" />
+          <End Type="IWSModel.InvoicesDetail" Role="InvoicesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoices">
+              <PropertyRef Name="TranId" />
+            </Principal>
+            <Dependent Role="InvoicesDetail">
+              <PropertyRef Name="InvoicesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1601,53 +1753,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Invoices">
-            <EntityTypeMapping TypeName="IWSModel.Invoices">
-              <MappingFragment StoreEntitySet="Invoices">
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="custbody_refpdf" ColumnName="custbody_refpdf" />
-                <ScalarProperty Name="internalId" ColumnName="internalId" />
-                <ScalarProperty Name="fechaActualizacion" ColumnName="fechaActualizacion" />
-                <ScalarProperty Name="AprobacionDescuentos" ColumnName="AprobacionDescuentos" />
-                <ScalarProperty Name="FechaProntoPago" ColumnName="FechaProntoPago" />
-                <ScalarProperty Name="Currency" ColumnName="Currency" />
-                <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
-                <ScalarProperty Name="BillAddress" ColumnName="BillAddress" />
-                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
-                <ScalarProperty Name="CondicionVencimiento" ColumnName="CondicionVencimiento" />
-                <ScalarProperty Name="TerminosPago" ColumnName="TerminosPago" />
-                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
-                <ScalarProperty Name="FechaRecepcionCliente" ColumnName="FechaRecepcionCliente" />
-                <ScalarProperty Name="Paqueteria" ColumnName="Paqueteria" />
-                <ScalarProperty Name="ShippingWay" ColumnName="ShippingWay" />
-                <ScalarProperty Name="createdfrom" ColumnName="createdfrom" />
-                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-                <ScalarProperty Name="OrdenCompra" ColumnName="OrdenCompra" />
-                <ScalarProperty Name="UUID" ColumnName="UUID" />
-                <ScalarProperty Name="RFC" ColumnName="RFC" />
-                <ScalarProperty Name="ClienteContado" ColumnName="ClienteContado" />
-                <ScalarProperty Name="TipoPedido" ColumnName="TipoPedido" />
-                <ScalarProperty Name="DepartamentoCliente" ColumnName="DepartamentoCliente" />
-                <ScalarProperty Name="LeadSource" ColumnName="LeadSource" />
-                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
-                <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
-                <ScalarProperty Name="AutorizacionEspecial" ColumnName="AutorizacionEspecial" />
-                <ScalarProperty Name="DescuentoEvento" ColumnName="DescuentoEvento" />
-                <ScalarProperty Name="DescuentoEspecial" ColumnName="DescuentoEspecial" />
-                <ScalarProperty Name="DescuentoTotalPP" ColumnName="DescuentoTotalPP" />
-                <ScalarProperty Name="DescuentoTotalImporte" ColumnName="DescuentoTotalImporte" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="TaxTotal" ColumnName="TaxTotal" />
-                <ScalarProperty Name="DiscountTotal" ColumnName="DiscountTotal" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="TranDate" ColumnName="TranDate" />
-                <ScalarProperty Name="Entity" ColumnName="Entity" />
-                <ScalarProperty Name="TranType" ColumnName="TranType" />
-                <ScalarProperty Name="TranId" ColumnName="TranId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="SaleOrders">
             <EntityTypeMapping TypeName="IWSModel.SaleOrders">
               <MappingFragment StoreEntitySet="SaleOrders">
@@ -1769,6 +1874,95 @@
                 <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
                 <ScalarProperty Name="APOYO_DE_VENTAS_ID" ColumnName="APOYO_DE_VENTAS_ID" />
                 <ScalarProperty Name="AGENTE_COBRADOR_ID" ColumnName="AGENTE_COBRADOR_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TerminosDePago">
+            <EntityTypeMapping TypeName="IWSModel.TerminosDePago">
+              <MappingFragment StoreEntitySet="TerminosDePago">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
+                <ScalarProperty Name="VALOR" ColumnName="VALOR" />
+                <ScalarProperty Name="NSO___TRMINOS_DE_PAGO_NAME" ColumnName="NSO___TRMINOS_DE_PAGO_NAME" />
+                <ScalarProperty Name="TIPO_DE_ENTIDAD_ID" ColumnName="TIPO_DE_ENTIDAD_ID" />
+                <ScalarProperty Name="nso___TRMINOS_DE_PAGO_ID" ColumnName="nso___TRMINOS_DE_PAGO_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="IWSModel.Invoices">
+              <MappingFragment StoreEntitySet="Invoices">
+                <ScalarProperty Name="CurrencySymbol" ColumnName="CurrencySymbol" />
+                <ScalarProperty Name="UsoCFDI" ColumnName="UsoCFDI" />
+                <ScalarProperty Name="CFDIFormaDePago" ColumnName="CFDIFormaDePago" />
+                <ScalarProperty Name="CfdiMetPagoSat" ColumnName="CfdiMetPagoSat" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="custbody_refpdf" ColumnName="custbody_refpdf" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="fechaActualizacion" ColumnName="fechaActualizacion" />
+                <ScalarProperty Name="AprobacionDescuentos" ColumnName="AprobacionDescuentos" />
+                <ScalarProperty Name="FechaProntoPago" ColumnName="FechaProntoPago" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
+                <ScalarProperty Name="BillAddress" ColumnName="BillAddress" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="CondicionVencimiento" ColumnName="CondicionVencimiento" />
+                <ScalarProperty Name="TerminosPago" ColumnName="TerminosPago" />
+                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
+                <ScalarProperty Name="FechaRecepcionCliente" ColumnName="FechaRecepcionCliente" />
+                <ScalarProperty Name="Paqueteria" ColumnName="Paqueteria" />
+                <ScalarProperty Name="ShippingWay" ColumnName="ShippingWay" />
+                <ScalarProperty Name="createdfrom" ColumnName="createdfrom" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="OrdenCompra" ColumnName="OrdenCompra" />
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="ClienteContado" ColumnName="ClienteContado" />
+                <ScalarProperty Name="TipoPedido" ColumnName="TipoPedido" />
+                <ScalarProperty Name="DepartamentoCliente" ColumnName="DepartamentoCliente" />
+                <ScalarProperty Name="LeadSource" ColumnName="LeadSource" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
+                <ScalarProperty Name="AutorizacionEspecial" ColumnName="AutorizacionEspecial" />
+                <ScalarProperty Name="DescuentoEvento" ColumnName="DescuentoEvento" />
+                <ScalarProperty Name="DescuentoEspecial" ColumnName="DescuentoEspecial" />
+                <ScalarProperty Name="DescuentoTotalPP" ColumnName="DescuentoTotalPP" />
+                <ScalarProperty Name="DescuentoTotalImporte" ColumnName="DescuentoTotalImporte" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="TaxTotal" ColumnName="TaxTotal" />
+                <ScalarProperty Name="DiscountTotal" ColumnName="DiscountTotal" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="TranDate" ColumnName="TranDate" />
+                <ScalarProperty Name="Entity" ColumnName="Entity" />
+                <ScalarProperty Name="TranType" ColumnName="TranType" />
+                <ScalarProperty Name="TranId" ColumnName="TranId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="IWSModel.Departments">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
+                <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="DEPARTMENT_ID" ColumnName="DEPARTMENT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="InvoicesDetail">
+            <EntityTypeMapping TypeName="IWSModel.InvoicesDetail">
+              <MappingFragment StoreEntitySet="InvoicesDetail">
+                <ScalarProperty Name="DiscountTotal" ColumnName="DiscountTotal" />
+                <ScalarProperty Name="quantity" ColumnName="quantity" />
+                <ScalarProperty Name="taxrate1" ColumnName="taxrate1" />
+                <ScalarProperty Name="taxcode_display" ColumnName="taxcode_display" />
+                <ScalarProperty Name="taxcode" ColumnName="taxcode" />
+                <ScalarProperty Name="tax1amt" ColumnName="tax1amt" />
+                <ScalarProperty Name="rate" ColumnName="rate" />
+                <ScalarProperty Name="amount" ColumnName="amount" />
+                <ScalarProperty Name="item" ColumnName="item" />
+                <ScalarProperty Name="InvoicesId" ColumnName="InvoicesId" />
+                <ScalarProperty Name="InvoicesDId" ColumnName="InvoicesDId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

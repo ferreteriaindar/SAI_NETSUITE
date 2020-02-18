@@ -38,10 +38,13 @@ namespace SAI_NETSUITE
         public DbSet<IRD> IRD { get; set; }
         public DbSet<IR> IR { get; set; }
         public DbSet<Paqueteria> Paqueteria { get; set; }
-        public DbSet<Invoices> Invoices { get; set; }
         public DbSet<SaleOrders> SaleOrders { get; set; }
         public DbSet<SaleOrdersDetails> SaleOrdersDetails { get; set; }
         public DbSet<Customers> Customers { get; set; }
         public DbSet<ZonasIndar> ZonasIndar { get; set; }
+        public DbSet<TerminosDePago> TerminosDePago { get; set; }
+        public DbSet<Invoices> Invoices { get; set; }
+        public DbSet<Departments> Departments { get; set; }
+        public DbSet<InvoicesDetail> InvoicesDetail { get; set; }
     }
 }

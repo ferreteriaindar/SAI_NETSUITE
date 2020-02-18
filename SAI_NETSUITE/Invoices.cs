@@ -14,6 +14,11 @@ namespace SAI_NETSUITE
     
     public partial class Invoices
     {
+        public Invoices()
+        {
+            this.InvoicesDetail = new HashSet<InvoicesDetail>();
+        }
+    
         public int TranId { get; set; }
         public string TranType { get; set; }
         public Nullable<int> Entity { get; set; }
@@ -55,5 +60,11 @@ namespace SAI_NETSUITE
         public Nullable<int> internalId { get; set; }
         public Nullable<int> custbody_refpdf { get; set; }
         public string status { get; set; }
+        public string CfdiMetPagoSat { get; set; }
+        public string CFDIFormaDePago { get; set; }
+        public string UsoCFDI { get; set; }
+        public string CurrencySymbol { get; set; }
+    
+        public virtual ICollection<InvoicesDetail> InvoicesDetail { get; set; }
     }
 }

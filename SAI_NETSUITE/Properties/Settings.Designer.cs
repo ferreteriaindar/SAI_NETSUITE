@@ -26,8 +26,8 @@ namespace SAI_NETSUITE.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=INDGDLSQL01;Initial Catalog=INDAR_INACTIONWMS;User ID=sa;Password=7In" +
-            "d4r7;Connection Timeout=999")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.87.100;Initial Catalog=INDAR_INACTIONWMS;User ID=sa;Password=" +
+            "7Ind4r7;Connection Timeout=999")]
         public string INDAR_INACTIONWMSConnectionString {
             get {
                 return ((string)(this["INDAR_INACTIONWMSConnectionString"]));
@@ -37,8 +37,8 @@ namespace SAI_NETSUITE.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=INDGDLSQL01;Initial Catalog=INDAR_INACTIONWMS;User ID=sa;Password=7In" +
-            "d4r7;Connection Timeout=999")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.87.100;Initial Catalog=INDAR_INACTIONWMS;User ID=sa;Password=" +
+            "7Ind4r7;Connection Timeout=999")]
         public string INDAR_INACTIONWMSConnectionString1 {
             get {
                 return ((string)(this["INDAR_INACTIONWMSConnectionString1"]));

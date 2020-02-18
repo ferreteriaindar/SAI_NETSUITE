@@ -70,5 +70,6 @@ namespace SAI_NETSUITE
         public virtual ListaPrecios ListaPrecios { get; set; }
         public virtual Ruta Ruta { get; set; }
         public virtual FormaEnvio FormaEnvio { get; set; }
+        public virtual Departments Departments { get; set; }
     }
 }
