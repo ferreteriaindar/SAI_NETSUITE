@@ -231,6 +231,16 @@
           <Property Name="ZIPCODE" Type="varchar" MaxLength="255" />
           <Property Name="ZONA_ID" Type="varchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="errorTimbradoPago">
+          <Key>
+            <PropertyRef Name="idErrorTimbradoPago" />
+          </Key>
+          <Property Name="idErrorTimbradoPago" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="internalId" Type="int" />
+          <Property Name="tranid" Type="nvarchar" MaxLength="50" />
+          <Property Name="error" Type="nvarchar" MaxLength="4000" />
+          <Property Name="fecha" Type="datetime" />
+        </EntityType>
         <EntityType Name="Eventos">
           <Key>
             <PropertyRef Name="LIST_ID" />
@@ -240,6 +250,14 @@
           <Property Name="IsInactive" Type="bit" />
         </EntityType>
         <EntityType Name="FormaEnvio">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Name="LIST_ID" Type="int" Nullable="false" />
+          <Property Name="LIST_ITEM_NAME" Type="varchar" MaxLength="255" />
+          <Property Name="isInactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="FormaPagoSAT">
           <Key>
             <PropertyRef Name="LIST_ID" />
           </Key>
@@ -543,6 +561,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK__Customers__Metho__3BFFE745">
+          <End Role="FormaPagoSAT" Type="Self.FormaPagoSAT" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormaPagoSAT">
+              <PropertyRef Name="LIST_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="MethodPayment" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Customers__Packa__4A4E069C">
           <End Role="Paqueteria" Type="Self.Paqueteria" Multiplicity="0..1" />
           <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
@@ -645,8 +675,10 @@
           <EntitySet Name="CustomerType" EntityType="Self.CustomerType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Entity" EntityType="Self.Entity" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="errorTimbradoPago" EntityType="Self.errorTimbradoPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Eventos" EntityType="Self.Eventos" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FormaEnvio" EntityType="Self.FormaEnvio" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FormaPagoSAT" EntityType="Self.FormaPagoSAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoices" EntityType="Self.Invoices" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="InvoicesDetail" EntityType="Self.InvoicesDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IR" EntityType="Self.IR" Schema="dbo" store:Type="Tables" />
@@ -663,6 +695,10 @@
           <EntitySet Name="ZonasIndar" EntityType="Self.ZonasIndar" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK__Customers__Depar__3EDC53F0" Association="Self.FK__Customers__Depar__3EDC53F0">
             <End Role="Departments" EntitySet="Departments" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Customers__Metho__3BFFE745" Association="Self.FK__Customers__Metho__3BFFE745">
+            <End Role="FormaPagoSAT" EntitySet="FormaPagoSAT" />
             <End Role="Customers" EntitySet="Customers" />
           </AssociationSet>
           <AssociationSet Name="FK__Customers__Packa__4A4E069C" Association="Self.FK__Customers__Packa__4A4E069C">
@@ -759,6 +795,12 @@
           <AssociationSet Name="FK_InvoicesDetail_Invoices" Association="IWSModel.FK_InvoicesDetail_Invoices">
             <End Role="Invoices" EntitySet="Invoices" />
             <End Role="InvoicesDetail" EntitySet="InvoicesDetail" />
+          </AssociationSet>
+          <EntitySet Name="errorTimbradoPago" EntityType="IWSModel.errorTimbradoPago" />
+          <EntitySet Name="FormaPagoSAT" EntityType="IWSModel.FormaPagoSAT" />
+          <AssociationSet Name="FK__Customers__Metho__3BFFE745" Association="IWSModel.FK__Customers__Metho__3BFFE745">
+            <End Role="FormaPagoSAT" EntitySet="FormaPagoSAT" />
+            <End Role="Customers" EntitySet="Customers" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Locations">
@@ -1235,6 +1277,7 @@
           <NavigationProperty Name="Ruta" Relationship="IWSModel.FK__Customers__Route__40C49C62" FromRole="Customers" ToRole="Ruta" />
           <NavigationProperty Name="FormaEnvio" Relationship="IWSModel.FK__Customers__shipp__3A179ED3" FromRole="Customers" ToRole="FormaEnvio" />
           <NavigationProperty Name="Departments" Relationship="IWSModel.FK__Customers__Depar__3EDC53F0" FromRole="Customers" ToRole="Departments" />
+          <NavigationProperty Name="FormaPagoSAT" Relationship="IWSModel.FK__Customers__Metho__3BFFE745" FromRole="Customers" ToRole="FormaPagoSAT" />
         </EntityType>
         <Association Name="FK__Customers__Packa__4A4E069C">
           <End Type="IWSModel.Paqueteria" Role="Paqueteria" Multiplicity="0..1" />
@@ -1410,6 +1453,37 @@
             </Principal>
             <Dependent Role="InvoicesDetail">
               <PropertyRef Name="InvoicesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="errorTimbradoPago">
+          <Key>
+            <PropertyRef Name="idErrorTimbradoPago" />
+          </Key>
+          <Property Name="idErrorTimbradoPago" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="internalId" Type="Int32" />
+          <Property Name="tranid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="error" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FormaPagoSAT">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Name="LIST_ID" Type="Int32" Nullable="false" />
+          <Property Name="LIST_ITEM_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="isInactive" Type="Boolean" />
+          <NavigationProperty Name="Customers" Relationship="IWSModel.FK__Customers__Metho__3BFFE745" FromRole="FormaPagoSAT" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK__Customers__Metho__3BFFE745">
+          <End Type="IWSModel.FormaPagoSAT" Role="FormaPagoSAT" Multiplicity="0..1" />
+          <End Type="IWSModel.Customers" Role="Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="FormaPagoSAT">
+              <PropertyRef Name="LIST_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="MethodPayment" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1963,6 +2037,26 @@
                 <ScalarProperty Name="item" ColumnName="item" />
                 <ScalarProperty Name="InvoicesId" ColumnName="InvoicesId" />
                 <ScalarProperty Name="InvoicesDId" ColumnName="InvoicesDId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="errorTimbradoPago">
+            <EntityTypeMapping TypeName="IWSModel.errorTimbradoPago">
+              <MappingFragment StoreEntitySet="errorTimbradoPago">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="error" ColumnName="error" />
+                <ScalarProperty Name="tranid" ColumnName="tranid" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="idErrorTimbradoPago" ColumnName="idErrorTimbradoPago" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FormaPagoSAT">
+            <EntityTypeMapping TypeName="IWSModel.FormaPagoSAT">
+              <MappingFragment StoreEntitySet="FormaPagoSAT">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
+                <ScalarProperty Name="LIST_ITEM_NAME" ColumnName="LIST_ITEM_NAME" />
+                <ScalarProperty Name="LIST_ID" ColumnName="LIST_ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -148,7 +148,6 @@
             this.txtFactura.Location = new System.Drawing.Point(301, 53);
             this.txtFactura.Name = "txtFactura";
             this.txtFactura.Properties.Mask.EditMask = "d";
-            this.txtFactura.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
             this.txtFactura.Size = new System.Drawing.Size(280, 22);
             this.txtFactura.TabIndex = 6;
             this.txtFactura.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtFactura_KeyPress);

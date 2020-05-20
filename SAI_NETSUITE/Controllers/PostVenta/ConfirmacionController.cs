@@ -20,7 +20,8 @@ namespace SAI_NETSUITE.Controllers.PostVenta
             DataSet ds = new DataSet();
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"select ED.factura,'ENTREGADO' AS estado,ED.fechaHora,ED.persona,ED.comentarios,ED.facturaid from Indarneg.dbo.Embarques E
+                string query = @"select ED.factura,'ENTREGADO' AS estado,ED.fechaHora,ED.persona,ED.comentarios,ED.facturaid ,(select companyId+' '+company from iws.dbo.Invoices I
+								inner join iws.dbo.Customers c on i.Entity=c.internalid where TranId=ed.factura) as cliente from Indarneg.dbo.Embarques E
 			                    left join Indarneg.dbo.EmbarquesD ED ON E.idEmbarque=ED.idEmbarque
 			                    WHERE  E.estatus='TRANSITO' and ED.estado='TRANSITO'  AND E.idEmbarque=" + idembarque;
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
@@ -42,7 +43,7 @@ namespace SAI_NETSUITE.Controllers.PostVenta
 				                        BEGIN 
 				                        if exists(select factura from indarneg.dbo.embarquesD where factura='"+factura+ @"')
 					                        begin
-						                        SELECT i.TranId as factura,estado='ENTREGADO',fechaHora='',persona='',comentarios='',I.internalid FROM IWS.DBO.Invoices I 
+						                        SELECT i.TranId as factura,estado='ENTREGADO',fechaHora='',persona='',comentarios='',I.internalid,C.companyId+' '+C.company as cliente FROM IWS.DBO.Invoices I 
 						                        left join iws.dbo.Customers C on i.Entity=c.internalid
 						                        where  i.TranId=" + factura+@"
 					                        end
@@ -63,6 +64,7 @@ namespace SAI_NETSUITE.Controllers.PostVenta
                     drr["persona"] = sdr.GetValue(3).ToString();
                     drr["comentarios"] = sdr.GetValue(4).ToString();
                     drr["facturaid"] = Convert.ToInt32(sdr.GetValue(5).ToString());
+                    drr["cliente"] = sdr.GetValue(6).ToString();
 
 
                 }
@@ -82,7 +84,9 @@ namespace SAI_NETSUITE.Controllers.PostVenta
                     for (int i = 0; i < dt.Rows.Count; i++)
                     {
                         SqlCommand cmd = new SqlCommand("", myConnection);
-                        cmd.CommandText = "update indarneg.dbo.embarquesD set fechahora=@fechahora,persona=@persona,estado=@estado,comentarios=@comentarios,facturaid=@facturaid where idembarque=@idembarque and factura=@factura";
+                         cmd.CommandText = "update indarneg.dbo.embarquesD set fechahora=@fechahora,persona=@persona,estado=@estado,comentarios=@comentarios,facturaid=@facturaid,UsuarioConfirma=@UsuarioConfirma,fechaConfirmaPostventa=@fechaConfirmaPostventa where idembarque=@idembarque and factura=@factura";
+                        //cmd.CommandText = "update indarneg.dbo.embarquesD set fechahora=@fechahora,persona=@persona,estado=@estado,comentarios=@comentarios,facturaid=@facturaid,UsuarioConfirma=@UsuarioConfirma where idembarque=@idembarque and factura=@factura";
+
                         cmd.Parameters.AddWithValue("@fechahora", dt.Rows[i]["fechahora"].ToString());
                         cmd.Parameters.AddWithValue("@persona", dt.Rows[i]["persona"].ToString());
                         cmd.Parameters.AddWithValue("@estado", dt.Rows[i]["estado"].ToString());
@@ -90,6 +94,8 @@ namespace SAI_NETSUITE.Controllers.PostVenta
                         cmd.Parameters.AddWithValue("@idembarque", embarque);
                         cmd.Parameters.AddWithValue("@factura", dt.Rows[i]["factura"].ToString());
                         cmd.Parameters.AddWithValue("@facturaid",Convert.ToInt32( dt.Rows[i]["facturaid"].ToString()));
+                        cmd.Parameters.AddWithValue("@UsuarioConfirma", usuario);
+                        cmd.Parameters.AddWithValue("@fechaConfirmaPostventa", DateTime.Now);
                         cmd.ExecuteNonQuery();
                     }
                     myConnection.Close();
@@ -126,7 +132,7 @@ namespace SAI_NETSUITE.Controllers.PostVenta
                     };
                     ctx.Embarques.Add(emb);
                     ctx.SaveChanges();
-                    List<EmbarquesD> embd = regresaEmbarqueD(emb.idEmbarque,dt);
+                    List<EmbarquesD> embd = regresaEmbarqueD(emb.idEmbarque,dt,usuario);
                     foreach (var detalle in embd)
                     {
                         ctx.EmbarquesD.Add(detalle);
@@ -143,7 +149,7 @@ namespace SAI_NETSUITE.Controllers.PostVenta
             }
         }
 
-        private List<EmbarquesD> regresaEmbarqueD(int idEmbarque,DataTable dt)
+        private List<EmbarquesD> regresaEmbarqueD(int idEmbarque,DataTable dt,string usuario)
         {
             List<EmbarquesD> emb = new List<EmbarquesD>();
 
@@ -158,8 +164,10 @@ namespace SAI_NETSUITE.Controllers.PostVenta
                     estado = "ENTREGADO",
                     factura = dt.Rows[i]["factura"].ToString(),
                     fechaHora = dt.Rows[i]["fechahora"].ToString(),
-                    persona=dt.Rows[i]["persona"].ToString(),
-                    comentarios=dt.Rows[i]["comentarios"].ToString()
+                    persona = dt.Rows[i]["persona"].ToString(),
+                    comentarios = dt.Rows[i]["comentarios"].ToString(),
+                    fechaConfirmaPostventa = DateTime.Now,
+                    UsuarioConfirma=usuario
 
                 };
                 emb.Add(embd);
@@ -211,5 +219,20 @@ namespace SAI_NETSUITE.Controllers.PostVenta
 
             return resultado.ToString();
         }
+
+        public string EmbarqueCSV(StringBuilder contenido, string name,Token token)
+        {
+            IWS.Connection conn = new IWS.Connection();
+            Models.Transaccion.EmbarqueCSV csv = new EmbarqueCSV()
+            {
+                content = contenido.ToString(),
+                name = name
+            };
+            string json = JsonConvert.SerializeObject(csv);
+            var resultado = conn.POST("api/Invoice/UpdateReceiptDate", json, token.token, true);
+
+            return resultado.ToString();
+        }
+      
     }
 }

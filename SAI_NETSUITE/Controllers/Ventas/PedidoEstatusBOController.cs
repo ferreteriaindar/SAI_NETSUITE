@@ -85,7 +85,7 @@ namespace SAI_NETSUITE.Controllers.Ventas
                 int pedido = Convert.ToInt32(txtNumpedido);
                 var pedidoDetail = from so in ctx.SaleOrders
                                    join sod in ctx.SaleOrdersDetails on so.internalId equals sod.saleOrderId
-                                   where so.tranId==pedido  && sod.itemId.Equals(itemid)
+                                   where so.tranId==pedido  && sod.itemId==(itemid)
                                    select sod;
 
                 pedidoDetail.First().quantity = quantity;
@@ -133,7 +133,7 @@ namespace SAI_NETSUITE.Controllers.Ventas
 
                                     update  iws.dbo.SaleOrders set syncWMS = 1,fechaactualizacion = getdate() where tranid = @id";
 
-                cmd.ExecuteNonQuery();
+                cmd.ExecuteNonQuery();  
             }
         }
     }

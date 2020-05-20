@@ -11,6 +11,8 @@ using static SAI_NETSUITE.Controllers.PostVenta.ConfirmacionController;
 using SAI_NETSUITE.Models.Transaccion;
 using SAI_NETSUITE.IWS;
 using Newtonsoft.Json;
+using SAI_NETSUITE.Controllers.PostVenta;
+using SAI_NETSUITE.Models.Catalogos;
 
 namespace SAI_NETSUITE.Views.PostVenta
 {
@@ -50,6 +52,7 @@ namespace SAI_NETSUITE.Views.PostVenta
             dt.Columns.Add("persona", typeof(string));
             dt.Columns.Add("comentarios", typeof(string));
             dt.Columns.Add("facturaid", typeof(int));
+            dt.Columns.Add("cliente", typeof(string));
         }
 
         private void txtFactura_KeyPress(object sender, KeyPressEventArgs e)
@@ -166,9 +169,22 @@ namespace SAI_NETSUITE.Views.PostVenta
             pictureBox1.Visible = false;
         }
 
+        private void btnNopresionar_Click(object sender, EventArgs e)
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("factura,fecha");
+            sb.Append("\r\n");
+            for (int i = 0; i < gridView1.SelectedRowsCount; i++)
+            {
+               sb.Append(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i],colfacturaid).ToString()+","+Convert.ToDateTime( gridView1.GetRowCellValue( gridView1.GetSelectedRows()[i], colfechaHora).ToString()).ToString("dd/MM/yyyy")+",");
+                sb.Append("\r\n");
+            }
+            Console.WriteLine(sb);
+        }
+
         private void simpleButton3_Click(object sender, EventArgs e)
         {
-            pictureBox1.Visible = true;
+           // pictureBox1.Visible = true;
             DataTable data = new DataTable();
             data.Columns.Add("factura", typeof(string));
             data.Columns.Add("estado", typeof(string));
@@ -194,23 +210,48 @@ namespace SAI_NETSUITE.Views.PostVenta
             else resultado = new Controllers.PostVenta.ConfirmacionController().registraEmbarqueConcluido(usuario, data);
             if (resultado)
             {
-                List<UpdateInvoiceModel> factura = new List<UpdateInvoiceModel>();
-                for (int i = 0; i < gridView1.RowCount; i++)
+                //METODO ANTIGUO PARA ENVIA LA FECHA RECEPCION   POR SCRIPT FACTURA PORA FACTURA
+                // List<UpdateInvoiceModel> factura = new List<UpdateInvoiceModel>();
+                // for (int i = 0; i < gridView1.RowCount; i++)
+                // {
+                //     UpdateInvoiceModel uim = new UpdateInvoiceModel()
+                //     {
+                //         internalId = Convert.ToInt32(gridView1.GetRowCellValue(i, colfacturaid).ToString()),
+                //         custbody_nso_indr_receipt_date = gridView1.GetRowCellValue(i, colfechaHora).ToString()
+                //     };
+                //     factura.Add(uim);
+                // }
+                ///* List<UpdateInvoiceModel> lista = new Controllers.PostVenta.ConfirmacionController().regresaInternalId(factura);*/
+                // labelAvance.Text = "0/" + gridView1.RowCount.ToString();
+                // if (!backgroundWorker1.IsBusy)
+                // {
+                //     backgroundWorker1.RunWorkerAsync(argument: factura);
+
+                // }
+
+                //Metodo nuevo se carga el csv a una importacion guardad y se manda la info
+
+                StringBuilder sb = new StringBuilder();
+                sb.Append("factura,fecha");
+                sb.Append("\r\n");
+                for (int i = 0; i < gridView1.SelectedRowsCount; i++)
                 {
-                    UpdateInvoiceModel uim = new UpdateInvoiceModel()
-                    {
-                        internalId = Convert.ToInt32(gridView1.GetRowCellValue(i, colfacturaid).ToString()),
-                        custbody_nso_indr_receipt_date = gridView1.GetRowCellValue(i, colfechaHora).ToString()
-                    };
-                    factura.Add(uim);
+                    string fecha = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colfechaHora).ToString();
+                    // fecha = Convert.ToDateTime(fecha).ToShortDateString();
+                    DateTime result;
+   //                 var matchingCulture = System.Globalization.CultureInfo.GetCultures(System.Globalization.CultureTypes.AllCultures).FirstOrDefault(ci => DateTime.TryParse(fecha, ci, System.Globalization.DateTimeStyles.None, out result));
+                    DateTime fechaD = Convert.ToDateTime(fecha);
+                    //sb.Append(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colfacturaid).ToString() + "," + Convert.ToDateTime(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colfechaHora).ToString()).ToString("dd/MM/yyyy") + ",");
+                    sb.Append(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colfacturaid).ToString() + "," + fechaD.ToShortDateString());
+                    sb.Append("\r\n");
                 }
-               /* List<UpdateInvoiceModel> lista = new Controllers.PostVenta.ConfirmacionController().regresaInternalId(factura);*/
-                labelAvance.Text = "0/" + gridView1.RowCount.ToString();
-                if (!backgroundWorker1.IsBusy)
-                {
-                    backgroundWorker1.RunWorkerAsync(argument: factura);
-                    
-                }
+                Console.WriteLine(sb);
+                ConfirmacionController cc = new ConfirmacionController();
+                string respuesta = cc.EmbarqueCSV(sb, tipoPrincipal == 0 ? "Embarque" + txtEmbarque.Text : "Embarque" + DateTime.Now.ToShortDateString(),token);
+                respuestaIWScs res = JsonConvert.DeserializeObject<respuestaIWScs>(respuesta);
+                if(res.result.responseStructure.codeStatus.Equals("OK"))
+                    MessageBox.Show("Proceso terminado \r\n Borra el archivo en NETSUITE los viernes");
+                else MessageBox.Show("ERROR:"+res.result.responseStructure.descriptionStatus);
             }
             else
                 MessageBox.Show("Error en la transaccion");

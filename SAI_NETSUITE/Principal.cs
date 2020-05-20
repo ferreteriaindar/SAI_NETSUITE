@@ -81,20 +81,23 @@ namespace SAI_NETSUITE
         {
             if (e.IsTile)
             {
-                
+                UserControl userControl;      
                 switch (e.Element.Name.ToString())
                 { 
                     case "tileNavWMS":
                         WMS.menuWMS wms = new WMS.menuWMS(conString,"admin","admin");
                         wms.Show();
+                        
                         break;
                    case "btnCreaPedido": 
-                        panelControl1.Controls.Clear();
+                      /*  panelControl1.Controls.Clear();
                         Views.Ventas.SaleOrderSentVista sosv = new Views.Ventas.SaleOrderSentVista(token);
                         sosv.Parent = panelControl1;
                         sosv.Dock = DockStyle.Fill;
                         panelControl1.Controls.Add(sosv);
-                        sosv.BringToFront();
+                        sosv.BringToFront();*/
+
+                      //  userControl= new Views.Ventas.SaleOrderSentVista(token);
                         break;
                     case "btnEmbarqueMasivo":   case "btnApoyosEmbarcar":
                         panelControl1.Controls.Clear();
@@ -434,8 +437,54 @@ namespace SAI_NETSUITE
                             Parent=panelControl1,
                             Dock=DockStyle.Fill
                         };
+                        
                         break;
-
+                    case "btnFacturarV2":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Empaque.empaquePantallaV2 epv2 = new Views.Logistica.Empaque.empaquePantallaV2()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        epv2.BringToFront();
+                        break;
+                    case "btnAplicarPAgos":
+                        panelControl1.Controls.Clear();
+                        Views.CXC.PaymentInvoiceApply pia = new Views.CXC.PaymentInvoiceApply()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        pia.BringToFront();
+                        break;
+                    case "btnTimbrado":
+                        panelControl1.Controls.Clear();
+                        Views.Contabilidad.TimbradoPrueba tb = new Views.Contabilidad.TimbradoPrueba()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        tb.BringToFront();
+                        break;
+                    case "btnTimbrarPagos":
+                         panelControl1.Controls.Clear();
+                         Views.CXC.TimbradoPago tp = new Views.CXC.TimbradoPago()
+                         {
+                             Parent = panelControl1,
+                             Dock = DockStyle.Fill
+                         };
+                         tp.BringToFront();
+                      
+                        break;
+                    case "btnCancelarPedidoApoyo":
+                        panelControl1.Controls.Clear();
+                        Views.Ventas.Apoyos.CancelarPedido cp = new Views.Ventas.Apoyos.CancelarPedido(usuario)
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        cp.BringToFront();
+                        break;
 
 
                     default:

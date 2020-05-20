@@ -11,6 +11,8 @@ namespace SAI_NETSUITE.Models.Transaccion
         public string mov { get; set; }
         public string movid { get; set; }
         public string error { get; set; }
+        public string cons { get; set; }
+        public string formaEnvio { get; set; }
     }
 
    

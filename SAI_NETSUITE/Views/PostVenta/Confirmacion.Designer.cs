@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.btnNopresionar = new DevExpress.XtraEditors.SimpleButton();
             this.labelAvance = new System.Windows.Forms.Label();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.separatorControl3 = new DevExpress.XtraEditors.SeparatorControl();
@@ -56,6 +57,7 @@
             this.colcomentarios = new DevExpress.XtraGrid.Columns.GridColumn();
             this.ComboBox2Comentarios = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
             this.colfacturaid = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colcliente = new DevExpress.XtraGrid.Columns.GridColumn();
             this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
@@ -79,6 +81,7 @@
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.btnNopresionar);
             this.groupControl1.Controls.Add(this.labelAvance);
             this.groupControl1.Controls.Add(this.pictureBox1);
             this.groupControl1.Controls.Add(this.separatorControl3);
@@ -102,6 +105,16 @@
             this.groupControl1.Text = "Controles";
             this.groupControl1.Paint += new System.Windows.Forms.PaintEventHandler(this.groupControl1_Paint);
             // 
+            // btnNopresionar
+            // 
+            this.btnNopresionar.Location = new System.Drawing.Point(541, 48);
+            this.btnNopresionar.Name = "btnNopresionar";
+            this.btnNopresionar.Size = new System.Drawing.Size(104, 36);
+            this.btnNopresionar.TabIndex = 14;
+            this.btnNopresionar.Text = "No presionar";
+            this.btnNopresionar.Visible = false;
+            this.btnNopresionar.Click += new System.EventHandler(this.btnNopresionar_Click);
+            // 
             // labelAvance
             // 
             this.labelAvance.AutoSize = true;
@@ -110,6 +123,7 @@
             this.labelAvance.Size = new System.Drawing.Size(29, 17);
             this.labelAvance.TabIndex = 13;
             this.labelAvance.Text = "0/1";
+            this.labelAvance.Visible = false;
             // 
             // pictureBox1
             // 
@@ -277,7 +291,8 @@
             this.colfechaHora,
             this.colPersona,
             this.colcomentarios,
-            this.colfacturaid});
+            this.colfacturaid,
+            this.colcliente});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.MultiSelect = true;
@@ -298,7 +313,7 @@
             this.colEstado.FieldName = "estado";
             this.colEstado.Name = "colEstado";
             this.colEstado.Visible = true;
-            this.colEstado.VisibleIndex = 2;
+            this.colEstado.VisibleIndex = 3;
             // 
             // repositoryItemComboBox1
             // 
@@ -317,7 +332,7 @@
             this.colfechaHora.FieldName = "fechaHora";
             this.colfechaHora.Name = "colfechaHora";
             this.colfechaHora.Visible = true;
-            this.colfechaHora.VisibleIndex = 3;
+            this.colfechaHora.VisibleIndex = 4;
             // 
             // colPersona
             // 
@@ -325,7 +340,7 @@
             this.colPersona.FieldName = "persona";
             this.colPersona.Name = "colPersona";
             this.colPersona.Visible = true;
-            this.colPersona.VisibleIndex = 4;
+            this.colPersona.VisibleIndex = 5;
             // 
             // colcomentarios
             // 
@@ -334,7 +349,7 @@
             this.colcomentarios.FieldName = "comentarios";
             this.colcomentarios.Name = "colcomentarios";
             this.colcomentarios.Visible = true;
-            this.colcomentarios.VisibleIndex = 5;
+            this.colcomentarios.VisibleIndex = 6;
             // 
             // ComboBox2Comentarios
             // 
@@ -355,6 +370,14 @@
             this.colfacturaid.Caption = "facturaid";
             this.colfacturaid.FieldName = "facturaid";
             this.colfacturaid.Name = "colfacturaid";
+            // 
+            // colcliente
+            // 
+            this.colcliente.Caption = "Cliente";
+            this.colcliente.FieldName = "cliente";
+            this.colcliente.Name = "colcliente";
+            this.colcliente.Visible = true;
+            this.colcliente.VisibleIndex = 2;
             // 
             // backgroundWorker1
             // 
@@ -422,5 +445,7 @@
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
         private DevExpress.XtraGrid.Columns.GridColumn colfacturaid;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox ComboBox2Comentarios;
+        private DevExpress.XtraEditors.SimpleButton btnNopresionar;
+        private DevExpress.XtraGrid.Columns.GridColumn colcliente;
     }
 }

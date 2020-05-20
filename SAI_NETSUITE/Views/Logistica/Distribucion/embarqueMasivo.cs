@@ -34,6 +34,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             dt.Columns.Add("FORMAENVIO", typeof(string));
             dt.Columns.Add("PAQUETERIA", typeof(string));
             dt.Columns.Add("TRANID", typeof(string));
+            dt.Columns.Add("cliente", typeof(string));
             
 
         }
@@ -163,6 +164,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     dataRow[3] = sdr.GetValue(4).ToString();
                     dataRow[4] = sdr.GetValue(5).ToString();
                     dataRow[5] = sdr.GetValue(0).ToString();
+                    dataRow[6] = sdr.GetValue(6).ToString();
                 }
                 sdr.Close();
                 cmd.Dispose();
@@ -210,6 +212,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     gridControl1.DataSource = null;
                 }
                 else MessageBox.Show("ERROR DE EMBARQUE");
+                dt.Rows.Clear();
             }
         }
 
@@ -362,6 +365,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     formaEnvio=GridView1.GetRowCellValue(i,colFORMAENVIO).ToString(),
                     paqueteria = searchPaqueteria.EditValue.ToString(),
                     facturaid=Convert.ToInt32( GridView1.GetRowCellValue(i,colTRANID).ToString())
+
                     
 
                 };
@@ -381,6 +385,8 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 estatus = "TRANSITO",
                 idPaqueteria = Convert.ToInt32(searchPaqueteria.EditValue.ToString()),
                 usuario = usuario
+                
+
                 
 
 

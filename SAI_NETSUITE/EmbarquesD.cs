@@ -26,6 +26,8 @@ namespace SAI_NETSUITE
         public int IdEmbarqueD { get; set; }
         public Nullable<int> facturaid { get; set; }
         public Nullable<int> idNetsuite { get; set; }
+        public string UsuarioConfirma { get; set; }
+        public Nullable<System.DateTime> fechaConfirmaPostventa { get; set; }
     
         public virtual Embarques Embarques { get; set; }
     }

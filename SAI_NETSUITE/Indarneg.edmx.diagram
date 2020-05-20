@@ -8,8 +8,6 @@
         <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuite" Width="1.5" PointX="0.75" PointY="5" />
         <EntityTypeShape EntityType="IndarnegModel.sai_usuario" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="IndarnegModel.Embarques" Width="1.5" PointX="0.75" PointY="1.125" />
-        <EntityTypeShape EntityType="IndarnegModel.EmbarquesD" Width="1.5" PointX="3" PointY="0.75" />
-        <AssociationConnector Association="IndarnegModel.FK_EmbarquesD_Embarques" />
         <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuiteD" Width="1.5" PointX="3" PointY="8" />
         <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" />
         <EntityTypeShape EntityType="IndarnegModel.OrdenCobro" Width="1.5" PointX="5.375" PointY="6" />
@@ -19,6 +17,8 @@
         <EntityTypeShape EntityType="IndarnegModel.EventosSurtidos" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuiteC" Width="1.5" PointX="3.375" PointY="4.75" />
         <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" />
+        <EntityTypeShape EntityType="IndarnegModel.EmbarquesD" Width="1.5" PointX="3" PointY="12.25" />
+        <AssociationConnector Association="IndarnegModel.FK_EmbarquesD_Embarques" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

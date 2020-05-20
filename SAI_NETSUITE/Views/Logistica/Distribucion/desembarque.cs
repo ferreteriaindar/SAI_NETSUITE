@@ -152,6 +152,20 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             buscarFactura();
         }
 
+        private void btnImprimir_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                embarqueMasivo em = new embarqueMasivo("");
+
+                em.generaReporte(Convert.ToInt32(txtNumEmbarque.Text));
+            }
+            catch (Exception ex)
+            {
+                txtNumEmbarque.ErrorText = ex.Message.ToString();
+            }
+        }
+
         public string regresaUbicacion(string usuario)
         {
             using (IndarnegEntities ctx = new IndarnegEntities())

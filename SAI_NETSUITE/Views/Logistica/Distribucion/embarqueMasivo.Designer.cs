@@ -46,6 +46,7 @@
             this.colFORMAENVIO = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPAQUETERIA = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colTRANID = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colCliente = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupControl2 = new DevExpress.XtraEditors.GroupControl();
             this.searchPaqueteria = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -175,7 +176,8 @@
             this.colCREATE_DATE,
             this.colFORMAENVIO,
             this.colPAQUETERIA,
-            this.colTRANID});
+            this.colTRANID,
+            this.colCliente});
             this.GridView1.GridControl = this.gridControl1;
             this.GridView1.Name = "GridView1";
             // 
@@ -201,7 +203,7 @@
             this.colCREATE_DATE.FieldName = "CREATE_DATE";
             this.colCREATE_DATE.Name = "colCREATE_DATE";
             this.colCREATE_DATE.Visible = true;
-            this.colCREATE_DATE.VisibleIndex = 2;
+            this.colCREATE_DATE.VisibleIndex = 3;
             // 
             // colFORMAENVIO
             // 
@@ -209,7 +211,7 @@
             this.colFORMAENVIO.FieldName = "FORMAENVIO";
             this.colFORMAENVIO.Name = "colFORMAENVIO";
             this.colFORMAENVIO.Visible = true;
-            this.colFORMAENVIO.VisibleIndex = 3;
+            this.colFORMAENVIO.VisibleIndex = 4;
             // 
             // colPAQUETERIA
             // 
@@ -217,13 +219,21 @@
             this.colPAQUETERIA.FieldName = "PAQUETERIA";
             this.colPAQUETERIA.Name = "colPAQUETERIA";
             this.colPAQUETERIA.Visible = true;
-            this.colPAQUETERIA.VisibleIndex = 4;
+            this.colPAQUETERIA.VisibleIndex = 5;
             // 
             // colTRANID
             // 
             this.colTRANID.Caption = "TRANID";
             this.colTRANID.FieldName = "TRANID";
             this.colTRANID.Name = "colTRANID";
+            // 
+            // colCliente
+            // 
+            this.colCliente.Caption = "Nombre";
+            this.colCliente.FieldName = "cliente";
+            this.colCliente.Name = "colCliente";
+            this.colCliente.Visible = true;
+            this.colCliente.VisibleIndex = 2;
             // 
             // groupControl2
             // 
@@ -579,5 +589,6 @@
         private DevExpress.XtraEditors.TextEdit txtEmbarqueCambiar;
         private DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider dxValidationProvider2;
         private DevExpress.XtraEditors.GroupControl groupControl5;
+        private DevExpress.XtraGrid.Columns.GridColumn colCliente;
     }
 }

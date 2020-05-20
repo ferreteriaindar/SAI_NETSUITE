@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule3 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression3 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule4 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression4 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression1 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression2 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
             this.colquantitycommitted = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
@@ -320,20 +320,20 @@
             this.colquantitybackordered,
             this.colalmacen2,
             this.colalmacen31});
-            gridFormatRule3.Column = this.colquantitycommitted;
-            gridFormatRule3.ColumnApplyTo = this.colquantitycommitted;
-            gridFormatRule3.Name = "VerdeTodoReservado";
-            formatConditionRuleExpression3.Expression = "Iif([quantitycommitted] > 0 And [quantitybackordered] = 0, True, False)";
-            formatConditionRuleExpression3.PredefinedName = "Green Fill, Green Text";
-            gridFormatRule3.Rule = formatConditionRuleExpression3;
-            gridFormatRule4.Column = this.colquantitycommitted;
-            gridFormatRule4.ColumnApplyTo = this.colquantitycommitted;
-            gridFormatRule4.Name = "RojoBackOrdertodos";
-            formatConditionRuleExpression4.Expression = "Iif([quantitycommitted] = 0 And [quantitybackordered] > 0, True, False)";
-            formatConditionRuleExpression4.PredefinedName = "Red Fill, Red Text";
-            gridFormatRule4.Rule = formatConditionRuleExpression4;
-            this.gridView1.FormatRules.Add(gridFormatRule3);
-            this.gridView1.FormatRules.Add(gridFormatRule4);
+            gridFormatRule1.Column = this.colquantitycommitted;
+            gridFormatRule1.ColumnApplyTo = this.colquantitycommitted;
+            gridFormatRule1.Name = "VerdeTodoReservado";
+            formatConditionRuleExpression1.Expression = "Iif([quantitycommitted] > 0 And [quantitybackordered] = 0, True, False)";
+            formatConditionRuleExpression1.PredefinedName = "Green Fill, Green Text";
+            gridFormatRule1.Rule = formatConditionRuleExpression1;
+            gridFormatRule2.Column = this.colquantitycommitted;
+            gridFormatRule2.ColumnApplyTo = this.colquantitycommitted;
+            gridFormatRule2.Name = "RojoBackOrdertodos";
+            formatConditionRuleExpression2.Expression = "Iif([quantitycommitted] = 0 And [quantitybackordered] > 0, True, False)";
+            formatConditionRuleExpression2.PredefinedName = "Red Fill, Red Text";
+            gridFormatRule2.Rule = formatConditionRuleExpression2;
+            this.gridView1.FormatRules.Add(gridFormatRule1);
+            this.gridView1.FormatRules.Add(gridFormatRule2);
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowGroupPanel = false;

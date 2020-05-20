@@ -46,6 +46,8 @@
             this.colpersona = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colfechaHora = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colComentFactura = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colUsuarioConfirma = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFechaConfirmaPostventa = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -117,7 +119,9 @@
             this.colestado,
             this.colpersona,
             this.colfechaHora,
-            this.colComentFactura});
+            this.colComentFactura,
+            this.colUsuarioConfirma,
+            this.colFechaConfirmaPostventa});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.GroupCount = 1;
             this.gridView1.Name = "gridView1";
@@ -229,6 +233,22 @@
             this.colComentFactura.Visible = true;
             this.colComentFactura.VisibleIndex = 11;
             // 
+            // colUsuarioConfirma
+            // 
+            this.colUsuarioConfirma.Caption = "usuarioConfirma";
+            this.colUsuarioConfirma.FieldName = "usuarioConfirma";
+            this.colUsuarioConfirma.Name = "colUsuarioConfirma";
+            this.colUsuarioConfirma.Visible = true;
+            this.colUsuarioConfirma.VisibleIndex = 12;
+            // 
+            // colFechaConfirmaPostventa
+            // 
+            this.colFechaConfirmaPostventa.Caption = "FechaConfirmaPostventa";
+            this.colFechaConfirmaPostventa.FieldName = "FechaConfirmaPostventa";
+            this.colFechaConfirmaPostventa.Name = "colFechaConfirmaPostventa";
+            this.colFechaConfirmaPostventa.Visible = true;
+            this.colFechaConfirmaPostventa.VisibleIndex = 13;
+            // 
             // reporteEmbarques
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -266,5 +286,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colpersona;
         private DevExpress.XtraGrid.Columns.GridColumn colfechaHora;
         private DevExpress.XtraGrid.Columns.GridColumn colComentFactura;
+        private DevExpress.XtraGrid.Columns.GridColumn colUsuarioConfirma;
+        private DevExpress.XtraGrid.Columns.GridColumn colFechaConfirmaPostventa;
     }
 }

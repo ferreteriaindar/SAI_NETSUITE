@@ -71,5 +71,6 @@ namespace SAI_NETSUITE
         public virtual Ruta Ruta { get; set; }
         public virtual FormaEnvio FormaEnvio { get; set; }
         public virtual Departments Departments { get; set; }
+        public virtual FormaPagoSAT FormaPagoSAT { get; set; }
     }
 }

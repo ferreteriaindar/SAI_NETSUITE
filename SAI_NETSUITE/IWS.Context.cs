@@ -46,5 +46,7 @@ namespace SAI_NETSUITE
         public DbSet<Invoices> Invoices { get; set; }
         public DbSet<Departments> Departments { get; set; }
         public DbSet<InvoicesDetail> InvoicesDetail { get; set; }
+        public DbSet<errorTimbradoPago> errorTimbradoPago { get; set; }
+        public DbSet<FormaPagoSAT> FormaPagoSAT { get; set; }
     }
 }

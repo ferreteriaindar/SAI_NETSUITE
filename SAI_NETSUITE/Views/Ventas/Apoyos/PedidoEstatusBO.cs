@@ -61,6 +61,13 @@ namespace SAI_NETSUITE.Views.Ventas.Apoyos
             {
                 return true;
             }
+            if (txtEstatusWMS.Text.Equals( "Ingresado"))
+                return false;
+            if (txtEstatusWMS.Text.Equals("Surtida"))
+                return false;
+            if (txtestatus.Text.Equals("Por Surtir") && txtTipo.Text.Equals("BO") && bo == 0)
+                return true;
+
             else return false;
         }
 
@@ -140,6 +147,9 @@ namespace SAI_NETSUITE.Views.Ventas.Apoyos
 
             pebo.insertaPedidoWMS(txtNumpedido.Text);
             cargaInfo();
+            if (NohayBackorders())
+                btnCambiarBo.Enabled = true;
+            else btnCambiarBo.Enabled = false;
             MessageBox.Show("Proceso Terminado");
           
         }

@@ -30,13 +30,13 @@ namespace SAI_NETSUITE
         public virtual DbSet<NumeroGuiaNetsuite> NumeroGuiaNetsuite { get; set; }
         public virtual DbSet<sai_usuario> sai_usuario { get; set; }
         public virtual DbSet<Embarques> Embarques { get; set; }
-        public virtual DbSet<EmbarquesD> EmbarquesD { get; set; }
         public virtual DbSet<NumeroGuiaNetsuiteD> NumeroGuiaNetsuiteD { get; set; }
         public virtual DbSet<OrdenCobro> OrdenCobro { get; set; }
         public virtual DbSet<OrdenCobroD> OrdenCobroD { get; set; }
         public virtual DbSet<SAD> SAD { get; set; }
         public virtual DbSet<EventosSurtidos> EventosSurtidos { get; set; }
         public virtual DbSet<NumeroGuiaNetsuiteC> NumeroGuiaNetsuiteC { get; set; }
+        public virtual DbSet<EmbarquesD> EmbarquesD { get; set; }
     
         public virtual ObjectResult<spWMS_InsertaIR_Result> spWMS_InsertaIR(Nullable<int> iD)
         {

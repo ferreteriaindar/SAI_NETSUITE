@@ -35,6 +35,9 @@
         <AssociationConnector Association="IWSModel.FK__Customers__Depar__3EDC53F0" />
         <EntityTypeShape EntityType="IWSModel.InvoicesDetail" Width="1.5" PointX="16.625" PointY="4" />
         <AssociationConnector Association="IWSModel.FK_InvoicesDetail_Invoices" />
+        <EntityTypeShape EntityType="IWSModel.errorTimbradoPago" Width="1.5" PointX="0.75" PointY="11.75" />
+        <EntityTypeShape EntityType="IWSModel.FormaPagoSAT" Width="1.5" PointX="0.75" PointY="14.875" />
+        <AssociationConnector Association="IWSModel.FK__Customers__Metho__3BFFE745" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

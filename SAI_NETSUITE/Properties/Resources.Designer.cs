@@ -193,6 +193,16 @@ namespace SAI_NETSUITE.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap gear {
+            get {
+                object obj = ResourceManager.GetObject("gear", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap growth {
             get {
                 object obj = ResourceManager.GetObject("growth", resourceCulture);
@@ -236,6 +246,16 @@ namespace SAI_NETSUITE.Properties {
         internal static System.Drawing.Bitmap Logo_Indar {
             get {
                 object obj = ResourceManager.GetObject("Logo_Indar", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap magic_Wand {
+            get {
+                object obj = ResourceManager.GetObject("magic_Wand", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

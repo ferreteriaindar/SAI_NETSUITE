@@ -32,6 +32,10 @@
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             this.colrevisado = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.groupControl3 = new DevExpress.XtraEditors.GroupControl();
+            this.btnImprimir = new DevExpress.XtraEditors.SimpleButton();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtNumEmbarque = new DevExpress.XtraEditors.TextEdit();
             this.btnEscanea = new DevExpress.XtraEditors.SimpleButton();
             this.label3 = new System.Windows.Forms.Label();
             this.txtEscaneaFac = new DevExpress.XtraEditors.TextEdit();
@@ -53,6 +57,9 @@
             this.colcomentario = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).BeginInit();
+            this.groupControl3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtNumEmbarque.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEscaneaFac.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmbarque.Properties)).BeginInit();
@@ -72,6 +79,7 @@
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left)));
+            this.groupControl1.Controls.Add(this.groupControl3);
             this.groupControl1.Controls.Add(this.btnEscanea);
             this.groupControl1.Controls.Add(this.label3);
             this.groupControl1.Controls.Add(this.txtEscaneaFac);
@@ -88,6 +96,48 @@
             this.groupControl1.Size = new System.Drawing.Size(200, 571);
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "Controles";
+            // 
+            // groupControl3
+            // 
+            this.groupControl3.Controls.Add(this.btnImprimir);
+            this.groupControl3.Controls.Add(this.label4);
+            this.groupControl3.Controls.Add(this.txtNumEmbarque);
+            this.groupControl3.Location = new System.Drawing.Point(5, 280);
+            this.groupControl3.Name = "groupControl3";
+            this.groupControl3.Size = new System.Drawing.Size(187, 109);
+            this.groupControl3.TabIndex = 10;
+            this.groupControl3.Text = "Re-Imprimir Embarque";
+            // 
+            // btnImprimir
+            // 
+            this.btnImprimir.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnImprimir.Appearance.Options.UseFont = true;
+            this.btnImprimir.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
+            this.btnImprimir.Location = new System.Drawing.Point(52, 75);
+            this.btnImprimir.Name = "btnImprimir";
+            this.btnImprimir.Size = new System.Drawing.Size(75, 23);
+            this.btnImprimir.TabIndex = 3;
+            this.btnImprimir.Text = "Imprimir";
+            this.btnImprimir.Click += new System.EventHandler(this.btnImprimir_Click);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(5, 25);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(122, 19);
+            this.label4.TabIndex = 3;
+            this.label4.Text = "Num. Embarque";
+            // 
+            // txtNumEmbarque
+            // 
+            this.txtNumEmbarque.Location = new System.Drawing.Point(5, 47);
+            this.txtNumEmbarque.Name = "txtNumEmbarque";
+            this.txtNumEmbarque.Properties.Mask.EditMask = "n0";
+            this.txtNumEmbarque.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.txtNumEmbarque.Size = new System.Drawing.Size(177, 22);
+            this.txtNumEmbarque.TabIndex = 0;
             // 
             // btnEscanea
             // 
@@ -292,6 +342,10 @@
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
             this.groupControl1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.groupControl3)).EndInit();
+            this.groupControl3.ResumeLayout(false);
+            this.groupControl3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.txtNumEmbarque.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEscaneaFac.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.separatorControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmbarque.Properties)).EndInit();
@@ -325,5 +379,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn colrevisado;
         private DevExpress.XtraGrid.Columns.GridColumn colcomentario;
         private DevExpress.XtraEditors.Repository.RepositoryItemComboBox comboEstado;
+        private DevExpress.XtraEditors.GroupControl groupControl3;
+        private DevExpress.XtraEditors.SimpleButton btnImprimir;
+        private System.Windows.Forms.Label label4;
+        private DevExpress.XtraEditors.TextEdit txtNumEmbarque;
     }
 }

@@ -34,10 +34,10 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                                         select new
                                         {
                                             i.TranId,
-                                            i.TranDate,
+                                            TranDate=DateTime.Now, // i.TranDate,
                                             vendedor = Evend.NAME,
                                             cobrador = Ecob.NAME,
-                                            terminosPago = i.ClienteContado == 1 ? "Crédito" : "Contado",
+                                            terminosPago = i.ClienteContado == 1 ? "Contado" : "Crédito",
                                             i.FechaVencimiento,
                                             formaenvio = fe.LIST_ITEM_NAME,
                                             gerencia = DepPa.NAME,
@@ -48,8 +48,8 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                                             i.ExchangeRate,
                                             CondicionesPago = tp.NSO___TRMINOS_DE_PAGO_NAME,
                                             cliente = c.companyId + " " + c.company,
-                                            enviarA = i.ShipAddress,
-                                            direccion = i.BillAddress, // DirFac.addr1 + " " + DirFac.addr2 + " " + DirFac.city + " " + DirFac.state + " " + DirFac.country + " " + DirFac.postalCode,
+                                            enviarA = i.ShipAddress+" TEL: "+c.phone,
+                                            direccion = i.BillAddress+" TEL: "+c.phone +" RFC: "+c.RFC, // DirFac.addr1 + " " + DirFac.addr2 + " " + DirFac.city + " " + DirFac.state + " " + DirFac.country + " " + DirFac.postalCode,
                                             Pedido = "Sales Order #" + Sale.tranId,
                                             Observaciones = i.Memo,
                                             paqueteria = fletera.LIST_ITEM_NAME,
@@ -62,7 +62,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                 var FacturaDetalle = from Id in ctx.InvoicesDetail
                                      join I in ctx.Items on Id.item.ToString() equals I.id
                                      where Id.InvoicesId == numFactura
-                                     select new { Id.quantity, I.unitstypeText, I.CASAT, I.itemid, I.purchasedescription, Id.DiscountTotal, Id.rate };
+                                     select new { Id.quantity, I.unitstypeText, I.CASAT, I.itemid, I.purchasedescription, Id.DiscountTotal, Id.rate,Id.tax1amt };
 
 
 
@@ -76,6 +76,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                 dtDetalle.Columns.Add("desc", typeof(decimal));
                 dtDetalle.Columns.Add("pUnitario", typeof(decimal));
                 dtDetalle.Columns.Add("importe", typeof(decimal));
+                dtDetalle.Columns.Add("iva", typeof(decimal));
 
 
                 foreach (var item in FacturaDetalle)
@@ -90,7 +91,8 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                                 decimal.Round( (decimal) item.rate * 100 / Math.Abs((decimal)item.DiscountTotal - 100),2),
                                  item.DiscountTotal,
                                  item.rate,
-                                 item.rate * item.quantity
+                                 item.rate * item.quantity,
+                                 item.tax1amt
                                  );
                 }
 
@@ -101,7 +103,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                 dtSumatoria.Columns.Add("total", typeof(decimal));
 
                 decimal subtotal = dtDetalle.AsEnumerable().Sum(r => r.Field<decimal>("importe"));
-                decimal iva = subtotal * (decimal)0.16;
+                decimal iva = dtDetalle.AsEnumerable().Sum(r => r.Field<decimal>("iva")); //subtotal * (decimal)0.16;
                 Moneda m = new Moneda();
 
                 dtSumatoria.Rows.Add(m.Convertir(Math.Round(subtotal + iva,2).ToString(), false, "PESOS"), subtotal, iva, subtotal + iva);

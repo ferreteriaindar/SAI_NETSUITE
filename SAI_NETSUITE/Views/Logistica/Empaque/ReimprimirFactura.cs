@@ -52,7 +52,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
         private void btnPrueba_Click(object sender, EventArgs e)
         {
             Controllers.Logistica.Empaque.FacturaIndarController fic = new Controllers.Logistica.Empaque.FacturaIndarController();
-            DataSet ds = fic.regresaDatosCabecera(50530);
+            DataSet ds = fic.regresaDatosCabecera(55227 );
            // ds.WriteXmlSchema(@"S:\XML\Almacen\FacturaIndarSinTimbrar.xml");
             Views.Logistica.Empaque.FacturaIndar fi = new FacturaIndar();
             fi.DataSource = ds;
