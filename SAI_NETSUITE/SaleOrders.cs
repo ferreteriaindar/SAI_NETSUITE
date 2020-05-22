@@ -49,6 +49,7 @@ namespace SAI_NETSUITE
         public Nullable<System.DateTime> fechaActualizacion { get; set; }
         public string department { get; set; }
         public string zone { get; set; }
+        public string cotizacion { get; set; }
     
         public virtual ICollection<SaleOrdersDetails> SaleOrdersDetails { get; set; }
     }

@@ -43,10 +43,10 @@ namespace SAI_NETSUITE
         public DbSet<Customers> Customers { get; set; }
         public DbSet<ZonasIndar> ZonasIndar { get; set; }
         public DbSet<TerminosDePago> TerminosDePago { get; set; }
-        public DbSet<Invoices> Invoices { get; set; }
         public DbSet<Departments> Departments { get; set; }
         public DbSet<InvoicesDetail> InvoicesDetail { get; set; }
         public DbSet<errorTimbradoPago> errorTimbradoPago { get; set; }
         public DbSet<FormaPagoSAT> FormaPagoSAT { get; set; }
+        public DbSet<Invoices> Invoices { get; set; }
     }
 }

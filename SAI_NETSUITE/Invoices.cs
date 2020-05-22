@@ -64,6 +64,8 @@ namespace SAI_NETSUITE
         public string CFDIFormaDePago { get; set; }
         public string UsoCFDI { get; set; }
         public string CurrencySymbol { get; set; }
+        public string CfdiComentario { get; set; }
+        public string ResponseCfdi { get; set; }
     
         public virtual ICollection<InvoicesDetail> InvoicesDetail { get; set; }
     }

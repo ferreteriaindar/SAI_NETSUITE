@@ -30,14 +30,14 @@
         <AssociationConnector Association="IWSModel.FK__Customers__shipp__3A179ED3" />
         <EntityTypeShape EntityType="IWSModel.ZonasIndar" Width="1.5" PointX="0.75" PointY="0.75" />
         <EntityTypeShape EntityType="IWSModel.TerminosDePago" Width="1.5" PointX="0.75" PointY="5.75" />
-        <EntityTypeShape EntityType="IWSModel.Invoices" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="IWSModel.Departments" Width="1.5" PointX="0.75" PointY="8.875" />
         <AssociationConnector Association="IWSModel.FK__Customers__Depar__3EDC53F0" />
         <EntityTypeShape EntityType="IWSModel.InvoicesDetail" Width="1.5" PointX="16.625" PointY="4" />
-        <AssociationConnector Association="IWSModel.FK_InvoicesDetail_Invoices" />
         <EntityTypeShape EntityType="IWSModel.errorTimbradoPago" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="IWSModel.FormaPagoSAT" Width="1.5" PointX="0.75" PointY="14.875" />
         <AssociationConnector Association="IWSModel.FK__Customers__Metho__3BFFE745" />
+        <EntityTypeShape EntityType="IWSModel.Invoices" Width="1.5" PointX="19.375" PointY="3.25" />
+        <AssociationConnector Association="IWSModel.FK_InvoicesDetail_Invoices" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

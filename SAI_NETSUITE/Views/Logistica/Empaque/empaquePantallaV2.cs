@@ -75,6 +75,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
         {
             btnFacturar.ImageOptions.Image = SAI_NETSUITE.Properties.Resources.gear;
             gridControl1.Enabled = false;
+            bool banderaTraspaso = false;
             if (gridView1.SelectedRowsCount < 1) //POR SI NO SELECCIONAN NADA
                 MessageBox.Show("Selecciona al menos un pedido");
             else  //GENERA EL LISTADO DE PEDIDOS Y LOS PEDIDOS QUE CONFORMAN UNA CONS
@@ -101,13 +102,24 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                     }
                     if (gridView1.GetRowCellValue(rowHandle, colMov).ToString().Equals("Traspaso"))  //VAS A TENER QUE HACER EL FULFILLMENT AHI
                     {
-
+                        pedidoFulfill pf = new pedidoFulfill()
+                        {
+                            mov = gridView1.GetRowCellValue(rowHandle, colMov).ToString(),
+                            movid = gridView1.GetRowCellValue(rowHandle, colNumPedido).ToString(),
+                            formaEnvio = gridView1.GetRowCellValue(rowHandle, colForma).ToString()
+                        };
+                        listaPedidos.Add(pf);
+                        banderaTraspaso = true;
                     }
 
                 }
                 //GENERAR EL HILO DE TIMBRADO PARA CADA PEDIDO/CONS 
-                if(!backgroundWorker1.IsBusy)
-                backgroundWorker1.RunWorkerAsync(argument: listaPedidos);
+                if (!backgroundWorker1.IsBusy || !backgroundWorkerEventos.IsBusy)
+                {
+                    if (banderaTraspaso == false)
+                        backgroundWorker1.RunWorkerAsync(argument: listaPedidos);
+                    else backgroundWorkerEventos.RunWorkerAsync(argument: listaPedidos);
+                }
                 else MessageBox.Show("Espera a que termine el proceso actual (-_-)!");
             }
 
@@ -259,6 +271,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
             Controllers.Logistica.Empaque.FacturaIndarController fic = new Controllers.Logistica.Empaque.FacturaIndarController();
             DataSet ds = fic.regresaDatosCabecera(Convert.ToInt32(  txtReimprimir.Text));
+            ds.WriteXmlSchema(@"S:\XML\Almacen\FacturaIndarSinTimbrar.xml");
             Views.Logistica.Empaque.FacturaIndar fi = new FacturaIndar();
             fi.DataSource = ds;
             using (ReportPrintTool printTool = new ReportPrintTool(fi))
@@ -278,6 +291,28 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             pdfController pdfc = new pdfController();
             pdfc.imprimePDFyPacking(epcv2.regresaIDdeFactura(  txtReimprimir.Text), "2");
             pdfc.imprimePDFyPacking(epcv2.regresaIDdeFactura(txtReimprimir.Text), "1");
+        }
+
+        private void backgroundWorkerEventos_DoWork(object sender, DoWorkEventArgs e)
+        {
+            List<pedidoFulfill> lista = (List<pedidoFulfill>)e.Argument;
+            bool regreso = false;
+            foreach (var pedido in lista)
+            {
+
+                Controllers.Logistica.Empaque.empaquePantallaController emp = new Controllers.Logistica.Empaque.empaquePantallaController();
+                regreso = emp.fulfillmentTraspaso(pedido, sender as BackgroundWorker);
+
+            }
+        }
+
+        private void backgroundWorkerEventos_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            btnFacturar.ImageOptions.Image = null;
+            MessageBox.Show("¡Terminado! \n Espera a que vuelva a carga la pantalla");
+            labelAvance.Text = "0/0";
+            cargaDatos();
+            gridControl1.Enabled = true;
         }
     }
 }

@@ -11438,6 +11438,7 @@ ventas@indar.com.mx</value>
               &lt;xs:element name="desc" type="xs:decimal" minOccurs="0" /&gt;
               &lt;xs:element name="pUnitario" type="xs:decimal" minOccurs="0" /&gt;
               &lt;xs:element name="importe" type="xs:decimal" minOccurs="0" /&gt;
+              &lt;xs:element name="cotizacion" type="xs:string" minOccurs="0" /&gt;
             &lt;/xs:sequence&gt;
           &lt;/xs:complexType&gt;
         &lt;/xs:element&gt;

@@ -54,7 +54,8 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                                             Observaciones = i.Memo,
                                             paqueteria = fletera.LIST_ITEM_NAME,
                                             ordenCompra = i.OrdenCompra,
-                                            referencia = c.bankReference
+                                            referencia = c.bankReference,
+                                            cotizacion=Sale.cotizacion==null?"-":Sale.cotizacion
 
 
                                         };
@@ -141,6 +142,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                 dt.Columns.Add("desc", typeof(decimal));
                 dt.Columns.Add("pUnitario", typeof(decimal));
                 dt.Columns.Add("importe", typeof(decimal));
+                dt.Columns.Add("cotizacion", typeof(string));
                
 
 
@@ -178,7 +180,8 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                                  decimal.Round((decimal)item.rate * 100 / Math.Abs((decimal)item.DiscountTotal - 100), 2),
                                  item.DiscountTotal,
                                  item.rate,
-                                 item.rate * item.quantity
+                                 item.rate * item.quantity,
+                                 FacturaEncabezado.First().cotizacion
                        );
             }
                 ds.Tables.Add(dt);
