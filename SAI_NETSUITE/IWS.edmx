@@ -249,6 +249,18 @@
           <Property Name="LIST_ITEM_NAME" Type="nvarchar" MaxLength="50" />
           <Property Name="IsInactive" Type="bit" />
         </EntityType>
+        <EntityType Name="FORMA_DE_PAGO_V3_3">
+          <Key>
+            <PropertyRef Name="FORMA_DE_PAGO_V3_3_ID" />
+          </Key>
+          <Property Name="DATE_CREATED" Type="datetime" />
+          <Property Name="FORMA_DE_PAGO_V3_3_ID" Type="int" Nullable="false" />
+          <Property Name="FORMA_DE_PAGO_V3_3_NAME" Type="varchar" MaxLength="150" />
+          <Property Name="FORMA_DE_PAGO_V3_3_NUMBER" Type="varchar" MaxLength="100" />
+          <Property Name="IS_INACTIVE" Type="varchar" MaxLength="1" />
+          <Property Name="LAST_MODIFIED_DATE" Type="datetime" />
+          <Property Name="LEYENDA_IMPRESA" Type="varchar" MaxLength="400" />
+        </EntityType>
         <EntityType Name="FormaEnvio">
           <Key>
             <PropertyRef Name="LIST_ID" />
@@ -378,7 +390,7 @@
           <Property Name="departmentText" Type="varchar" MaxLength="100" />
           <Property Name="location" Type="int" />
           <Property Name="cost" Type="money" />
-          <Property Name="purchasedescription" Type="varchar" MaxLength="100" />
+          <Property Name="purchasedescription" Type="nvarchar" MaxLength="200" />
           <Property Name="taxschedule" Type="int" />
           <Property Name="taxscheduleText" Type="varchar" MaxLength="180" />
           <Property Name="custitem_tipo_articulo" Type="int" />
@@ -452,6 +464,15 @@
           <Property Name="LOCATION_ID" Type="int" Nullable="false" />
           <Property Name="NAME" Type="varchar" MaxLength="255" />
           <Property Name="isInactive" Type="bit" />
+        </EntityType>
+        <EntityType Name="OleadaFacturacion">
+          <Key>
+            <PropertyRef Name="IdOleada" />
+          </Key>
+          <Property Name="IdOleada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="movid" Type="nvarchar" MaxLength="12" />
+          <Property Name="usuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="fecha" Type="datetime" />
         </EntityType>
         <EntityType Name="Paqueteria">
           <Key>
@@ -680,6 +701,7 @@
           <EntitySet Name="Entity" EntityType="Self.Entity" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="errorTimbradoPago" EntityType="Self.errorTimbradoPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Eventos" EntityType="Self.Eventos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="FORMA_DE_PAGO_V3_3" EntityType="Self.FORMA_DE_PAGO_V3_3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FormaEnvio" EntityType="Self.FormaEnvio" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="FormaPagoSAT" EntityType="Self.FormaPagoSAT" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Invoices" EntityType="Self.Invoices" Schema="dbo" store:Type="Tables" />
@@ -689,6 +711,7 @@
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListaPrecios" EntityType="Self.ListaPrecios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OleadaFacturacion" EntityType="Self.OleadaFacturacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Paqueteria" EntityType="Self.Paqueteria" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Ruta" EntityType="Self.Ruta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SaleOrders" EntityType="Self.SaleOrders" Schema="dbo" store:Type="Tables" />
@@ -805,6 +828,8 @@
             <End Role="Invoices" EntitySet="Invoices" />
             <End Role="InvoicesDetail" EntitySet="InvoicesDetail" />
           </AssociationSet>
+          <EntitySet Name="OleadaFacturacion" EntityType="IWSModel.OleadaFacturacion" />
+          <EntitySet Name="FORMA_DE_PAGO_V3_3" EntityType="IWSModel.FORMA_DE_PAGO_V3_3" />
         </EntityContainer>
         <EntityType Name="Locations">
           <Key>
@@ -873,7 +898,7 @@
           <Property Type="String" Name="departmentText" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="location" />
           <Property Type="Decimal" Name="cost" Precision="19" Scale="4" />
-          <Property Type="String" Name="purchasedescription" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="purchasedescription" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Type="Int32" Name="taxschedule" />
           <Property Type="String" Name="taxscheduleText" MaxLength="180" FixedLength="false" Unicode="false" />
           <Property Type="Int32" Name="custitem_tipo_articulo" />
@@ -1493,6 +1518,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="OleadaFacturacion">
+          <Key>
+            <PropertyRef Name="IdOleada" />
+          </Key>
+          <Property Name="IdOleada" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="movid" Type="String" MaxLength="12" FixedLength="false" Unicode="true" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="FORMA_DE_PAGO_V3_3">
+          <Key>
+            <PropertyRef Name="FORMA_DE_PAGO_V3_3_ID" />
+          </Key>
+          <Property Name="DATE_CREATED" Type="DateTime" Precision="3" />
+          <Property Name="FORMA_DE_PAGO_V3_3_ID" Type="Int32" Nullable="false" />
+          <Property Name="FORMA_DE_PAGO_V3_3_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="FORMA_DE_PAGO_V3_3_NUMBER" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IS_INACTIVE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_MODIFIED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="LEYENDA_IMPRESA" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -2066,6 +2112,29 @@
                 <ScalarProperty Name="Entity" ColumnName="Entity" />
                 <ScalarProperty Name="TranType" ColumnName="TranType" />
                 <ScalarProperty Name="TranId" ColumnName="TranId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OleadaFacturacion">
+            <EntityTypeMapping TypeName="IWSModel.OleadaFacturacion">
+              <MappingFragment StoreEntitySet="OleadaFacturacion">
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="movid" ColumnName="movid" />
+                <ScalarProperty Name="IdOleada" ColumnName="IdOleada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="FORMA_DE_PAGO_V3_3">
+            <EntityTypeMapping TypeName="IWSModel.FORMA_DE_PAGO_V3_3">
+              <MappingFragment StoreEntitySet="FORMA_DE_PAGO_V3_3">
+                <ScalarProperty Name="LEYENDA_IMPRESA" ColumnName="LEYENDA_IMPRESA" />
+                <ScalarProperty Name="LAST_MODIFIED_DATE" ColumnName="LAST_MODIFIED_DATE" />
+                <ScalarProperty Name="IS_INACTIVE" ColumnName="IS_INACTIVE" />
+                <ScalarProperty Name="FORMA_DE_PAGO_V3_3_NUMBER" ColumnName="FORMA_DE_PAGO_V3_3_NUMBER" />
+                <ScalarProperty Name="FORMA_DE_PAGO_V3_3_NAME" ColumnName="FORMA_DE_PAGO_V3_3_NAME" />
+                <ScalarProperty Name="FORMA_DE_PAGO_V3_3_ID" ColumnName="FORMA_DE_PAGO_V3_3_ID" />
+                <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

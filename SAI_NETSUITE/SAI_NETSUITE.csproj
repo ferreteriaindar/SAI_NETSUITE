@@ -219,6 +219,9 @@
     <Compile Include="FormaPagoSAT.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
+    <Compile Include="FORMA_DE_PAGO_V3_3.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Indarneg.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -325,6 +328,9 @@
     </Compile>
     <Compile Include="NumeroGuiaNetsuiteD.cs">
       <DependentUpon>Indarneg.tt</DependentUpon>
+    </Compile>
+    <Compile Include="OleadaFacturacion.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="OrdenCobro.cs">
       <DependentUpon>Indarneg.tt</DependentUpon>
@@ -608,6 +614,12 @@
     </Compile>
     <Compile Include="Views\Logistica\Empaque\FacturaIndar.Designer.cs">
       <DependentUpon>FacturaIndar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\HistoriaOleadas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\HistoriaOleadas.Designer.cs">
+      <DependentUpon>HistoriaOleadas.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.cs">
       <SubType>Component</SubType>
@@ -1002,6 +1014,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Empaque\FacturaIndar.resx">
       <DependentUpon>FacturaIndar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Empaque\HistoriaOleadas.resx">
+      <DependentUpon>HistoriaOleadas.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.resx">
       <DependentUpon>ListaEmpaquePedidoCliente.cs</DependentUpon>

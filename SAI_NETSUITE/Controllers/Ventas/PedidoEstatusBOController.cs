@@ -97,11 +97,13 @@ namespace SAI_NETSUITE.Controllers.Ventas
 
         public void insertaPedidoWMS(string text)
         {
-            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1))
+            try
             {
-                myConnection.Open();
-                SqlCommand cmd = new SqlCommand("", myConnection);
-                cmd.CommandText = @" declare @id int 
+                using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1))
+                {
+                    myConnection.Open();
+                    SqlCommand cmd = new SqlCommand("", myConnection);
+                    cmd.CommandText = @" declare @id int 
                                     set @id=" + text + @"  
 
                                     INSERT INTO INDGDLSQL01.INDAR_INACTIONWMS.int.pedido (id, mov, movid ,fechaEmision, cliente, horaEmision ,formaEnvio, lugarEnvio, fletera ,fechaIngreso, fechaActualizacion, estatusSincronizacion ,fechaEntrega)
@@ -133,7 +135,12 @@ namespace SAI_NETSUITE.Controllers.Ventas
 
                                     update  iws.dbo.SaleOrders set syncWMS = 1,fechaactualizacion = getdate() where tranid = @id";
 
-                cmd.ExecuteNonQuery();  
+                    cmd.ExecuteNonQuery();
+                }
+            }
+            catch (SqlException ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

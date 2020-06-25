@@ -42,6 +42,9 @@ namespace SAI_NETSUITE.Views.CXC
                 gridControl1.DataSource = ds.Tables[0];
 
             }
+            gridView1.Columns["cxcFecha"].DisplayFormat.FormatString = "G";
+            gridView1.Columns["fecha"].DisplayFormat.FormatString = "G";
+            gridView1.Columns["validadFecha"].DisplayFormat.FormatString = "G";
         }
 
         private void btnEXCEL_Click(object sender, EventArgs e)

@@ -22,13 +22,20 @@ namespace SAI_NETSUITE.Controllers.CXC
             return piam;
         }
 
-        public List<FormaPagoSAT> regresaListaFormaPago()
+        public List<FORMA_DE_PAGO_V3_3> regresaListaFormaPago()
         {
+           /*  using (IWSEntities ctx = new IWSEntities())
+             {
+                 var sat = from i in ctx.FormaPagoSAT select i;
+                 return sat.ToList();
+
+             }*/
+
+
             using (IWSEntities ctx = new IWSEntities())
             {
-                var sat = from i in ctx.FormaPagoSAT select i;
+                var sat = from i in ctx.FORMA_DE_PAGO_V3_3 select i;
                 return sat.ToList();
-
             }
         }
         public bool ApplyPaymentMethod(ApplyPaymentCSVModel csv)

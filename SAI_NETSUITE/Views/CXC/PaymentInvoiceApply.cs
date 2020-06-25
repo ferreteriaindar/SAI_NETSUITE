@@ -35,7 +35,7 @@ namespace SAI_NETSUITE.Views.CXC
         public void cargaFormaPagoSAT()
         {
             Controllers.CXC.PaymentInvoiceApplyController piac = new PaymentInvoiceApplyController();
-            comboSAT.Properties.Items.AddRange(piac.regresaListaFormaPago().Select(i=> i.LIST_ITEM_NAME).ToArray());
+            comboSAT.Properties.Items.AddRange(piac.regresaListaFormaPago().Select(i=> i.FORMA_DE_PAGO_V3_3_NUMBER+" "+i.FORMA_DE_PAGO_V3_3_NAME).ToArray());
 
         }
 

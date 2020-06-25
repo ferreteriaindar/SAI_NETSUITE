@@ -61,13 +61,15 @@ namespace SAI_NETSUITE.Views.PostVenta
                             cmd.ExecuteNonQuery();
                             MessageBox.Show("Ingresado Correctamente");
                         }*/
-
-                        foreach (var item in paraWMS)
-                        {
-                            cmd.CommandText = @"INSERT INTO INDGDLSQL01.INDAR_INACTIONWMS.int.pedidodetalle (id, articulo,cantidad ,fechaIngreso, fechaActualizacion,estatusSincronizacion )
+                      
+                            foreach (var item in paraWMS)
+                            {
+                                cmd.CommandText = @"INSERT INTO INDGDLSQL01.INDAR_INACTIONWMS.int.pedidodetalle (id, articulo,cantidad ,fechaIngreso, fechaActualizacion,estatusSincronizacion )
                                           select " + item.internalid.ToString() + ",'" + item.articulo.ToString() + "'," + item.cantidad + ",null,null,0";
-                            cmd.ExecuteNonQuery();
-                        }
+                                cmd.ExecuteNonQuery();
+                            }
+                        
+                       
                         cmd.CommandText = @"insert into indarneg.dbo.EventosSurtidos(tranid,fecha)
                                               select " + paraWMS.First().tranid + ",getdate()";
                         cmd.ExecuteNonQuery();

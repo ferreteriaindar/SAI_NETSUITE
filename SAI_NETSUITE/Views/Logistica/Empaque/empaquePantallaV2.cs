@@ -16,13 +16,17 @@ using DevExpress.XtraGrid.Views.Grid.ViewInfo;
 using SAI_NETSUITE.Models.Catalogos;
 using DevExpress.XtraReports.UI;
 using DevExpress.LookAndFeel;
+using System.Diagnostics;
+using System.Data.SqlClient;
 
 namespace SAI_NETSUITE.Views.Logistica.Empaque
 {
     public partial class empaquePantallaV2 : UserControl
     {
-        public empaquePantallaV2()
+        string usuario;
+        public empaquePantallaV2(string usuario)
         {
+            this.usuario = usuario;
             InitializeComponent();
         }
 
@@ -68,7 +72,25 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                     gridView1.SetRowCellValue(i, colerror, epcv2.EsTimbrada(gridView1.GetRowCellValue(i, colerror).ToString(), gridView1.GetRowCellValue(i, colNumPedido).ToString()));
                 }
             }
+            labelRowCount.Text = gridView1.RowCount.ToString()+" renglones";
+        }
 
+        public string contarPedidosPorfacturar()
+        {
+            string resultado = "n/a";
+            try
+            {
+                int pedidos=0, facturas=0;
+                for (int i = 0; i < gridView1.RowCount; i++)
+                {
+                    int auxpedidos = 0;
+                }
+            }
+            catch (Exception ex)
+            {
+                return "n/a";
+            }
+            return "";
         }
 
         private void btnFacturar_Click(object sender, EventArgs e)
@@ -116,6 +138,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                 //GENERAR EL HILO DE TIMBRADO PARA CADA PEDIDO/CONS 
                 if (!backgroundWorker1.IsBusy || !backgroundWorkerEventos.IsBusy)
                 {
+                    guardaOleada(listaPedidos);
                     if (banderaTraspaso == false)
                         backgroundWorker1.RunWorkerAsync(argument: listaPedidos);
                     else backgroundWorkerEventos.RunWorkerAsync(argument: listaPedidos);
@@ -126,6 +149,29 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
         }
 
+
+        public void  guardaOleada(List<pedidoFulfill> lista)
+        {
+            List<OleadaFacturacion> listaOleada = new List<OleadaFacturacion>();
+            DateTime dt = DateTime.Now;
+            using (IWSEntities ctx = new IWSEntities())
+            {
+                foreach (var pedido in lista)
+                {
+                    OleadaFacturacion OF = new OleadaFacturacion()
+                    {
+                        fecha = dt,
+                        movid=pedido.movid,
+                        usuario=usuario
+                       
+                    };
+                    listaOleada.Add(OF);
+                }
+
+                ctx.OleadaFacturacion.AddRange(listaOleada);
+                ctx.SaveChanges();
+            }
+        }
         private void empaquePantallaV2_Load(object sender, EventArgs e)
         {
             btnFacturar.ImageOptions.Image = null;
@@ -268,29 +314,63 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
         private void btnReimprimir_Click(object sender, EventArgs e)
         {
-
-            Controllers.Logistica.Empaque.FacturaIndarController fic = new Controllers.Logistica.Empaque.FacturaIndarController();
-            DataSet ds = fic.regresaDatosCabecera(Convert.ToInt32(  txtReimprimir.Text));
-            ds.WriteXmlSchema(@"S:\XML\Almacen\FacturaIndarSinTimbrar.xml");
-            Views.Logistica.Empaque.FacturaIndar fi = new FacturaIndar();
-            fi.DataSource = ds;
-            using (ReportPrintTool printTool = new ReportPrintTool(fi))
+            if (!txtReimprimir.Text.ToUpper().Contains("CONS"))
             {
-                // Invoke the Ribbon Print Preview form modally, 
-                // and load the report document into it.
-                printTool.ShowRibbonPreviewDialog();
+                Controllers.Logistica.Empaque.FacturaIndarController fic = new Controllers.Logistica.Empaque.FacturaIndarController();
+                DataSet ds = fic.regresaDatosCabecera(Convert.ToInt32(txtReimprimir.Text));
+                ds.WriteXmlSchema(@"S:\XML\Almacen\FacturaIndarSinTimbrar.xml");
+                Views.Logistica.Empaque.FacturaIndar fi = new FacturaIndar();
+                fi.DataSource = ds;
+                using (ReportPrintTool printTool = new ReportPrintTool(fi))
+                {
+                    // Invoke the Ribbon Print Preview form modally, 
+                    // and load the report document into it.
+                    printTool.ShowRibbonPreviewDialog();
 
-                // Invoke the Ribbon Print Preview form
-                // with the specified look and feel setting.
-                printTool.ShowRibbonPreview(UserLookAndFeel.Default);
-                //printTool.Print(); System.Windows.Forms.MessageBox.Show("Impreso");
+                    // Invoke the Ribbon Print Preview form
+                    // with the specified look and feel setting.
+                    printTool.ShowRibbonPreview(UserLookAndFeel.Default);
+                    //printTool.Print(); System.Windows.Forms.MessageBox.Show("Impreso");
 
+                }
+
+                empaquePantallaControllerV2 epcv2 = new empaquePantallaControllerV2();
+                pdfController pdfc = new pdfController();
+                pdfc.imprimePDFyPacking(epcv2.regresaIDdeFactura(txtReimprimir.Text), "2");
+                pdfc.imprimePDFyPacking(epcv2.regresaIDdeFactura(txtReimprimir.Text), "1");
             }
+            else //REIMPRIME CONS
+            {
+                reimprimircons(txtReimprimir.Text);
+            }
+        }
 
-            empaquePantallaControllerV2 epcv2 = new empaquePantallaControllerV2();
-            pdfController pdfc = new pdfController();
-            pdfc.imprimePDFyPacking(epcv2.regresaIDdeFactura(  txtReimprimir.Text), "2");
-            pdfc.imprimePDFyPacking(epcv2.regresaIDdeFactura(txtReimprimir.Text), "1");
+
+
+        public void reimprimircons(string cons)
+        {
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1))
+            {
+                List<pedidoFulfill> lista = new List<pedidoFulfill>();
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand("", myConnection);
+                cmd.CommandText = @"select mov,NumPedido,(select CONVERT(nvarchar(10), internalid) from iws.dbo.invoices where tranid=facturaindar) as FacturaIndar,Consolidado,FormaEnvio from INDAR_INACTIONWMS.dbo.OrdenEmbarque where Consolidado='" + cons + "'";
+                SqlDataReader sdr = cmd.ExecuteReader();
+                while (sdr.Read() && sdr.HasRows)
+                {
+                    pedidoFulfill pf = new pedidoFulfill()
+                    {
+                        cons = (string)sdr["Consolidado"],
+                        error =(string) sdr["FacturaIndar"],
+                        formaEnvio = (string)sdr["FormaEnvio"],
+                        mov = (string)sdr["mov"],
+                        movid = (string)sdr["NumPedido"]
+                    };
+                    lista.Add(pf);
+                }
+                if (lista.Count > 0)
+                   new empaquePantallaControllerV2().ReglasImprimirCons(cons, lista);
+            }
         }
 
         private void backgroundWorkerEventos_DoWork(object sender, DoWorkEventArgs e)
@@ -313,6 +393,25 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             labelAvance.Text = "0/0";
             cargaDatos();
             gridControl1.Enabled = true;
+        }
+
+        private void btnOleada_Click(object sender, EventArgs e)
+        {
+            HistoriaOleadas ho = new HistoriaOleadas();
+            ho.Show();
+        }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+
+            string carpeta = string.Empty;
+            carpeta = System.IO.Path.GetTempPath();
+
+            gridControl1.ExportToXlsx(carpeta + "\\timbrar.xlsx");
+            Process pdfexport = new Process();
+            pdfexport.StartInfo.FileName = "EXCEL.exe";
+            pdfexport.StartInfo.Arguments = carpeta + "\\timbrar.xlsx";
+            pdfexport.Start();
         }
     }
 }

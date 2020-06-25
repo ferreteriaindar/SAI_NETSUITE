@@ -646,6 +646,7 @@
             this.textEdit6.Properties.Appearance.Options.UseFont = true;
             this.textEdit6.Properties.Mask.EditMask = "c";
             this.textEdit6.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.textEdit6.Properties.ReadOnly = true;
             this.textEdit6.Size = new System.Drawing.Size(94, 24);
             this.textEdit6.StyleController = this.layoutControl1;
             this.textEdit6.TabIndex = 9;

@@ -48,5 +48,7 @@ namespace SAI_NETSUITE
         public DbSet<errorTimbradoPago> errorTimbradoPago { get; set; }
         public DbSet<FormaPagoSAT> FormaPagoSAT { get; set; }
         public DbSet<Invoices> Invoices { get; set; }
+        public DbSet<OleadaFacturacion> OleadaFacturacion { get; set; }
+        public DbSet<FORMA_DE_PAGO_V3_3> FORMA_DE_PAGO_V3_3 { get; set; }
     }
 }

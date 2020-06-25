@@ -441,7 +441,7 @@ namespace SAI_NETSUITE
                         break;
                     case "btnFacturarV2":
                         panelControl1.Controls.Clear();
-                        Views.Logistica.Empaque.empaquePantallaV2 epv2 = new Views.Logistica.Empaque.empaquePantallaV2()
+                        Views.Logistica.Empaque.empaquePantallaV2 epv2 = new Views.Logistica.Empaque.empaquePantallaV2(usuario)
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill

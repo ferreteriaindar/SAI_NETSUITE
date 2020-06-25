@@ -73,7 +73,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                       WHEN CfdiComentario LIKE '%CFDI33134%' THEN 'Error de RFC, CREDITO Y COBRANZA CFDI33134'
                       WHEN CfdiComentario LIKE '%CFDI33137%' THEN 'Error de RFC, CREDITO Y COBRANZA CFDI33134'
                         WHEN CfdiComentario LIKE '%ClaveProdServ%' THEN 'Error de Articulo, Compras corregir claveprodserv'
-	                    else CONVERT(varchar(100),CfdiComentario) 
+	                        else CONVERT(varchar(8),tranid)+' '+  CONVERT(varchar(150),ResponseCfdi) 
                          END 
   
                       else  CONVERT(varchar(10),TranId) end  from iws.dbo.Invoices where createdfrom = (select internalId from iws.dbo.SaleOrders where tranid =" + pedido + @") --and (status='Open' or status is null)

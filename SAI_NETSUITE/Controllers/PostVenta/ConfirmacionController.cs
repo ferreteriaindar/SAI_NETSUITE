@@ -23,7 +23,7 @@ namespace SAI_NETSUITE.Controllers.PostVenta
                 string query = @"select ED.factura,'ENTREGADO' AS estado,ED.fechaHora,ED.persona,ED.comentarios,ED.facturaid ,(select companyId+' '+company from iws.dbo.Invoices I
 								inner join iws.dbo.Customers c on i.Entity=c.internalid where TranId=ed.factura) as cliente from Indarneg.dbo.Embarques E
 			                    left join Indarneg.dbo.EmbarquesD ED ON E.idEmbarque=ED.idEmbarque
-			                    WHERE  E.estatus='TRANSITO' and ED.estado='TRANSITO'  AND E.idEmbarque=" + idembarque;
+			                    WHERE  E.estatus='TRANSITO' and ED.estado='TRANSITO'  AND E.idEmbarque=" + idembarque + " order by ED.IdEmbarqueD ASC";
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.Fill(ds);
             }
