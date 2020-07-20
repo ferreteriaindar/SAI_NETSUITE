@@ -138,7 +138,7 @@ namespace SAI_NETSUITE.Views.CXC
                         layoutZona.Control.Text = gridView1.GetRowCellValue(0, "Zona").ToString();
                         layoutLimite.Control.Text = gridView1.GetRowCellValue(0, "LimiteCredito").ToString();
                         layoutPago.Control.Text = gridPago.GetFocusedRowCellValue(colPaymentSaldoPendiente).ToString();
-                        comboSAT.Text=              gridPago.GetFocusedRowCellValue(colPaymentmetodoPago).ToString();
+                        comboSAT.Text = regresaFormadePagoIMR(gridPago.GetFocusedRowCellValue(colPaymentmetodoPago).ToString());
                         layoutSuma.Control.Text = "0";
                         memoNota.Text= gridPago.GetFocusedRowCellValue(colNota).ToString();
 
@@ -150,6 +150,21 @@ namespace SAI_NETSUITE.Views.CXC
                 }
             }
             else MessageBox.Show("Espera a que cargue la info (-_-)!");
+
+        }
+
+
+        public string regresaFormadePagoIMR(string idFormapago)
+        {
+            using (IWSEntities ctx = new IWSEntities())
+            { if (!idFormapago.Equals(""))
+                {
+                    var regresa = ctx.FORMA_DE_PAGO_V3_3.Where(x => x.FORMA_DE_PAGO_V3_3_NUMBER.Equals(idFormapago)).Select(x => x.FORMA_DE_PAGO_V3_3_NUMBER + " " + x.FORMA_DE_PAGO_V3_3_NAME).FirstOrDefault().ToString();
+                    return regresa.ToString();
+                }
+                else return "99 Por definir";
+            }
+              
 
         }
 

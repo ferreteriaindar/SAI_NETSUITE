@@ -1,0 +1,497 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="INDAR_INACTIONWMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Estilo">
+          <Key>
+            <PropertyRef Name="IdEstilo" />
+          </Key>
+          <Property Name="IdEstilo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdLinea" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdCajaUnitario" Type="varchar" MaxLength="15" />
+          <Property Name="FechaActualizado" Type="datetime" Nullable="false" />
+          <Property Name="IdUsuarioActualiza" Type="int" Nullable="false" />
+          <Property Name="Descripcion" Type="varchar" MaxLength="200" />
+          <Property Name="Clave" Type="varchar" MaxLength="50" />
+          <Property Name="IdFabrica" Type="tinyint" />
+          <Property Name="IdClasificacion" Type="tinyint" />
+          <Property Name="IdSubFamilia" Type="int" />
+          <Property Name="TieneCaducidad" Type="bit" />
+          <Property Name="Fabricante" Type="varchar" MaxLength="50" />
+          <Property Name="Unidad" Type="varchar" MaxLength="50" />
+          <Property Name="Tipo_Caducidad" Type="bit" />
+          <Property Name="DiasVigencia" Type="int" />
+          <Property Name="DiasMinimoRecibo" Type="int" />
+          <Property Name="DiasMinimoRechazo" Type="int" />
+          <Property Name="MultiploCaja" Type="int" />
+          <Property Name="Categoria" Type="varchar" MaxLength="50" />
+          <Property Name="TipoClasificacion" Type="varchar" MaxLength="5" />
+          <Property Name="PorcentajeReabastoPrimario" Type="float" />
+          <Property Name="PorcentajeReabastoSecundario" Type="float" />
+          <Property Name="LeyendaSurtido" Type="varchar" MaxLength="200" />
+          <Property Name="TieneCodigoBarras" Type="bit" />
+          <Property Name="SinCodigoBarras" Type="bit" />
+          <Property Name="Monto" Type="float" Nullable="false" />
+          <Property Name="ForzarLeyendaSurtido" Type="int" />
+          <Property Name="LeyendaRecibo" Type="varchar" MaxLength="200" />
+          <Property Name="EtiquetaPieza" Type="bit" />
+          <Property Name="MultiploRecibo" Type="int" />
+          <Property Name="IdUnidad" Type="int" />
+          <Property Name="MultiploReabasto" Type="int" />
+          <Property Name="MultiploSurtidoPick" Type="int" />
+          <Property Name="MultiploSurtidoBulk" Type="int" />
+          <Property Name="ValidacionCapturaRecibo" Type="bit" />
+          <Property Name="ValidacionCapturaAlmacenado" Type="bit" />
+          <Property Name="ValidacionCapturaTraspaso" Type="bit" />
+          <Property Name="ValidacionCapturaSurtido" Type="bit" />
+          <Property Name="ValidacionCapturaInventario" Type="bit" />
+          <Property Name="ValidacionCapturaEmpaque" Type="bit" />
+          <Property Name="ValidacionCapturaReabasto" Type="bit" />
+          <Property Name="MultiploVenta" Type="int" />
+          <Property Name="CaoticaPick" Type="bit" />
+        </EntityType>
+        <EntityType Name="OrdenEmbarque">
+          <Key>
+            <PropertyRef Name="IdOrdenEmbarque" />
+          </Key>
+          <Property Name="IdOrdenEmbarque" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NumPedido" Type="varchar" MaxLength="20" />
+          <Property Name="FechaEntregaReal" Type="datetime" Nullable="false" />
+          <Property Name="FechaEntregaOriginal" Type="datetime" Nullable="false" />
+          <Property Name="FechaEmbarque" Type="datetime" />
+          <Property Name="FechaEmpaqueBase" Type="datetime" />
+          <Property Name="FechaEmpaqueReal" Type="datetime" />
+          <Property Name="IdEstatusOrdenEmbarque" Type="tinyint" Nullable="false" />
+          <Property Name="IdCliente" Type="int" Nullable="false" />
+          <Property Name="IdConsignatario" Type="int" />
+          <Property Name="CantUnitarios" Type="float" />
+          <Property Name="FechaInicioVA" Type="datetime" />
+          <Property Name="FechaFinVA" Type="datetime" />
+          <Property Name="FechaFinSurtido" Type="datetime" />
+          <Property Name="FechaEnvio" Type="datetime" />
+          <Property Name="FechaActualizado" Type="datetime" Nullable="false" />
+          <Property Name="IdUsuarioActualiza" Type="int" Nullable="false" />
+          <Property Name="IdFabrica" Type="tinyint" />
+          <Property Name="IdSubcliente" Type="int" />
+          <Property Name="Origen" Type="varchar" MaxLength="20" />
+          <Property Name="Mov" Type="varchar" MaxLength="20" />
+          <Property Name="FormaEnvio" Type="varchar" MaxLength="100" />
+          <Property Name="LugarEnvio" Type="varchar" MaxLength="100" />
+          <Property Name="Fletera" Type="varchar" MaxLength="100" />
+          <Property Name="Prioridad" Type="int" />
+          <Property Name="IdPedido" Type="bigint" Nullable="false" />
+          <Property Name="Consolidado" Type="varchar" MaxLength="100" />
+          <Property Name="Eliminada" Type="bit" />
+          <Property Name="FechaIngreso" Type="datetime" />
+          <Property Name="FacturaIndar" Type="varchar" MaxLength="100" />
+          <Property Name="FechaFactura" Type="datetime" />
+          <Property Name="IdUsuarioLibera" Type="int" />
+          <Property Name="FechaLiberacion" Type="datetime" />
+          <Property Name="IdUsuarioCancela" Type="int" />
+          <Property Name="FechaCancelacion" Type="datetime" />
+        </EntityType>
+        <EntityType Name="PedidoRenglon">
+          <Key>
+            <PropertyRef Name="IdPedidoRenglon" />
+          </Key>
+          <Property Name="IdPedidoRenglon" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="IdOrdenEmbarque" Type="int" />
+          <Property Name="NumPedido" Type="int" Nullable="false" />
+          <Property Name="Renglon" Type="int" Nullable="false" />
+          <Property Name="IdProducto" Type="bigint" />
+          <Property Name="CantUnitarios" Type="float" />
+          <Property Name="FechaEntrega" Type="datetime" Nullable="false" />
+          <Property Name="IdEstatusOrdenEmbarque" Type="tinyint" Nullable="false" />
+          <Property Name="EnBuro" Type="bit" />
+          <Property Name="Cancelada" Type="bit" />
+          <Property Name="IdCliente" Type="int" />
+          <Property Name="IdConsignatario" Type="int" />
+          <Property Name="Tienda" Type="varchar" MaxLength="100" />
+          <Property Name="NumFactura" Type="varchar" MaxLength="50" />
+          <Property Name="NumSerie" Type="varchar" MaxLength="10" />
+          <Property Name="FechaInicioVA" Type="datetime" />
+          <Property Name="FechaFinVA" Type="datetime" />
+          <Property Name="FechaFinSurtido" Type="datetime" />
+          <Property Name="FechaEnvio" Type="datetime" />
+          <Property Name="ConCambio" Type="bit" />
+          <Property Name="FechaActualizado" Type="datetime" Nullable="false" />
+          <Property Name="IdUsuarioActualiza" Type="int" Nullable="false" />
+          <Property Name="Observaciones" Type="varchar" MaxLength="1000" />
+          <Property Name="Orden" Type="smallint" />
+          <Property Name="FechaLiberacion" Type="datetime" />
+          <Property Name="CantSurtida" Type="float" />
+          <Property Name="IdEstilo" Type="int" />
+          <Property Name="CantCancelada" Type="int" />
+          <Property Name="FechaCancelada" Type="datetime" />
+          <Property Name="CantConsolidada" Type="float" />
+          <Property Name="CantEmpacada" Type="float" />
+        </EntityType>
+        <Association Name="FK_PedidoRenglon_Estilo">
+          <End Role="Estilo" Type="Self.Estilo" Multiplicity="0..1" />
+          <End Role="PedidoRenglon" Type="Self.PedidoRenglon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estilo">
+              <PropertyRef Name="IdEstilo" />
+            </Principal>
+            <Dependent Role="PedidoRenglon">
+              <PropertyRef Name="IdEstilo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoRenglon_OrdenEmbarque">
+          <End Role="OrdenEmbarque" Type="Self.OrdenEmbarque" Multiplicity="0..1" />
+          <End Role="PedidoRenglon" Type="Self.PedidoRenglon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenEmbarque">
+              <PropertyRef Name="IdOrdenEmbarque" />
+            </Principal>
+            <Dependent Role="PedidoRenglon">
+              <PropertyRef Name="IdOrdenEmbarque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="INDAR_INACTIONWMSModelStoreContainer">
+          <EntitySet Name="Estilo" EntityType="Self.Estilo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OrdenEmbarque" EntityType="Self.OrdenEmbarque" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PedidoRenglon" EntityType="Self.PedidoRenglon" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_PedidoRenglon_Estilo" Association="Self.FK_PedidoRenglon_Estilo">
+            <End Role="Estilo" EntitySet="Estilo" />
+            <End Role="PedidoRenglon" EntitySet="PedidoRenglon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoRenglon_OrdenEmbarque" Association="Self.FK_PedidoRenglon_OrdenEmbarque">
+            <End Role="OrdenEmbarque" EntitySet="OrdenEmbarque" />
+            <End Role="PedidoRenglon" EntitySet="PedidoRenglon" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="INDAR_INACTIONWMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="OrdenEmbarque">
+          <Key>
+            <PropertyRef Name="IdOrdenEmbarque" />
+          </Key>
+          <Property Name="IdOrdenEmbarque" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumPedido" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FechaEntregaReal" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaEntregaOriginal" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="FechaEmbarque" Type="DateTime" Precision="3" />
+          <Property Name="FechaEmpaqueBase" Type="DateTime" Precision="3" />
+          <Property Name="FechaEmpaqueReal" Type="DateTime" Precision="3" />
+          <Property Name="IdEstatusOrdenEmbarque" Type="Byte" Nullable="false" />
+          <Property Name="IdCliente" Type="Int32" Nullable="false" />
+          <Property Name="IdConsignatario" Type="Int32" />
+          <Property Name="CantUnitarios" Type="Double" />
+          <Property Name="FechaInicioVA" Type="DateTime" Precision="3" />
+          <Property Name="FechaFinVA" Type="DateTime" Precision="3" />
+          <Property Name="FechaFinSurtido" Type="DateTime" Precision="3" />
+          <Property Name="FechaEnvio" Type="DateTime" Precision="3" />
+          <Property Name="FechaActualizado" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioActualiza" Type="Int32" Nullable="false" />
+          <Property Name="IdFabrica" Type="Byte" />
+          <Property Name="IdSubcliente" Type="Int32" />
+          <Property Name="Origen" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Mov" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="FormaEnvio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="LugarEnvio" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Fletera" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Prioridad" Type="Int32" />
+          <Property Name="IdPedido" Type="Int64" Nullable="false" />
+          <Property Name="Consolidado" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Eliminada" Type="Boolean" />
+          <Property Name="FechaIngreso" Type="DateTime" Precision="3" />
+          <Property Name="FacturaIndar" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FechaFactura" Type="DateTime" Precision="3" />
+          <Property Name="IdUsuarioLibera" Type="Int32" />
+          <Property Name="FechaLiberacion" Type="DateTime" Precision="3" />
+          <Property Name="IdUsuarioCancela" Type="Int32" />
+          <Property Name="FechaCancelacion" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="PedidoRenglon" Relationship="Self.FK_PedidoRenglon_OrdenEmbarque" FromRole="OrdenEmbarque" ToRole="PedidoRenglon" />
+        </EntityType>
+        <EntityType Name="PedidoRenglon">
+          <Key>
+            <PropertyRef Name="IdPedidoRenglon" />
+          </Key>
+          <Property Name="IdPedidoRenglon" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdOrdenEmbarque" Type="Int32" />
+          <Property Name="NumPedido" Type="Int32" Nullable="false" />
+          <Property Name="Renglon" Type="Int32" Nullable="false" />
+          <Property Name="IdProducto" Type="Int64" />
+          <Property Name="CantUnitarios" Type="Double" />
+          <Property Name="FechaEntrega" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdEstatusOrdenEmbarque" Type="Byte" Nullable="false" />
+          <Property Name="EnBuro" Type="Boolean" />
+          <Property Name="Cancelada" Type="Boolean" />
+          <Property Name="IdCliente" Type="Int32" />
+          <Property Name="IdConsignatario" Type="Int32" />
+          <Property Name="Tienda" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="NumFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NumSerie" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaInicioVA" Type="DateTime" Precision="3" />
+          <Property Name="FechaFinVA" Type="DateTime" Precision="3" />
+          <Property Name="FechaFinSurtido" Type="DateTime" Precision="3" />
+          <Property Name="FechaEnvio" Type="DateTime" Precision="3" />
+          <Property Name="ConCambio" Type="Boolean" />
+          <Property Name="FechaActualizado" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioActualiza" Type="Int32" Nullable="false" />
+          <Property Name="Observaciones" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="Orden" Type="Int16" />
+          <Property Name="FechaLiberacion" Type="DateTime" Precision="3" />
+          <Property Name="CantSurtida" Type="Double" />
+          <Property Name="IdEstilo" Type="Int32" />
+          <Property Name="CantCancelada" Type="Int32" />
+          <Property Name="FechaCancelada" Type="DateTime" Precision="3" />
+          <Property Name="CantConsolidada" Type="Double" />
+          <Property Name="CantEmpacada" Type="Double" />
+          <NavigationProperty Name="OrdenEmbarque" Relationship="Self.FK_PedidoRenglon_OrdenEmbarque" FromRole="PedidoRenglon" ToRole="OrdenEmbarque" />
+          <NavigationProperty Name="Estilo" Relationship="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Estilo" FromRole="PedidoRenglon" ToRole="Estilo" />
+        </EntityType>
+        <Association Name="FK_PedidoRenglon_OrdenEmbarque">
+          <End Role="OrdenEmbarque" Type="Self.OrdenEmbarque" Multiplicity="0..1" />
+          <End Role="PedidoRenglon" Type="Self.PedidoRenglon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="OrdenEmbarque">
+              <PropertyRef Name="IdOrdenEmbarque" />
+            </Principal>
+            <Dependent Role="PedidoRenglon">
+              <PropertyRef Name="IdOrdenEmbarque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="INDAR_INACTIONWMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="OrdenEmbarque" EntityType="Self.OrdenEmbarque" />
+          <EntitySet Name="PedidoRenglon" EntityType="Self.PedidoRenglon" />
+          <AssociationSet Name="FK_PedidoRenglon_OrdenEmbarque" Association="Self.FK_PedidoRenglon_OrdenEmbarque">
+            <End Role="OrdenEmbarque" EntitySet="OrdenEmbarque" />
+            <End Role="PedidoRenglon" EntitySet="PedidoRenglon" />
+          </AssociationSet>
+          <EntitySet Name="Estilo" EntityType="INDAR_INACTIONWMSModel.Estilo" />
+          <AssociationSet Name="FK_PedidoRenglon_Estilo" Association="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Estilo">
+            <End Role="Estilo" EntitySet="Estilo" />
+            <End Role="PedidoRenglon" EntitySet="PedidoRenglon" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Estilo">
+          <Key>
+            <PropertyRef Name="IdEstilo" />
+          </Key>
+          <Property Name="IdEstilo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IdLinea" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdCajaUnitario" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="FechaActualizado" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioActualiza" Type="Int32" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Clave" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdFabrica" Type="Byte" />
+          <Property Name="IdClasificacion" Type="Byte" />
+          <Property Name="IdSubFamilia" Type="Int32" />
+          <Property Name="TieneCaducidad" Type="Boolean" />
+          <Property Name="Fabricante" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Unidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Tipo_Caducidad" Type="Boolean" />
+          <Property Name="DiasVigencia" Type="Int32" />
+          <Property Name="DiasMinimoRecibo" Type="Int32" />
+          <Property Name="DiasMinimoRechazo" Type="Int32" />
+          <Property Name="MultiploCaja" Type="Int32" />
+          <Property Name="Categoria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TipoClasificacion" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
+          <Property Name="PorcentajeReabastoPrimario" Type="Double" />
+          <Property Name="PorcentajeReabastoSecundario" Type="Double" />
+          <Property Name="LeyendaSurtido" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="TieneCodigoBarras" Type="Boolean" />
+          <Property Name="SinCodigoBarras" Type="Boolean" />
+          <Property Name="Monto" Type="Double" Nullable="false" />
+          <Property Name="ForzarLeyendaSurtido" Type="Int32" />
+          <Property Name="LeyendaRecibo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="EtiquetaPieza" Type="Boolean" />
+          <Property Name="MultiploRecibo" Type="Int32" />
+          <Property Name="IdUnidad" Type="Int32" />
+          <Property Name="MultiploReabasto" Type="Int32" />
+          <Property Name="MultiploSurtidoPick" Type="Int32" />
+          <Property Name="MultiploSurtidoBulk" Type="Int32" />
+          <Property Name="ValidacionCapturaRecibo" Type="Boolean" />
+          <Property Name="ValidacionCapturaAlmacenado" Type="Boolean" />
+          <Property Name="ValidacionCapturaTraspaso" Type="Boolean" />
+          <Property Name="ValidacionCapturaSurtido" Type="Boolean" />
+          <Property Name="ValidacionCapturaInventario" Type="Boolean" />
+          <Property Name="ValidacionCapturaEmpaque" Type="Boolean" />
+          <Property Name="ValidacionCapturaReabasto" Type="Boolean" />
+          <Property Name="MultiploVenta" Type="Int32" />
+          <Property Name="CaoticaPick" Type="Boolean" />
+          <NavigationProperty Name="PedidoRenglon" Relationship="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Estilo" FromRole="Estilo" ToRole="PedidoRenglon" />
+        </EntityType>
+        <Association Name="FK_PedidoRenglon_Estilo">
+          <End Type="INDAR_INACTIONWMSModel.Estilo" Role="Estilo" Multiplicity="0..1" />
+          <End Type="INDAR_INACTIONWMSModel.PedidoRenglon" Role="PedidoRenglon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Estilo">
+              <PropertyRef Name="IdEstilo" />
+            </Principal>
+            <Dependent Role="PedidoRenglon">
+              <PropertyRef Name="IdEstilo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="INDAR_INACTIONWMSModelStoreContainer" CdmEntityContainer="INDAR_INACTIONWMSEntities">
+          <EntitySetMapping Name="OrdenEmbarque">
+            <EntityTypeMapping TypeName="INDAR_INACTIONWMSModel.OrdenEmbarque">
+              <MappingFragment StoreEntitySet="OrdenEmbarque">
+                <ScalarProperty Name="IdOrdenEmbarque" ColumnName="IdOrdenEmbarque" />
+                <ScalarProperty Name="NumPedido" ColumnName="NumPedido" />
+                <ScalarProperty Name="FechaEntregaReal" ColumnName="FechaEntregaReal" />
+                <ScalarProperty Name="FechaEntregaOriginal" ColumnName="FechaEntregaOriginal" />
+                <ScalarProperty Name="FechaEmbarque" ColumnName="FechaEmbarque" />
+                <ScalarProperty Name="FechaEmpaqueBase" ColumnName="FechaEmpaqueBase" />
+                <ScalarProperty Name="FechaEmpaqueReal" ColumnName="FechaEmpaqueReal" />
+                <ScalarProperty Name="IdEstatusOrdenEmbarque" ColumnName="IdEstatusOrdenEmbarque" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdConsignatario" ColumnName="IdConsignatario" />
+                <ScalarProperty Name="CantUnitarios" ColumnName="CantUnitarios" />
+                <ScalarProperty Name="FechaInicioVA" ColumnName="FechaInicioVA" />
+                <ScalarProperty Name="FechaFinVA" ColumnName="FechaFinVA" />
+                <ScalarProperty Name="FechaFinSurtido" ColumnName="FechaFinSurtido" />
+                <ScalarProperty Name="FechaEnvio" ColumnName="FechaEnvio" />
+                <ScalarProperty Name="FechaActualizado" ColumnName="FechaActualizado" />
+                <ScalarProperty Name="IdUsuarioActualiza" ColumnName="IdUsuarioActualiza" />
+                <ScalarProperty Name="IdFabrica" ColumnName="IdFabrica" />
+                <ScalarProperty Name="IdSubcliente" ColumnName="IdSubcliente" />
+                <ScalarProperty Name="Origen" ColumnName="Origen" />
+                <ScalarProperty Name="Mov" ColumnName="Mov" />
+                <ScalarProperty Name="FormaEnvio" ColumnName="FormaEnvio" />
+                <ScalarProperty Name="LugarEnvio" ColumnName="LugarEnvio" />
+                <ScalarProperty Name="Fletera" ColumnName="Fletera" />
+                <ScalarProperty Name="Prioridad" ColumnName="Prioridad" />
+                <ScalarProperty Name="IdPedido" ColumnName="IdPedido" />
+                <ScalarProperty Name="Consolidado" ColumnName="Consolidado" />
+                <ScalarProperty Name="Eliminada" ColumnName="Eliminada" />
+                <ScalarProperty Name="FechaIngreso" ColumnName="FechaIngreso" />
+                <ScalarProperty Name="FacturaIndar" ColumnName="FacturaIndar" />
+                <ScalarProperty Name="FechaFactura" ColumnName="FechaFactura" />
+                <ScalarProperty Name="IdUsuarioLibera" ColumnName="IdUsuarioLibera" />
+                <ScalarProperty Name="FechaLiberacion" ColumnName="FechaLiberacion" />
+                <ScalarProperty Name="IdUsuarioCancela" ColumnName="IdUsuarioCancela" />
+                <ScalarProperty Name="FechaCancelacion" ColumnName="FechaCancelacion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PedidoRenglon">
+            <EntityTypeMapping TypeName="INDAR_INACTIONWMSModel.PedidoRenglon">
+              <MappingFragment StoreEntitySet="PedidoRenglon">
+                <ScalarProperty Name="IdPedidoRenglon" ColumnName="IdPedidoRenglon" />
+                <ScalarProperty Name="IdOrdenEmbarque" ColumnName="IdOrdenEmbarque" />
+                <ScalarProperty Name="NumPedido" ColumnName="NumPedido" />
+                <ScalarProperty Name="Renglon" ColumnName="Renglon" />
+                <ScalarProperty Name="IdProducto" ColumnName="IdProducto" />
+                <ScalarProperty Name="CantUnitarios" ColumnName="CantUnitarios" />
+                <ScalarProperty Name="FechaEntrega" ColumnName="FechaEntrega" />
+                <ScalarProperty Name="IdEstatusOrdenEmbarque" ColumnName="IdEstatusOrdenEmbarque" />
+                <ScalarProperty Name="EnBuro" ColumnName="EnBuro" />
+                <ScalarProperty Name="Cancelada" ColumnName="Cancelada" />
+                <ScalarProperty Name="IdCliente" ColumnName="IdCliente" />
+                <ScalarProperty Name="IdConsignatario" ColumnName="IdConsignatario" />
+                <ScalarProperty Name="Tienda" ColumnName="Tienda" />
+                <ScalarProperty Name="NumFactura" ColumnName="NumFactura" />
+                <ScalarProperty Name="NumSerie" ColumnName="NumSerie" />
+                <ScalarProperty Name="FechaInicioVA" ColumnName="FechaInicioVA" />
+                <ScalarProperty Name="FechaFinVA" ColumnName="FechaFinVA" />
+                <ScalarProperty Name="FechaFinSurtido" ColumnName="FechaFinSurtido" />
+                <ScalarProperty Name="FechaEnvio" ColumnName="FechaEnvio" />
+                <ScalarProperty Name="ConCambio" ColumnName="ConCambio" />
+                <ScalarProperty Name="FechaActualizado" ColumnName="FechaActualizado" />
+                <ScalarProperty Name="IdUsuarioActualiza" ColumnName="IdUsuarioActualiza" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+                <ScalarProperty Name="Orden" ColumnName="Orden" />
+                <ScalarProperty Name="FechaLiberacion" ColumnName="FechaLiberacion" />
+                <ScalarProperty Name="CantSurtida" ColumnName="CantSurtida" />
+                <ScalarProperty Name="IdEstilo" ColumnName="IdEstilo" />
+                <ScalarProperty Name="CantCancelada" ColumnName="CantCancelada" />
+                <ScalarProperty Name="FechaCancelada" ColumnName="FechaCancelada" />
+                <ScalarProperty Name="CantConsolidada" ColumnName="CantConsolidada" />
+                <ScalarProperty Name="CantEmpacada" ColumnName="CantEmpacada" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Estilo">
+            <EntityTypeMapping TypeName="INDAR_INACTIONWMSModel.Estilo">
+              <MappingFragment StoreEntitySet="Estilo">
+                <ScalarProperty Name="CaoticaPick" ColumnName="CaoticaPick" />
+                <ScalarProperty Name="MultiploVenta" ColumnName="MultiploVenta" />
+                <ScalarProperty Name="ValidacionCapturaReabasto" ColumnName="ValidacionCapturaReabasto" />
+                <ScalarProperty Name="ValidacionCapturaEmpaque" ColumnName="ValidacionCapturaEmpaque" />
+                <ScalarProperty Name="ValidacionCapturaInventario" ColumnName="ValidacionCapturaInventario" />
+                <ScalarProperty Name="ValidacionCapturaSurtido" ColumnName="ValidacionCapturaSurtido" />
+                <ScalarProperty Name="ValidacionCapturaTraspaso" ColumnName="ValidacionCapturaTraspaso" />
+                <ScalarProperty Name="ValidacionCapturaAlmacenado" ColumnName="ValidacionCapturaAlmacenado" />
+                <ScalarProperty Name="ValidacionCapturaRecibo" ColumnName="ValidacionCapturaRecibo" />
+                <ScalarProperty Name="MultiploSurtidoBulk" ColumnName="MultiploSurtidoBulk" />
+                <ScalarProperty Name="MultiploSurtidoPick" ColumnName="MultiploSurtidoPick" />
+                <ScalarProperty Name="MultiploReabasto" ColumnName="MultiploReabasto" />
+                <ScalarProperty Name="IdUnidad" ColumnName="IdUnidad" />
+                <ScalarProperty Name="MultiploRecibo" ColumnName="MultiploRecibo" />
+                <ScalarProperty Name="EtiquetaPieza" ColumnName="EtiquetaPieza" />
+                <ScalarProperty Name="LeyendaRecibo" ColumnName="LeyendaRecibo" />
+                <ScalarProperty Name="ForzarLeyendaSurtido" ColumnName="ForzarLeyendaSurtido" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="SinCodigoBarras" ColumnName="SinCodigoBarras" />
+                <ScalarProperty Name="TieneCodigoBarras" ColumnName="TieneCodigoBarras" />
+                <ScalarProperty Name="LeyendaSurtido" ColumnName="LeyendaSurtido" />
+                <ScalarProperty Name="PorcentajeReabastoSecundario" ColumnName="PorcentajeReabastoSecundario" />
+                <ScalarProperty Name="PorcentajeReabastoPrimario" ColumnName="PorcentajeReabastoPrimario" />
+                <ScalarProperty Name="TipoClasificacion" ColumnName="TipoClasificacion" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="MultiploCaja" ColumnName="MultiploCaja" />
+                <ScalarProperty Name="DiasMinimoRechazo" ColumnName="DiasMinimoRechazo" />
+                <ScalarProperty Name="DiasMinimoRecibo" ColumnName="DiasMinimoRecibo" />
+                <ScalarProperty Name="DiasVigencia" ColumnName="DiasVigencia" />
+                <ScalarProperty Name="Tipo_Caducidad" ColumnName="Tipo_Caducidad" />
+                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
+                <ScalarProperty Name="Fabricante" ColumnName="Fabricante" />
+                <ScalarProperty Name="TieneCaducidad" ColumnName="TieneCaducidad" />
+                <ScalarProperty Name="IdSubFamilia" ColumnName="IdSubFamilia" />
+                <ScalarProperty Name="IdClasificacion" ColumnName="IdClasificacion" />
+                <ScalarProperty Name="IdFabrica" ColumnName="IdFabrica" />
+                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="IdUsuarioActualiza" ColumnName="IdUsuarioActualiza" />
+                <ScalarProperty Name="FechaActualizado" ColumnName="FechaActualizado" />
+                <ScalarProperty Name="IdCajaUnitario" ColumnName="IdCajaUnitario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdLinea" ColumnName="IdLinea" />
+                <ScalarProperty Name="IdEstilo" ColumnName="IdEstilo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -37,7 +37,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
                              inner join iws.dbo.Customers c on i.Entity=c.internalid
                              inner join iws.dbo.ZonasIndar ZI on c.customerZone=zi.NSO___ZONAS_CLIENTES_ID
                              left join iws.dbo.Entity E on zi.REPRESENTANTE_VENTAS_ID=e.ENTITY_ID
-                            where ShippingWay in (4,5,10,11,13,14) and  TranId=" + textBox1.Text;
+                            where ShippingWay in (4,5,10,11,13,14,26) and  TranId=" + textBox1.Text;
             SqlConnection myConnection2 = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);
 
             SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString);

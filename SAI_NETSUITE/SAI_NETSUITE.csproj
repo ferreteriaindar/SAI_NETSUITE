@@ -207,6 +207,9 @@
     <Compile Include="errorTimbradoPago.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
+    <Compile Include="Estilo.cs">
+      <DependentUpon>InActionWMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Eventos.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
@@ -221,6 +224,21 @@
     </Compile>
     <Compile Include="FORMA_DE_PAGO_V3_3.cs">
       <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InActionWMS.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InActionWMS.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InActionWMS.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InActionWMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="InActionWMS.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InActionWMS.edmx</DependentUpon>
     </Compile>
     <Compile Include="Indarneg.Context.cs">
       <AutoGen>True</AutoGen>
@@ -338,8 +356,14 @@
     <Compile Include="OrdenCobroD.cs">
       <DependentUpon>Indarneg.tt</DependentUpon>
     </Compile>
+    <Compile Include="OrdenEmbarque.cs">
+      <DependentUpon>InActionWMS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Paqueteria.cs">
       <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="PedidoRenglon.cs">
+      <DependentUpon>InActionWMS.tt</DependentUpon>
     </Compile>
     <Compile Include="Principal.cs">
       <SubType>Form</SubType>
@@ -596,6 +620,12 @@
     </Compile>
     <Compile Include="Views\Logistica\Distribucion\ValidarSAD.Designer.cs">
       <DependentUpon>ValidarSAD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\DetallePedido.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\DetallePedido.Designer.cs">
+      <DependentUpon>DetallePedido.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Logistica\Empaque\empaquePantalla.cs">
       <SubType>UserControl</SubType>
@@ -1006,6 +1036,9 @@
     <EmbeddedResource Include="Views\Logistica\Distribucion\ValidarSAD.resx">
       <DependentUpon>ValidarSAD.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Empaque\DetallePedido.resx">
+      <DependentUpon>DetallePedido.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Empaque\empaquePantalla.resx">
       <DependentUpon>empaquePantalla.cs</DependentUpon>
     </EmbeddedResource>
@@ -1152,6 +1185,13 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>Indarneg.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <EntityDeploy Include="InActionWMS.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>InActionWMS.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="InActionWMS.edmx.diagram">
+      <DependentUpon>InActionWMS.edmx</DependentUpon>
+    </None>
     <None Include="Indarneg.edmx.diagram">
       <DependentUpon>Indarneg.edmx</DependentUpon>
     </None>
@@ -1248,6 +1288,16 @@
     <None Include="Resources\xls %281%29.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="InActionWMS.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InActionWMS.edmx</DependentUpon>
+      <LastGenOutput>InActionWMS.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="InActionWMS.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>InActionWMS.edmx</DependentUpon>
+      <LastGenOutput>InActionWMS.cs</LastGenOutput>
+    </Content>
     <Content Include="Indarneg.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>Indarneg.edmx</DependentUpon>

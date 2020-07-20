@@ -68,7 +68,7 @@
             this.colerror.Name = "colerror";
             this.colerror.Visible = true;
             this.colerror.VisibleIndex = 6;
-            this.colerror.Width = 125;
+            this.colerror.Width = 425;
             // 
             // colMov
             // 
@@ -77,7 +77,7 @@
             this.colMov.Name = "colMov";
             this.colMov.Visible = true;
             this.colMov.VisibleIndex = 1;
-            this.colMov.Width = 97;
+            this.colMov.Width = 95;
             // 
             // gridControl1
             // 
@@ -150,7 +150,7 @@
             this.colNumPedido.Name = "colNumPedido";
             this.colNumPedido.Visible = true;
             this.colNumPedido.VisibleIndex = 2;
-            this.colNumPedido.Width = 124;
+            this.colNumPedido.Width = 188;
             // 
             // colForma
             // 
@@ -159,7 +159,7 @@
             this.colForma.Name = "colForma";
             this.colForma.Visible = true;
             this.colForma.VisibleIndex = 3;
-            this.colForma.Width = 197;
+            this.colForma.Width = 220;
             // 
             // colMESA
             // 
@@ -168,7 +168,7 @@
             this.colMESA.Name = "colMESA";
             this.colMESA.Visible = true;
             this.colMESA.VisibleIndex = 5;
-            this.colMESA.Width = 115;
+            this.colMESA.Width = 163;
             // 
             // gridColumn1
             // 
@@ -179,7 +179,7 @@
             this.gridColumn1.UnboundType = DevExpress.Data.UnboundColumnType.String;
             this.gridColumn1.Visible = true;
             this.gridColumn1.VisibleIndex = 4;
-            this.gridColumn1.Width = 154;
+            this.gridColumn1.Width = 96;
             // 
             // colPedidos
             // 

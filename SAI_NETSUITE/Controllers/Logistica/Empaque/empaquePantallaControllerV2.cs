@@ -69,10 +69,10 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                      select case when (CfdiComentario is not null and CfdiComentario<>'') 
 	                    then
 	                    --INICIO DE  DETECTAR ERRORES DE CFDI
-                      CASE WHEN CfdiComentario LIKE '%CFDI33132%' THEN 'Error de RFC, CREDITO Y COBRANZA CFDI33132'
-                      WHEN CfdiComentario LIKE '%CFDI33134%' THEN 'Error de RFC, CREDITO Y COBRANZA CFDI33134'
-                      WHEN CfdiComentario LIKE '%CFDI33137%' THEN 'Error de RFC, CREDITO Y COBRANZA CFDI33134'
-                        WHEN CfdiComentario LIKE '%ClaveProdServ%' THEN 'Error de Articulo, Compras corregir claveprodserv'
+                      CASE WHEN ResponseCfdi LIKE '%Rfc%' THEN 'Error de RFC,LLAMAR A CREDITO Y COBRANZA'
+                      WHEN ResponseCfdi LIKE '%CFDI33134%' THEN 'Error de RFC,LLAMAR A CREDITO Y COBRANZA'
+                      WHEN ResponseCfdi LIKE '%CFDI33137%' THEN 'Error de RFC,LLAMAR A CREDITO Y COBRANZA'
+                        WHEN ResponseCfdi LIKE '%ClaveProdServ%' THEN 'Error de Articulo, LLAMAR A COMPRAS'
 	                        else CONVERT(varchar(8),tranid)+' '+  CONVERT(varchar(150),ResponseCfdi) 
                          END 
   

@@ -72,25 +72,29 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                     gridView1.SetRowCellValue(i, colerror, epcv2.EsTimbrada(gridView1.GetRowCellValue(i, colerror).ToString(), gridView1.GetRowCellValue(i, colNumPedido).ToString()));
                 }
             }
-            labelRowCount.Text = gridView1.RowCount.ToString()+" renglones";
+            labelRowCount.Text = gridView1.RowCount.ToString() + " renglones/" + contarPedidosPorfacturar() + " por facturar";
         }
 
         public string contarPedidosPorfacturar()
         {
             string resultado = "n/a";
+            int pedidos = 0, facturas = 0;
             try
             {
-                int pedidos=0, facturas=0;
+               
                 for (int i = 0; i < gridView1.RowCount; i++)
                 {
-                    int auxpedidos = 0;
+                    pedidos = pedidos + Convert.ToInt32(gridView1.GetRowCellValue(i, colPedidos).ToString());
+                    facturas = facturas + Convert.ToInt32(gridView1.GetRowCellValue(i, colFACTURAS).ToString());
                 }
+                resultado = Math.Abs(pedidos - facturas).ToString();
             }
             catch (Exception ex)
             {
                 return "n/a";
             }
-            return "";
+
+            return resultado;
         }
 
         private void btnFacturar_Click(object sender, EventArgs e)
@@ -282,6 +286,11 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             {//INDICA LAS FACTURAS DE LA CONS QUE TIENE QUE TIMBRAR
                 empaquePantallaControllerV2 epcV2 = new empaquePantallaControllerV2();
                 MessageBox.Show(epcV2.regresaInfoConsSinTimbrar(gridView1.GetRowCellValue(info.RowHandle, colNumPedido).ToString()));
+            }
+            else
+            {
+                DetallePedido dp = new DetallePedido(gridView1.GetRowCellValue(info.RowHandle, colMov).ToString(), gridView1.GetRowCellValue(info.RowHandle, colNumPedido).ToString());
+                dp.ShowDialog();
             }
             gridView1.UnselectRow(info.RowHandle);
         }
