@@ -321,8 +321,8 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 								 LEFT JOIN INDGDLSQL01.INDARNEG.DBO.embarquesD  embd on i.TranId=REPLACE( embd.factura,'invoice','')
 								  left join INDGDLSQL01.INDARNEG.DBO.embarques emb on embd.idEmbarque=emb.idembarque
 								  left join IWS.dbo.PaymentTerms PT on I.TerminosPago=pt.PAYMENT_TERMS_ID
-								where   emb.idembarque=" + idEmbarque.ToString()+ @") F on e.idEmbarque=f.idEmbarque								
-                                WHERE E.idEmbarque=" + idEmbarque.ToString();
+								where   emb.idembarque=" + idEmbarque.ToString() + @") F on e.idEmbarque=f.idEmbarque								
+                                WHERE E.idEmbarque=" + idEmbarque.ToString()+ " 	ORDER BY f.NAME,TRANSACTION_NUMBER";
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.Fill(ds);
