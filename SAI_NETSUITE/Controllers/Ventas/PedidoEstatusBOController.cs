@@ -77,7 +77,61 @@ namespace SAI_NETSUITE.Controllers.Ventas
                 
 
         }
+        public string regresaInfoWMS2(string pedido, string tipo)
+        {
+            string resultado = "";
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1))
+            {
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand("", myConnection);
+                cmd.CommandText = @"Declare  @EstatusIWS  nvarchar(30),
+		                                     @EstatusWMS nvarchar(35),
+		                                     @Pedido int 
 
+		                                     set @Pedido="+pedido+ @"
+
+                                      if exists(select IdOrdenEmbarque from INDAR_INACTIONWMS.dbo.OrdenEmbarque where  NumPedido=@Pedido and Mov='salesorder')
+		                                    BEGIN 
+			                                    select @EstatusWMS=EOE.Nombre from INDAR_INACTIONWMS.dbo.OrdenEmbarque OE 
+				                                    INNER JOIN INDAR_INACTIONWMS.DBO.EstatusOrdenEmbarque EOE on OE.IdEstatusOrdenEmbarque=EOE.IdEstatusOrdenEmbarque
+				                                    WHERE OE.NumPedido=@Pedido and Mov='salesorder'
+				                                    select @EstatusWMS
+
+		                                    END
+		                                    ELSE
+			                                    BEGIN
+														if exists(select tranId from iws.dbo.SaleOrders where   syncWMS is null and  tranId=@Pedido )
+																 BEGIN
+																if exists(select  tranid from iws.dbo.SaleOrders where CONVERT(DATE,trandate)=CONVERT(Date,GETDATE()) AND tranId=@Pedido)
+																begin
+																		set @EstatusIWS='No esta ingresado a WMS'
+																		select @EstatusIWS
+																end
+																else 
+																	begin
+																		   set @EstatusWMS='No esta ingresado a WMS'
+																		   SELECT @EstatusWMS
+																   end
+																 END
+														ELSE 
+															Begin
+																	 SET @EstatusIWS='No esta ingresado a IWS'
+																	 select @EstatusIWS
+															END
+			                                    END";
+
+
+                resultado = cmd.ExecuteScalar().ToString();
+                /*if (resultado.Equals("Espera 5 min a que ingrese a W") && tipo.Equals("BO"))
+                    resultado = "Cambiar el Pedido a Web";*/
+
+
+            }
+            return resultado;
+
+
+
+        }
         public void actualizaRenglon(string txtNumpedido, string itemid, int quantity)
         {
             using (IWSEntities ctx = new IWSEntities())

@@ -21,7 +21,9 @@ namespace SAI_NETSUITE.Models.Transaccion
         public string itemid { get; set; }
         public string item { get; set; }
         public string itemdescription { get; set; }
+        public string itemdescription2 { get; set; }
         public int quantity { get; set; }
+        public int quantity2 { get; set; }
         public int quantitycommitted { get; set; }
         public int quantitybackordered { get; set; }
         public int almacen2 { get; set; }

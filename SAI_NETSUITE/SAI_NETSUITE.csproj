@@ -185,6 +185,7 @@
     <Compile Include="Controllers\PostVenta\SurtirEventosController.cs" />
     <Compile Include="Controllers\Ventas\CancelarPedidoController.cs" />
     <Compile Include="Controllers\Ventas\PedidoEstatusBOController.cs" />
+    <Compile Include="Controllers\Ventas\saleOrderEditorController.cs" />
     <Compile Include="Controllers\Ventas\SaleOrderSentController.cs" />
     <Compile Include="Customers.cs">
       <DependentUpon>IWS.tt</DependentUpon>
@@ -717,6 +718,12 @@
     <Compile Include="Views\Ventas\Apoyos\PedidoEstatusBO.Designer.cs">
       <DependentUpon>PedidoEstatusBO.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Ventas\Apoyos\saleOrderEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Ventas\Apoyos\saleOrderEditor.Designer.cs">
+      <DependentUpon>saleOrderEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Ventas\Reportes\infoCTe.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1083,6 +1090,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Ventas\Apoyos\PedidoEstatusBO.resx">
       <DependentUpon>PedidoEstatusBO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Ventas\Apoyos\saleOrderEditor.resx">
+      <DependentUpon>saleOrderEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Ventas\Reportes\infoCTe.resx">
       <DependentUpon>infoCTe.cs</DependentUpon>

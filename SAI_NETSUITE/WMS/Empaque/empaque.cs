@@ -236,7 +236,7 @@ namespace SAI_NETSUITE.WMS.Empaque
                 if (ca.cantidad!=-1) // detect qu eno haya cerrado la ventana
                 {
 
-                    Console.WriteLine("Entra:"+ca.cantidad.ToString());
+                  //  Console.WriteLine("Entra:"+ca.cantidad.ToString());
                     if (estaCompleto(art, ca.cantidad)==1)
                         MessageBox.Show("El articulo ya esta empacado");
                     else

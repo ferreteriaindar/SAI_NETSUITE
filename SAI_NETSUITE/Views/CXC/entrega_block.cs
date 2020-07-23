@@ -52,7 +52,7 @@ namespace SAI_NETSUITE.Views.CXC
             int ultimo_block = 0, folio_fin = 0;
             myConnection2.Close();
             myConnection2.Open();
-            query = "SELECT  top 1 * FROM    recibo_folios ORDER BY ID DESC  ";
+            query = "SELECT  top 1 * FROM    INDARNEG.DBO.recibo_folios ORDER BY ID DESC  ";
             SqlCommand cmd = new SqlCommand(query, myConnection2);
             SqlDataReader sdr = cmd.ExecuteReader();
             while (sdr.Read())
@@ -69,11 +69,11 @@ namespace SAI_NETSUITE.Views.CXC
             myConnection2.Close();
             myConnection2.Open();
             Debug.Write(ultimo_block);
-            query = "insert into recibo_folios (id,nombre,fecha,serie,folio_inicio,folio_fin,cantidad,comentarios) values(@id,@nombre,@fecha,@serie,@folio_inicio,@folio_fin,@cantidad,@comentarios)";
+            query = "insert into  INDARNEG.DBO.recibo_folios (id,nombre,fecha,serie,folio_inicio,folio_fin,cantidad,comentarios) values(@id,@nombre,@fecha,@serie,@folio_inicio,@folio_fin,@cantidad,@comentarios)";
             SqlCommand cmd2 = new SqlCommand(query, myConnection2);
 
             cmd2.Parameters.AddWithValue("@id", (ultimo_block + 1).ToString());
-            cmd2.Parameters.AddWithValue("@nombre", searchEmpleado.EditValue.ToString());
+            cmd2.Parameters.AddWithValue("@nombre",searchEmpleado.Properties.GetDisplayText(searchEmpleado.EditValue));
             cmd2.Parameters.AddWithValue("@fecha", masked_fecha.Text);
             cmd2.Parameters.AddWithValue("@serie", txt_serie.Text);
             cmd2.Parameters.AddWithValue("@folio_inicio", (folio_fin + 1).ToString());

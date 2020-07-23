@@ -18,7 +18,7 @@ namespace SAI_NETSUITE
     {
 
         string resultado = "";
-        string conString,usuario,perfil,sucursal;
+        string conString, usuario,perfil,sucursal;
         public Login()
         {
             InitializeComponent();

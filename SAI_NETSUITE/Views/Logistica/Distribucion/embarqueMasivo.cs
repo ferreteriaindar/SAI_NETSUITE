@@ -315,14 +315,14 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                                 left join IWS.dbo.Entity EN on e.entity_id=EN.ENTITY_ID	
                                 left join IWS.DBO.Paqueteria P ON e.idPaqueteria=p.LIST_ID								
 								LEFT JOIN (
-								select  emb.idembarque,TranId as TRANSACTION_NUMBER,p.list_item_name AS PAQUETERIA ,c.company as name,SHIPADDRESS,i.AmountDue,i.status AS STATUS,i.DescuentoTotalPP,i.DescuentoEvento,i.DescuentoTotalImporte,i.Total,pt.name as Terminos from  iws.dbo.Invoices I
+								select  emb.idembarque,TranId as TRANSACTION_NUMBER,p.list_item_name AS PAQUETERIA ,c.company as name,SHIPADDRESS,i.AmountDue,i.status AS STATUS,i.DescuentoTotalPP,i.DescuentoEvento,i.DescuentoTotalImporte,i.Total,pt.name as Terminos,IdEmbarqueD from  iws.dbo.Invoices I
 								LEFT JOIN INDGDLSQL01.IWS.dbo.customers C on I.Entity=c.internalid
 								left join INDGDLSQL01.IWS.dbo.Paqueteria P on i.Paqueteria=p.list_id
 								 LEFT JOIN INDGDLSQL01.INDARNEG.DBO.embarquesD  embd on i.TranId=REPLACE( embd.factura,'invoice','')
 								  left join INDGDLSQL01.INDARNEG.DBO.embarques emb on embd.idEmbarque=emb.idembarque
 								  left join IWS.dbo.PaymentTerms PT on I.TerminosPago=pt.PAYMENT_TERMS_ID
 								where   emb.idembarque=" + idEmbarque.ToString() + @") F on e.idEmbarque=f.idEmbarque								
-                                WHERE E.idEmbarque=" + idEmbarque.ToString()+ " 	ORDER BY f.NAME,TRANSACTION_NUMBER";
+                                WHERE E.idEmbarque=" + idEmbarque.ToString() + " order by IdEmbarqueD asc";
                 DataSet ds = new DataSet();
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 da.Fill(ds);
