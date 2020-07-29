@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression2 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression1 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
             this.colquantitycommitted = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -107,13 +107,13 @@
             this.colquantitybackordered,
             this.colalmacen2,
             this.colalmacen31});
-            gridFormatRule2.Column = this.colquantitycommitted;
-            gridFormatRule2.ColumnApplyTo = this.colquantitycommitted;
-            gridFormatRule2.Name = "EliminarPartida";
-            formatConditionRuleExpression2.Expression = "Iif([quantity2] = 0, True, False)";
-            formatConditionRuleExpression2.PredefinedName = "Red Fill, Red Text";
-            gridFormatRule2.Rule = formatConditionRuleExpression2;
-            this.gridView1.FormatRules.Add(gridFormatRule2);
+            gridFormatRule1.Column = this.colquantitycommitted;
+            gridFormatRule1.ColumnApplyTo = this.colquantitycommitted;
+            gridFormatRule1.Name = "EliminarPartida";
+            formatConditionRuleExpression1.Expression = "Iif([quantity2] = 0, True, False)";
+            formatConditionRuleExpression1.PredefinedName = "Red Fill, Red Text";
+            gridFormatRule1.Rule = formatConditionRuleExpression1;
+            this.gridView1.FormatRules.Add(gridFormatRule1);
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsView.ShowGroupPanel = false;

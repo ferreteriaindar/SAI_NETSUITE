@@ -85,6 +85,8 @@ namespace SAI_NETSUITE.Views.Ventas.Apoyos
                 }
                 if (soBO.result.Sum(x => x.quantitycommitted) == 0)
                     BtnEnviarWMS.Enabled = false;
+                if (soBO.result.Where(x => x.itemdescription.Equals("S/PEDIDO")).Count() > 0 & soBO.result[0].fecha < DateTime.Now)
+                    btnConsultar.Enabled = false;
                    
             }
             catch (Exception ex)

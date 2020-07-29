@@ -482,6 +482,16 @@ namespace SAI_NETSUITE.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap WedgesT {
+            get {
+                object obj = ResourceManager.GetObject("WedgesT", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap xls__1_ {
             get {
                 object obj = ResourceManager.GetObject("xls (1)", resourceCulture);

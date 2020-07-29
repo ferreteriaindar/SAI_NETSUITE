@@ -24,6 +24,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
     public partial class empaquePantallaV2 : UserControl
     {
         string usuario;
+        bool FinProceso = true;
         public empaquePantallaV2(string usuario)
         {
             this.usuario = usuario;
@@ -99,7 +100,10 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
         private void btnFacturar_Click(object sender, EventArgs e)
         {
-            btnFacturar.ImageOptions.Image = SAI_NETSUITE.Properties.Resources.gear;
+            FinProceso = false;
+            if (toggleSwitch1.IsOn)
+                btnFacturar.ImageOptions.Image = SAI_NETSUITE.Properties.Resources.WedgesT;
+            else btnFacturar.ImageOptions.Image = SAI_NETSUITE.Properties.Resources.gear;
             gridControl1.Enabled = false;
             bool banderaTraspaso = false;
             if (gridView1.SelectedRowsCount < 1) //POR SI NO SELECCIONAN NADA
@@ -275,6 +279,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             labelAvance.Text = "0/0";
             cargaDatos();
             gridControl1.Enabled = true;
+            FinProceso = true;
         }
 
         private void gridView1_DoubleClick(object sender, EventArgs e)
@@ -363,7 +368,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                 List<pedidoFulfill> lista = new List<pedidoFulfill>();
                 myConnection.Open();
                 SqlCommand cmd = new SqlCommand("", myConnection);
-                cmd.CommandText = @"select mov,NumPedido,(select CONVERT(nvarchar(10), internalid) from iws.dbo.invoices where tranid=facturaindar) as FacturaIndar,Consolidado,FormaEnvio from INDAR_INACTIONWMS.dbo.OrdenEmbarque where Consolidado='" + cons + "'";
+                cmd.CommandText = @"select mov,NumPedido,(select CONVERT(nvarchar(10), internalid) from iws.dbo.invoices where tranid=facturaindar) as FacturaIndar,Consolidado,FormaEnvio from INDAR_INACTIONWMS.dbo.OrdenEmbarque where Consolidado='" + cons + "' and  IdEstatusOrdenEmbarque<>3";
                 SqlDataReader sdr = cmd.ExecuteReader();
                 while (sdr.Read() && sdr.HasRows)
                 {
@@ -421,6 +426,23 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             pdfexport.StartInfo.FileName = "EXCEL.exe";
             pdfexport.StartInfo.Arguments = carpeta + "\\timbrar.xlsx";
             pdfexport.Start();
+        }
+
+        private void toggleSwitch1_Toggled(object sender, EventArgs e)
+        {
+            if(!backgroundWorker1.IsBusy && FinProceso==true)
+            timerAutomatico.Start();
+        }
+
+        private void timerAutomatico_Tick(object sender, EventArgs e)
+        {
+
+            for (int i = 0; i < gridView1.RowCount; i++)
+            {
+                if (gridView1.GetRowCellValue(i, colerror).ToString().Equals("") && !gridView1.GetRowCellValue(i, colMov).ToString().Equals("Traspaso"))
+                    gridView1.SelectRow(i);
+            }
+            btnFacturar_Click(null, null);
         }
     }
 }

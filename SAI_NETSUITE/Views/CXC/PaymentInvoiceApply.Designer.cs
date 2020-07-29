@@ -120,6 +120,8 @@
             this.colFinalFacturaID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFinalFacturaMonto = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFinalFacturaMontoFix = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDescuento16 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.coldiscount10 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
@@ -266,11 +268,14 @@
             this.colfechaPagoexternal,
             this.colrestafecha,
             this.colFechaVencimientov2,
-            this.colDescuentoFactura});
+            this.colDescuentoFactura,
+            this.colDescuento16,
+            this.coldiscount10});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridView1.OptionsView.ColumnAutoWidth = false;
             this.gridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView1_SelectionChanged);
             // 
             // colLimiteCredito
@@ -497,6 +502,7 @@
             this.colPaymentmetodoPago});
             this.gridPago.GridControl = this.gridControl2;
             this.gridPago.Name = "gridPago";
+            this.gridPago.OptionsFind.AlwaysVisible = true;
             this.gridPago.OptionsView.ShowGroupPanel = false;
             this.gridPago.RowClick += new DevExpress.XtraGrid.Views.Grid.RowClickEventHandler(this.gridPago_RowClick);
             this.gridPago.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridPago_SelectionChanged);
@@ -508,12 +514,16 @@
             this.colPayment.Name = "colPayment";
             this.colPayment.Visible = true;
             this.colPayment.VisibleIndex = 0;
+            this.colPayment.Width = 68;
             // 
             // colPaymentCliente
             // 
             this.colPaymentCliente.Caption = "Cliente";
             this.colPaymentCliente.FieldName = "Cliente";
             this.colPaymentCliente.Name = "colPaymentCliente";
+            this.colPaymentCliente.Visible = true;
+            this.colPaymentCliente.VisibleIndex = 2;
+            this.colPaymentCliente.Width = 150;
             // 
             // colPaymentNota
             // 
@@ -524,10 +534,13 @@
             // colPaymentSaldoPendiente
             // 
             this.colPaymentSaldoPendiente.Caption = "SaldoPendiente";
+            this.colPaymentSaldoPendiente.DisplayFormat.FormatString = "c";
+            this.colPaymentSaldoPendiente.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
             this.colPaymentSaldoPendiente.FieldName = "SaldoPendiente";
             this.colPaymentSaldoPendiente.Name = "colPaymentSaldoPendiente";
             this.colPaymentSaldoPendiente.Visible = true;
             this.colPaymentSaldoPendiente.VisibleIndex = 1;
+            this.colPaymentSaldoPendiente.Width = 86;
             // 
             // colPaymentinternalId
             // 
@@ -540,8 +553,6 @@
             this.colPaymentFecha.Caption = "fecha";
             this.colPaymentFecha.FieldName = "Fecha";
             this.colPaymentFecha.Name = "colPaymentFecha";
-            this.colPaymentFecha.Visible = true;
-            this.colPaymentFecha.VisibleIndex = 2;
             // 
             // colPaymentmetodoPago
             // 
@@ -959,6 +970,22 @@
             this.colFinalFacturaMontoFix.Visible = true;
             this.colFinalFacturaMontoFix.VisibleIndex = 2;
             // 
+            // colDescuento16
+            // 
+            this.colDescuento16.Caption = "Descuento16";
+            this.colDescuento16.FieldName = "discount6";
+            this.colDescuento16.Name = "colDescuento16";
+            this.colDescuento16.Visible = true;
+            this.colDescuento16.VisibleIndex = 17;
+            // 
+            // coldiscount10
+            // 
+            this.coldiscount10.Caption = "discount10";
+            this.coldiscount10.FieldName = "discount10";
+            this.coldiscount10.Name = "coldiscount10";
+            this.coldiscount10.Visible = true;
+            this.coldiscount10.VisibleIndex = 18;
+            // 
             // PaymentInvoiceApply
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -1093,5 +1120,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colPaymentmetodoPago;
         private DevExpress.XtraEditors.MemoEdit memoNota;
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
+        private DevExpress.XtraGrid.Columns.GridColumn colDescuento16;
+        private DevExpress.XtraGrid.Columns.GridColumn coldiscount10;
     }
 }

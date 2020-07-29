@@ -46,5 +46,7 @@ namespace SAI_NETSUITE.Models.Transaccion
         public DateTime FechaVencimientov2 { get; set; }
         public decimal? DescuentoFactura { get; set; }
         public string metodoPago { get; set; }
+        public int? discount6 { get; set; }
+        public int? discount10 { get; set; }
     }
 }

@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression1 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
@@ -55,10 +56,14 @@
             this.backgroundWorkerEventos = new System.ComponentModel.BackgroundWorker();
             this.btnOleada = new DevExpress.XtraEditors.SimpleButton();
             this.labelRowCount = new System.Windows.Forms.Label();
+            this.toggleSwitch1 = new DevExpress.XtraEditors.ToggleSwitch();
+            this.label1 = new System.Windows.Forms.Label();
+            this.timerAutomatico = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtReimprimir.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitch1.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // colerror
@@ -294,10 +299,37 @@
             this.labelRowCount.TabIndex = 7;
             this.labelRowCount.Text = "label1";
             // 
+            // toggleSwitch1
+            // 
+            this.toggleSwitch1.Location = new System.Drawing.Point(694, 26);
+            this.toggleSwitch1.Name = "toggleSwitch1";
+            this.toggleSwitch1.Properties.LookAndFeel.SkinName = "Office 2016 Colorful";
+            this.toggleSwitch1.Properties.OffText = "Apagado";
+            this.toggleSwitch1.Properties.OnText = "Encendido";
+            this.toggleSwitch1.Size = new System.Drawing.Size(142, 26);
+            this.toggleSwitch1.TabIndex = 8;
+            this.toggleSwitch1.Toggled += new System.EventHandler(this.toggleSwitch1_Toggled);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(691, 6);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(78, 17);
+            this.label1.TabIndex = 9;
+            this.label1.Text = "Automatico";
+            // 
+            // timerAutomatico
+            // 
+            this.timerAutomatico.Interval = 120000;
+            this.timerAutomatico.Tick += new System.EventHandler(this.timerAutomatico_Tick);
+            // 
             // empaquePantallaV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.toggleSwitch1);
             this.Controls.Add(this.labelRowCount);
             this.Controls.Add(this.btnOleada);
             this.Controls.Add(this.groupBox1);
@@ -312,6 +344,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.txtReimprimir.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.toggleSwitch1.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -339,5 +372,8 @@
         private System.ComponentModel.BackgroundWorker backgroundWorkerEventos;
         private DevExpress.XtraEditors.SimpleButton btnOleada;
         private System.Windows.Forms.Label labelRowCount;
+        private DevExpress.XtraEditors.ToggleSwitch toggleSwitch1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Timer timerAutomatico;
     }
 }
