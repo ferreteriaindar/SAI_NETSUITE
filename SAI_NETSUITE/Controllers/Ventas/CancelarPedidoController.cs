@@ -57,7 +57,7 @@ namespace SAI_NETSUITE.Controllers.Ventas
                                 if exists(select NumPedido from INDAR_INACTIONWMS.dbo.OrdenEmbarque where IdEstatusOrdenEmbarque=0 and NumPedido=" + tranid + @")
 		                        BEGIN 
 			                        DECLARE  @idOrdenembarque int 
-			                        select @idOrdenembarque=IdOrdenEmbarque from INDAR_INACTIONWMS.dbo.OrdenEmbarque where   mov='salesorder' and NumPedido=" + tranid + @"
+			                        select @idOrdenembarque=IdOrdenEmbarque from INDAR_INACTIONWMS.dbo.OrdenEmbarque where  consolidado is null and  mov='salesorder' and NumPedido=" + tranid + @"
 			                        exec INDAR_INACTIONWMS.dbo.spOrdenEmbarqueCancelar @idOrdenembarque,2;
 			                        SELECT 'OK' AS resultado
 		                        END

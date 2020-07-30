@@ -69,8 +69,14 @@ namespace SAI_NETSUITE.Views.CXC
             ///LLENA EL CAMPO DE FECHA
             foreach (var documentos in piam.result.Documentos)
             {
-          
-                documentos.FechaVencimientov2 = Convert.ToDateTime(documentos.FechaVencimiento.Equals("")?"01/01/1900":documentos.FechaVencimiento);
+                DateTime dateTime2;
+
+                if (DateTime.TryParse(documentos.FechaVencimiento, out dateTime2))
+                {
+                    documentos.FechaVencimientov2 = Convert.ToDateTime(documentos.FechaVencimiento);
+                }
+                else documentos.FechaVencimientov2 = Convert.ToDateTime("01/01/1900");
+                //documentos.FechaVencimientov2 =Convert.ToDateTime(  DateTime.TryParse(documentos.FechaVencimiento, out dateTime2)?"01/01/1900": documentos.FechaVencimiento); // Convert.ToDateTime(documentos.FechaVencimiento.Equals("")?"01/01/1900":documentos.FechaVencimiento);
                 documentos.DescuentoFactura = Convert.ToDecimal(documentos.DescuentoCliente.Equals("")?"0":documentos.DescuentoCliente.Remove(documentos.DescuentoCliente.Length - 1, 1));
                 documentos.DescuentoTotal = Convert.ToDouble(documentos.DescuentoTotal == null ? Convert.ToDouble("0") : documentos.DescuentoTotal);
             }
@@ -175,6 +181,10 @@ namespace SAI_NETSUITE.Views.CXC
             dt.Columns.Add("FacturaID", typeof(string));
             dt.Columns.Add("FacturaMonto", typeof(decimal));
             dt.Columns.Add("FacturaMontoFix", typeof(decimal));
+            dt.Columns.Add("descuento16", typeof(decimal));
+            dt.Columns.Add("descuento10", typeof(decimal));
+            dt.Columns.Add("ImporterBruto", typeof(decimal));
+            dt.Columns.Add("DiffDay", typeof(int));
 
             return dt;
         }
@@ -224,7 +234,11 @@ namespace SAI_NETSUITE.Views.CXC
                             gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colNumDoc).ToString(),
                             facturaSelect,
                              gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colA_pagar).ToString(),
-                             gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colA_pagar).ToString()
+                             gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colA_pagar).ToString(),
+                             gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i],colDescuento16).ToString(),
+                             gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i],coldiscount10).ToString(),
+                             gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i],colImporteBruto).ToString(),
+                             gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i],colrestafecha).ToString()
                             );                 
                 }
                 gridControl3.DataSource = dt;

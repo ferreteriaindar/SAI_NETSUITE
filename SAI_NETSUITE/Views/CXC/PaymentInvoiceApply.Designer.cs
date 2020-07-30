@@ -42,6 +42,8 @@
             DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition8 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraLayout.RowDefinition rowDefinition9 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.btnMagic = new DevExpress.XtraEditors.SimpleButton();
             this.searchLookUpEdit1 = new DevExpress.XtraEditors.SearchLookUpEdit();
@@ -76,6 +78,8 @@
             this.colrestafecha = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFechaVencimientov2 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colDescuentoFactura = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colDescuento16 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.coldiscount10 = new DevExpress.XtraGrid.Columns.GridColumn();
             this.gridControl2 = new DevExpress.XtraGrid.GridControl();
             this.gridPago = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colPayment = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -120,8 +124,12 @@
             this.colFinalFacturaID = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFinalFacturaMonto = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFinalFacturaMontoFix = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colDescuento16 = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.coldiscount10 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinaldescuento16 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinaldescuento10 = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.ColNotaCredito = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalImporterBruto = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalDiffDay = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalSumatoria = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
@@ -337,8 +345,6 @@
             this.colOrigen.Caption = "Origen";
             this.colOrigen.FieldName = "Origen";
             this.colOrigen.Name = "colOrigen";
-            this.colOrigen.Visible = true;
-            this.colOrigen.VisibleIndex = 4;
             // 
             // colFecha
             // 
@@ -346,7 +352,7 @@
             this.colFecha.FieldName = "Fecha";
             this.colFecha.Name = "colFecha";
             this.colFecha.Visible = true;
-            this.colFecha.VisibleIndex = 5;
+            this.colFecha.VisibleIndex = 4;
             // 
             // colFechaRecibo
             // 
@@ -354,7 +360,7 @@
             this.colFechaRecibo.FieldName = "FechaRecibo";
             this.colFechaRecibo.Name = "colFechaRecibo";
             this.colFechaRecibo.Visible = true;
-            this.colFechaRecibo.VisibleIndex = 6;
+            this.colFechaRecibo.VisibleIndex = 5;
             // 
             // colFechaVencimiento
             // 
@@ -369,7 +375,7 @@
             this.colTerminos.FieldName = "Terminos";
             this.colTerminos.Name = "colTerminos";
             this.colTerminos.Visible = true;
-            this.colTerminos.VisibleIndex = 7;
+            this.colTerminos.VisibleIndex = 6;
             // 
             // DescuentoCliente
             // 
@@ -383,7 +389,7 @@
             this.colVencimiento.FieldName = "Vencimiento";
             this.colVencimiento.Name = "colVencimiento";
             this.colVencimiento.Visible = true;
-            this.colVencimiento.VisibleIndex = 8;
+            this.colVencimiento.VisibleIndex = 7;
             // 
             // colImporteBruto
             // 
@@ -393,7 +399,7 @@
             this.colImporteBruto.FieldName = "ImporteBruto";
             this.colImporteBruto.Name = "colImporteBruto";
             this.colImporteBruto.Visible = true;
-            this.colImporteBruto.VisibleIndex = 10;
+            this.colImporteBruto.VisibleIndex = 9;
             // 
             // colSaldoPendiente
             // 
@@ -403,7 +409,7 @@
             this.colSaldoPendiente.FieldName = "SaldoPendiente";
             this.colSaldoPendiente.Name = "colSaldoPendiente";
             this.colSaldoPendiente.Visible = true;
-            this.colSaldoPendiente.VisibleIndex = 11;
+            this.colSaldoPendiente.VisibleIndex = 10;
             // 
             // colPorcentaje
             // 
@@ -411,7 +417,7 @@
             this.colPorcentaje.FieldName = "Porcentaje";
             this.colPorcentaje.Name = "colPorcentaje";
             this.colPorcentaje.Visible = true;
-            this.colPorcentaje.VisibleIndex = 12;
+            this.colPorcentaje.VisibleIndex = 11;
             // 
             // colDescuentoTotal
             // 
@@ -421,7 +427,7 @@
             this.colDescuentoTotal.FieldName = "DescuentoTotal";
             this.colDescuentoTotal.Name = "colDescuentoTotal";
             this.colDescuentoTotal.Visible = true;
-            this.colDescuentoTotal.VisibleIndex = 13;
+            this.colDescuentoTotal.VisibleIndex = 12;
             // 
             // colA_pagar
             // 
@@ -432,15 +438,13 @@
             this.colA_pagar.UnboundExpression = resources.GetString("colA_pagar.UnboundExpression");
             this.colA_pagar.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             this.colA_pagar.Visible = true;
-            this.colA_pagar.VisibleIndex = 14;
+            this.colA_pagar.VisibleIndex = 13;
             // 
             // colcustbody_paqueteria
             // 
             this.colcustbody_paqueteria.Caption = "paqueteria";
             this.colcustbody_paqueteria.FieldName = "custbody_paqueteria";
             this.colcustbody_paqueteria.Name = "colcustbody_paqueteria";
-            this.colcustbody_paqueteria.Visible = true;
-            this.colcustbody_paqueteria.VisibleIndex = 15;
             // 
             // colinternalId
             // 
@@ -464,7 +468,7 @@
             this.colrestafecha.UnboundExpression = "DateDiffDay([FechaVencimientov2], [fechaPago])";
             this.colrestafecha.UnboundType = DevExpress.Data.UnboundColumnType.Integer;
             this.colrestafecha.Visible = true;
-            this.colrestafecha.VisibleIndex = 16;
+            this.colrestafecha.VisibleIndex = 14;
             // 
             // colFechaVencimientov2
             // 
@@ -478,7 +482,19 @@
             this.colDescuentoFactura.FieldName = "DescuentoFactura";
             this.colDescuentoFactura.Name = "colDescuentoFactura";
             this.colDescuentoFactura.Visible = true;
-            this.colDescuentoFactura.VisibleIndex = 9;
+            this.colDescuentoFactura.VisibleIndex = 8;
+            // 
+            // colDescuento16
+            // 
+            this.colDescuento16.Caption = "Descuento16";
+            this.colDescuento16.FieldName = "discount6";
+            this.colDescuento16.Name = "colDescuento16";
+            // 
+            // coldiscount10
+            // 
+            this.coldiscount10.Caption = "discount10";
+            this.coldiscount10.FieldName = "discount10";
+            this.coldiscount10.Name = "coldiscount10";
             // 
             // gridControl2
             // 
@@ -930,7 +946,25 @@
             this.colFinaltranid,
             this.colFinalFacturaID,
             this.colFinalFacturaMonto,
-            this.colFinalFacturaMontoFix});
+            this.colFinalFacturaMontoFix,
+            this.colFinaldescuento16,
+            this.colFinaldescuento10,
+            this.ColNotaCredito,
+            this.colFinalImporterBruto,
+            this.colFinalDiffDay,
+            this.colFinalSumatoria});
+            gridFormatRule1.Column = this.ColNotaCredito;
+            gridFormatRule1.ColumnApplyTo = this.ColNotaCredito;
+            gridFormatRule1.Name = "NotaCredito";
+            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Greater;
+            formatConditionRuleValue1.PredefinedName = "Green Fill, Green Text";
+            formatConditionRuleValue1.Value1 = new decimal(new int[] {
+            1,
+            0,
+            0,
+            131072});
+            gridFormatRule1.Rule = formatConditionRuleValue1;
+            this.gridViewFinalFactura.FormatRules.Add(gridFormatRule1);
             this.gridViewFinalFactura.GridControl = this.gridControl3;
             this.gridViewFinalFactura.Name = "gridViewFinalFactura";
             this.gridViewFinalFactura.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridViewFinalFactura_CellValueChanged);
@@ -960,7 +994,7 @@
             this.colFinalFacturaMonto.Name = "colFinalFacturaMonto";
             this.colFinalFacturaMonto.OptionsColumn.ReadOnly = true;
             this.colFinalFacturaMonto.Visible = true;
-            this.colFinalFacturaMonto.VisibleIndex = 1;
+            this.colFinalFacturaMonto.VisibleIndex = 2;
             // 
             // colFinalFacturaMontoFix
             // 
@@ -968,23 +1002,56 @@
             this.colFinalFacturaMontoFix.FieldName = "FacturaMontoFix";
             this.colFinalFacturaMontoFix.Name = "colFinalFacturaMontoFix";
             this.colFinalFacturaMontoFix.Visible = true;
-            this.colFinalFacturaMontoFix.VisibleIndex = 2;
+            this.colFinalFacturaMontoFix.VisibleIndex = 3;
             // 
-            // colDescuento16
+            // colFinaldescuento16
             // 
-            this.colDescuento16.Caption = "Descuento16";
-            this.colDescuento16.FieldName = "discount6";
-            this.colDescuento16.Name = "colDescuento16";
-            this.colDescuento16.Visible = true;
-            this.colDescuento16.VisibleIndex = 17;
+            this.colFinaldescuento16.Caption = "Descuento16";
+            this.colFinaldescuento16.FieldName = "descuento16";
+            this.colFinaldescuento16.Name = "colFinaldescuento16";
             // 
-            // coldiscount10
+            // colFinaldescuento10
             // 
-            this.coldiscount10.Caption = "discount10";
-            this.coldiscount10.FieldName = "discount10";
-            this.coldiscount10.Name = "coldiscount10";
-            this.coldiscount10.Visible = true;
-            this.coldiscount10.VisibleIndex = 18;
+            this.colFinaldescuento10.Caption = "descuento10";
+            this.colFinaldescuento10.FieldName = "descuento10";
+            this.colFinaldescuento10.Name = "colFinaldescuento10";
+            // 
+            // ColNotaCredito
+            // 
+            this.ColNotaCredito.Caption = "NotaCredito";
+            this.ColNotaCredito.DisplayFormat.FormatString = "c";
+            this.ColNotaCredito.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.ColNotaCredito.FieldName = "ColNotaCredito";
+            this.ColNotaCredito.Name = "ColNotaCredito";
+            this.ColNotaCredito.ShowUnboundExpressionMenu = true;
+            this.ColNotaCredito.UnboundExpression = "Iif([DiffDay] < 1, Iif([colFinalSumatoria] Between(-3, 3), [descuento16] + [descu" +
+    "ento10], 0), 0)";
+            this.ColNotaCredito.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
+            this.ColNotaCredito.Visible = true;
+            this.ColNotaCredito.VisibleIndex = 4;
+            // 
+            // colFinalImporterBruto
+            // 
+            this.colFinalImporterBruto.Caption = "ImporterBruto";
+            this.colFinalImporterBruto.FieldName = "ImporterBruto";
+            this.colFinalImporterBruto.Name = "colFinalImporterBruto";
+            this.colFinalImporterBruto.Visible = true;
+            this.colFinalImporterBruto.VisibleIndex = 1;
+            // 
+            // colFinalDiffDay
+            // 
+            this.colFinalDiffDay.Caption = "DiffDay";
+            this.colFinalDiffDay.FieldName = "DiffDay";
+            this.colFinalDiffDay.Name = "colFinalDiffDay";
+            // 
+            // colFinalSumatoria
+            // 
+            this.colFinalSumatoria.Caption = "Sumatoria";
+            this.colFinalSumatoria.FieldName = "colFinalSumatoria";
+            this.colFinalSumatoria.Name = "colFinalSumatoria";
+            this.colFinalSumatoria.ShowUnboundExpressionMenu = true;
+            this.colFinalSumatoria.UnboundExpression = "[ImporterBruto] - ([FacturaMontoFix] + [descuento10] + [descuento16])";
+            this.colFinalSumatoria.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             // 
             // PaymentInvoiceApply
             // 
@@ -1122,5 +1189,11 @@
         private DevExpress.XtraLayout.LayoutControlItem layoutControlItem4;
         private DevExpress.XtraGrid.Columns.GridColumn colDescuento16;
         private DevExpress.XtraGrid.Columns.GridColumn coldiscount10;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinaldescuento16;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinaldescuento10;
+        private DevExpress.XtraGrid.Columns.GridColumn ColNotaCredito;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalImporterBruto;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalDiffDay;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalSumatoria;
     }
 }
