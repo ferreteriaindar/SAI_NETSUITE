@@ -467,14 +467,14 @@ namespace SAI_NETSUITE
                         tb.BringToFront();
                         break;
                     case "btnTimbrarPagos":
-                         panelControl1.Controls.Clear();
+                       /*  panelControl1.Controls.Clear();
                          Views.CXC.TimbradoPago tp = new Views.CXC.TimbradoPago()
                          {
                              Parent = panelControl1,
                              Dock = DockStyle.Fill
                          };
                          tp.BringToFront();
-                      
+                      */
                         break;
                     case "btnCancelarPedidoApoyo":
                         panelControl1.Controls.Clear();
@@ -486,13 +486,13 @@ namespace SAI_NETSUITE
                         cp.BringToFront();
                         break;
                     case "btnsaleorderEditor":
-                        panelControl1.Controls.Clear();
+                        /*panelControl1.Controls.Clear();
                         Views.Ventas.Apoyos.saleOrderEditor soe = new Views.Ventas.Apoyos.saleOrderEditor()
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill
                         };
-                        soe.BringToFront();
+                        soe.BringToFront();*/
                         break;
 
                     default:

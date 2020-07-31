@@ -275,6 +275,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             btnFacturar.ImageOptions.Image = null;
+            if(FinProceso==true)
             MessageBox.Show("¡Terminado! \n Espera a que vuelva a carga la pantalla");
             labelAvance.Text = "0/0";
             cargaDatos();
@@ -430,19 +431,22 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
         private void toggleSwitch1_Toggled(object sender, EventArgs e)
         {
+            /*
             if(!backgroundWorker1.IsBusy && FinProceso==true)
-            timerAutomatico.Start();
+            timerAutomatico.Start();*/
         }
 
         private void timerAutomatico_Tick(object sender, EventArgs e)
         {
-
-            for (int i = 0; i < gridView1.RowCount; i++)
+            if (!backgroundWorker1.IsBusy && FinProceso == true)
             {
-                if (gridView1.GetRowCellValue(i, colerror).ToString().Equals("") && !gridView1.GetRowCellValue(i, colMov).ToString().Equals("Traspaso"))
-                    gridView1.SelectRow(i);
+                for (int i = 0; i < gridView1.RowCount; i++)
+                {
+                    if (gridView1.GetRowCellValue(i, colerror).ToString().Equals("") && !gridView1.GetRowCellValue(i, colMov).ToString().Equals("Traspaso"))
+                        gridView1.SelectRow(i);
+                }
+                btnFacturar_Click(null, null);
             }
-            btnFacturar_Click(null, null);
         }
     }
 }

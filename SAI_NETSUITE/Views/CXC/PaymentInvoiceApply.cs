@@ -291,7 +291,8 @@ namespace SAI_NETSUITE.Views.CXC
         private void btnEnviarNetsuite_Click(object sender, EventArgs e)
         {  ///agregar validacion del importe
             
-                MessageBox.Show("No olvides cambiar la forma de Pago!!");
+              //  MessageBox.Show("No olvides cambiar la forma de Pago!!");
+            
             if (!layoutPago.Control.Text.Equals(layoutSuma.Control.Text))
             {
                 DialogResult res = MessageBox.Show("La suma no cuadra con el pago ¿continuar?  \n ", "ATENCION", MessageBoxButtons.OKCancel, MessageBoxIcon.Information);
@@ -304,7 +305,7 @@ namespace SAI_NETSUITE.Views.CXC
                 }
             }
 
-                if (gridView1.SelectedRowsCount > 0)
+                if (gridView1.SelectedRowsCount > 0 && !comboSAT.Text.Equals("99 Por definir"))
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("ExternalId,Pago,PagoMonto,Facturaid,ImporteFactura,sat");
@@ -370,8 +371,9 @@ namespace SAI_NETSUITE.Views.CXC
 
             
             }
+            else MessageBox.Show("Cambia la Forma de Pago y/o selecciona al menos una factura");
 
-            
+
 
         }
 
