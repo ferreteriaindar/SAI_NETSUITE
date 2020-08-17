@@ -50,5 +50,8 @@ namespace SAI_NETSUITE
         public DbSet<Invoices> Invoices { get; set; }
         public DbSet<OleadaFacturacion> OleadaFacturacion { get; set; }
         public DbSet<FORMA_DE_PAGO_V3_3> FORMA_DE_PAGO_V3_3 { get; set; }
+        public DbSet<ItemReceiptWMS> ItemReceiptWMS { get; set; }
+        public DbSet<CondicionesComerciales> CondicionesComerciales { get; set; }
+        public DbSet<TIPO_DE_RELACION_V3_3> TIPO_DE_RELACION_V3_3 { get; set; }
     }
 }

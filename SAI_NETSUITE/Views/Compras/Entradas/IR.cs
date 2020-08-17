@@ -176,5 +176,35 @@ namespace SAI_NETSUITE.Views.Compras.Entradas
             printTool.ShowRibbonPreview();
 
         }
+
+        private void btnEliminar_Click(object sender, EventArgs e)
+        {
+            if (gridView1.SelectedRowsCount > 0)
+            {
+                int[] selectedRowHandles = gridView1.GetSelectedRows();
+                using (IWSEntities ctx = new IWSEntities())
+                {
+                    for (int i = 0; i < gridView1.SelectedRowsCount; i++)
+                    {
+                        if (selectedRowHandles[i] >= 0)
+                        {
+                            int id = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colIR).ToString());
+                            ItemReceiptWMS itereceipt = (from wms in ctx.ItemReceiptWMS
+                                                         where wms.id == id
+                                                         select wms).FirstOrDefault();
+
+                            ctx.ItemReceiptWMS.Attach(itereceipt);
+                            ctx.ItemReceiptWMS.Remove(itereceipt);
+                            ctx.SaveChanges();
+                        }
+                    }
+                }
+                MessageBox.Show("Registros eliminados Correctamente");
+                cargaDatos();
+
+            }
+            else MessageBox.Show("Tienes que selecionar al menos 1");
+            gridView1.ActiveFilterString = null;
+        }
     }
 }

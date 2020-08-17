@@ -31,7 +31,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                             left join Indarneg.dbo.EmbarquesD ED ON E.idEmbarque = ED.idEmbarque
                             Left join iws.dbo.Entity ENT on E.entity_id = ENT.ENTITY_ID
                             left join iws.dbo.Paqueteria P on e.idPaqueteria = p.LIST_ID
-                            where factura is not null   and E.FECHA > DATEADD(month, -3, GETDATE())";
+                            where factura is not null"; //  and E.FECHA > DATEADD(month, -3, GETDATE())";
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);

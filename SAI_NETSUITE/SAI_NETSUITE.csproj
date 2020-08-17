@@ -167,8 +167,12 @@
     <Compile Include="Address.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
+    <Compile Include="CondicionesComerciales.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Controllers\Compras\Entradas\IRController.cs" />
     <Compile Include="Controllers\CXC\ArqueoController.cs" />
+    <Compile Include="Controllers\CXC\CreditMemoApplyController.cs" />
     <Compile Include="Controllers\CXC\OrdenCobroController.cs" />
     <Compile Include="Controllers\CXC\PaymentInvoiceApplyController.cs" />
     <Compile Include="Controllers\CXC\TimbrarPagoController.cs" />
@@ -268,6 +272,9 @@
     <Compile Include="IRD.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
+    <Compile Include="ItemReceiptWMS.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
     <Compile Include="Items.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
@@ -313,11 +320,13 @@
     <Compile Include="Models\Catalogos\RutaListCombo.cs" />
     <Compile Include="Models\Catalogos\ZonaModel.cs" />
     <Compile Include="Models\SaleOrderSentModel.cs" />
+    <Compile Include="Models\Transaccion\ApplyCreditMemoSendModel.cs" />
     <Compile Include="Models\Transaccion\ApplyPaymentCSVModel.cs" />
     <Compile Include="Models\Transaccion\ArqueoModel.cs" />
     <Compile Include="Models\Transaccion\BalanceDocumentsModel.cs" />
     <Compile Include="Models\Transaccion\CancelSaleOrdeModel.cs" />
     <Compile Include="Models\Transaccion\corrigePago.cs" />
+    <Compile Include="Models\Transaccion\CreditMemoApplySearchModel.cs" />
     <Compile Include="Models\Transaccion\EmbarqueCSV.cs" />
     <Compile Include="Models\Transaccion\InvoiceModel.cs" />
     <Compile Include="Models\Transaccion\IRDModel.cs" />
@@ -328,6 +337,7 @@
     <Compile Include="Models\Transaccion\NonCertifiedPaymentSearchModel.cs" />
     <Compile Include="Models\Transaccion\NumeroGuiaModel.cs" />
     <Compile Include="Models\Transaccion\PaymentInvoiceApplyModel.cs" />
+    <Compile Include="Models\Transaccion\Payment_CreditMemo_certifiedModel.cs" />
     <Compile Include="Models\Transaccion\pedidoFulfill.cs" />
     <Compile Include="Models\Transaccion\responseStructure.cs" />
     <Compile Include="Models\Transaccion\ResultadosInventoryEvents.cs" />
@@ -402,6 +412,9 @@
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="Territorios.cs">
+      <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="TIPO_DE_RELACION_V3_3.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\ClienteRecoge\administraAlmacen.cs">
@@ -525,6 +538,12 @@
     <Compile Include="Views\CXC\Combinacion\Loop.cs" />
     <Compile Include="Views\CXC\Combinacion\SmallPrimeUtility.cs" />
     <Compile Include="Views\CXC\Combinacion\Variations.cs" />
+    <Compile Include="Views\CXC\CreditMemoApply.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CXC\CreditMemoApply.Designer.cs">
+      <DependentUpon>CreditMemoApply.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CXC\entrega_block.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -550,6 +569,12 @@
       <DependentUpon>PaymentInvoiceApply.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\CXC\Combinacion\Permutationscs.cs" />
+    <Compile Include="Views\CXC\PaymentInvoiceApplyReport.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\CXC\PaymentInvoiceApplyReport.Designer.cs">
+      <DependentUpon>PaymentInvoiceApplyReport.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\CXC\ReporteSAD.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -995,6 +1020,9 @@
     <EmbeddedResource Include="Views\CXC\AutorizarSAD.resx">
       <DependentUpon>AutorizarSAD.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\CXC\CreditMemoApply.resx">
+      <DependentUpon>CreditMemoApply.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\CXC\entrega_block.resx">
       <DependentUpon>entrega_block.cs</DependentUpon>
     </EmbeddedResource>
@@ -1006,6 +1034,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CXC\PaymentInvoiceApply.resx">
       <DependentUpon>PaymentInvoiceApply.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\CXC\PaymentInvoiceApplyReport.resx">
+      <DependentUpon>PaymentInvoiceApplyReport.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\CXC\ReporteSAD.resx">
       <DependentUpon>ReporteSAD.cs</DependentUpon>

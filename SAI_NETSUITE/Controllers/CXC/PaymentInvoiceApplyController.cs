@@ -22,6 +22,14 @@ namespace SAI_NETSUITE.Controllers.CXC
             return piam;
         }
 
+
+        public Payment_CreditMemo_certifiedModel regresaReporteTimbrados(string idZona)
+        {
+            SAI_NETSUITE.IWS.Connection con = new SAI_NETSUITE.IWS.Connection();
+            string json = con.GET("api/Customer/GetPayment_CreditMemo_certified?idZona=" + idZona, SAI_NETSUITE.Properties.Resources.token);
+            Payment_CreditMemo_certifiedModel piam = JsonConvert.DeserializeObject<Payment_CreditMemo_certifiedModel>(json);
+            return piam;
+        }
         public List<FORMA_DE_PAGO_V3_3> regresaListaFormaPago()
         {
            /*  using (IWSEntities ctx = new IWSEntities())

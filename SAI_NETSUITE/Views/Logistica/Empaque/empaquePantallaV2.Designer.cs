@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule4 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression3 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule5 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression4 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule6 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression1 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression2 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule3 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(empaquePantallaV2));
             this.colerror = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMov = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -110,37 +110,37 @@
             this.colPedidos,
             this.colFACTURAS,
             this.colerror});
-            gridFormatRule4.ApplyToRow = true;
-            gridFormatRule4.Column = this.colerror;
-            gridFormatRule4.ColumnApplyTo = this.colerror;
-            gridFormatRule4.Name = "Timbrar";
-            formatConditionRuleExpression3.Appearance.BackColor = System.Drawing.Color.CornflowerBlue;
-            formatConditionRuleExpression3.Appearance.ForeColor = System.Drawing.Color.White;
-            formatConditionRuleExpression3.Appearance.Options.UseBackColor = true;
-            formatConditionRuleExpression3.Appearance.Options.UseForeColor = true;
-            formatConditionRuleExpression3.Expression = "Iif(Contains([error], \'TIMBRAR:\') Or Contains([error], \'Timbra las Facturas\'), Tr" +
+            gridFormatRule1.ApplyToRow = true;
+            gridFormatRule1.Column = this.colerror;
+            gridFormatRule1.ColumnApplyTo = this.colerror;
+            gridFormatRule1.Name = "Timbrar";
+            formatConditionRuleExpression1.Appearance.BackColor = System.Drawing.Color.CornflowerBlue;
+            formatConditionRuleExpression1.Appearance.ForeColor = System.Drawing.Color.White;
+            formatConditionRuleExpression1.Appearance.Options.UseBackColor = true;
+            formatConditionRuleExpression1.Appearance.Options.UseForeColor = true;
+            formatConditionRuleExpression1.Expression = "Iif(Contains([error], \'TIMBRAR:\') Or Contains([error], \'Timbra las Facturas\'), Tr" +
     "ue, False)";
-            gridFormatRule4.Rule = formatConditionRuleExpression3;
-            gridFormatRule5.ApplyToRow = true;
-            gridFormatRule5.Column = this.colerror;
-            gridFormatRule5.ColumnApplyTo = this.colerror;
-            gridFormatRule5.Name = "Terminados";
-            formatConditionRuleExpression4.Expression = "Iif(Contains([error], \'Terminado\'), True, False)";
-            formatConditionRuleExpression4.PredefinedName = "Green Fill, Green Text";
-            gridFormatRule5.Rule = formatConditionRuleExpression4;
-            gridFormatRule6.ApplyToRow = true;
-            gridFormatRule6.Column = this.colMov;
-            gridFormatRule6.Name = "Traspaso";
-            formatConditionRuleValue2.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
-            formatConditionRuleValue2.Appearance.ForeColor = System.Drawing.Color.White;
-            formatConditionRuleValue2.Appearance.Options.UseBackColor = true;
-            formatConditionRuleValue2.Appearance.Options.UseForeColor = true;
-            formatConditionRuleValue2.Condition = DevExpress.XtraEditors.FormatCondition.Expression;
-            formatConditionRuleValue2.Expression = "Iif(Contains([Mov], \'Traspaso\'), True, False)";
-            gridFormatRule6.Rule = formatConditionRuleValue2;
-            this.gridView1.FormatRules.Add(gridFormatRule4);
-            this.gridView1.FormatRules.Add(gridFormatRule5);
-            this.gridView1.FormatRules.Add(gridFormatRule6);
+            gridFormatRule1.Rule = formatConditionRuleExpression1;
+            gridFormatRule2.ApplyToRow = true;
+            gridFormatRule2.Column = this.colerror;
+            gridFormatRule2.ColumnApplyTo = this.colerror;
+            gridFormatRule2.Name = "Terminados";
+            formatConditionRuleExpression2.Expression = "Iif(Contains([error], \'Terminado\'), True, False)";
+            formatConditionRuleExpression2.PredefinedName = "Green Fill, Green Text";
+            gridFormatRule2.Rule = formatConditionRuleExpression2;
+            gridFormatRule3.ApplyToRow = true;
+            gridFormatRule3.Column = this.colMov;
+            gridFormatRule3.Name = "Traspaso";
+            formatConditionRuleValue1.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
+            formatConditionRuleValue1.Appearance.ForeColor = System.Drawing.Color.White;
+            formatConditionRuleValue1.Appearance.Options.UseBackColor = true;
+            formatConditionRuleValue1.Appearance.Options.UseForeColor = true;
+            formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Expression;
+            formatConditionRuleValue1.Expression = "Iif(Contains([Mov], \'Traspaso\'), True, False)";
+            gridFormatRule3.Rule = formatConditionRuleValue1;
+            this.gridView1.FormatRules.Add(gridFormatRule1);
+            this.gridView1.FormatRules.Add(gridFormatRule2);
+            this.gridView1.FormatRules.Add(gridFormatRule3);
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.MultiSelect = true;
@@ -208,6 +208,7 @@
             this.btnActualizar.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnActualizar.ImageOptions.Image")));
             this.btnActualizar.Location = new System.Drawing.Point(23, 23);
             this.btnActualizar.Name = "btnActualizar";
+            this.btnActualizar.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
             this.btnActualizar.Size = new System.Drawing.Size(120, 32);
             this.btnActualizar.TabIndex = 1;
             this.btnActualizar.Text = "Actualizar";
@@ -224,6 +225,7 @@
             this.btnFacturar.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.gear;
             this.btnFacturar.Location = new System.Drawing.Point(1076, 23);
             this.btnFacturar.Name = "btnFacturar";
+            this.btnFacturar.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
             this.btnFacturar.Size = new System.Drawing.Size(135, 32);
             this.btnFacturar.TabIndex = 2;
             this.btnFacturar.Text = "Facturar";
@@ -308,6 +310,7 @@
             this.toggleSwitch1.Properties.OnText = "Encendido";
             this.toggleSwitch1.Size = new System.Drawing.Size(142, 26);
             this.toggleSwitch1.TabIndex = 8;
+            this.toggleSwitch1.Visible = false;
             this.toggleSwitch1.Toggled += new System.EventHandler(this.toggleSwitch1_Toggled);
             // 
             // label1
@@ -318,6 +321,7 @@
             this.label1.Size = new System.Drawing.Size(78, 17);
             this.label1.TabIndex = 9;
             this.label1.Text = "Automatico";
+            this.label1.Visible = false;
             // 
             // timerAutomatico
             // 

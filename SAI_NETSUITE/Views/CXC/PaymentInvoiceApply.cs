@@ -305,7 +305,7 @@ namespace SAI_NETSUITE.Views.CXC
                 }
             }
 
-                if (gridView1.SelectedRowsCount > 0 && !comboSAT.Text.Equals("99 Por definir"))
+                if (gridView1.SelectedRowsCount > 0 && !comboSAT.Text.Contains("99"))
             {
                 StringBuilder sb = new StringBuilder();
                 sb.Append("ExternalId,Pago,PagoMonto,Facturaid,ImporteFactura,sat");

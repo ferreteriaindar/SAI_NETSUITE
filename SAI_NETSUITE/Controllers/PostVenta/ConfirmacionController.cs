@@ -100,9 +100,20 @@ namespace SAI_NETSUITE.Controllers.PostVenta
                     }
                     myConnection.Close();
                     myConnection.Open();
-                    SqlCommand cmd2 = new SqlCommand("", myConnection);
-                    cmd2.CommandText = "update indarneg.dbo.embarques set estatus='CONCLUIDO',fechaconcluido=getdate() WHERE IDEMBARQUE=" + embarque;
-                    cmd2.ExecuteNonQuery();
+
+                    using (IndarnegEntities ctx = new IndarnegEntities())
+                    {
+                        int idembarque = Convert.ToInt32(embarque);
+                        var totalLineas = (from ed in ctx.EmbarquesD where (ed.idEmbarque == idembarque) select ed).Count();
+                        var entregados= (from ed in ctx.EmbarquesD where (ed.idEmbarque == idembarque && ed.estado.Equals("ENTREGADO")) select ed).Count();
+                        if(totalLineas==entregados)
+                        {
+                            SqlCommand cmd2 = new SqlCommand("", myConnection);
+                            cmd2.CommandText = "update indarneg.dbo.embarques set estatus='CONCLUIDO',fechaconcluido=getdate() WHERE IDEMBARQUE=" + embarque;
+                            cmd2.ExecuteNonQuery();
+                        }
+                    }
+                   
 
                 }
                 return true;

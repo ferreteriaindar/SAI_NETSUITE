@@ -17,8 +17,8 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             {
                 var FacturaEncabezado = from i in ctx.Invoices
                                         join c in ctx.Customers on i.Entity equals c.internalid
-                                        join fe in ctx.FormaEnvio on i.ShippingWay equals fe.LIST_ID
-                                        join tp in ctx.TerminosDePago on i.TerminosPago equals tp.nso___TRMINOS_DE_PAGO_ID
+                                        join fe in ctx.FormaEnvio on i.ShippingWay equals fe.LIST_ID                                        
+                                        join tp in ctx.TerminosDePago on c.PaymentTerms equals tp.nso___TRMINOS_DE_PAGO_ID
                                         join zi in ctx.ZonasIndar on c.customerZone equals zi.NSO___ZONAS_CLIENTES_ID
                                         join Evend in ctx.Entity on zi.REPRESENTANTE_VENTAS_ID equals Evend.ENTITY_ID
                                         join Ecob in ctx.Entity on zi.AGENTE_COBRADOR_ID equals Ecob.ENTITY_ID
@@ -27,6 +27,9 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                                         join DepPa in ctx.Departments on Dep.PARENT_ID equals DepPa.DEPARTMENT_ID
                                         join Sale in ctx.SaleOrders on i.createdfrom equals Sale.internalId
                                         join fletera in ctx.Paqueteria on i.Paqueteria equals fletera.LIST_ID
+                                        //join CC in ctx.CondicionesComerciales on c.CondicionesComerciales equals CC.LIST_ID
+                                        join CondC in ctx.CondicionesComerciales on c.CommercialTerms equals CondC.LIST_ID
+
 
 
 
@@ -37,7 +40,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                                             TranDate=DateTime.Now, // i.TranDate,
                                             vendedor = Evend.NAME,
                                             cobrador = Ecob.NAME,
-                                            terminosPago = i.ClienteContado == 1 ? "Contado" : "Crédito",
+                                            terminosPago = CondC.LIST_ITEM_NAME,  // i.ClienteContado == 1 ? "Contado" : "Crédito",
                                             i.FechaVencimiento,
                                             formaenvio = fe.LIST_ITEM_NAME,
                                             gerencia = DepPa.NAME,
@@ -46,7 +49,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                                             i.UsoCFDI,
                                             i.CurrencySymbol,
                                             i.ExchangeRate,
-                                            CondicionesPago = tp.NSO___TRMINOS_DE_PAGO_NAME,
+                                            CondicionesPago =  tp.NSO___TRMINOS_DE_PAGO_NAME,
                                             cliente = c.companyId + " " + c.company,
                                             enviarA = i.ShipAddress+" TEL: "+c.phone,
                                             direccion = i.BillAddress+" TEL: "+c.phone +" RFC: "+c.RFC, // DirFac.addr1 + " " + DirFac.addr2 + " " + DirFac.city + " " + DirFac.state + " " + DirFac.country + " " + DirFac.postalCode,

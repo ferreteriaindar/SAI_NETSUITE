@@ -43,6 +43,7 @@
             this.colVendor = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colitemid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCantidad = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtReimprimir.Properties)).BeginInit();
@@ -54,6 +55,7 @@
             // 
             this.groupControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupControl1.Controls.Add(this.btnEliminar);
             this.groupControl1.Controls.Add(this.txtReimprimir);
             this.groupControl1.Controls.Add(this.btnEnviar);
             this.groupControl1.Controls.Add(this.btnActualizar);
@@ -192,6 +194,17 @@
             this.colCantidad.FieldName = "itemquantity";
             this.colCantidad.Name = "colCantidad";
             // 
+            // btnEliminar
+            // 
+            this.btnEliminar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.btnEliminar.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.Error_icon;
+            this.btnEliminar.Location = new System.Drawing.Point(957, 29);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(125, 65);
+            this.btnEliminar.TabIndex = 4;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
+            // 
             // IR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -226,5 +239,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colitemid;
         private DevExpress.XtraEditors.TextEdit txtReimprimir;
         private DevExpress.XtraGrid.Columns.GridColumn colCantidad;
+        private DevExpress.XtraEditors.SimpleButton btnEliminar;
     }
 }

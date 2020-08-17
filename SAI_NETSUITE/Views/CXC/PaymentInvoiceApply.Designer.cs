@@ -235,6 +235,7 @@
             this.btnCargarInfo.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.btnCargarInfo.Location = new System.Drawing.Point(161, 33);
             this.btnCargarInfo.Name = "btnCargarInfo";
+            this.btnCargarInfo.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
             this.btnCargarInfo.Size = new System.Drawing.Size(135, 40);
             this.btnCargarInfo.TabIndex = 3;
             this.btnCargarInfo.Text = "Consultar";

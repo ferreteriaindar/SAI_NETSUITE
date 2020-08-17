@@ -52,9 +52,9 @@ namespace SAI_NETSUITE.Controllers.Ventas
             if (!status.Equals("Aprobacion Pendiente") && !wms.Equals("No Ingresado"))
             {
                 SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1);
-                string query = @"if exists (select * from iws.dbo.SaleOrders where tranid="+tranid+@")
-		                            update iws.dbo.SaleOrders set syncwms=1 where tranid="+tranid+@"
-                                if exists(select NumPedido from INDAR_INACTIONWMS.dbo.OrdenEmbarque where IdEstatusOrdenEmbarque=0 and NumPedido=" + tranid + @")
+                string query =// @"if exists (select * from iws.dbo.SaleOrders where tranid="+tranid+@")
+		                        @"    update iws.dbo.SaleOrders set syncwms=1 where tranid="+tranid+@"
+                                if exists(select NumPedido from INDAR_INACTIONWMS.dbo.OrdenEmbarque where IdEstatusOrdenEmbarque=0  and consolidado is null and NumPedido=" + tranid + @")
 		                        BEGIN 
 			                        DECLARE  @idOrdenembarque int 
 			                        select @idOrdenembarque=IdOrdenEmbarque from INDAR_INACTIONWMS.dbo.OrdenEmbarque where  consolidado is null and  mov='salesorder' and NumPedido=" + tranid + @"

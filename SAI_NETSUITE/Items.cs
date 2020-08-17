@@ -97,6 +97,8 @@ namespace SAI_NETSUITE
         public Nullable<System.DateTime> fechaAlta { get; set; }
         public Nullable<System.DateTime> fechaAltaIndar { get; set; }
         public string moneda { get; set; }
+        public string balas { get; set; }
+        public Nullable<System.DateTime> fechaUltimoRecibo { get; set; }
     
         public virtual ICollection<SaleOrdersDetails> SaleOrdersDetails { get; set; }
     }

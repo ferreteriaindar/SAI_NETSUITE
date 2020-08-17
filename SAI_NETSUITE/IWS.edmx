@@ -22,6 +22,14 @@
           <Property Name="entity_id" Type="int" />
           <Property Name="isInactive" Type="varchar" MaxLength="3" />
         </EntityType>
+        <EntityType Name="CondicionesComerciales">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Name="LIST_ID" Type="int" Nullable="false" />
+          <Property Name="LIST_ITEM_NAME" Type="varchar" MaxLength="255" />
+          <Property Name="isInactive" Type="bit" />
+        </EntityType>
         <EntityType Name="Customers">
           <Key>
             <PropertyRef Name="internalid" />
@@ -366,6 +374,22 @@
           <Property Name="sourceNumber" Type="int" />
           <Property Name="IRDid" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
         </EntityType>
+        <EntityType Name="ItemReceiptWMS">
+          <Key>
+            <PropertyRef Name="idReceipt" />
+          </Key>
+          <Property Name="type" Type="varchar" MaxLength="8" />
+          <Property Name="createddate" Type="datetime" />
+          <Property Name="entity" Type="int" />
+          <Property Name="location" Type="int" />
+          <Property Name="item" Type="varchar" MaxLength="20" />
+          <Property Name="itemquantity" Type="int" />
+          <Property Name="id" Type="int" />
+          <Property Name="idReceipt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="syncWMS" Type="bit" />
+          <Property Name="tranid" Type="int" />
+          <Property Name="ordertype" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="Items">
           <Key>
             <PropertyRef Name="id" />
@@ -448,6 +472,8 @@
           <Property Name="fechaAlta" Type="datetime" />
           <Property Name="fechaAltaIndar" Type="datetime" />
           <Property Name="moneda" Type="nvarchar" MaxLength="50" />
+          <Property Name="balas" Type="nvarchar" MaxLength="400" />
+          <Property Name="fechaUltimoRecibo" Type="datetime" />
         </EntityType>
         <EntityType Name="ListaPrecios">
           <Key>
@@ -556,6 +582,19 @@
           <Property Name="NAME" Type="varchar" MaxLength="255" />
           <Property Name="isInactive" Type="int" />
         </EntityType>
+        <EntityType Name="TIPO_DE_RELACION_V3_3">
+          <Key>
+            <PropertyRef Name="TIPO_DE_RELACION_V3_3_ID" />
+          </Key>
+          <Property Name="DATE_CREATED" Type="datetime" />
+          <Property Name="IS_INACTIVE" Type="varchar" MaxLength="1" />
+          <Property Name="LAST_MODIFIED_DATE" Type="datetime" />
+          <Property Name="PARENT_ID" Type="int" />
+          <Property Name="TIPO_DE_RELACION_V3_3_EXTID" Type="varchar" MaxLength="255" />
+          <Property Name="TIPO_DE_RELACION_V3_3_ID" Type="int" Nullable="false" />
+          <Property Name="TIPO_DE_RELACION_V3_3_NAME" Type="varchar" MaxLength="150" />
+          <Property Name="TIPO_DE_RELACION_V3_3_NUMBER" Type="varchar" MaxLength="50" />
+        </EntityType>
         <EntityType Name="ZonasIndar">
           <Key>
             <PropertyRef Name="NSO___ZONAS_CLIENTES_ID" />
@@ -573,6 +612,18 @@
           <Property Name="REPRESENTANTE_VENTAS_ID" Type="int" />
           <Property Name="ZONA_DE_VENTAS_ID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK__Customers__Comme__41B8C09B">
+          <End Role="CondicionesComerciales" Type="Self.CondicionesComerciales" Multiplicity="0..1" />
+          <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CondicionesComerciales">
+              <PropertyRef Name="LIST_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="CommercialTerms" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK__Customers__Depar__3EDC53F0">
           <End Role="Departments" Type="Self.Departments" Multiplicity="0..1" />
           <End Role="Customers" Type="Self.Customers" Multiplicity="*" />
@@ -695,6 +746,7 @@
         </Association>
         <EntityContainer Name="IWSModelStoreContainer">
           <EntitySet Name="Address" EntityType="Self.Address" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CondicionesComerciales" EntityType="Self.CondicionesComerciales" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Customers" EntityType="Self.Customers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="CustomerType" EntityType="Self.CustomerType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
@@ -708,6 +760,7 @@
           <EntitySet Name="InvoicesDetail" EntityType="Self.InvoicesDetail" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IR" EntityType="Self.IR" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="IRD" EntityType="Self.IRD" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ItemReceiptWMS" EntityType="Self.ItemReceiptWMS" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Items" EntityType="Self.Items" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ListaPrecios" EntityType="Self.ListaPrecios" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Locations" EntityType="Self.Locations" Schema="dbo" store:Type="Tables" />
@@ -718,7 +771,12 @@
           <EntitySet Name="SaleOrdersDetails" EntityType="Self.SaleOrdersDetails" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TerminosDePago" EntityType="Self.TerminosDePago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Territorios" EntityType="Self.Territorios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TIPO_DE_RELACION_V3_3" EntityType="Self.TIPO_DE_RELACION_V3_3" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ZonasIndar" EntityType="Self.ZonasIndar" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Customers__Comme__41B8C09B" Association="Self.FK__Customers__Comme__41B8C09B">
+            <End Role="CondicionesComerciales" EntitySet="CondicionesComerciales" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
           <AssociationSet Name="FK__Customers__Depar__3EDC53F0" Association="Self.FK__Customers__Depar__3EDC53F0">
             <End Role="Departments" EntitySet="Departments" />
             <End Role="Customers" EntitySet="Customers" />
@@ -830,6 +888,13 @@
           </AssociationSet>
           <EntitySet Name="OleadaFacturacion" EntityType="IWSModel.OleadaFacturacion" />
           <EntitySet Name="FORMA_DE_PAGO_V3_3" EntityType="IWSModel.FORMA_DE_PAGO_V3_3" />
+          <EntitySet Name="ItemReceiptWMS" EntityType="IWSModel.ItemReceiptWMS" />
+          <EntitySet Name="CondicionesComerciales" EntityType="IWSModel.CondicionesComerciales" />
+          <AssociationSet Name="FK__Customers__Comme__41B8C09B" Association="IWSModel.FK__Customers__Comme__41B8C09B">
+            <End Role="CondicionesComerciales" EntitySet="CondicionesComerciales" />
+            <End Role="Customers" EntitySet="Customers" />
+          </AssociationSet>
+          <EntitySet Name="TIPO_DE_RELACION_V3_3" EntityType="IWSModel.TIPO_DE_RELACION_V3_3" />
         </EntityContainer>
         <EntityType Name="Locations">
           <Key>
@@ -957,6 +1022,8 @@
           <Property Name="fechaAlta" Type="DateTime" Precision="3" />
           <Property Name="fechaAltaIndar" Type="DateTime" Precision="3" />
           <Property Name="moneda" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="balas" Type="String" MaxLength="400" FixedLength="false" Unicode="true" />
+          <Property Name="fechaUltimoRecibo" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="ListaPrecios">
           <Key>
@@ -1307,6 +1374,7 @@
           <NavigationProperty Name="FormaEnvio" Relationship="IWSModel.FK__Customers__shipp__3A179ED3" FromRole="Customers" ToRole="FormaEnvio" />
           <NavigationProperty Name="Departments" Relationship="IWSModel.FK__Customers__Depar__3EDC53F0" FromRole="Customers" ToRole="Departments" />
           <NavigationProperty Name="FormaPagoSAT" Relationship="IWSModel.FK__Customers__Metho__3BFFE745" FromRole="Customers" ToRole="FormaPagoSAT" />
+          <NavigationProperty Name="CondicionesComerciales" Relationship="IWSModel.FK__Customers__Comme__41B8C09B" FromRole="Customers" ToRole="CondicionesComerciales" />
         </EntityType>
         <Association Name="FK__Customers__Packa__4A4E069C">
           <End Type="IWSModel.Paqueteria" Role="Paqueteria" Multiplicity="0..1" />
@@ -1539,6 +1607,56 @@
           <Property Name="LAST_MODIFIED_DATE" Type="DateTime" Precision="3" />
           <Property Name="LEYENDA_IMPRESA" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
         </EntityType>
+        <EntityType Name="ItemReceiptWMS">
+          <Key>
+            <PropertyRef Name="idReceipt" />
+          </Key>
+          <Property Name="type" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="createddate" Type="DateTime" Precision="3" />
+          <Property Name="entity" Type="Int32" />
+          <Property Name="location" Type="Int32" />
+          <Property Name="item" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="itemquantity" Type="Int32" />
+          <Property Name="id" Type="Int32" />
+          <Property Name="idReceipt" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="syncWMS" Type="Boolean" />
+          <Property Name="tranid" Type="Int32" />
+          <Property Name="ordertype" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="CondicionesComerciales">
+          <Key>
+            <PropertyRef Name="LIST_ID" />
+          </Key>
+          <Property Name="LIST_ID" Type="Int32" Nullable="false" />
+          <Property Name="LIST_ITEM_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="isInactive" Type="Boolean" />
+          <NavigationProperty Name="Customers" Relationship="IWSModel.FK__Customers__Comme__41B8C09B" FromRole="CondicionesComerciales" ToRole="Customers" />
+        </EntityType>
+        <Association Name="FK__Customers__Comme__41B8C09B">
+          <End Type="IWSModel.CondicionesComerciales" Role="CondicionesComerciales" Multiplicity="0..1" />
+          <End Type="IWSModel.Customers" Role="Customers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CondicionesComerciales">
+              <PropertyRef Name="LIST_ID" />
+            </Principal>
+            <Dependent Role="Customers">
+              <PropertyRef Name="CommercialTerms" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="TIPO_DE_RELACION_V3_3">
+          <Key>
+            <PropertyRef Name="TIPO_DE_RELACION_V3_3_ID" />
+          </Key>
+          <Property Name="DATE_CREATED" Type="DateTime" Precision="3" />
+          <Property Name="IS_INACTIVE" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_MODIFIED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="PARENT_ID" Type="Int32" />
+          <Property Name="TIPO_DE_RELACION_V3_3_EXTID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO_DE_RELACION_V3_3_ID" Type="Int32" Nullable="false" />
+          <Property Name="TIPO_DE_RELACION_V3_3_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO_DE_RELACION_V3_3_NUMBER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -1593,6 +1711,8 @@
           <EntitySetMapping Name="Items">
             <EntityTypeMapping TypeName="IWSModel.Items">
               <MappingFragment StoreEntitySet="Items">
+                <ScalarProperty Name="fechaUltimoRecibo" ColumnName="fechaUltimoRecibo" />
+                <ScalarProperty Name="balas" ColumnName="balas" />
                 <ScalarProperty Name="moneda" ColumnName="moneda" />
                 <ScalarProperty Name="fechaAltaIndar" ColumnName="fechaAltaIndar" />
                 <ScalarProperty Name="fechaAlta" ColumnName="fechaAlta" />
@@ -2134,6 +2254,46 @@
                 <ScalarProperty Name="FORMA_DE_PAGO_V3_3_NUMBER" ColumnName="FORMA_DE_PAGO_V3_3_NUMBER" />
                 <ScalarProperty Name="FORMA_DE_PAGO_V3_3_NAME" ColumnName="FORMA_DE_PAGO_V3_3_NAME" />
                 <ScalarProperty Name="FORMA_DE_PAGO_V3_3_ID" ColumnName="FORMA_DE_PAGO_V3_3_ID" />
+                <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ItemReceiptWMS">
+            <EntityTypeMapping TypeName="IWSModel.ItemReceiptWMS">
+              <MappingFragment StoreEntitySet="ItemReceiptWMS">
+                <ScalarProperty Name="ordertype" ColumnName="ordertype" />
+                <ScalarProperty Name="tranid" ColumnName="tranid" />
+                <ScalarProperty Name="syncWMS" ColumnName="syncWMS" />
+                <ScalarProperty Name="idReceipt" ColumnName="idReceipt" />
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="itemquantity" ColumnName="itemquantity" />
+                <ScalarProperty Name="item" ColumnName="item" />
+                <ScalarProperty Name="location" ColumnName="location" />
+                <ScalarProperty Name="entity" ColumnName="entity" />
+                <ScalarProperty Name="createddate" ColumnName="createddate" />
+                <ScalarProperty Name="type" ColumnName="type" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CondicionesComerciales">
+            <EntityTypeMapping TypeName="IWSModel.CondicionesComerciales">
+              <MappingFragment StoreEntitySet="CondicionesComerciales">
+                <ScalarProperty Name="isInactive" ColumnName="isInactive" />
+                <ScalarProperty Name="LIST_ITEM_NAME" ColumnName="LIST_ITEM_NAME" />
+                <ScalarProperty Name="LIST_ID" ColumnName="LIST_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TIPO_DE_RELACION_V3_3">
+            <EntityTypeMapping TypeName="IWSModel.TIPO_DE_RELACION_V3_3">
+              <MappingFragment StoreEntitySet="TIPO_DE_RELACION_V3_3">
+                <ScalarProperty Name="TIPO_DE_RELACION_V3_3_NUMBER" ColumnName="TIPO_DE_RELACION_V3_3_NUMBER" />
+                <ScalarProperty Name="TIPO_DE_RELACION_V3_3_NAME" ColumnName="TIPO_DE_RELACION_V3_3_NAME" />
+                <ScalarProperty Name="TIPO_DE_RELACION_V3_3_ID" ColumnName="TIPO_DE_RELACION_V3_3_ID" />
+                <ScalarProperty Name="TIPO_DE_RELACION_V3_3_EXTID" ColumnName="TIPO_DE_RELACION_V3_3_EXTID" />
+                <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
+                <ScalarProperty Name="LAST_MODIFIED_DATE" ColumnName="LAST_MODIFIED_DATE" />
+                <ScalarProperty Name="IS_INACTIVE" ColumnName="IS_INACTIVE" />
                 <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
               </MappingFragment>
             </EntityTypeMapping>
