@@ -34,6 +34,7 @@ namespace SAI_NETSUITE.Models.Transaccion
         public string memo { get; set; }
         public string formaPago { get; set; }
         public string tipoRelacion { get; set; }
+        public double amount { get; set; }
     }
 
 

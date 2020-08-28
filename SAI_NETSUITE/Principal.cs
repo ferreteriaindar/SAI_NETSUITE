@@ -486,13 +486,13 @@ namespace SAI_NETSUITE
                         cp.BringToFront();
                         break;
                     case "btnsaleorderEditor":
-                        panelControl1.Controls.Clear();
+                      /*  panelControl1.Controls.Clear();
                         Views.Ventas.Apoyos.saleOrderEditor soe = new Views.Ventas.Apoyos.saleOrderEditor()
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill
                         };
-                        soe.BringToFront();
+                        soe.BringToFront();*/
                         break;
                     case "btnReporteTimbrados":
                     panelControl1.Controls.Clear();

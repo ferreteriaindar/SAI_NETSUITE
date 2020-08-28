@@ -60,6 +60,7 @@
             DevExpress.XtraEditors.TileItemElement tileItemElement28 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement29 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement30 = new DevExpress.XtraEditors.TileItemElement();
+            DevExpress.XtraEditors.TileItemElement tileItemElement31 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement34 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement49 = new DevExpress.XtraEditors.TileItemElement();
             DevExpress.XtraEditors.TileItemElement tileItemElement35 = new DevExpress.XtraEditors.TileItemElement();
@@ -111,7 +112,6 @@
             DevExpress.XtraEditors.TileItemElement tileItemElement82 = new DevExpress.XtraEditors.TileItemElement();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Principal));
             DevExpress.XtraEditors.TileItemElement tileItemElement83 = new DevExpress.XtraEditors.TileItemElement();
-            DevExpress.XtraEditors.TileItemElement tileItemElement31 = new DevExpress.XtraEditors.TileItemElement();
             this.tileNavPane1 = new DevExpress.XtraBars.Navigation.TileNavPane();
             this.navButton2 = new DevExpress.XtraBars.Navigation.NavButton();
             this.CategoriaContabilidad = new DevExpress.XtraBars.Navigation.TileNavCategory();
@@ -146,6 +146,7 @@
             this.btnAplicarPAgos = new DevExpress.XtraBars.Navigation.TileNavSubItem();
             this.btnTimbrarPagos = new DevExpress.XtraBars.Navigation.TileNavSubItem();
             this.btnReporteTimbrados = new DevExpress.XtraBars.Navigation.TileNavSubItem();
+            this.btnAplicarNotaCredito = new DevExpress.XtraBars.Navigation.TileNavSubItem();
             this.Categoriamkt = new DevExpress.XtraBars.Navigation.TileNavCategory();
             this.CategoriaLogistica = new DevExpress.XtraBars.Navigation.TileNavCategory();
             this.tileNavItem7 = new DevExpress.XtraBars.Navigation.TileNavItem();
@@ -196,7 +197,6 @@
             this.panelControl1 = new DevExpress.XtraEditors.PanelControl();
             this.tileBarItem2 = new DevExpress.XtraBars.Navigation.TileBarItem();
             this.tileBarItem3 = new DevExpress.XtraBars.Navigation.TileBarItem();
-            this.btnAplicarNotaCredito = new DevExpress.XtraBars.Navigation.TileNavSubItem();
             ((System.ComponentModel.ISupportInitialize)(this.tileNavPane1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.panelControl1)).BeginInit();
             this.SuspendLayout();
@@ -812,6 +812,22 @@
             tileItemElement30.Text = "Reporte Timbrados";
             this.btnReporteTimbrados.Tile.Elements.Add(tileItemElement30);
             this.btnReporteTimbrados.Tile.Name = "tileBarItem1";
+            // 
+            // btnAplicarNotaCredito
+            // 
+            this.btnAplicarNotaCredito.Caption = "Aplicar Notas de Credito";
+            this.btnAplicarNotaCredito.Name = "btnAplicarNotaCredito";
+            // 
+            // 
+            // 
+            this.btnAplicarNotaCredito.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(144)))), ((int)(((byte)(206)))));
+            this.btnAplicarNotaCredito.Tile.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
+            this.btnAplicarNotaCredito.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
+            this.btnAplicarNotaCredito.Tile.AppearanceItem.Normal.Options.UseForeColor = true;
+            this.btnAplicarNotaCredito.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
+            tileItemElement31.Text = "Aplicar Notas de Credito";
+            this.btnAplicarNotaCredito.Tile.Elements.Add(tileItemElement31);
+            this.btnAplicarNotaCredito.Tile.Name = "tileBarItem1";
             // 
             // Categoriamkt
             // 
@@ -1567,22 +1583,6 @@
             tileItemElement83.Text = "Transacciones";
             this.tileBarItem3.Elements.Add(tileItemElement83);
             this.tileBarItem3.Name = "tileBarItem3";
-            // 
-            // btnAplicarNotaCredito
-            // 
-            this.btnAplicarNotaCredito.Caption = "Aplicar Notas de Credito";
-            this.btnAplicarNotaCredito.Name = "btnAplicarNotaCredito";
-            // 
-            // tileBarItem1
-            // 
-            this.btnAplicarNotaCredito.Tile.AppearanceItem.Normal.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(84)))), ((int)(((byte)(144)))), ((int)(((byte)(206)))));
-            this.btnAplicarNotaCredito.Tile.AppearanceItem.Normal.ForeColor = System.Drawing.Color.White;
-            this.btnAplicarNotaCredito.Tile.AppearanceItem.Normal.Options.UseBackColor = true;
-            this.btnAplicarNotaCredito.Tile.AppearanceItem.Normal.Options.UseForeColor = true;
-            this.btnAplicarNotaCredito.Tile.DropDownOptions.BeakColor = System.Drawing.Color.Empty;
-            tileItemElement31.Text = "Aplicar Notas de Credito";
-            this.btnAplicarNotaCredito.Tile.Elements.Add(tileItemElement31);
-            this.btnAplicarNotaCredito.Tile.Name = "tileBarItem1";
             // 
             // Principal
             // 

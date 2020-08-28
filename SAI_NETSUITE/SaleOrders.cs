@@ -50,6 +50,7 @@ namespace SAI_NETSUITE
         public string department { get; set; }
         public string zone { get; set; }
         public string cotizacion { get; set; }
+        public Nullable<bool> unificado { get; set; }
     
         public virtual ICollection<SaleOrdersDetails> SaleOrdersDetails { get; set; }
     }

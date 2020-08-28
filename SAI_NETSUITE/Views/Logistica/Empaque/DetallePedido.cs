@@ -43,17 +43,31 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
                     gridControl1.DataSource = datos.ToList();
                 }
+                if (mov.Equals("cotizacion"))
+                {
+                    using (IWSEntities ctxIWS = new IWSEntities())
+                    {
+                        var datos = from SO in ctxIWS.SaleOrders
+                                    join SOD in ctxIWS.SaleOrdersDetails on SO.internalId equals SOD.saleOrderId
+                                    join E in ctxIWS.Items on SOD.itemId equals E.id
+                                    where SO.cotizacion.Equals(movid)
+                                    select new { SO.tranId, E.itemid, SOD.quantity };
+                        gridControl1.DataSource = null;
+                        gridControl1.DataSource = datos.ToList();
+                    }
+                }
                 else
                 {
                     var datos = from o in ctx.OrdenEmbarque
                                 join pr in ctx.PedidoRenglon on o.IdOrdenEmbarque equals pr.IdOrdenEmbarque
                                 join e in ctx.Estilo on pr.IdEstilo equals e.IdEstilo
                                 where o.Consolidado.Equals(movid)
-                                select new {o.NumPedido, e.Clave, pr.CantUnitarios, pr.CantSurtida, pr.CantConsolidada, pr.CantCancelada, e.Descripcion, };
+                                select new { o.NumPedido, e.Clave, pr.CantUnitarios, pr.CantSurtida, pr.CantConsolidada, pr.CantCancelada, e.Descripcion, };
 
+                    gridControl1.DataSource = null;
                     gridControl1.DataSource = datos.ToList();
                     gridView1.Columns["NumPedido"].Group();
-           
+
 
                 }
 

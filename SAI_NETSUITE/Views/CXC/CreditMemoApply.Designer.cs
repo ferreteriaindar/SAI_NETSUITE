@@ -29,18 +29,18 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule4 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule1 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition3 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.ColumnDefinition columnDefinition4 = new DevExpress.XtraLayout.ColumnDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition8 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition9 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition10 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition11 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition12 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition13 = new DevExpress.XtraLayout.RowDefinition();
-            DevExpress.XtraLayout.RowDefinition rowDefinition14 = new DevExpress.XtraLayout.RowDefinition();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition1 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.ColumnDefinition columnDefinition2 = new DevExpress.XtraLayout.ColumnDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition1 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition2 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition3 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition4 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition5 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition6 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraLayout.RowDefinition rowDefinition7 = new DevExpress.XtraLayout.RowDefinition();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule3 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.layoutControl1 = new DevExpress.XtraLayout.LayoutControl();
             this.searchTipoRelacion = new DevExpress.XtraEditors.SearchLookUpEdit();
@@ -99,6 +99,8 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.dxValidationProvider1 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
             this.backgroundWorkerAplicar = new System.ComponentModel.BackgroundWorker();
+            this.colFacturaamount = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colNotaamount = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.layoutControl1)).BeginInit();
@@ -178,10 +180,10 @@
             this.searchTipoRelacion.Size = new System.Drawing.Size(363, 22);
             this.searchTipoRelacion.StyleController = this.layoutControl1;
             this.searchTipoRelacion.TabIndex = 11;
-            conditionValidationRule4.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.NotAnyOf;
-            conditionValidationRule4.ErrorText = "Escoge Uno";
-            conditionValidationRule4.Value1 = "";
-            this.dxValidationProvider1.SetValidationRule(this.searchTipoRelacion, conditionValidationRule4);
+            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.NotAnyOf;
+            conditionValidationRule1.ErrorText = "Escoge Uno";
+            conditionValidationRule1.Value1 = "";
+            this.dxValidationProvider1.SetValidationRule(this.searchTipoRelacion, conditionValidationRule1);
             // 
             // searchLookUpEdit3View
             // 
@@ -228,10 +230,10 @@
             this.searchFormaPago.Size = new System.Drawing.Size(363, 22);
             this.searchFormaPago.StyleController = this.layoutControl1;
             this.searchFormaPago.TabIndex = 10;
-            conditionValidationRule1.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.NotAnyOf;
-            conditionValidationRule1.ErrorText = "This value is not valid";
-            conditionValidationRule1.Value1 = "";
-            this.dxValidationProvider1.SetValidationRule(this.searchFormaPago, conditionValidationRule1);
+            conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.NotAnyOf;
+            conditionValidationRule2.ErrorText = "This value is not valid";
+            conditionValidationRule2.Value1 = "";
+            this.dxValidationProvider1.SetValidationRule(this.searchFormaPago, conditionValidationRule2);
             // 
             // searchLookUpEdit2View
             // 
@@ -314,7 +316,7 @@
             // btnAplicar
             // 
             this.btnAplicar.Appearance.BackColor = System.Drawing.Color.LightGreen;
-            this.btnAplicar.Appearance.Font = new System.Drawing.Font("Century Gothic", 13.8F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Italic))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAplicar.Appearance.Font = new System.Drawing.Font("Century Gothic", 13.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnAplicar.Appearance.ForeColor = System.Drawing.Color.White;
             this.btnAplicar.Appearance.Options.UseBackColor = true;
             this.btnAplicar.Appearance.Options.UseFont = true;
@@ -331,7 +333,7 @@
             this.btnAplicar.Location = new System.Drawing.Point(16, 174);
             this.btnAplicar.Name = "btnAplicar";
             this.btnAplicar.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
-            this.btnAplicar.Size = new System.Drawing.Size(462, 36);
+            this.btnAplicar.Size = new System.Drawing.Size(462, 34);
             this.btnAplicar.TabIndex = 9;
             this.btnAplicar.Text = "Aplicar Nota";
             this.btnAplicar.Click += new System.EventHandler(this.btnAplicar_Click);
@@ -352,35 +354,35 @@
             this.layoutControlGroup1.LayoutMode = DevExpress.XtraLayout.Utils.LayoutMode.Table;
             this.layoutControlGroup1.Name = "Root";
             this.layoutControlGroup1.OptionsItemText.TextToControlDistance = 4;
-            columnDefinition3.SizeType = System.Windows.Forms.SizeType.Percent;
-            columnDefinition3.Width = 50D;
-            columnDefinition4.SizeType = System.Windows.Forms.SizeType.Percent;
-            columnDefinition4.Width = 50D;
+            columnDefinition1.SizeType = System.Windows.Forms.SizeType.Percent;
+            columnDefinition1.Width = 50D;
+            columnDefinition2.SizeType = System.Windows.Forms.SizeType.Percent;
+            columnDefinition2.Width = 50D;
             this.layoutControlGroup1.OptionsTableLayoutGroup.ColumnDefinitions.AddRange(new DevExpress.XtraLayout.ColumnDefinition[] {
-            columnDefinition3,
-            columnDefinition4});
-            rowDefinition8.Height = 28D;
-            rowDefinition8.SizeType = System.Windows.Forms.SizeType.AutoSize;
-            rowDefinition9.Height = 28D;
-            rowDefinition9.SizeType = System.Windows.Forms.SizeType.AutoSize;
-            rowDefinition10.Height = 46D;
-            rowDefinition10.SizeType = System.Windows.Forms.SizeType.AutoSize;
-            rowDefinition11.Height = 28D;
-            rowDefinition11.SizeType = System.Windows.Forms.SizeType.AutoSize;
-            rowDefinition12.Height = 28D;
-            rowDefinition12.SizeType = System.Windows.Forms.SizeType.AutoSize;
-            rowDefinition13.Height = 42D;
-            rowDefinition13.SizeType = System.Windows.Forms.SizeType.AutoSize;
-            rowDefinition14.Height = 76D;
-            rowDefinition14.SizeType = System.Windows.Forms.SizeType.AutoSize;
+            columnDefinition1,
+            columnDefinition2});
+            rowDefinition1.Height = 28D;
+            rowDefinition1.SizeType = System.Windows.Forms.SizeType.AutoSize;
+            rowDefinition2.Height = 28D;
+            rowDefinition2.SizeType = System.Windows.Forms.SizeType.AutoSize;
+            rowDefinition3.Height = 46D;
+            rowDefinition3.SizeType = System.Windows.Forms.SizeType.AutoSize;
+            rowDefinition4.Height = 28D;
+            rowDefinition4.SizeType = System.Windows.Forms.SizeType.AutoSize;
+            rowDefinition5.Height = 28D;
+            rowDefinition5.SizeType = System.Windows.Forms.SizeType.AutoSize;
+            rowDefinition6.Height = 40D;
+            rowDefinition6.SizeType = System.Windows.Forms.SizeType.AutoSize;
+            rowDefinition7.Height = 78D;
+            rowDefinition7.SizeType = System.Windows.Forms.SizeType.AutoSize;
             this.layoutControlGroup1.OptionsTableLayoutGroup.RowDefinitions.AddRange(new DevExpress.XtraLayout.RowDefinition[] {
-            rowDefinition8,
-            rowDefinition9,
-            rowDefinition10,
-            rowDefinition11,
-            rowDefinition12,
-            rowDefinition13,
-            rowDefinition14});
+            rowDefinition1,
+            rowDefinition2,
+            rowDefinition3,
+            rowDefinition4,
+            rowDefinition5,
+            rowDefinition6,
+            rowDefinition7});
             this.layoutControlGroup1.Size = new System.Drawing.Size(494, 302);
             this.layoutControlGroup1.TextVisible = false;
             // 
@@ -446,7 +448,7 @@
             this.layoutControlItem6.Name = "layoutControlItem6";
             this.layoutControlItem6.OptionsTableLayoutItem.ColumnSpan = 2;
             this.layoutControlItem6.OptionsTableLayoutItem.RowIndex = 5;
-            this.layoutControlItem6.Size = new System.Drawing.Size(468, 42);
+            this.layoutControlItem6.Size = new System.Drawing.Size(468, 40);
             this.layoutControlItem6.TextSize = new System.Drawing.Size(0, 0);
             this.layoutControlItem6.TextVisible = false;
             // 
@@ -491,7 +493,8 @@
             this.colNotadatecreated,
             this.colNotamemo,
             this.colNotaformaPago,
-            this.colNotatipoRelacion});
+            this.colNotatipoRelacion,
+            this.colNotaamount});
             this.gridViewNota.GridControl = this.gridControlNotas;
             this.gridViewNota.Name = "gridViewNota";
             this.gridViewNota.OptionsBehavior.ReadOnly = true;
@@ -521,7 +524,7 @@
             this.colNotaamountremaining.FieldName = "amountremaining";
             this.colNotaamountremaining.Name = "colNotaamountremaining";
             this.colNotaamountremaining.Visible = true;
-            this.colNotaamountremaining.VisibleIndex = 1;
+            this.colNotaamountremaining.VisibleIndex = 2;
             // 
             // colNotadatecreated
             // 
@@ -529,7 +532,7 @@
             this.colNotadatecreated.FieldName = "datecreated";
             this.colNotadatecreated.Name = "colNotadatecreated";
             this.colNotadatecreated.Visible = true;
-            this.colNotadatecreated.VisibleIndex = 2;
+            this.colNotadatecreated.VisibleIndex = 3;
             // 
             // colNotamemo
             // 
@@ -537,7 +540,7 @@
             this.colNotamemo.FieldName = "memo";
             this.colNotamemo.Name = "colNotamemo";
             this.colNotamemo.Visible = true;
-            this.colNotamemo.VisibleIndex = 3;
+            this.colNotamemo.VisibleIndex = 4;
             // 
             // colNotaformaPago
             // 
@@ -593,9 +596,9 @@
             this.searchLookUpEdit1.Properties.ValueMember = "name";
             this.searchLookUpEdit1.Size = new System.Drawing.Size(498, 22);
             this.searchLookUpEdit1.TabIndex = 0;
-            conditionValidationRule2.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
-            conditionValidationRule2.ErrorText = "Escoge un cliente";
-            this.dxValidationProvider1.SetValidationRule(this.searchLookUpEdit1, conditionValidationRule2);
+            conditionValidationRule3.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule3.ErrorText = "Escoge un cliente";
+            this.dxValidationProvider1.SetValidationRule(this.searchLookUpEdit1, conditionValidationRule3);
             this.searchLookUpEdit1.EditValueChanged += new System.EventHandler(this.searchLookUpEdit1_EditValueChanged);
             // 
             // searchLookUpEdit1View
@@ -645,7 +648,8 @@
             this.colFacturatranid,
             this.colFacturaamountremaining,
             this.colFacturadatecreated,
-            this.colFacturaMemo});
+            this.colFacturaMemo,
+            this.colFacturaamount});
             this.gridViewFactura.GridControl = this.gridControlFacturas;
             this.gridViewFactura.Name = "gridViewFactura";
             this.gridViewFactura.OptionsBehavior.ReadOnly = true;
@@ -676,7 +680,7 @@
             this.colFacturaamountremaining.FieldName = "amountremaining";
             this.colFacturaamountremaining.Name = "colFacturaamountremaining";
             this.colFacturaamountremaining.Visible = true;
-            this.colFacturaamountremaining.VisibleIndex = 2;
+            this.colFacturaamountremaining.VisibleIndex = 3;
             // 
             // colFacturadatecreated
             // 
@@ -684,7 +688,7 @@
             this.colFacturadatecreated.FieldName = "datecreated";
             this.colFacturadatecreated.Name = "colFacturadatecreated";
             this.colFacturadatecreated.Visible = true;
-            this.colFacturadatecreated.VisibleIndex = 4;
+            this.colFacturadatecreated.VisibleIndex = 5;
             // 
             // colFacturaMemo
             // 
@@ -692,7 +696,7 @@
             this.colFacturaMemo.FieldName = "memo";
             this.colFacturaMemo.Name = "colFacturaMemo";
             this.colFacturaMemo.Visible = true;
-            this.colFacturaMemo.VisibleIndex = 3;
+            this.colFacturaMemo.VisibleIndex = 4;
             // 
             // gridControlFinal
             // 
@@ -761,6 +765,24 @@
             // 
             this.backgroundWorkerAplicar.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorkerAplicar_DoWork);
             this.backgroundWorkerAplicar.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorkerAplicar_RunWorkerCompleted);
+            // 
+            // colFacturaamount
+            // 
+            this.colFacturaamount.Caption = "Importe";
+            this.colFacturaamount.DisplayFormat.FormatString = "c";
+            this.colFacturaamount.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colFacturaamount.FieldName = "amount";
+            this.colFacturaamount.Name = "colFacturaamount";
+            this.colFacturaamount.Visible = true;
+            this.colFacturaamount.VisibleIndex = 2;
+            // 
+            // colNotaamount
+            // 
+            this.colNotaamount.Caption = "Importe";
+            this.colNotaamount.FieldName = "amount";
+            this.colNotaamount.Name = "colNotaamount";
+            this.colNotaamount.Visible = true;
+            this.colNotaamount.VisibleIndex = 1;
             // 
             // CreditMemoApply
             // 
@@ -869,5 +891,7 @@
         private DevExpress.XtraGrid.Columns.GridColumn colRelacionTIPO_DE_RELACION_V3_3_NUMBER;
         private DevExpress.XtraGrid.Columns.GridColumn colRelacionTIPO_DE_RELACION_V3_3_NAME;
         private System.ComponentModel.BackgroundWorker backgroundWorkerAplicar;
+        private DevExpress.XtraGrid.Columns.GridColumn colFacturaamount;
+        private DevExpress.XtraGrid.Columns.GridColumn colNotaamount;
     }
 }

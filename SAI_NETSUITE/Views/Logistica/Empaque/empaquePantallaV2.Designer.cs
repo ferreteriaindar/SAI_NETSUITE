@@ -32,9 +32,11 @@
             DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression1 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule2 = new DevExpress.XtraGrid.GridFormatRule();
-            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression2 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
-            DevExpress.XtraGrid.GridFormatRule gridFormatRule3 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule3 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression2 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule4 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression3 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(empaquePantallaV2));
             this.colerror = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMov = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -51,6 +53,7 @@
             this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.labelAvance = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.radioGroup1 = new DevExpress.XtraEditors.RadioGroup();
             this.btnReimprimir = new DevExpress.XtraEditors.SimpleButton();
             this.txtReimprimir = new DevExpress.XtraEditors.TextEdit();
             this.backgroundWorkerEventos = new System.ComponentModel.BackgroundWorker();
@@ -59,9 +62,11 @@
             this.toggleSwitch1 = new DevExpress.XtraEditors.ToggleSwitch();
             this.label1 = new System.Windows.Forms.Label();
             this.timerAutomatico = new System.Windows.Forms.Timer(this.components);
+            this.btnPedidoFactura = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReimprimir.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitch1.Properties)).BeginInit();
             this.SuspendLayout();
@@ -122,25 +127,33 @@
     "ue, False)";
             gridFormatRule1.Rule = formatConditionRuleExpression1;
             gridFormatRule2.ApplyToRow = true;
-            gridFormatRule2.Column = this.colerror;
-            gridFormatRule2.ColumnApplyTo = this.colerror;
-            gridFormatRule2.Name = "Terminados";
-            formatConditionRuleExpression2.Expression = "Iif(Contains([error], \'Terminado\'), True, False)";
-            formatConditionRuleExpression2.PredefinedName = "Green Fill, Green Text";
-            gridFormatRule2.Rule = formatConditionRuleExpression2;
-            gridFormatRule3.ApplyToRow = true;
-            gridFormatRule3.Column = this.colMov;
-            gridFormatRule3.Name = "Traspaso";
+            gridFormatRule2.Column = this.colMov;
+            gridFormatRule2.Name = "Traspaso";
             formatConditionRuleValue1.Appearance.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(192)))));
             formatConditionRuleValue1.Appearance.ForeColor = System.Drawing.Color.White;
             formatConditionRuleValue1.Appearance.Options.UseBackColor = true;
             formatConditionRuleValue1.Appearance.Options.UseForeColor = true;
             formatConditionRuleValue1.Condition = DevExpress.XtraEditors.FormatCondition.Expression;
             formatConditionRuleValue1.Expression = "Iif(Contains([Mov], \'Traspaso\'), True, False)";
-            gridFormatRule3.Rule = formatConditionRuleValue1;
+            gridFormatRule2.Rule = formatConditionRuleValue1;
+            gridFormatRule3.ApplyToRow = true;
+            gridFormatRule3.Column = this.colMov;
+            gridFormatRule3.ColumnApplyTo = this.colMov;
+            gridFormatRule3.Name = "cotizacion";
+            formatConditionRuleExpression2.Expression = "Iif([Mov] = \'cotizacion\', True, False)";
+            formatConditionRuleExpression2.PredefinedName = "Yellow Fill, Yellow Text";
+            gridFormatRule3.Rule = formatConditionRuleExpression2;
+            gridFormatRule4.ApplyToRow = true;
+            gridFormatRule4.Column = this.colerror;
+            gridFormatRule4.ColumnApplyTo = this.colerror;
+            gridFormatRule4.Name = "Terminados";
+            formatConditionRuleExpression3.Expression = "Iif(Contains([error], \'Terminado\'), True, False)";
+            formatConditionRuleExpression3.PredefinedName = "Green Fill, Green Text";
+            gridFormatRule4.Rule = formatConditionRuleExpression3;
             this.gridView1.FormatRules.Add(gridFormatRule1);
             this.gridView1.FormatRules.Add(gridFormatRule2);
             this.gridView1.FormatRules.Add(gridFormatRule3);
+            this.gridView1.FormatRules.Add(gridFormatRule4);
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
             this.gridView1.OptionsSelection.MultiSelect = true;
@@ -221,9 +234,11 @@
             this.btnFacturar.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnFacturar.Appearance.Options.UseBackColor = true;
             this.btnFacturar.Appearance.Options.UseFont = true;
+            this.btnFacturar.AppearanceHovered.BorderColor = System.Drawing.Color.Black;
+            this.btnFacturar.AppearanceHovered.Options.UseBorderColor = true;
             this.btnFacturar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.btnFacturar.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.gear;
-            this.btnFacturar.Location = new System.Drawing.Point(1076, 23);
+            this.btnFacturar.Location = new System.Drawing.Point(1136, 23);
             this.btnFacturar.Name = "btnFacturar";
             this.btnFacturar.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
             this.btnFacturar.Size = new System.Drawing.Size(135, 32);
@@ -241,7 +256,7 @@
             // labelAvance
             // 
             this.labelAvance.AutoSize = true;
-            this.labelAvance.Location = new System.Drawing.Point(996, 31);
+            this.labelAvance.Location = new System.Drawing.Point(1092, 31);
             this.labelAvance.Name = "labelAvance";
             this.labelAvance.Size = new System.Drawing.Size(28, 17);
             this.labelAvance.TabIndex = 4;
@@ -249,31 +264,57 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.radioGroup1);
             this.groupBox1.Controls.Add(this.btnReimprimir);
             this.groupBox1.Controls.Add(this.txtReimprimir);
-            this.groupBox1.Location = new System.Drawing.Point(198, 23);
+            this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.groupBox1.Location = new System.Drawing.Point(149, 9);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(215, 44);
+            this.groupBox1.Size = new System.Drawing.Size(425, 58);
             this.groupBox1.TabIndex = 5;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "reimprimirFactura/ConsXXXX";
+            this.groupBox1.Text = "Reimprimir";
+            // 
+            // radioGroup1
+            // 
+            this.radioGroup1.Location = new System.Drawing.Point(6, 16);
+            this.radioGroup1.Name = "radioGroup1";
+            this.radioGroup1.Properties.Appearance.BackColor = System.Drawing.Color.Transparent;
+            this.radioGroup1.Properties.Appearance.Options.UseBackColor = true;
+            this.radioGroup1.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Default;
+            this.radioGroup1.Properties.Items.AddRange(new DevExpress.XtraEditors.Controls.RadioGroupItem[] {
+            new DevExpress.XtraEditors.Controls.RadioGroupItem("1", "Factura"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem("2", "ConsXXX"),
+            new DevExpress.XtraEditors.Controls.RadioGroupItem("3", "Coti")});
+            this.radioGroup1.Size = new System.Drawing.Size(211, 35);
+            this.radioGroup1.TabIndex = 10;
             // 
             // btnReimprimir
             // 
+            this.btnReimprimir.Appearance.BackColor = System.Drawing.Color.DodgerBlue;
+            this.btnReimprimir.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReimprimir.Appearance.ForeColor = System.Drawing.Color.White;
+            this.btnReimprimir.Appearance.Options.UseBackColor = true;
+            this.btnReimprimir.Appearance.Options.UseFont = true;
+            this.btnReimprimir.Appearance.Options.UseForeColor = true;
+            this.btnReimprimir.AppearanceHovered.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnReimprimir.AppearanceHovered.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnReimprimir.AppearanceHovered.Options.UseBackColor = true;
+            this.btnReimprimir.AppearanceHovered.Options.UseFont = true;
             this.btnReimprimir.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.btnReimprimir.Location = new System.Drawing.Point(126, 15);
+            this.btnReimprimir.Location = new System.Drawing.Point(344, 14);
             this.btnReimprimir.Name = "btnReimprimir";
             this.btnReimprimir.Size = new System.Drawing.Size(75, 23);
             this.btnReimprimir.TabIndex = 1;
-            this.btnReimprimir.Text = "Imprimir";
+            this.btnReimprimir.Text = "IMPRIMIR";
             this.btnReimprimir.Click += new System.EventHandler(this.btnReimprimir_Click);
             // 
             // txtReimprimir
             // 
-            this.txtReimprimir.Location = new System.Drawing.Point(7, 18);
+            this.txtReimprimir.Location = new System.Drawing.Point(223, 15);
             this.txtReimprimir.Name = "txtReimprimir";
             this.txtReimprimir.Properties.Mask.EditMask = "f";
-            this.txtReimprimir.Size = new System.Drawing.Size(100, 22);
+            this.txtReimprimir.Size = new System.Drawing.Size(115, 22);
             this.txtReimprimir.TabIndex = 0;
             // 
             // backgroundWorkerEventos
@@ -285,7 +326,7 @@
             // 
             this.btnOleada.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.btnOleada.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnOleada.ImageOptions.Image")));
-            this.btnOleada.Location = new System.Drawing.Point(442, 31);
+            this.btnOleada.Location = new System.Drawing.Point(602, 31);
             this.btnOleada.Name = "btnOleada";
             this.btnOleada.Size = new System.Drawing.Size(88, 36);
             this.btnOleada.TabIndex = 6;
@@ -295,7 +336,7 @@
             // labelRowCount
             // 
             this.labelRowCount.AutoSize = true;
-            this.labelRowCount.Location = new System.Drawing.Point(537, 43);
+            this.labelRowCount.Location = new System.Drawing.Point(697, 43);
             this.labelRowCount.Name = "labelRowCount";
             this.labelRowCount.Size = new System.Drawing.Size(46, 17);
             this.labelRowCount.TabIndex = 7;
@@ -303,7 +344,7 @@
             // 
             // toggleSwitch1
             // 
-            this.toggleSwitch1.Location = new System.Drawing.Point(789, 29);
+            this.toggleSwitch1.Location = new System.Drawing.Point(913, 29);
             this.toggleSwitch1.Name = "toggleSwitch1";
             this.toggleSwitch1.Properties.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.toggleSwitch1.Properties.OffText = "Apagado";
@@ -316,7 +357,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(786, 9);
+            this.label1.Location = new System.Drawing.Point(910, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 17);
             this.label1.TabIndex = 9;
@@ -328,10 +369,22 @@
             this.timerAutomatico.Interval = 120000;
             this.timerAutomatico.Tick += new System.EventHandler(this.timerAutomatico_Tick);
             // 
+            // btnPedidoFactura
+            // 
+            this.btnPedidoFactura.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.btnPedidoFactura.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnPedidoFactura.ImageOptions.Image")));
+            this.btnPedidoFactura.Location = new System.Drawing.Point(769, 23);
+            this.btnPedidoFactura.Name = "btnPedidoFactura";
+            this.btnPedidoFactura.Size = new System.Drawing.Size(135, 37);
+            this.btnPedidoFactura.TabIndex = 10;
+            this.btnPedidoFactura.Text = "Pedido/Factura";
+            this.btnPedidoFactura.Click += new System.EventHandler(this.btnPedidoFactura_Click);
+            // 
             // empaquePantallaV2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.btnPedidoFactura);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.toggleSwitch1);
             this.Controls.Add(this.labelRowCount);
@@ -347,6 +400,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.radioGroup1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtReimprimir.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.toggleSwitch1.Properties)).EndInit();
             this.ResumeLayout(false);
@@ -379,5 +433,7 @@
         private DevExpress.XtraEditors.ToggleSwitch toggleSwitch1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Timer timerAutomatico;
+        private DevExpress.XtraEditors.RadioGroup radioGroup1;
+        private DevExpress.XtraEditors.SimpleButton btnPedidoFactura;
     }
 }

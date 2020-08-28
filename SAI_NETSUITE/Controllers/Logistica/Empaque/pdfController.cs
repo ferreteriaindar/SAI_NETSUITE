@@ -10,6 +10,7 @@ using DevExpress.LookAndFeel;
 
 using System.IO;
 using DevExpress.Pdf;
+using DevExpress.XtraPrinting;
 
 namespace SAI_NETSUITE.Controllers.Logistica.Empaque
 {
@@ -174,6 +175,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                         // Invoke the Ribbon Print Preview form modally, 
                         // and load the report document into it.
                         //printTool.ShowRibbonPreviewDialog();
+                       
                         printTool.Print();
 
 
@@ -233,5 +235,53 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
 
         }
 
+        public void imprimePDFyPackingCotizacion(string cotizacion, string tipo)
+        {
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                string query = @"exec iws.[dbo].[sp_ResumenEmpaqueWMSCotizacion] " + cotizacion + "," + tipo;
+                SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
+                DataSet ds = new DataSet();
+                da.Fill(ds);
+                //  ds.WriteXmlSchema(@"S:\XML\Almacen\Distribucion\ResumenEmpaque.xml");
+
+                if (tipo.Equals("1"))
+                {
+                    Views.Logistica.Empaque.ListaEmpaquePedidoCliente lpc = new Views.Logistica.Empaque.ListaEmpaquePedidoCliente();
+
+                    lpc.DataSource = ds;
+
+
+                    using (ReportPrintTool printTool = new ReportPrintTool(lpc))
+                    {
+                        
+                       
+                        printTool.Print();
+
+                        
+                       // printTool.ShowRibbonPreview(UserLookAndFeel.Default);
+
+
+                    }
+                }
+                else
+                {
+                    Views.Logistica.Empaque.ResumenEmpaqueCliente lpc = new Views.Logistica.Empaque.ResumenEmpaqueCliente();
+                    
+                  
+                         lpc.DataSource = ds;
+
+
+                    using (ReportPrintTool printTool = new ReportPrintTool(lpc))
+                    {
+
+                        
+                        printTool.Print();
+                        
+                    }
+                }
+            };
+            // ImprimeFacturaPdf(id);
+        }
     }
 }

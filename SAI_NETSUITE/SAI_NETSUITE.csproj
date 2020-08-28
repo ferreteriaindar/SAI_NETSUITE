@@ -328,6 +328,7 @@
     <Compile Include="Models\Transaccion\corrigePago.cs" />
     <Compile Include="Models\Transaccion\CreditMemoApplySearchModel.cs" />
     <Compile Include="Models\Transaccion\EmbarqueCSV.cs" />
+    <Compile Include="Models\Transaccion\GetSalesInvoiceWMSModel.cs" />
     <Compile Include="Models\Transaccion\InvoiceModel.cs" />
     <Compile Include="Models\Transaccion\IRDModel.cs" />
     <Compile Include="Models\Transaccion\IRModel.cs" />
@@ -682,6 +683,12 @@
     </Compile>
     <Compile Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.Designer.cs">
       <DependentUpon>ListaEmpaquePedidoCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\PedidoFacturaWMS.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Empaque\PedidoFacturaWMS.Designer.cs">
+      <DependentUpon>PedidoFacturaWMS.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\Logistica\Empaque\ReimprimirFactura.cs">
       <SubType>UserControl</SubType>
@@ -1091,6 +1098,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Empaque\ListaEmpaquePedidoCliente.resx">
       <DependentUpon>ListaEmpaquePedidoCliente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Empaque\PedidoFacturaWMS.resx">
+      <DependentUpon>PedidoFacturaWMS.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Empaque\ReimprimirFactura.resx">
       <DependentUpon>ReimprimirFactura.cs</DependentUpon>

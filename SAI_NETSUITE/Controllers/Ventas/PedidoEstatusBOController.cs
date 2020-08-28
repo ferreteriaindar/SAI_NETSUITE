@@ -67,9 +67,7 @@ namespace SAI_NETSUITE.Controllers.Ventas
 
                 
                 resultado = cmd.ExecuteScalar().ToString();
-                /*if (resultado.Equals("Espera 5 min a que ingrese a W") && tipo.Equals("BO"))
-                    resultado = "Cambiar el Pedido a Web";*/
-                
+              
 
             }
             return resultado;

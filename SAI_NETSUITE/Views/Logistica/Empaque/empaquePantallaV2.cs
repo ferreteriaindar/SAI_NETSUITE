@@ -56,11 +56,17 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                     {
                         gridView1.SetRowCellValue(i, colerror, epcv2.regresaNumFactura(gridView1.GetRowCellValue(i, colNumPedido).ToString()));
                     }
-                    if (gridView1.GetRowCellValue(i, colMov).ToString().Equals("Cons"))
+                    if (gridView1.GetRowCellValue(i, colMov).ToString().Equals("Cons") || gridView1.GetRowCellValue(i, colMov).ToString().Equals("cotizacion"))
                     {
+                        //REVISA SI TIENE ERROR DE IMPRESION
+                        if(TieneErrorDeImpresion(gridView1.GetRowCellValue(i,colNumPedido).ToString()))
+                            gridView1.SetRowCellValue(i, colerror, "Error Impresion");
+                        else 
                         gridView1.SetRowCellValue(i, colerror, "Timbra las Facturas");
                         // y si hacen doble click en el grid cuanto es cons  y dice "Timbra las facturas"  te las muestra.
                     }
+
+                   
                                        
                 }
             }
@@ -70,10 +76,16 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             {//SE HACE UN LOOP, si ya esta timbrada nomas la marca para que desaparezca , si no regresa el mismo error
                 if (gridView1.GetRowCellValue(i, colerror).ToString().Contains("TIMBRA") || gridView1.GetRowCellValue(i, colerror).ToString().Contains("Timbra"))
                 {
-                    gridView1.SetRowCellValue(i, colerror, epcv2.EsTimbrada(gridView1.GetRowCellValue(i, colerror).ToString(), gridView1.GetRowCellValue(i, colNumPedido).ToString()));
+                    gridView1.SetRowCellValue(i, colerror, epcv2.EsTimbrada(gridView1.GetRowCellValue(i, colerror).ToString(), gridView1.GetRowCellValue(i, colNumPedido).ToString(), gridView1.GetRowCellValue(i, colMov).ToString()));
                 }
             }
             labelRowCount.Text = gridView1.RowCount.ToString() + " renglones/" + contarPedidosPorfacturar() + " por facturar";
+        }
+
+        public bool TieneErrorDeImpresion(string v)
+        {
+            empaquePantallaControllerV2 epcv2 = new empaquePantallaControllerV2();
+            return epcv2.tieneErrorImpresion(v);
         }
 
         public string contarPedidosPorfacturar()
@@ -129,6 +141,14 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                     {
                         empaquePantallaControllerV2 epcv2 = new empaquePantallaControllerV2();
                         listaPedidos.AddRange(epcv2.regresaPedidosEnCons(gridView1.GetRowCellValue(rowHandle, colNumPedido).ToString(), gridView1.GetRowCellValue(rowHandle, colForma).ToString()));
+                    }
+
+                    if (gridView1.GetRowCellValue(rowHandle, colMov).ToString().Equals("cotizacion"))
+                    {
+
+                        empaquePantallaControllerV2 epcv2 = new empaquePantallaControllerV2();
+                        listaPedidos.AddRange(epcv2.regresaPedidosEnCotizacion(gridView1.GetRowCellValue(rowHandle, colNumPedido).ToString(), gridView1.GetRowCellValue(rowHandle, colForma).ToString()));
+
                     }
                     if (gridView1.GetRowCellValue(rowHandle, colMov).ToString().Equals("Traspaso"))  //VAS A TENER QUE HACER EL FULFILLMENT AHI
                     {
@@ -245,7 +265,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             {
                 if (!lista[i].error.Equals("NOK")) // solo agarra los que no dieron error en el webservice
                 {
-                    if (String.IsNullOrEmpty(lista[i].cons)) //PRIMERO IMPRIMIMOS  LOS PEDIDOS NORMALES
+                    if (String.IsNullOrEmpty(lista[i].cons)&& String.IsNullOrEmpty(lista[i].cotizacion)) //PRIMERO IMPRIMIMOS  LOS PEDIDOS NORMALES
                     {
                         epcv2.ReglasImprimir(lista[i]);
 
@@ -265,11 +285,52 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                 {
                     epcv2.ImprimeFactura(pedido.error, false, pedido);
                 }*/
+
+                //POR PETICION DE ARTURO VALIDAR QUE EXISTAN LAS FACTURAS ANTES DE IMPRIMIR PACKING LIST
+                if(YaestanlasFacturasenIWS(lista.Where(t => t.cons == cons && t.error != "NOK").ToList()))
                 epcv2.ReglasImprimirCons(cons, lista.Where(t => t.cons == cons && t.error != "NOK").ToList());
+                else
+                {
+                    registraErrorImpresion(cons);
+                }
 
             }
 
+            // AHORA SE IMPRIMEN LAS CONTIZACIONES
+            List<string> listaCotizacion = lista.Where(t => t.cotizacion != null)
+                                           .GroupBy(t2 => t2.cotizacion).Select(x => x.FirstOrDefault().cotizacion).ToList();
+            foreach (var cotizacion in listaCotizacion)
+            {
+                epcv2.ReglasImprimirCotizacion(cotizacion, lista.Where(t => t.cotizacion == cotizacion && t.error != "NOK").ToList());
+            }
 
+
+        }
+
+        private void registraErrorImpresion(string cons)
+        {
+            empaquePantallaControllerV2 epcv2 = new empaquePantallaControllerV2();
+            epcv2.registraErrorImpresion(cons);
+        }
+
+        public bool YaestanlasFacturasenIWS(List<pedidoFulfill> list)
+        {
+            bool completo = true;
+            using (IWSEntities ctx =new IWSEntities())
+            {
+                foreach (var pedido in list)  //PRIMERO  SE IMPRIMEN LAS FACTURAS QUE CONFORMAN  LA CONS
+                {
+                    if (!ctx.Invoices.Any(o => o.internalId.ToString().Equals(pedido.error)))
+                    {
+                        completo = false;
+                    }
+                    
+                   
+
+                }
+            }
+
+            return completo;
         }
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -288,10 +349,16 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             DXMouseEventArgs ea = e as DXMouseEventArgs;
             GridView view = sender as GridView;
             GridHitInfo info = view.CalcHitInfo(ea.Location);
+            if (gridView1.GetRowCellValue(info.RowHandle, colMov).ToString().Contains("cotizacion") && gridView1.GetRowCellValue(info.RowHandle, colerror).ToString().Contains("Timbra las Facturas"))
+            {
+                empaquePantallaControllerV2 epcV2 = new empaquePantallaControllerV2();
+                MessageBox.Show(epcV2.regresaInfoConsSinTimbrar(gridView1.GetRowCellValue(info.RowHandle, colNumPedido).ToString(), "cotizacion"));
+
+            }
             if (gridView1.GetRowCellValue(info.RowHandle, colMov).ToString().Contains("Cons") && gridView1.GetRowCellValue(info.RowHandle, colerror).ToString().Contains("Timbra las Facturas"))
             {//INDICA LAS FACTURAS DE LA CONS QUE TIENE QUE TIMBRAR
                 empaquePantallaControllerV2 epcV2 = new empaquePantallaControllerV2();
-                MessageBox.Show(epcV2.regresaInfoConsSinTimbrar(gridView1.GetRowCellValue(info.RowHandle, colNumPedido).ToString()));
+                MessageBox.Show(epcV2.regresaInfoConsSinTimbrar(gridView1.GetRowCellValue(info.RowHandle, colNumPedido).ToString(), "Cons"));
             }
             else
             {
@@ -329,11 +396,12 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
         private void btnReimprimir_Click(object sender, EventArgs e)
         {
-            if (!txtReimprimir.Text.ToUpper().Contains("CONS"))
+           // if (!txtReimprimir.Text.ToUpper().Contains("CONS"))
+           if(radioGroup1.EditValue.ToString().Equals("1"))
             {
                 Controllers.Logistica.Empaque.FacturaIndarController fic = new Controllers.Logistica.Empaque.FacturaIndarController();
                 DataSet ds = fic.regresaDatosCabecera(Convert.ToInt32(txtReimprimir.Text));
-                ds.WriteXmlSchema(@"S:\XML\Almacen\FacturaIndarSinTimbrar.xml");
+               // ds.WriteXmlSchema(@"S:\XML\Almacen\FacturaIndarSinTimbrar.xml");
                 Views.Logistica.Empaque.FacturaIndar fi = new FacturaIndar();
                 fi.DataSource = ds;
                 using (ReportPrintTool printTool = new ReportPrintTool(fi))
@@ -354,12 +422,46 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                 pdfc.imprimePDFyPacking(epcv2.regresaIDdeFactura(txtReimprimir.Text), "2");
                 pdfc.imprimePDFyPacking(epcv2.regresaIDdeFactura(txtReimprimir.Text), "1");
             }
-            else //REIMPRIME CONS
+            if(radioGroup1.EditValue.ToString().Equals("2")) //REIMPRIME CONS
             {
                 reimprimircons(txtReimprimir.Text);
             }
+            //REIMPRIMIR   COTIZACION
+            if (radioGroup1.EditValue.ToString().Equals("3"))
+                reimprimirCotizacion(txtReimprimir.Text);
+
         }
 
+
+        public void reimprimirCotizacion(string cotizacion)
+        {
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1))
+            {
+                List<pedidoFulfill> lista = new List<pedidoFulfill>();
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand("", myConnection);
+                cmd.CommandText = @"select 'cotizacion' as mov,"+cotizacion+@" as NumPedido,internalid as FacturaIndar,'' as Consolidado,FO.LIST_ITEM_NAME AS FormaEnvio
+                                     from IWS.dbo.Invoices I
+                                     inner join IWS.dbo.FormaEnvio  FO ON I.ShippingWay=FO.LIST_ID															
+                                     where  createdfrom in (select internalId from IWS.dbo.SaleOrders where cotizacion="+cotizacion+" and  syncWMS is not null)";
+                SqlDataReader sdr = cmd.ExecuteReader();
+                while (sdr.Read() && sdr.HasRows)
+                {
+                    pedidoFulfill pf = new pedidoFulfill()
+                    {
+                        cons = (string)sdr["Consolidado"],
+                        error = (string)sdr["FacturaIndar"].ToString(),
+                        formaEnvio = (string)sdr["FormaEnvio"]/*,
+                        mov = (string)sdr["mov"],
+                        movid = (string)sdr["NumPedido"]*/
+                    };
+                    lista.Add(pf);
+                }
+                if (lista.Count > 0)
+                    new empaquePantallaControllerV2().ReglasImprimirCotizacion(cotizacion,lista);
+
+            }
+        }
 
 
         public void reimprimircons(string cons)
@@ -447,6 +549,19 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                 }
                 btnFacturar_Click(null, null);
             }
+        }
+
+        private void btnPedidoFactura_Click(object sender, EventArgs e)
+        {
+            sendGetSalesInvoiceWMSModel lista = new sendGetSalesInvoiceWMSModel();
+            lista.ids = new List<string>();
+            for (int i = 0; i < gridView1.RowCount; i++)
+            {
+             
+            }
+
+            Empaque.PedidoFacturaWMS pfwms = new PedidoFacturaWMS();
+            pfwms.Show();
         }
     }
 }
