@@ -58,5 +58,17 @@ namespace SAI_NETSUITE.Controllers.CXC
 
 
         }
+
+        public string regresaNombreNetsuite(string usuario)
+        {
+            using (IWSEntities ctx = new IWSEntities())
+            {
+                var nombre = ctx.Entity.FirstOrDefault(x => x.EMAIL.Equals(usuario));
+                if (nombre == null)
+                    return "webservice";
+                else
+                return nombre.FULL_NAME.ToString();
+            }
+        }
     }
 }

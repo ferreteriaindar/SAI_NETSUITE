@@ -66,5 +66,16 @@ namespace SAI_NETSUITE.Properties {
                 return ((string)(this["SERVER87_5"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=192.168.87.7;Initial Catalog=IndarWeb;User ID=sa;Password=7Ind4r7;Con" +
+            "nect Timeout=999")]
+        public string SERVERWEB {
+            get {
+                return ((string)(this["SERVERWEB"]));
+            }
+        }
     }
 }

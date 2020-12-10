@@ -13,5 +13,13 @@ namespace SAI_NETSUITE.Models.Transaccion
         public string usuario { get; set; }
         public string apoyo { get; set; }
         public string vendedor { get; set; }
+        public List<CancelSaleOrdeModelLine> lines { get; set; }
+    }
+
+    public class CancelSaleOrdeModelLine
+    {
+        public string item { get; set; }
+        public int itemid { get; set; }
+        public int quantity { get; set; }
     }
 }

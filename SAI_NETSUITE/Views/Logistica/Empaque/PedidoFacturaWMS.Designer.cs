@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PedidoFacturaWMS));
             DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition1 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
             DevExpress.XtraEditors.TableLayout.TableColumnDefinition tableColumnDefinition2 = new DevExpress.XtraEditors.TableLayout.TableColumnDefinition();
             DevExpress.XtraEditors.TableLayout.TableRowDefinition tableRowDefinition1 = new DevExpress.XtraEditors.TableLayout.TableRowDefinition();
@@ -42,33 +43,124 @@
             DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement6 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
             DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement7 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
             DevExpress.XtraGrid.Views.Tile.TileViewItemElement tileViewItemElement8 = new DevExpress.XtraGrid.Views.Tile.TileViewItemElement();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PedidoFacturaWMS));
-            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
-            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
-            this.tileView1 = new DevExpress.XtraGrid.Views.Tile.TileView();
-            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             this.coltranPedido = new DevExpress.XtraGrid.Columns.TileViewColumn();
-            this.coltranFactura = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colstatusPedido = new DevExpress.XtraGrid.Columns.TileViewColumn();
+            this.coltranFactura = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colstatusFactura = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colFechaFactura = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colMensaje = new DevExpress.XtraGrid.Columns.TileViewColumn();
             this.colmov = new DevExpress.XtraGrid.Columns.TileViewColumn();
+            this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.btnExcel = new DevExpress.XtraEditors.SimpleButton();
+            this.simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            this.gridControl1 = new DevExpress.XtraGrid.GridControl();
+            this.tileView1 = new DevExpress.XtraGrid.Views.Tile.TileView();
+            this.backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tileView1)).BeginInit();
             this.SuspendLayout();
             // 
+            // coltranPedido
+            // 
+            this.coltranPedido.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.coltranPedido.AppearanceCell.Options.UseFont = true;
+            this.coltranPedido.Caption = "Pedido";
+            this.coltranPedido.FieldName = "tranPedido";
+            this.coltranPedido.Name = "coltranPedido";
+            this.coltranPedido.OptionsColumn.ShowCaption = true;
+            this.coltranPedido.Visible = true;
+            this.coltranPedido.VisibleIndex = 0;
+            // 
+            // colstatusPedido
+            // 
+            this.colstatusPedido.Caption = "Status";
+            this.colstatusPedido.FieldName = "statusPedido";
+            this.colstatusPedido.Name = "colstatusPedido";
+            this.colstatusPedido.OptionsColumn.ShowCaption = true;
+            this.colstatusPedido.Visible = true;
+            this.colstatusPedido.VisibleIndex = 2;
+            // 
+            // coltranFactura
+            // 
+            this.coltranFactura.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.coltranFactura.AppearanceCell.Options.UseFont = true;
+            this.coltranFactura.Caption = "Factura";
+            this.coltranFactura.FieldName = "tranFactura";
+            this.coltranFactura.Name = "coltranFactura";
+            this.coltranFactura.OptionsColumn.ShowCaption = true;
+            this.coltranFactura.Visible = true;
+            this.coltranFactura.VisibleIndex = 1;
+            // 
+            // colstatusFactura
+            // 
+            this.colstatusFactura.Caption = "Status";
+            this.colstatusFactura.FieldName = "statusFactura";
+            this.colstatusFactura.Name = "colstatusFactura";
+            this.colstatusFactura.OptionsColumn.ShowCaption = true;
+            this.colstatusFactura.Visible = true;
+            this.colstatusFactura.VisibleIndex = 3;
+            // 
+            // colFechaFactura
+            // 
+            this.colFechaFactura.Caption = "FechaFactura";
+            this.colFechaFactura.DisplayFormat.FormatString = "g";
+            this.colFechaFactura.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            this.colFechaFactura.FieldName = "FechaFactura";
+            this.colFechaFactura.Name = "colFechaFactura";
+            this.colFechaFactura.Visible = true;
+            this.colFechaFactura.VisibleIndex = 4;
+            // 
+            // colMensaje
+            // 
+            this.colMensaje.Caption = "Mensaje";
+            this.colMensaje.FieldName = "mensaje";
+            this.colMensaje.Name = "colMensaje";
+            this.colMensaje.Visible = true;
+            this.colMensaje.VisibleIndex = 5;
+            // 
+            // colmov
+            // 
+            this.colmov.Caption = "Mov:";
+            this.colmov.FieldName = "mov";
+            this.colmov.Name = "colmov";
+            this.colmov.Visible = true;
+            this.colmov.VisibleIndex = 6;
+            // 
             // groupControl1
             // 
+            this.groupControl1.Controls.Add(this.btnExcel);
             this.groupControl1.Controls.Add(this.simpleButton1);
             this.groupControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.groupControl1.Location = new System.Drawing.Point(0, 0);
             this.groupControl1.Name = "groupControl1";
             this.groupControl1.Size = new System.Drawing.Size(1141, 121);
             this.groupControl1.TabIndex = 0;
+            // 
+            // btnExcel
+            // 
+            this.btnExcel.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.btnExcel.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.xls__1_;
+            this.btnExcel.Location = new System.Drawing.Point(233, 47);
+            this.btnExcel.Name = "btnExcel";
+            this.btnExcel.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+            this.btnExcel.Size = new System.Drawing.Size(93, 51);
+            this.btnExcel.TabIndex = 1;
+            this.btnExcel.Text = "Excel";
+            this.btnExcel.Click += new System.EventHandler(this.btnExcel_Click);
+            // 
+            // simpleButton1
+            // 
+            this.simpleButton1.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.simpleButton1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.simpleButton1.Location = new System.Drawing.Point(12, 47);
+            this.simpleButton1.Name = "simpleButton1";
+            this.simpleButton1.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+            this.simpleButton1.Size = new System.Drawing.Size(202, 51);
+            this.simpleButton1.TabIndex = 0;
+            this.simpleButton1.Text = "2 horas antes";
+            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
             // 
             // gridControl1
             // 
@@ -169,88 +261,10 @@
             this.tileView1.TileTemplate.Add(tileViewItemElement8);
             this.tileView1.ItemCustomize += new DevExpress.XtraGrid.Views.Tile.TileViewItemCustomizeEventHandler(this.tileView1_ItemCustomize);
             // 
-            // simpleButton1
-            // 
-            this.simpleButton1.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.simpleButton1.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
-            this.simpleButton1.Location = new System.Drawing.Point(25, 29);
-            this.simpleButton1.Name = "simpleButton1";
-            this.simpleButton1.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
-            this.simpleButton1.Size = new System.Drawing.Size(202, 86);
-            this.simpleButton1.TabIndex = 0;
-            this.simpleButton1.Text = "2 horas antes";
-            this.simpleButton1.Click += new System.EventHandler(this.simpleButton1_Click);
-            // 
             // backgroundWorker1
             // 
             this.backgroundWorker1.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundWorker1_DoWork);
             this.backgroundWorker1.RunWorkerCompleted += new System.ComponentModel.RunWorkerCompletedEventHandler(this.backgroundWorker1_RunWorkerCompleted);
-            // 
-            // coltranPedido
-            // 
-            this.coltranPedido.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.coltranPedido.AppearanceCell.Options.UseFont = true;
-            this.coltranPedido.Caption = "Pedido";
-            this.coltranPedido.FieldName = "tranPedido";
-            this.coltranPedido.Name = "coltranPedido";
-            this.coltranPedido.OptionsColumn.ShowCaption = true;
-            this.coltranPedido.Visible = true;
-            this.coltranPedido.VisibleIndex = 0;
-            // 
-            // coltranFactura
-            // 
-            this.coltranFactura.AppearanceCell.Font = new System.Drawing.Font("Tahoma", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.coltranFactura.AppearanceCell.Options.UseFont = true;
-            this.coltranFactura.Caption = "Factura";
-            this.coltranFactura.FieldName = "tranFactura";
-            this.coltranFactura.Name = "coltranFactura";
-            this.coltranFactura.OptionsColumn.ShowCaption = true;
-            this.coltranFactura.Visible = true;
-            this.coltranFactura.VisibleIndex = 1;
-            // 
-            // colstatusPedido
-            // 
-            this.colstatusPedido.Caption = "Status";
-            this.colstatusPedido.FieldName = "statusPedido";
-            this.colstatusPedido.Name = "colstatusPedido";
-            this.colstatusPedido.OptionsColumn.ShowCaption = true;
-            this.colstatusPedido.Visible = true;
-            this.colstatusPedido.VisibleIndex = 2;
-            // 
-            // colstatusFactura
-            // 
-            this.colstatusFactura.Caption = "Status";
-            this.colstatusFactura.FieldName = "statusFactura";
-            this.colstatusFactura.Name = "colstatusFactura";
-            this.colstatusFactura.OptionsColumn.ShowCaption = true;
-            this.colstatusFactura.Visible = true;
-            this.colstatusFactura.VisibleIndex = 3;
-            // 
-            // colFechaFactura
-            // 
-            this.colFechaFactura.Caption = "FechaFactura";
-            this.colFechaFactura.DisplayFormat.FormatString = "g";
-            this.colFechaFactura.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            this.colFechaFactura.FieldName = "FechaFactura";
-            this.colFechaFactura.Name = "colFechaFactura";
-            this.colFechaFactura.Visible = true;
-            this.colFechaFactura.VisibleIndex = 4;
-            // 
-            // colMensaje
-            // 
-            this.colMensaje.Caption = "Mensaje";
-            this.colMensaje.FieldName = "mensaje";
-            this.colMensaje.Name = "colMensaje";
-            this.colMensaje.Visible = true;
-            this.colMensaje.VisibleIndex = 5;
-            // 
-            // colmov
-            // 
-            this.colmov.Caption = "Mov:";
-            this.colmov.FieldName = "mov";
-            this.colmov.Name = "colmov";
-            this.colmov.Visible = true;
-            this.colmov.VisibleIndex = 6;
             // 
             // PedidoFacturaWMS
             // 
@@ -284,5 +298,6 @@
         private DevExpress.XtraGrid.Columns.TileViewColumn colFechaFactura;
         private DevExpress.XtraGrid.Columns.TileViewColumn colMensaje;
         private DevExpress.XtraGrid.Columns.TileViewColumn colmov;
+        private DevExpress.XtraEditors.SimpleButton btnExcel;
     }
 }

@@ -100,6 +100,7 @@ namespace SAI_NETSUITE
             {
                 case "OK":
                     this.Hide();
+                    registraUltimoInicioSesion(usuario);
                     Principal p = new Principal(conString,usuario,perfil,sucursal);
                     p.Show();
 
@@ -110,9 +111,25 @@ namespace SAI_NETSUITE
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void registraUltimoInicioSesion(string usuario)
+        {
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+            {
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand("", myConnection);
+                cmd.CommandText = "update  Indarneg.dbo.sai_usuario  set ultimoInicioSesion=getdate() where  usuario=@usuario";
+                cmd.Parameters.AddWithValue("@usuario", usuario);
+                cmd.ExecuteNonQuery();
+
+            }
+        }
+
+            private void Form1_Load(object sender, EventArgs e)
         {
             txtEmail.Focus();
         }
+
+
+
     }
 }

@@ -277,6 +277,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             var pdfViewer2 = new DevExpress.XtraPdfViewer.PdfViewer();
             pdfViewer2.LoadDocument(ms);
             pdfViewer2.Print();
+            
             pdfController pdfc = new pdfController();
             if (!CONS && !reimprimir)
             {
@@ -378,9 +379,13 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             string json = JsonConvert.SerializeObject(UIM, Formatting.Indented);
             string resultado = connection.POST("api/Invoice/GetPDF", json, SAI_NETSUITE.Properties.Resources.token, true);
             respuesta r = JsonConvert.DeserializeObject<respuesta>(resultado);
-            
-            byte[] sPDFDecoded = Convert.FromBase64String(r.result);
-            return sPDFDecoded;
+
+            if (!r.result.Equals("Error al Obtener PDF"))
+            {
+                byte[] sPDFDecoded = Convert.FromBase64String(r.result);
+                return sPDFDecoded;
+            }
+            else return null;
 
         }
 

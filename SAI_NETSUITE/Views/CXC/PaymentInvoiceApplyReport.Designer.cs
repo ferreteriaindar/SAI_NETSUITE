@@ -36,6 +36,7 @@
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue1 = new DevExpress.XtraEditors.FormatConditionRuleValue();
             DevExpress.XtraGrid.GridFormatRule gridFormatRule3 = new DevExpress.XtraGrid.GridFormatRule();
             DevExpress.XtraEditors.FormatConditionRuleValue formatConditionRuleValue2 = new DevExpress.XtraEditors.FormatConditionRuleValue();
+            this.colpago = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colMensaje = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.searchLookUpEdit1 = new DevExpress.XtraEditors.SearchLookUpEdit();
@@ -47,7 +48,6 @@
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colrow = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colcustomer = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.colpago = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colnota = new DevExpress.XtraGrid.Columns.GridColumn();
             this.coluuuid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colurl = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -63,6 +63,14 @@
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemHyperLinkEdit1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // colpago
+            // 
+            this.colpago.Caption = "PAGO";
+            this.colpago.FieldName = "pago";
+            this.colpago.Name = "colpago";
+            this.colpago.Visible = true;
+            this.colpago.VisibleIndex = 1;
             // 
             // colMensaje
             // 
@@ -202,14 +210,6 @@
             this.colcustomer.Name = "colcustomer";
             this.colcustomer.Visible = true;
             this.colcustomer.VisibleIndex = 0;
-            // 
-            // colpago
-            // 
-            this.colpago.Caption = "PAGO";
-            this.colpago.FieldName = "pago";
-            this.colpago.Name = "colpago";
-            this.colpago.Visible = true;
-            this.colpago.VisibleIndex = 1;
             // 
             // colnota
             // 

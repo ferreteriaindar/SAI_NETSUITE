@@ -60,5 +60,14 @@ namespace SAI_NETSUITE
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<spReporteOrdenCobro_Result1>("spReporteOrdenCobro", iDParameter);
         }
+    
+        public virtual ObjectResult<string> spLiberaUsuarioWMS(string usuario)
+        {
+            var usuarioParameter = usuario != null ?
+                new ObjectParameter("usuario", usuario) :
+                new ObjectParameter("usuario", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<string>("spLiberaUsuarioWMS", usuarioParameter);
+        }
     }
 }

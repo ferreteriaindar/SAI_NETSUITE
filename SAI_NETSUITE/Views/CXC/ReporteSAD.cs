@@ -29,11 +29,19 @@ namespace SAI_NETSUITE.Views.CXC
             DataSet ds = new DataSet();
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"SELECT e.NAME, C.companyId,ZI.NSO___ZONAS_CLIENTES_NAME AS Zona, S.pedido,S.usuario,S.fecha,S.excepcion,S.comentario,I.TranId AS Factura,
+                /* string query = @"SELECT e.NAME, C.companyId,ZI.NSO___ZONAS_CLIENTES_NAME AS Zona, S.pedido,S.usuario,S.fecha,S.excepcion,S.comentario,I.TranId AS Factura,
+                                 S.cxcMonto,S.cxcAgente,S.cxcFecha,S.cxcComentario,S.validaAgente,S.validadFecha
+                                 FROM Indarneg.dbo.SAD  S
+                                 INNER  JOIN IWS.dbo.Invoices I ON S.pedidoID=I.createdfrom
+                                 INNER JOIN IWS.DBO.SaleOrders SO ON I.createdfrom=SO.internalId
+                                 INNER JOIN IWS.DBO.Customers C ON SO.idCustomer=C.internalid
+                                 INNER JOIN IWS.DBO.ZonasIndar ZI on C.customerZone=ZI.NSO___ZONAS_CLIENTES_ID
+                                 INNER JOIN IWS.DBO.Entity E on zi.AGENTE_COBRADOR_ID=e.ENTITY_ID";*/
+                string query = @"SELECT e.NAME, C.companyId,ZI.NSO___ZONAS_CLIENTES_NAME AS Zona, S.pedido,S.usuario,S.fecha,S.excepcion,S.comentario,Factura=ISNULL((SELECT tranId FROM IWS.dbo.Invoices WHERE createdfrom=S.pedidoID),NULL),
                                 S.cxcMonto,S.cxcAgente,S.cxcFecha,S.cxcComentario,S.validaAgente,S.validadFecha
                                 FROM Indarneg.dbo.SAD  S
-                                INNER  JOIN IWS.dbo.Invoices I ON S.pedidoID=I.createdfrom
-                                INNER JOIN IWS.DBO.SaleOrders SO ON I.createdfrom=SO.internalId
+                             ---   left   JOIN IWS.dbo.Invoices I ON S.pedidoID=I.createdfrom
+                                INNER JOIN IWS.DBO.SaleOrders SO ON S.pedidoID=SO.internalId
                                 INNER JOIN IWS.DBO.Customers C ON SO.idCustomer=C.internalid
                                 INNER JOIN IWS.DBO.ZonasIndar ZI on C.customerZone=ZI.NSO___ZONAS_CLIENTES_ID
                                 INNER JOIN IWS.DBO.Entity E on zi.AGENTE_COBRADOR_ID=e.ENTITY_ID";

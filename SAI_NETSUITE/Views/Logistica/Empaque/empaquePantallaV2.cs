@@ -475,7 +475,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
                 SqlDataReader sdr = cmd.ExecuteReader();
                 while (sdr.Read() && sdr.HasRows)
                 {
-                    pedidoFulfill pf = new pedidoFulfill()
+                        pedidoFulfill pf = new pedidoFulfill()
                     {
                         cons = (string)sdr["Consolidado"],
                         error =(string) sdr["FacturaIndar"],

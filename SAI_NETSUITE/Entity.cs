@@ -59,6 +59,7 @@ namespace SAI_NETSUITE
         public string ENTITY_EXTID { get; set; }
         public int ENTITY_ID { get; set; }
         public string ENTITY_TYPE { get; set; }
+        public Nullable<int> ESTATUS_CLIENTE_INDAR_ID { get; set; }
         public string ES_AGENTE { get; set; }
         public Nullable<int> FAMILIA_ID { get; set; }
         public Nullable<System.DateTime> FECHA_DE_CUMPLEAOS { get; set; }
@@ -97,6 +98,7 @@ namespace SAI_NETSUITE
         public string NOMBRE_COMERCIAL { get; set; }
         public string NOMBRE_EXTRANJERO_DIOT { get; set; }
         public string NOTES { get; set; }
+        public string NO_BORRAR { get; set; }
         public string NO_PROSPECTO { get; set; }
         public string NUMERO_ID_FISCAL_EXTRANJERO { get; set; }
         public string NUMREGIDTRIB { get; set; }
@@ -143,7 +145,6 @@ namespace SAI_NETSUITE
         public Nullable<int> VAT_REGISTRATION_NO { get; set; }
         public string ZIPCODE { get; set; }
         public string ZONA_ID { get; set; }
-        public Nullable<int> ESTATUS_CLIENTE_INDAR_ID { get; set; }
-        public string NO_BORRAR { get; set; }
+        public Nullable<int> PAQUETERIA_DISTRIBUCION_ID { get; set; }
     }
 }

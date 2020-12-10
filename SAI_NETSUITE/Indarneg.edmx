@@ -134,6 +134,8 @@
           <Property Name="estatus" Type="nvarchar" MaxLength="4" />
           <Property Name="sucursal" Type="nvarchar" MaxLength="50" />
           <Property Name="area" Type="nvarchar" MaxLength="25" />
+          <Property Name="password" Type="nvarchar" MaxLength="200" />
+          <Property Name="ultimoInicioSesion" Type="datetime" />
         </EntityType>
         <Association Name="FK_EmbarquesD_Embarques">
           <End Role="Embarques" Type="Self.Embarques" Multiplicity="1" />
@@ -184,6 +186,9 @@
           </ReferentialConstraint>
         </Association>
         <Function Name="spEmpaquePantallaNetsuite" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="spLiberaUsuarioWMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="usuario" Type="nvarchar" Mode="In" />
+        </Function>
         <Function Name="spReporteOrdenCobro" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="ID" Type="int" Mode="In" />
         </Function>
@@ -256,6 +261,9 @@
             <End Role="Embarques" EntitySet="Embarques" />
             <End Role="EmbarquesD" EntitySet="EmbarquesD" />
           </AssociationSet>
+          <FunctionImport Name="spLiberaUsuarioWMS" ReturnType="Collection(String)">
+            <Parameter Name="usuario" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <EntityType Name="NumeroGuiaNetsuite">
           <Key>
@@ -289,6 +297,8 @@
           <Property Name="estatus" Type="String" MaxLength="4" FixedLength="false" Unicode="true" />
           <Property Name="sucursal" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="area" Type="String" MaxLength="25" FixedLength="false" Unicode="true" />
+          <Property Name="password" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ultimoInicioSesion" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Embarques">
           <Key>
@@ -502,6 +512,8 @@
           <EntitySetMapping Name="sai_usuario">
             <EntityTypeMapping TypeName="IndarnegModel.sai_usuario">
               <MappingFragment StoreEntitySet="sai_usuario">
+                <ScalarProperty Name="ultimoInicioSesion" ColumnName="ultimoInicioSesion" />
+                <ScalarProperty Name="password" ColumnName="password" />
                 <ScalarProperty Name="area" ColumnName="area" />
                 <ScalarProperty Name="sucursal" ColumnName="sucursal" />
                 <ScalarProperty Name="estatus" ColumnName="estatus" />
@@ -645,6 +657,7 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="spLiberaUsuarioWMS" FunctionName="IndarnegModel.Store.spLiberaUsuarioWMS" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

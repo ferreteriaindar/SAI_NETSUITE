@@ -53,6 +53,7 @@
           <Property Name="ValidacionCapturaReabasto" Type="bit" />
           <Property Name="MultiploVenta" Type="int" />
           <Property Name="CaoticaPick" Type="bit" />
+          <Property Name="DemandaDiaria" Type="float" />
         </EntityType>
         <EntityType Name="OrdenEmbarque">
           <Key>
@@ -130,6 +131,44 @@
           <Property Name="CantConsolidada" Type="float" />
           <Property Name="CantEmpacada" Type="float" />
         </EntityType>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="100" />
+          <Property Name="Usuario" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="Contrasenia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="IdPerfil" Type="smallint" />
+          <Property Name="Activo" Type="bit" Nullable="false" />
+          <Property Name="FechaActualizado" Type="datetime" Nullable="false" />
+          <Property Name="IdUsuarioActualiza" Type="int" Nullable="false" />
+          <Property Name="IDTIPOUSUARIO" Type="tinyint" />
+        </EntityType>
+        <Association Name="FK_Estilo_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="Estilo" Type="Self.Estilo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Estilo">
+              <PropertyRef Name="IdUsuarioActualiza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdenEmbarque_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="OrdenEmbarque" Type="Self.OrdenEmbarque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="OrdenEmbarque">
+              <PropertyRef Name="IdUsuarioActualiza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_PedidoRenglon_Estilo">
           <End Role="Estilo" Type="Self.Estilo" Multiplicity="0..1" />
           <End Role="PedidoRenglon" Type="Self.PedidoRenglon" Multiplicity="*" />
@@ -154,16 +193,41 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_PedidoRenglon_Usuario">
+          <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
+          <End Role="PedidoRenglon" Type="Self.PedidoRenglon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="PedidoRenglon">
+              <PropertyRef Name="IdUsuarioActualiza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="INDAR_INACTIONWMSModelStoreContainer">
           <EntitySet Name="Estilo" EntityType="Self.Estilo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdenEmbarque" EntityType="Self.OrdenEmbarque" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PedidoRenglon" EntityType="Self.PedidoRenglon" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Estilo_Usuario" Association="Self.FK_Estilo_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Estilo" EntitySet="Estilo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenEmbarque_Usuario" Association="Self.FK_OrdenEmbarque_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="OrdenEmbarque" EntitySet="OrdenEmbarque" />
+          </AssociationSet>
           <AssociationSet Name="FK_PedidoRenglon_Estilo" Association="Self.FK_PedidoRenglon_Estilo">
             <End Role="Estilo" EntitySet="Estilo" />
             <End Role="PedidoRenglon" EntitySet="PedidoRenglon" />
           </AssociationSet>
           <AssociationSet Name="FK_PedidoRenglon_OrdenEmbarque" Association="Self.FK_PedidoRenglon_OrdenEmbarque">
             <End Role="OrdenEmbarque" EntitySet="OrdenEmbarque" />
+            <End Role="PedidoRenglon" EntitySet="PedidoRenglon" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoRenglon_Usuario" Association="Self.FK_PedidoRenglon_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PedidoRenglon" EntitySet="PedidoRenglon" />
           </AssociationSet>
         </EntityContainer>
@@ -211,6 +275,7 @@
           <Property Name="IdUsuarioCancela" Type="Int32" />
           <Property Name="FechaCancelacion" Type="DateTime" Precision="3" />
           <NavigationProperty Name="PedidoRenglon" Relationship="Self.FK_PedidoRenglon_OrdenEmbarque" FromRole="OrdenEmbarque" ToRole="PedidoRenglon" />
+          <NavigationProperty Name="Usuario" Relationship="INDAR_INACTIONWMSModel.FK_OrdenEmbarque_Usuario" FromRole="OrdenEmbarque" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="PedidoRenglon">
           <Key>
@@ -249,6 +314,7 @@
           <Property Name="CantEmpacada" Type="Double" />
           <NavigationProperty Name="OrdenEmbarque" Relationship="Self.FK_PedidoRenglon_OrdenEmbarque" FromRole="PedidoRenglon" ToRole="OrdenEmbarque" />
           <NavigationProperty Name="Estilo" Relationship="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Estilo" FromRole="PedidoRenglon" ToRole="Estilo" />
+          <NavigationProperty Name="Usuario" Relationship="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Usuario" FromRole="PedidoRenglon" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK_PedidoRenglon_OrdenEmbarque">
           <End Role="OrdenEmbarque" Type="Self.OrdenEmbarque" Multiplicity="0..1" />
@@ -272,6 +338,19 @@
           <EntitySet Name="Estilo" EntityType="INDAR_INACTIONWMSModel.Estilo" />
           <AssociationSet Name="FK_PedidoRenglon_Estilo" Association="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Estilo">
             <End Role="Estilo" EntitySet="Estilo" />
+            <End Role="PedidoRenglon" EntitySet="PedidoRenglon" />
+          </AssociationSet>
+          <EntitySet Name="Usuario" EntityType="INDAR_INACTIONWMSModel.Usuario" />
+          <AssociationSet Name="FK_Estilo_Usuario" Association="INDAR_INACTIONWMSModel.FK_Estilo_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="Estilo" EntitySet="Estilo" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OrdenEmbarque_Usuario" Association="INDAR_INACTIONWMSModel.FK_OrdenEmbarque_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
+            <End Role="OrdenEmbarque" EntitySet="OrdenEmbarque" />
+          </AssociationSet>
+          <AssociationSet Name="FK_PedidoRenglon_Usuario" Association="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Usuario">
+            <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PedidoRenglon" EntitySet="PedidoRenglon" />
           </AssociationSet>
         </EntityContainer>
@@ -324,6 +403,8 @@
           <Property Name="MultiploVenta" Type="Int32" />
           <Property Name="CaoticaPick" Type="Boolean" />
           <NavigationProperty Name="PedidoRenglon" Relationship="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Estilo" FromRole="Estilo" ToRole="PedidoRenglon" />
+          <Property Name="DemandaDiaria" Type="Double" />
+          <NavigationProperty Name="Usuario" Relationship="INDAR_INACTIONWMSModel.FK_Estilo_Usuario" FromRole="Estilo" ToRole="Usuario" />
         </EntityType>
         <Association Name="FK_PedidoRenglon_Estilo">
           <End Type="INDAR_INACTIONWMSModel.Estilo" Role="Estilo" Multiplicity="0..1" />
@@ -334,6 +415,59 @@
             </Principal>
             <Dependent Role="PedidoRenglon">
               <PropertyRef Name="IdEstilo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Usuario">
+          <Key>
+            <PropertyRef Name="IdUsuario" />
+          </Key>
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Usuario1" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="Contrasenia" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IdPerfil" Type="Int16" />
+          <Property Name="Activo" Type="Boolean" Nullable="false" />
+          <Property Name="FechaActualizado" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IdUsuarioActualiza" Type="Int32" Nullable="false" />
+          <Property Name="IDTIPOUSUARIO" Type="Byte" />
+          <NavigationProperty Name="Estilo" Relationship="INDAR_INACTIONWMSModel.FK_Estilo_Usuario" FromRole="Usuario" ToRole="Estilo" />
+          <NavigationProperty Name="OrdenEmbarque" Relationship="INDAR_INACTIONWMSModel.FK_OrdenEmbarque_Usuario" FromRole="Usuario" ToRole="OrdenEmbarque" />
+          <NavigationProperty Name="PedidoRenglon" Relationship="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Usuario" FromRole="Usuario" ToRole="PedidoRenglon" />
+        </EntityType>
+        <Association Name="FK_Estilo_Usuario">
+          <End Type="INDAR_INACTIONWMSModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="INDAR_INACTIONWMSModel.Estilo" Role="Estilo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="Estilo">
+              <PropertyRef Name="IdUsuarioActualiza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OrdenEmbarque_Usuario">
+          <End Type="INDAR_INACTIONWMSModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="INDAR_INACTIONWMSModel.OrdenEmbarque" Role="OrdenEmbarque" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="OrdenEmbarque">
+              <PropertyRef Name="IdUsuarioActualiza" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PedidoRenglon_Usuario">
+          <End Type="INDAR_INACTIONWMSModel.Usuario" Role="Usuario" Multiplicity="1" />
+          <End Type="INDAR_INACTIONWMSModel.PedidoRenglon" Role="PedidoRenglon" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuario">
+              <PropertyRef Name="IdUsuario" />
+            </Principal>
+            <Dependent Role="PedidoRenglon">
+              <PropertyRef Name="IdUsuarioActualiza" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -424,6 +558,7 @@
           <EntitySetMapping Name="Estilo">
             <EntityTypeMapping TypeName="INDAR_INACTIONWMSModel.Estilo">
               <MappingFragment StoreEntitySet="Estilo">
+                <ScalarProperty Name="DemandaDiaria" ColumnName="DemandaDiaria" />
                 <ScalarProperty Name="CaoticaPick" ColumnName="CaoticaPick" />
                 <ScalarProperty Name="MultiploVenta" ColumnName="MultiploVenta" />
                 <ScalarProperty Name="ValidacionCapturaReabasto" ColumnName="ValidacionCapturaReabasto" />
@@ -468,6 +603,21 @@
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdLinea" ColumnName="IdLinea" />
                 <ScalarProperty Name="IdEstilo" ColumnName="IdEstilo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuario">
+            <EntityTypeMapping TypeName="INDAR_INACTIONWMSModel.Usuario">
+              <MappingFragment StoreEntitySet="Usuario">
+                <ScalarProperty Name="IDTIPOUSUARIO" ColumnName="IDTIPOUSUARIO" />
+                <ScalarProperty Name="IdUsuarioActualiza" ColumnName="IdUsuarioActualiza" />
+                <ScalarProperty Name="FechaActualizado" ColumnName="FechaActualizado" />
+                <ScalarProperty Name="Activo" ColumnName="Activo" />
+                <ScalarProperty Name="IdPerfil" ColumnName="IdPerfil" />
+                <ScalarProperty Name="Contrasenia" ColumnName="Contrasenia" />
+                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

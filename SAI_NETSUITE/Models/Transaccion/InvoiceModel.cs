@@ -19,7 +19,7 @@ namespace SAI_NETSUITE.Models.Transaccion
         public double TaxTotal { get; set; }
         public double Total { get; set; }
         public double DescuentoTotalImporte { get; set; }
-        public int DescuentoTotalPP { get; set; }
+        public decimal? DescuentoTotalPP { get; set; }
         public string DescuentoEspecial { get; set; }
         public string DescuentoEvento { get; set; }
         public string AutorizacionEspecial { get; set; }

@@ -14,7 +14,6 @@
         <EntityTypeShape EntityType="IWSModel.Eventos" Width="1.5" PointX="10.5" PointY="2.875" />
         <EntityTypeShape EntityType="IWSModel.CustomerType" Width="1.5" PointX="7.125" PointY="4.75" />
         <EntityTypeShape EntityType="IWSModel.Territorios" Width="1.5" PointX="5.375" PointY="7.75" />
-        <EntityTypeShape EntityType="IWSModel.Entity" Width="1.5" PointX="12.375" PointY="5.75" />
         <EntityTypeShape EntityType="IWSModel.IRD" Width="1.5" PointX="5.625" PointY="12.75" />
         <EntityTypeShape EntityType="IWSModel.IR" Width="1.5" PointX="3.375" PointY="12.875" />
         <AssociationConnector Association="IWSModel.FK_EmbarquesD_Embarques" />
@@ -36,14 +35,15 @@
         <EntityTypeShape EntityType="IWSModel.errorTimbradoPago" Width="1.5" PointX="0.75" PointY="11.75" />
         <EntityTypeShape EntityType="IWSModel.FormaPagoSAT" Width="1.5" PointX="0.75" PointY="14.875" />
         <AssociationConnector Association="IWSModel.FK__Customers__Metho__3BFFE745" />
-        <EntityTypeShape EntityType="IWSModel.Invoices" Width="1.5" PointX="19.375" PointY="3.25" />
-        <AssociationConnector Association="IWSModel.FK_InvoicesDetail_Invoices" />
         <EntityTypeShape EntityType="IWSModel.OleadaFacturacion" Width="1.5" PointX="13.375" PointY="0.75" />
         <EntityTypeShape EntityType="IWSModel.FORMA_DE_PAGO_V3_3" Width="1.5" PointX="14.375" PointY="8.75" />
         <EntityTypeShape EntityType="IWSModel.ItemReceiptWMS" Width="1.5" PointX="5.375" PointY="16.75" />
         <EntityTypeShape EntityType="IWSModel.CondicionesComerciales" Width="1.5" PointX="12.5" PointY="41" />
         <AssociationConnector Association="IWSModel.FK__Customers__Comme__41B8C09B" />
         <EntityTypeShape EntityType="IWSModel.TIPO_DE_RELACION_V3_3" Width="1.5" PointX="7.375" PointY="16.75" />
+        <EntityTypeShape EntityType="IWSModel.Invoices" Width="1.5" PointX="14.375" PointY="43.625" />
+        <AssociationConnector Association="IWSModel.FK_InvoicesDetail_Invoices" />
+        <EntityTypeShape EntityType="IWSModel.Entity" Width="1.5" PointX="17.375" PointY="8.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

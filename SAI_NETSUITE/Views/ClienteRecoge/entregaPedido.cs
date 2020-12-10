@@ -118,7 +118,7 @@ namespace SAI_NETSUITE.Views.ClienteRecoge
 
             string query;
             if(checkGDL.Checked)
-               query= "select * from indarneg.dbo.almacencterecoge where cliente='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "' and estatus='ALMACEN CTE REC' AND CHECK1 IS NULL and sucursal='7' ";
+               query= "select * from indarneg.dbo.almacencterecoge where cliente='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "' and estatus='ALMACEN CTE REC' AND CHECK1 IS NULL and sucursal in ('7','GDL07') ";
             else
                 query = "select * from indarneg.dbo.almacencterecoge where cliente='" + gridView4.GetFocusedRowCellValue(colcliente).ToString() + "' and estatus='ALMACEN CTE REC' AND CHECK1 IS NULL  and (sucursal='1' OR sucursal IS NULL)";
 

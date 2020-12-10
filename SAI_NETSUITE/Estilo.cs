@@ -64,8 +64,10 @@ namespace SAI_NETSUITE
         public Nullable<bool> ValidacionCapturaReabasto { get; set; }
         public Nullable<int> MultiploVenta { get; set; }
         public Nullable<bool> CaoticaPick { get; set; }
+        public Nullable<double> DemandaDiaria { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PedidoRenglon> PedidoRenglon { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

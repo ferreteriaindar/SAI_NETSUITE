@@ -450,7 +450,7 @@ namespace SAI_NETSUITE
                         break;
                     case "btnAplicarPAgos":
                         panelControl1.Controls.Clear();
-                        Views.CXC.PaymentInvoiceApply pia = new Views.CXC.PaymentInvoiceApply()
+                        Views.CXC.PaymentInvoiceApply pia = new Views.CXC.PaymentInvoiceApply(usuario)
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill
@@ -486,13 +486,13 @@ namespace SAI_NETSUITE
                         cp.BringToFront();
                         break;
                     case "btnsaleorderEditor":
-                      /*  panelControl1.Controls.Clear();
+                        panelControl1.Controls.Clear();
                         Views.Ventas.Apoyos.saleOrderEditor soe = new Views.Ventas.Apoyos.saleOrderEditor()
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill
                         };
-                        soe.BringToFront();*/
+                        soe.BringToFront();
                         break;
                     case "btnReporteTimbrados":
                     panelControl1.Controls.Clear();
@@ -525,6 +525,57 @@ namespace SAI_NETSUITE
                         };
                         cma.BringToFront();
                         break;
+
+                    case "btnDesgloseMOV":
+                        panelControl1.Controls.Clear();
+                        Views.Compras.Reportes.DesgloseMovimientosQV dmqv = new Views.Compras.Reportes.DesgloseMovimientosQV()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        dmqv.BringToFront();
+                        break;
+
+                    case "btnCancelarArticuloPedido":
+                        panelControl1.Controls.Clear();
+                        Views.Compras.CancelarBOCompras CBo = new Views.Compras.CancelarBOCompras(usuario)
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        CBo.BringToFront();
+                        break;
+                    case "btnComprasActualizaBases":
+                        panelControl1.Controls.Clear();
+                        Views.Compras.ActualizaBasesCompras abc = new Views.Compras.ActualizaBasesCompras()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+
+                        };
+                        abc.BringToFront();
+                        break;
+                    case "btnLiberaUsuario":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Empaque.LiberarUsuarioWMS luwms = new Views.Logistica.Empaque.LiberarUsuarioWMS()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        luwms.BringToFront();
+                        break;
+                    case "btnCapturaGastoFletera":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Distribucion.GastoFleteras gf = new Views.Logistica.Distribucion.GastoFleteras()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        gf.BringToFront();
+                        break;
+
+
+
                     default:
                     
 

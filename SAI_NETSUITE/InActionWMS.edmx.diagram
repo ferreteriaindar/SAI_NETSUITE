@@ -4,12 +4,16 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="25c50f9aa83b48868e9f5511fac52b45" Name="Diagram1" ZoomLevel="61">
+      <Diagram DiagramId="25c50f9aa83b48868e9f5511fac52b45" Name="Diagram1" ZoomLevel="57">
         <EntityTypeShape EntityType="INDAR_INACTIONWMSModel.OrdenEmbarque" Width="1.5" PointX="0.75" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="INDAR_INACTIONWMSModel.PedidoRenglon" Width="1.5" PointX="3" PointY="1.625" IsExpanded="true" />
         <AssociationConnector Association="INDAR_INACTIONWMSModel.FK_PedidoRenglon_OrdenEmbarque" ManuallyRouted="false" />
         <EntityTypeShape EntityType="INDAR_INACTIONWMSModel.Estilo" Width="1.5" PointX="5.375" PointY="1.25" />
         <AssociationConnector Association="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Estilo" />
+        <EntityTypeShape EntityType="INDAR_INACTIONWMSModel.Usuario" Width="1.5" PointX="9.125" PointY="5.25" />
+        <AssociationConnector Association="INDAR_INACTIONWMSModel.FK_Estilo_Usuario" />
+        <AssociationConnector Association="INDAR_INACTIONWMSModel.FK_OrdenEmbarque_Usuario" />
+        <AssociationConnector Association="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Usuario" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

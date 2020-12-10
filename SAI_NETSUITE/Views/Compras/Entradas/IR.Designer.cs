@@ -29,7 +29,11 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(IR));
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
+            DevExpress.XtraEditors.FormatConditionRuleExpression formatConditionRuleExpression1 = new DevExpress.XtraEditors.FormatConditionRuleExpression();
+            this.colCategoria = new DevExpress.XtraGrid.Columns.GridColumn();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
+            this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
             this.txtReimprimir = new DevExpress.XtraEditors.TextEdit();
             this.btnEnviar = new DevExpress.XtraEditors.SimpleButton();
             this.btnActualizar = new DevExpress.XtraEditors.SimpleButton();
@@ -43,13 +47,20 @@
             this.colVendor = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colitemid = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colCantidad = new DevExpress.XtraGrid.Columns.GridColumn();
-            this.btnEliminar = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtReimprimir.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             this.SuspendLayout();
+            // 
+            // colCategoria
+            // 
+            this.colCategoria.Caption = "Categoria";
+            this.colCategoria.FieldName = "LIST_ITEM_NAME";
+            this.colCategoria.Name = "colCategoria";
+            this.colCategoria.Visible = true;
+            this.colCategoria.VisibleIndex = 5;
             // 
             // groupControl1
             // 
@@ -66,6 +77,17 @@
             this.groupControl1.Size = new System.Drawing.Size(1291, 100);
             this.groupControl1.TabIndex = 0;
             this.groupControl1.Text = "Controles";
+            // 
+            // btnEliminar
+            // 
+            this.btnEliminar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.btnEliminar.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.Error_icon;
+            this.btnEliminar.Location = new System.Drawing.Point(957, 29);
+            this.btnEliminar.Name = "btnEliminar";
+            this.btnEliminar.Size = new System.Drawing.Size(125, 65);
+            this.btnEliminar.TabIndex = 4;
+            this.btnEliminar.Text = "Eliminar";
+            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
             // 
             // txtReimprimir
             // 
@@ -133,7 +155,15 @@
             this.colLocation,
             this.colVendor,
             this.colitemid,
-            this.colCantidad});
+            this.colCantidad,
+            this.colCategoria});
+            gridFormatRule1.ApplyToRow = true;
+            gridFormatRule1.Column = this.colCategoria;
+            gridFormatRule1.Name = "insumos";
+            formatConditionRuleExpression1.Expression = "Iif([LIST_ITEM_NAME] = \'INSUMOS\', True, False)";
+            formatConditionRuleExpression1.PredefinedName = "Green Fill";
+            gridFormatRule1.Rule = formatConditionRuleExpression1;
+            this.gridView1.FormatRules.Add(gridFormatRule1);
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.GroupCount = 1;
             this.gridView1.Name = "gridView1";
@@ -194,17 +224,6 @@
             this.colCantidad.FieldName = "itemquantity";
             this.colCantidad.Name = "colCantidad";
             // 
-            // btnEliminar
-            // 
-            this.btnEliminar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
-            this.btnEliminar.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.Error_icon;
-            this.btnEliminar.Location = new System.Drawing.Point(957, 29);
-            this.btnEliminar.Name = "btnEliminar";
-            this.btnEliminar.Size = new System.Drawing.Size(125, 65);
-            this.btnEliminar.TabIndex = 4;
-            this.btnEliminar.Text = "Eliminar";
-            this.btnEliminar.Click += new System.EventHandler(this.btnEliminar_Click);
-            // 
             // IR
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -240,5 +259,6 @@
         private DevExpress.XtraEditors.TextEdit txtReimprimir;
         private DevExpress.XtraGrid.Columns.GridColumn colCantidad;
         private DevExpress.XtraEditors.SimpleButton btnEliminar;
+        private DevExpress.XtraGrid.Columns.GridColumn colCategoria;
     }
 }

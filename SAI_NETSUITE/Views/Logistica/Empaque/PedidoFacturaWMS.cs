@@ -11,6 +11,7 @@ using DevExpress.XtraEditors;
 using System.Data.SqlClient;
 using SAI_NETSUITE.Models.Transaccion;
 using Newtonsoft.Json;
+using System.Diagnostics;
 
 namespace SAI_NETSUITE.Views.Logistica.Empaque
 {
@@ -113,6 +114,18 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             if (tileView1.GetRowCellValue(e.RowHandle, coltranFactura).ToString().Equals(""))
                 e.Item.Elements[6].Appearance.Normal.BackColor = Color.Red;
             else e.Item.Elements[6].Appearance.Normal.BackColor = Color.Green;
+        }
+
+        private void btnExcel_Click(object sender, EventArgs e)
+        {
+            string carpeta = string.Empty;
+            carpeta = System.IO.Path.GetTempPath();
+
+            gridControl1.ExportToXlsx(carpeta + "\\pedidos.xlsx");
+            Process pdfexport = new Process();
+            pdfexport.StartInfo.FileName = "EXCEL.exe";
+            pdfexport.StartInfo.Arguments = carpeta + "\\pedidos.xlsx";
+            pdfexport.Start();
         }
     }
 }

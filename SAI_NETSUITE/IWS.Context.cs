@@ -34,7 +34,6 @@ namespace SAI_NETSUITE
         public DbSet<Eventos> Eventos { get; set; }
         public DbSet<CustomerType> CustomerType { get; set; }
         public DbSet<Territorios> Territorios { get; set; }
-        public DbSet<Entity> Entity { get; set; }
         public DbSet<IRD> IRD { get; set; }
         public DbSet<IR> IR { get; set; }
         public DbSet<Paqueteria> Paqueteria { get; set; }
@@ -47,11 +46,12 @@ namespace SAI_NETSUITE
         public DbSet<InvoicesDetail> InvoicesDetail { get; set; }
         public DbSet<errorTimbradoPago> errorTimbradoPago { get; set; }
         public DbSet<FormaPagoSAT> FormaPagoSAT { get; set; }
-        public DbSet<Invoices> Invoices { get; set; }
         public DbSet<OleadaFacturacion> OleadaFacturacion { get; set; }
         public DbSet<FORMA_DE_PAGO_V3_3> FORMA_DE_PAGO_V3_3 { get; set; }
         public DbSet<ItemReceiptWMS> ItemReceiptWMS { get; set; }
         public DbSet<CondicionesComerciales> CondicionesComerciales { get; set; }
         public DbSet<TIPO_DE_RELACION_V3_3> TIPO_DE_RELACION_V3_3 { get; set; }
+        public DbSet<Invoices> Invoices { get; set; }
+        public DbSet<Entity> Entity { get; set; }
     }
 }

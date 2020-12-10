@@ -238,15 +238,8 @@
           <Property Name="VAT_REGISTRATION_NO" Type="int" />
           <Property Name="ZIPCODE" Type="varchar" MaxLength="255" />
           <Property Name="ZONA_ID" Type="varchar" MaxLength="255" />
+          <Property Name="PAQUETERIA_DISTRIBUCION_ID" Type="int" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
-        <EntityType Name="errorFulFillmentV2">
-          <Property Name="mov" Type="nvarchar" MaxLength="50" />
-          <Property Name="movid" Type="nvarchar" MaxLength="50" />
-          <Property Name="error" Type="nvarchar" MaxLength="200" />
-          <Property Name="fecha" Type="datetime" />
-        </EntityType>-->
         <EntityType Name="errorTimbradoPago">
           <Key>
             <PropertyRef Name="idErrorTimbradoPago" />
@@ -307,7 +300,7 @@ warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primar
           <Property Name="TaxTotal" Type="numeric" Precision="10" Scale="2" />
           <Property Name="Total" Type="numeric" Precision="10" Scale="2" />
           <Property Name="DescuentoTotalImporte" Type="numeric" Precision="10" Scale="4" />
-          <Property Name="DescuentoTotalPP" Type="int" />
+          <Property Name="DescuentoTotalPP" Type="decimal" Precision="6" Scale="2" />
           <Property Name="DescuentoEspecial" Type="varchar" MaxLength="30" />
           <Property Name="DescuentoEvento" Type="varchar" MaxLength="30" />
           <Property Name="AutorizacionEspecial" Type="varchar" MaxLength="30" />
@@ -841,7 +834,6 @@ warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primar
           <EntitySet Name="Eventos" EntityType="IWSModel.Eventos" />
           <EntitySet Name="CustomerType" EntityType="IWSModel.CustomerType" />
           <EntitySet Name="Territorios" EntityType="IWSModel.Territorios" />
-          <EntitySet Name="Entity" EntityType="IWSModel.Entity" />
           <EntitySet Name="IRD" EntityType="IWSModel.IRD" />
           <EntitySet Name="IR" EntityType="IWSModel.IR" />
           <AssociationSet Name="FK_EmbarquesD_Embarques" Association="IWSModel.FK_EmbarquesD_Embarques">
@@ -890,11 +882,6 @@ warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primar
             <End Role="FormaPagoSAT" EntitySet="FormaPagoSAT" />
             <End Role="Customers" EntitySet="Customers" />
           </AssociationSet>
-          <EntitySet Name="Invoices" EntityType="IWSModel.Invoices" />
-          <AssociationSet Name="FK_InvoicesDetail_Invoices" Association="IWSModel.FK_InvoicesDetail_Invoices">
-            <End Role="Invoices" EntitySet="Invoices" />
-            <End Role="InvoicesDetail" EntitySet="InvoicesDetail" />
-          </AssociationSet>
           <EntitySet Name="OleadaFacturacion" EntityType="IWSModel.OleadaFacturacion" />
           <EntitySet Name="FORMA_DE_PAGO_V3_3" EntityType="IWSModel.FORMA_DE_PAGO_V3_3" />
           <EntitySet Name="ItemReceiptWMS" EntityType="IWSModel.ItemReceiptWMS" />
@@ -904,6 +891,12 @@ warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primar
             <End Role="Customers" EntitySet="Customers" />
           </AssociationSet>
           <EntitySet Name="TIPO_DE_RELACION_V3_3" EntityType="IWSModel.TIPO_DE_RELACION_V3_3" />
+          <EntitySet Name="Invoices" EntityType="IWSModel.Invoices" />
+          <AssociationSet Name="FK_InvoicesDetail_Invoices" Association="IWSModel.FK_InvoicesDetail_Invoices">
+            <End Role="Invoices" EntitySet="Invoices" />
+            <End Role="InvoicesDetail" EntitySet="InvoicesDetail" />
+          </AssociationSet>
+          <EntitySet Name="Entity" EntityType="IWSModel.Entity" />
         </EntityContainer>
         <EntityType Name="Locations">
           <Key>
@@ -1066,142 +1059,6 @@ warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primar
           <Property Name="TERRITORY_ID" Type="Int32" Nullable="false" />
           <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
           <Property Name="isInactive" Type="Int32" />
-        </EntityType>
-        <EntityType Name="Entity">
-          <Key>
-            <PropertyRef Name="ENTITY_ID" />
-          </Key>
-          <Property Name="ADDRESS_ONE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ADDRESS_THREE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ADDRESS_TWO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="AGENTE_ID" Type="Int32" />
-          <Property Name="APLICA_PARA_BONO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="APOYOS_A_MERCADOTECNIA" Type="Double" />
-          <Property Name="APOYO_VENTAS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="AUXILIAR_DE_COBRANZA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="BANCO_DESTINO_ID" Type="Int32" />
-          <Property Name="BANCO_ORIGEN_ID" Type="Int32" />
-          <Property Name="BLOQUEAR_MOROSOS_ID" Type="Int32" />
-          <Property Name="CATEGORA_DE_CLIENTE_ID" Type="Int32" />
-          <Property Name="CHECAR_CREDITO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CITY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CLABE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="CLAVE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CLIENTE_CONTADO_ID" Type="Int32" />
-          <Property Name="COMPROMISO_DE_COMPRA" Type="Double" />
-          <Property Name="CONDICIONES_COMERCIALES_ID" Type="Int32" />
-          <Property Name="CONDICIONES_DE_VENCIMIENTO_ID" Type="Int32" />
-          <Property Name="CONDICION_ID" Type="Int32" />
-          <Property Name="CONSERVA_BO_ID" Type="Int32" />
-          <Property Name="CORREO_ELECTRNICO_AGENTE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="COUNTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CREATE_DATE" Type="DateTime" Precision="3" />
-          <Property Name="CREDITO_CON_CONDICIONES" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CREDITO_CON_DIAS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CREDITO_CON_LIMITE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CREDITO_ESPECIAL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CRM_INFLUENCIA_ID" Type="Int32" />
-          <Property Name="CRM_MOV_VENTA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="CURP" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="DATE_LAST_MODIFIED" Type="DateTime" Precision="3" />
-          <Property Name="DEF_MONEDA_CREDITO_MONEDA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="DEPARTAMENTO_ID" Type="Int32" />
-          <Property Name="DESCUENTOS_POR_CONVENIOS" Type="Double" />
-          <Property Name="DESCUENTOS_POR_TEMPORADA" Type="Double" />
-          <Property Name="DESCUENTO_FINANCIERO" Type="Double" />
-          <Property Name="DESCUENTO_RECARGOS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="DIA_INHABIL_ID" Type="Int32" />
-          <Property Name="DIC" Type="Int32" />
-          <Property Name="EMAIL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ENTITY_EXTID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ENTITY_ID" Type="Int32" Nullable="false" />
-          <Property Name="ENTITY_TYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ES_AGENTE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FAMILIA_ID" Type="Int32" />
-          <Property Name="FECHA_DE_CUMPLEAOS" Type="DateTime" Precision="3" />
-          <Property Name="FIRST_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="FORMAS_DE_PAGO_ID" Type="Int32" />
-          <Property Name="FORMA_DE_ENVIO_ID" Type="Int32" />
-          <Property Name="FORMA_DE_PAGO_ID" Type="Int32" />
-          <Property Name="FULL_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="GIRO_ID" Type="Int32" />
-          <Property Name="GLOBAL_SUBSCRIPTION_STATUS" Type="Double" />
-          <Property Name="GRUPO_ID" Type="Int32" />
-          <Property Name="ICO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ID_NET" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="INCOTERM_ID" Type="Int32" />
-          <Property Name="INDAR_BONO_CLIENTE_NUEVO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="INDAR_RUTA_VENTA_ID" Type="Int32" />
-          <Property Name="IS_INACTIVE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="IS_ONLINE_BILL_PAY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="IS_UNAVAILABLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="LAST_MODIFIED_DATE" Type="DateTime" Precision="3" />
-          <Property Name="LAST_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="LAST_SALES_ACTIVITY" Type="DateTime" Precision="3" />
-          <Property Name="LIMITE_PEDIDOS" Type="Double" />
-          <Property Name="LOGIN_ACCESS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="LSA_LINK" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="LSA_LINK_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="METODO_DE_PAGOSAT_ID" Type="Int32" />
-          <Property Name="MIDDLE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="MNIMO_DE_PEDIDO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="MODIFICAR_VENCIMIENTO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="MONTO_PAGARE" Type="Double" />
-          <Property Name="MTODO_DE_PAGO_ID" Type="Int32" />
-          <Property Name="MTODO_DE_PAGO_SATC_ID" Type="Int32" />
-          <Property Name="NACIONALIDAD_EXTRANJERO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRE_COMERCIAL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NOMBRE_EXTRANJERO_DIOT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NOTES" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NO_PROSPECTO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NUMERO_ID_FISCAL_EXTRANJERO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NUMREGIDTRIB" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NUM_CUENTA_PAGO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NUM_DE_PROVEEDOR" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="NUM__CLIENTE_INDAR" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="N__DESCUENTO_ADICIONAL" Type="Double" />
-          <Property Name="N__DESCUENTO_FINANCIERO" Type="Double" />
-          <Property Name="N__DESCUENTO_PRONTO_PAGO" Type="Double" />
-          <Property Name="ORIGINATOR_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PAGARE_NUEVO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PAQUETERIA_ID" Type="Int32" />
-          <Property Name="PARENT_ID" Type="Int32" />
-          <Property Name="PAS_DE_RESIDENCIA_EXTRANJER_ID" Type="Int32" />
-          <Property Name="PEDIDOS_PARCIALES" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="PHONE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="POLTICA_DE_DEPURACIN_BO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RECORRER_VENCIMIENTO_ID" Type="Int32" />
-          <Property Name="REFERENCIA_BANCARIA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="REGIMEN_FISCAL_ID" Type="Int32" />
-          <Property Name="REPRESENTANTE_VTAS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RFC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="RUTA_ID" Type="Int32" />
-          <Property Name="R_F_C_" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SALUTATION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SOLICITUD_CREDITO_NUEVO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="STATE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="SUBSIDIARY" Type="Double" />
-          <Property Name="SUPPORT_EMAIL_MVZ" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TAX_CONTACT_FIRST_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TAX_CONTACT_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TAX_CONTACT_LAST_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TAX_CONTACT_MIDDLE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TAX_IDENTIFICATION_NUMBER" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="TIPO_DE_ADDENDA_ID" Type="Int32" />
-          <Property Name="TIPO_DE_ENTIDAD_ID" Type="Int32" />
-          <Property Name="TIPO_DE_OPERACIN_DIOT_ID" Type="Int32" />
-          <Property Name="TIPO_DE_PROVEEDOR_DIOT_ID" Type="Int32" />
-          <Property Name="TRMINOS_DE_PAGO_1_ID" Type="Int32" />
-          <Property Name="TRMINOS_DE_PAGO_2_ID" Type="Int32" />
-          <Property Name="TRMINOS_DE_PAGO_3_ID" Type="Int32" />
-          <Property Name="UNSUBSCRIBED" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="USO_DEL_CFDI_ID" Type="Int32" />
-          <Property Name="VAT_REGISTRATION_NO" Type="Int32" />
-          <Property Name="ZIPCODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ZONA_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
-          <Property Name="ESTATUS_CLIENTE_INDAR_ID" Type="Int32" />
-          <Property Name="NO_BORRAR" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="IRD">
           <Key>
@@ -1531,71 +1388,6 @@ warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primar
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Invoices">
-          <Key>
-            <PropertyRef Name="TranId" />
-          </Key>
-          <Property Name="TranId" Type="Int32" Nullable="false" />
-          <Property Name="TranType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Entity" Type="Int32" />
-          <Property Name="TranDate" Type="DateTime" Precision="3" />
-          <Property Name="Memo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="DiscountTotal" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="TaxTotal" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="DescuentoTotalImporte" Type="Decimal" Precision="10" Scale="4" />
-          <Property Name="DescuentoTotalPP" Type="Int32" />
-          <Property Name="DescuentoEspecial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="DescuentoEvento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="AutorizacionEspecial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="AmountDue" Type="Decimal" Precision="10" Scale="2" />
-          <Property Name="SaleDate" Type="DateTime" Precision="3" />
-          <Property Name="LeadSource" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="DepartamentoCliente" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
-          <Property Name="TipoPedido" Type="Int32" />
-          <Property Name="ClienteContado" Type="Int32" />
-          <Property Name="RFC" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
-          <Property Name="UUID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="OrdenCompra" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
-          <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="createdfrom" Type="Int32" />
-          <Property Name="ShippingWay" Type="Int32" />
-          <Property Name="Paqueteria" Type="Int32" />
-          <Property Name="FechaRecepcionCliente" Type="DateTime" Precision="3" />
-          <Property Name="ShipAddress" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="TerminosPago" Type="Int32" />
-          <Property Name="CondicionVencimiento" Type="Int32" />
-          <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
-          <Property Name="BillAddress" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
-          <Property Name="ExchangeRate" Type="Boolean" />
-          <Property Name="Currency" Type="Boolean" />
-          <Property Name="FechaProntoPago" Type="DateTime" Precision="3" />
-          <Property Name="AprobacionDescuentos" Type="Boolean" />
-          <Property Name="fechaActualizacion" Type="DateTime" Precision="3" />
-          <Property Name="internalId" Type="Int32" />
-          <Property Name="custbody_refpdf" Type="Int32" />
-          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CfdiMetPagoSat" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CFDIFormaDePago" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="UsoCFDI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="CurrencySymbol" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
-          <Property Name="CfdiComentario" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <Property Name="ResponseCfdi" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="InvoicesDetail" Relationship="IWSModel.FK_InvoicesDetail_Invoices" FromRole="Invoices" ToRole="InvoicesDetail" />
-        </EntityType>
-        <Association Name="FK_InvoicesDetail_Invoices">
-          <End Type="IWSModel.Invoices" Role="Invoices" Multiplicity="0..1" />
-          <End Type="IWSModel.InvoicesDetail" Role="InvoicesDetail" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Invoices">
-              <PropertyRef Name="TranId" />
-            </Principal>
-            <Dependent Role="InvoicesDetail">
-              <PropertyRef Name="InvoicesId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="OleadaFacturacion">
           <Key>
             <PropertyRef Name="IdOleada" />
@@ -1666,6 +1458,208 @@ warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primar
           <Property Name="TIPO_DE_RELACION_V3_3_ID" Type="Int32" Nullable="false" />
           <Property Name="TIPO_DE_RELACION_V3_3_NAME" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="TIPO_DE_RELACION_V3_3_NUMBER" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Invoices">
+          <Key>
+            <PropertyRef Name="TranId" />
+          </Key>
+          <Property Name="TranId" Type="Int32" Nullable="false" />
+          <Property Name="TranType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Entity" Type="Int32" />
+          <Property Name="TranDate" Type="DateTime" Precision="3" />
+          <Property Name="Memo" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="SubTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DiscountTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="TaxTotal" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="Total" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="DescuentoTotalImporte" Type="Decimal" Precision="10" Scale="4" />
+          <Property Name="DescuentoTotalPP" Type="Decimal" Precision="6" Scale="2" />
+          <Property Name="DescuentoEspecial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DescuentoEvento" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AutorizacionEspecial" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AmountDue" Type="Decimal" Precision="10" Scale="2" />
+          <Property Name="SaleDate" Type="DateTime" Precision="3" />
+          <Property Name="LeadSource" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DepartamentoCliente" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="TipoPedido" Type="Int32" />
+          <Property Name="ClienteContado" Type="Int32" />
+          <Property Name="RFC" Type="String" MaxLength="14" FixedLength="false" Unicode="true" />
+          <Property Name="UUID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="OrdenCompra" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
+          <Property Name="Usuario" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="createdfrom" Type="Int32" />
+          <Property Name="ShippingWay" Type="Int32" />
+          <Property Name="Paqueteria" Type="Int32" />
+          <Property Name="FechaRecepcionCliente" Type="DateTime" Precision="3" />
+          <Property Name="ShipAddress" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="TerminosPago" Type="Int32" />
+          <Property Name="CondicionVencimiento" Type="Int32" />
+          <Property Name="FechaVencimiento" Type="DateTime" Precision="3" />
+          <Property Name="BillAddress" Type="String" MaxLength="350" FixedLength="false" Unicode="true" />
+          <Property Name="ExchangeRate" Type="Boolean" />
+          <Property Name="Currency" Type="Boolean" />
+          <Property Name="FechaProntoPago" Type="DateTime" Precision="3" />
+          <Property Name="AprobacionDescuentos" Type="Boolean" />
+          <Property Name="fechaActualizacion" Type="DateTime" Precision="3" />
+          <Property Name="internalId" Type="Int32" />
+          <Property Name="custbody_refpdf" Type="Int32" />
+          <Property Name="status" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CfdiMetPagoSat" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CFDIFormaDePago" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="UsoCFDI" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="CurrencySymbol" Type="String" MaxLength="7" FixedLength="false" Unicode="true" />
+          <Property Name="CfdiComentario" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <Property Name="ResponseCfdi" Type="String" MaxLength="4000" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="InvoicesDetail" Relationship="IWSModel.FK_InvoicesDetail_Invoices" FromRole="Invoices" ToRole="InvoicesDetail" />
+        </EntityType>
+        <Association Name="FK_InvoicesDetail_Invoices">
+          <End Type="IWSModel.Invoices" Role="Invoices" Multiplicity="0..1" />
+          <End Type="IWSModel.InvoicesDetail" Role="InvoicesDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Invoices">
+              <PropertyRef Name="TranId" />
+            </Principal>
+            <Dependent Role="InvoicesDetail">
+              <PropertyRef Name="InvoicesId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="Entity">
+          <Key>
+            <PropertyRef Name="ENTITY_ID" />
+          </Key>
+          <Property Name="ADDRESS_ONE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS_THREE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ADDRESS_TWO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AGENTE_ID" Type="Int32" />
+          <Property Name="APLICA_PARA_BONO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="APOYOS_A_MERCADOTECNIA" Type="Double" />
+          <Property Name="APOYO_VENTAS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AUXILIAR_DE_COBRANZA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="BANCO_DESTINO_ID" Type="Int32" />
+          <Property Name="BANCO_ORIGEN_ID" Type="Int32" />
+          <Property Name="BLOQUEAR_MOROSOS_ID" Type="Int32" />
+          <Property Name="CATEGORA_DE_CLIENTE_ID" Type="Int32" />
+          <Property Name="CHECAR_CREDITO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CITY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CLABE" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CLAVE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CLIENTE_CONTADO_ID" Type="Int32" />
+          <Property Name="COMPROMISO_DE_COMPRA" Type="Double" />
+          <Property Name="CONDICIONES_COMERCIALES_ID" Type="Int32" />
+          <Property Name="CONDICIONES_DE_VENCIMIENTO_ID" Type="Int32" />
+          <Property Name="CONDICION_ID" Type="Int32" />
+          <Property Name="CONSERVA_BO_ID" Type="Int32" />
+          <Property Name="CORREO_ELECTRNICO_AGENTE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="COUNTRY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CREATE_DATE" Type="DateTime" Precision="3" />
+          <Property Name="CREDITO_CON_CONDICIONES" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CREDITO_CON_DIAS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CREDITO_CON_LIMITE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CREDITO_ESPECIAL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CRM_INFLUENCIA_ID" Type="Int32" />
+          <Property Name="CRM_MOV_VENTA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="CURP" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DATE_LAST_MODIFIED" Type="DateTime" Precision="3" />
+          <Property Name="DEF_MONEDA_CREDITO_MONEDA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DEPARTAMENTO_ID" Type="Int32" />
+          <Property Name="DESCUENTOS_POR_CONVENIOS" Type="Double" />
+          <Property Name="DESCUENTOS_POR_TEMPORADA" Type="Double" />
+          <Property Name="DESCUENTO_FINANCIERO" Type="Double" />
+          <Property Name="DESCUENTO_RECARGOS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="DIA_INHABIL_ID" Type="Int32" />
+          <Property Name="DIC" Type="Int32" />
+          <Property Name="EMAIL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ENTITY_EXTID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ENTITY_ID" Type="Int32" Nullable="false" />
+          <Property Name="ENTITY_TYPE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ESTATUS_CLIENTE_INDAR_ID" Type="Int32" />
+          <Property Name="ES_AGENTE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FAMILIA_ID" Type="Int32" />
+          <Property Name="FECHA_DE_CUMPLEAOS" Type="DateTime" Precision="3" />
+          <Property Name="FIRST_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FORMAS_DE_PAGO_ID" Type="Int32" />
+          <Property Name="FORMA_DE_ENVIO_ID" Type="Int32" />
+          <Property Name="FORMA_DE_PAGO_ID" Type="Int32" />
+          <Property Name="FULL_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="GIRO_ID" Type="Int32" />
+          <Property Name="GLOBAL_SUBSCRIPTION_STATUS" Type="Double" />
+          <Property Name="GRUPO_ID" Type="Int32" />
+          <Property Name="ICO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ID_NET" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="INCOTERM_ID" Type="Int32" />
+          <Property Name="INDAR_BONO_CLIENTE_NUEVO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="INDAR_RUTA_VENTA_ID" Type="Int32" />
+          <Property Name="IS_INACTIVE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IS_ONLINE_BILL_PAY" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="IS_UNAVAILABLE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_MODIFIED_DATE" Type="DateTime" Precision="3" />
+          <Property Name="LAST_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LAST_SALES_ACTIVITY" Type="DateTime" Precision="3" />
+          <Property Name="LIMITE_PEDIDOS" Type="Double" />
+          <Property Name="LOGIN_ACCESS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LSA_LINK" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="LSA_LINK_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="METODO_DE_PAGOSAT_ID" Type="Int32" />
+          <Property Name="MIDDLE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MNIMO_DE_PEDIDO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MODIFICAR_VENCIMIENTO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="MONTO_PAGARE" Type="Double" />
+          <Property Name="MTODO_DE_PAGO_ID" Type="Int32" />
+          <Property Name="MTODO_DE_PAGO_SATC_ID" Type="Int32" />
+          <Property Name="NACIONALIDAD_EXTRANJERO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE_COMERCIAL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NOMBRE_EXTRANJERO_DIOT" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NOTES" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NO_BORRAR" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="NO_PROSPECTO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NUMERO_ID_FISCAL_EXTRANJERO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NUMREGIDTRIB" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NUM_CUENTA_PAGO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NUM_DE_PROVEEDOR" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="NUM__CLIENTE_INDAR" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="N__DESCUENTO_ADICIONAL" Type="Double" />
+          <Property Name="N__DESCUENTO_FINANCIERO" Type="Double" />
+          <Property Name="N__DESCUENTO_PRONTO_PAGO" Type="Double" />
+          <Property Name="ORIGINATOR_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PAGARE_NUEVO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PAQUETERIA_ID" Type="Int32" />
+          <Property Name="PARENT_ID" Type="Int32" />
+          <Property Name="PAS_DE_RESIDENCIA_EXTRANJER_ID" Type="Int32" />
+          <Property Name="PEDIDOS_PARCIALES" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PHONE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="POLTICA_DE_DEPURACIN_BO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RECORRER_VENCIMIENTO_ID" Type="Int32" />
+          <Property Name="REFERENCIA_BANCARIA" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="REGIMEN_FISCAL_ID" Type="Int32" />
+          <Property Name="REPRESENTANTE_VTAS" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RFC" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="RUTA_ID" Type="Int32" />
+          <Property Name="R_F_C_" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SALUTATION" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SOLICITUD_CREDITO_NUEVO" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="STATE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="SUBSIDIARY" Type="Double" />
+          <Property Name="SUPPORT_EMAIL_MVZ" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TAX_CONTACT_FIRST_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TAX_CONTACT_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TAX_CONTACT_LAST_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TAX_CONTACT_MIDDLE_NAME" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TAX_IDENTIFICATION_NUMBER" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TIPO_DE_ADDENDA_ID" Type="Int32" />
+          <Property Name="TIPO_DE_ENTIDAD_ID" Type="Int32" />
+          <Property Name="TIPO_DE_OPERACIN_DIOT_ID" Type="Int32" />
+          <Property Name="TIPO_DE_PROVEEDOR_DIOT_ID" Type="Int32" />
+          <Property Name="TRMINOS_DE_PAGO_1_ID" Type="Int32" />
+          <Property Name="TRMINOS_DE_PAGO_2_ID" Type="Int32" />
+          <Property Name="TRMINOS_DE_PAGO_3_ID" Type="Int32" />
+          <Property Name="UNSUBSCRIBED" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="USO_DEL_CFDI_ID" Type="Int32" />
+          <Property Name="VAT_REGISTRATION_NO" Type="Int32" />
+          <Property Name="ZIPCODE" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ZONA_ID" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="PAQUETERIA_DISTRIBUCION_ID" Type="Int32" />
         </EntityType>
       </Schema>
     </edmx:ConceptualModels>
@@ -1837,143 +1831,6 @@ warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primar
                 <ScalarProperty Name="isInactive" ColumnName="isInactive" />
                 <ScalarProperty Name="NAME" ColumnName="NAME" />
                 <ScalarProperty Name="TERRITORY_ID" ColumnName="TERRITORY_ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Entity">
-            <EntityTypeMapping TypeName="IWSModel.Entity">
-              <MappingFragment StoreEntitySet="Entity">
-                <ScalarProperty Name="NO_BORRAR" ColumnName="NO_BORRAR" />
-                <ScalarProperty Name="ESTATUS_CLIENTE_INDAR_ID" ColumnName="ESTATUS_CLIENTE_INDAR_ID" />
-                <ScalarProperty Name="ZONA_ID" ColumnName="ZONA_ID" />
-                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
-                <ScalarProperty Name="VAT_REGISTRATION_NO" ColumnName="VAT_REGISTRATION_NO" />
-                <ScalarProperty Name="USO_DEL_CFDI_ID" ColumnName="USO_DEL_CFDI_ID" />
-                <ScalarProperty Name="UNSUBSCRIBED" ColumnName="UNSUBSCRIBED" />
-                <ScalarProperty Name="TRMINOS_DE_PAGO_3_ID" ColumnName="TRMINOS_DE_PAGO_3_ID" />
-                <ScalarProperty Name="TRMINOS_DE_PAGO_2_ID" ColumnName="TRMINOS_DE_PAGO_2_ID" />
-                <ScalarProperty Name="TRMINOS_DE_PAGO_1_ID" ColumnName="TRMINOS_DE_PAGO_1_ID" />
-                <ScalarProperty Name="TIPO_DE_PROVEEDOR_DIOT_ID" ColumnName="TIPO_DE_PROVEEDOR_DIOT_ID" />
-                <ScalarProperty Name="TIPO_DE_OPERACIN_DIOT_ID" ColumnName="TIPO_DE_OPERACIN_DIOT_ID" />
-                <ScalarProperty Name="TIPO_DE_ENTIDAD_ID" ColumnName="TIPO_DE_ENTIDAD_ID" />
-                <ScalarProperty Name="TIPO_DE_ADDENDA_ID" ColumnName="TIPO_DE_ADDENDA_ID" />
-                <ScalarProperty Name="TAX_IDENTIFICATION_NUMBER" ColumnName="TAX_IDENTIFICATION_NUMBER" />
-                <ScalarProperty Name="TAX_CONTACT_MIDDLE_NAME" ColumnName="TAX_CONTACT_MIDDLE_NAME" />
-                <ScalarProperty Name="TAX_CONTACT_LAST_NAME" ColumnName="TAX_CONTACT_LAST_NAME" />
-                <ScalarProperty Name="TAX_CONTACT_ID" ColumnName="TAX_CONTACT_ID" />
-                <ScalarProperty Name="TAX_CONTACT_FIRST_NAME" ColumnName="TAX_CONTACT_FIRST_NAME" />
-                <ScalarProperty Name="SUPPORT_EMAIL_MVZ" ColumnName="SUPPORT_EMAIL_MVZ" />
-                <ScalarProperty Name="SUBSIDIARY" ColumnName="SUBSIDIARY" />
-                <ScalarProperty Name="STATE" ColumnName="STATE" />
-                <ScalarProperty Name="SOLICITUD_CREDITO_NUEVO" ColumnName="SOLICITUD_CREDITO_NUEVO" />
-                <ScalarProperty Name="SALUTATION" ColumnName="SALUTATION" />
-                <ScalarProperty Name="R_F_C_" ColumnName="R_F_C_" />
-                <ScalarProperty Name="RUTA_ID" ColumnName="RUTA_ID" />
-                <ScalarProperty Name="RFC" ColumnName="RFC" />
-                <ScalarProperty Name="REPRESENTANTE_VTAS" ColumnName="REPRESENTANTE_VTAS" />
-                <ScalarProperty Name="REGIMEN_FISCAL_ID" ColumnName="REGIMEN_FISCAL_ID" />
-                <ScalarProperty Name="REFERENCIA_BANCARIA" ColumnName="REFERENCIA_BANCARIA" />
-                <ScalarProperty Name="RECORRER_VENCIMIENTO_ID" ColumnName="RECORRER_VENCIMIENTO_ID" />
-                <ScalarProperty Name="POLTICA_DE_DEPURACIN_BO" ColumnName="POLTICA_DE_DEPURACIN_BO" />
-                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
-                <ScalarProperty Name="PEDIDOS_PARCIALES" ColumnName="PEDIDOS_PARCIALES" />
-                <ScalarProperty Name="PAS_DE_RESIDENCIA_EXTRANJER_ID" ColumnName="PAS_DE_RESIDENCIA_EXTRANJER_ID" />
-                <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
-                <ScalarProperty Name="PAQUETERIA_ID" ColumnName="PAQUETERIA_ID" />
-                <ScalarProperty Name="PAGARE_NUEVO" ColumnName="PAGARE_NUEVO" />
-                <ScalarProperty Name="ORIGINATOR_ID" ColumnName="ORIGINATOR_ID" />
-                <ScalarProperty Name="N__DESCUENTO_PRONTO_PAGO" ColumnName="N__DESCUENTO_PRONTO_PAGO" />
-                <ScalarProperty Name="N__DESCUENTO_FINANCIERO" ColumnName="N__DESCUENTO_FINANCIERO" />
-                <ScalarProperty Name="N__DESCUENTO_ADICIONAL" ColumnName="N__DESCUENTO_ADICIONAL" />
-                <ScalarProperty Name="NUM__CLIENTE_INDAR" ColumnName="NUM__CLIENTE_INDAR" />
-                <ScalarProperty Name="NUM_DE_PROVEEDOR" ColumnName="NUM_DE_PROVEEDOR" />
-                <ScalarProperty Name="NUM_CUENTA_PAGO" ColumnName="NUM_CUENTA_PAGO" />
-                <ScalarProperty Name="NUMREGIDTRIB" ColumnName="NUMREGIDTRIB" />
-                <ScalarProperty Name="NUMERO_ID_FISCAL_EXTRANJERO" ColumnName="NUMERO_ID_FISCAL_EXTRANJERO" />
-                <ScalarProperty Name="NO_PROSPECTO" ColumnName="NO_PROSPECTO" />
-                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
-                <ScalarProperty Name="NOMBRE_EXTRANJERO_DIOT" ColumnName="NOMBRE_EXTRANJERO_DIOT" />
-                <ScalarProperty Name="NOMBRE_COMERCIAL" ColumnName="NOMBRE_COMERCIAL" />
-                <ScalarProperty Name="NAME" ColumnName="NAME" />
-                <ScalarProperty Name="NACIONALIDAD_EXTRANJERO" ColumnName="NACIONALIDAD_EXTRANJERO" />
-                <ScalarProperty Name="MTODO_DE_PAGO_SATC_ID" ColumnName="MTODO_DE_PAGO_SATC_ID" />
-                <ScalarProperty Name="MTODO_DE_PAGO_ID" ColumnName="MTODO_DE_PAGO_ID" />
-                <ScalarProperty Name="MONTO_PAGARE" ColumnName="MONTO_PAGARE" />
-                <ScalarProperty Name="MODIFICAR_VENCIMIENTO" ColumnName="MODIFICAR_VENCIMIENTO" />
-                <ScalarProperty Name="MNIMO_DE_PEDIDO" ColumnName="MNIMO_DE_PEDIDO" />
-                <ScalarProperty Name="MIDDLE_NAME" ColumnName="MIDDLE_NAME" />
-                <ScalarProperty Name="METODO_DE_PAGOSAT_ID" ColumnName="METODO_DE_PAGOSAT_ID" />
-                <ScalarProperty Name="LSA_LINK_NAME" ColumnName="LSA_LINK_NAME" />
-                <ScalarProperty Name="LSA_LINK" ColumnName="LSA_LINK" />
-                <ScalarProperty Name="LOGIN_ACCESS" ColumnName="LOGIN_ACCESS" />
-                <ScalarProperty Name="LIMITE_PEDIDOS" ColumnName="LIMITE_PEDIDOS" />
-                <ScalarProperty Name="LAST_SALES_ACTIVITY" ColumnName="LAST_SALES_ACTIVITY" />
-                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
-                <ScalarProperty Name="LAST_MODIFIED_DATE" ColumnName="LAST_MODIFIED_DATE" />
-                <ScalarProperty Name="IS_UNAVAILABLE" ColumnName="IS_UNAVAILABLE" />
-                <ScalarProperty Name="IS_ONLINE_BILL_PAY" ColumnName="IS_ONLINE_BILL_PAY" />
-                <ScalarProperty Name="IS_INACTIVE" ColumnName="IS_INACTIVE" />
-                <ScalarProperty Name="INDAR_RUTA_VENTA_ID" ColumnName="INDAR_RUTA_VENTA_ID" />
-                <ScalarProperty Name="INDAR_BONO_CLIENTE_NUEVO" ColumnName="INDAR_BONO_CLIENTE_NUEVO" />
-                <ScalarProperty Name="INCOTERM_ID" ColumnName="INCOTERM_ID" />
-                <ScalarProperty Name="ID_NET" ColumnName="ID_NET" />
-                <ScalarProperty Name="ICO" ColumnName="ICO" />
-                <ScalarProperty Name="GRUPO_ID" ColumnName="GRUPO_ID" />
-                <ScalarProperty Name="GLOBAL_SUBSCRIPTION_STATUS" ColumnName="GLOBAL_SUBSCRIPTION_STATUS" />
-                <ScalarProperty Name="GIRO_ID" ColumnName="GIRO_ID" />
-                <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
-                <ScalarProperty Name="FORMA_DE_PAGO_ID" ColumnName="FORMA_DE_PAGO_ID" />
-                <ScalarProperty Name="FORMA_DE_ENVIO_ID" ColumnName="FORMA_DE_ENVIO_ID" />
-                <ScalarProperty Name="FORMAS_DE_PAGO_ID" ColumnName="FORMAS_DE_PAGO_ID" />
-                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
-                <ScalarProperty Name="FECHA_DE_CUMPLEAOS" ColumnName="FECHA_DE_CUMPLEAOS" />
-                <ScalarProperty Name="FAMILIA_ID" ColumnName="FAMILIA_ID" />
-                <ScalarProperty Name="ES_AGENTE" ColumnName="ES_AGENTE" />
-                <ScalarProperty Name="ENTITY_TYPE" ColumnName="ENTITY_TYPE" />
-                <ScalarProperty Name="ENTITY_ID" ColumnName="ENTITY_ID" />
-                <ScalarProperty Name="ENTITY_EXTID" ColumnName="ENTITY_EXTID" />
-                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
-                <ScalarProperty Name="DIC" ColumnName="DIC" />
-                <ScalarProperty Name="DIA_INHABIL_ID" ColumnName="DIA_INHABIL_ID" />
-                <ScalarProperty Name="DESCUENTO_RECARGOS" ColumnName="DESCUENTO_RECARGOS" />
-                <ScalarProperty Name="DESCUENTO_FINANCIERO" ColumnName="DESCUENTO_FINANCIERO" />
-                <ScalarProperty Name="DESCUENTOS_POR_TEMPORADA" ColumnName="DESCUENTOS_POR_TEMPORADA" />
-                <ScalarProperty Name="DESCUENTOS_POR_CONVENIOS" ColumnName="DESCUENTOS_POR_CONVENIOS" />
-                <ScalarProperty Name="DEPARTAMENTO_ID" ColumnName="DEPARTAMENTO_ID" />
-                <ScalarProperty Name="DEF_MONEDA_CREDITO_MONEDA" ColumnName="DEF_MONEDA_CREDITO_MONEDA" />
-                <ScalarProperty Name="DATE_LAST_MODIFIED" ColumnName="DATE_LAST_MODIFIED" />
-                <ScalarProperty Name="CURP" ColumnName="CURP" />
-                <ScalarProperty Name="CRM_MOV_VENTA" ColumnName="CRM_MOV_VENTA" />
-                <ScalarProperty Name="CRM_INFLUENCIA_ID" ColumnName="CRM_INFLUENCIA_ID" />
-                <ScalarProperty Name="CREDITO_ESPECIAL" ColumnName="CREDITO_ESPECIAL" />
-                <ScalarProperty Name="CREDITO_CON_LIMITE" ColumnName="CREDITO_CON_LIMITE" />
-                <ScalarProperty Name="CREDITO_CON_DIAS" ColumnName="CREDITO_CON_DIAS" />
-                <ScalarProperty Name="CREDITO_CON_CONDICIONES" ColumnName="CREDITO_CON_CONDICIONES" />
-                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
-                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
-                <ScalarProperty Name="CORREO_ELECTRNICO_AGENTE" ColumnName="CORREO_ELECTRNICO_AGENTE" />
-                <ScalarProperty Name="CONSERVA_BO_ID" ColumnName="CONSERVA_BO_ID" />
-                <ScalarProperty Name="CONDICION_ID" ColumnName="CONDICION_ID" />
-                <ScalarProperty Name="CONDICIONES_DE_VENCIMIENTO_ID" ColumnName="CONDICIONES_DE_VENCIMIENTO_ID" />
-                <ScalarProperty Name="CONDICIONES_COMERCIALES_ID" ColumnName="CONDICIONES_COMERCIALES_ID" />
-                <ScalarProperty Name="COMPROMISO_DE_COMPRA" ColumnName="COMPROMISO_DE_COMPRA" />
-                <ScalarProperty Name="CLIENTE_CONTADO_ID" ColumnName="CLIENTE_CONTADO_ID" />
-                <ScalarProperty Name="CLAVE" ColumnName="CLAVE" />
-                <ScalarProperty Name="CLABE" ColumnName="CLABE" />
-                <ScalarProperty Name="CITY" ColumnName="CITY" />
-                <ScalarProperty Name="CHECAR_CREDITO" ColumnName="CHECAR_CREDITO" />
-                <ScalarProperty Name="CATEGORA_DE_CLIENTE_ID" ColumnName="CATEGORA_DE_CLIENTE_ID" />
-                <ScalarProperty Name="BLOQUEAR_MOROSOS_ID" ColumnName="BLOQUEAR_MOROSOS_ID" />
-                <ScalarProperty Name="BANCO_ORIGEN_ID" ColumnName="BANCO_ORIGEN_ID" />
-                <ScalarProperty Name="BANCO_DESTINO_ID" ColumnName="BANCO_DESTINO_ID" />
-                <ScalarProperty Name="AUXILIAR_DE_COBRANZA" ColumnName="AUXILIAR_DE_COBRANZA" />
-                <ScalarProperty Name="APOYO_VENTAS" ColumnName="APOYO_VENTAS" />
-                <ScalarProperty Name="APOYOS_A_MERCADOTECNIA" ColumnName="APOYOS_A_MERCADOTECNIA" />
-                <ScalarProperty Name="APLICA_PARA_BONO" ColumnName="APLICA_PARA_BONO" />
-                <ScalarProperty Name="AGENTE_ID" ColumnName="AGENTE_ID" />
-                <ScalarProperty Name="ADDRESS_TWO" ColumnName="ADDRESS_TWO" />
-                <ScalarProperty Name="ADDRESS_THREE" ColumnName="ADDRESS_THREE" />
-                <ScalarProperty Name="ADDRESS_ONE" ColumnName="ADDRESS_ONE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -2193,59 +2050,6 @@ warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primar
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Invoices">
-            <EntityTypeMapping TypeName="IWSModel.Invoices">
-              <MappingFragment StoreEntitySet="Invoices">
-                <ScalarProperty Name="ResponseCfdi" ColumnName="ResponseCfdi" />
-                <ScalarProperty Name="CfdiComentario" ColumnName="CfdiComentario" />
-                <ScalarProperty Name="CurrencySymbol" ColumnName="CurrencySymbol" />
-                <ScalarProperty Name="UsoCFDI" ColumnName="UsoCFDI" />
-                <ScalarProperty Name="CFDIFormaDePago" ColumnName="CFDIFormaDePago" />
-                <ScalarProperty Name="CfdiMetPagoSat" ColumnName="CfdiMetPagoSat" />
-                <ScalarProperty Name="status" ColumnName="status" />
-                <ScalarProperty Name="custbody_refpdf" ColumnName="custbody_refpdf" />
-                <ScalarProperty Name="internalId" ColumnName="internalId" />
-                <ScalarProperty Name="fechaActualizacion" ColumnName="fechaActualizacion" />
-                <ScalarProperty Name="AprobacionDescuentos" ColumnName="AprobacionDescuentos" />
-                <ScalarProperty Name="FechaProntoPago" ColumnName="FechaProntoPago" />
-                <ScalarProperty Name="Currency" ColumnName="Currency" />
-                <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
-                <ScalarProperty Name="BillAddress" ColumnName="BillAddress" />
-                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
-                <ScalarProperty Name="CondicionVencimiento" ColumnName="CondicionVencimiento" />
-                <ScalarProperty Name="TerminosPago" ColumnName="TerminosPago" />
-                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
-                <ScalarProperty Name="FechaRecepcionCliente" ColumnName="FechaRecepcionCliente" />
-                <ScalarProperty Name="Paqueteria" ColumnName="Paqueteria" />
-                <ScalarProperty Name="ShippingWay" ColumnName="ShippingWay" />
-                <ScalarProperty Name="createdfrom" ColumnName="createdfrom" />
-                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-                <ScalarProperty Name="OrdenCompra" ColumnName="OrdenCompra" />
-                <ScalarProperty Name="UUID" ColumnName="UUID" />
-                <ScalarProperty Name="RFC" ColumnName="RFC" />
-                <ScalarProperty Name="ClienteContado" ColumnName="ClienteContado" />
-                <ScalarProperty Name="TipoPedido" ColumnName="TipoPedido" />
-                <ScalarProperty Name="DepartamentoCliente" ColumnName="DepartamentoCliente" />
-                <ScalarProperty Name="LeadSource" ColumnName="LeadSource" />
-                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
-                <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
-                <ScalarProperty Name="AutorizacionEspecial" ColumnName="AutorizacionEspecial" />
-                <ScalarProperty Name="DescuentoEvento" ColumnName="DescuentoEvento" />
-                <ScalarProperty Name="DescuentoEspecial" ColumnName="DescuentoEspecial" />
-                <ScalarProperty Name="DescuentoTotalPP" ColumnName="DescuentoTotalPP" />
-                <ScalarProperty Name="DescuentoTotalImporte" ColumnName="DescuentoTotalImporte" />
-                <ScalarProperty Name="Total" ColumnName="Total" />
-                <ScalarProperty Name="TaxTotal" ColumnName="TaxTotal" />
-                <ScalarProperty Name="DiscountTotal" ColumnName="DiscountTotal" />
-                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="TranDate" ColumnName="TranDate" />
-                <ScalarProperty Name="Entity" ColumnName="Entity" />
-                <ScalarProperty Name="TranType" ColumnName="TranType" />
-                <ScalarProperty Name="TranId" ColumnName="TranId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="OleadaFacturacion">
             <EntityTypeMapping TypeName="IWSModel.OleadaFacturacion">
               <MappingFragment StoreEntitySet="OleadaFacturacion">
@@ -2306,6 +2110,197 @@ warning 6013: The table/view 'IWS.dbo.errorFulFillmentV2' does not have a primar
                 <ScalarProperty Name="LAST_MODIFIED_DATE" ColumnName="LAST_MODIFIED_DATE" />
                 <ScalarProperty Name="IS_INACTIVE" ColumnName="IS_INACTIVE" />
                 <ScalarProperty Name="DATE_CREATED" ColumnName="DATE_CREATED" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Invoices">
+            <EntityTypeMapping TypeName="IWSModel.Invoices">
+              <MappingFragment StoreEntitySet="Invoices">
+                <ScalarProperty Name="ResponseCfdi" ColumnName="ResponseCfdi" />
+                <ScalarProperty Name="CfdiComentario" ColumnName="CfdiComentario" />
+                <ScalarProperty Name="CurrencySymbol" ColumnName="CurrencySymbol" />
+                <ScalarProperty Name="UsoCFDI" ColumnName="UsoCFDI" />
+                <ScalarProperty Name="CFDIFormaDePago" ColumnName="CFDIFormaDePago" />
+                <ScalarProperty Name="CfdiMetPagoSat" ColumnName="CfdiMetPagoSat" />
+                <ScalarProperty Name="status" ColumnName="status" />
+                <ScalarProperty Name="custbody_refpdf" ColumnName="custbody_refpdf" />
+                <ScalarProperty Name="internalId" ColumnName="internalId" />
+                <ScalarProperty Name="fechaActualizacion" ColumnName="fechaActualizacion" />
+                <ScalarProperty Name="AprobacionDescuentos" ColumnName="AprobacionDescuentos" />
+                <ScalarProperty Name="FechaProntoPago" ColumnName="FechaProntoPago" />
+                <ScalarProperty Name="Currency" ColumnName="Currency" />
+                <ScalarProperty Name="ExchangeRate" ColumnName="ExchangeRate" />
+                <ScalarProperty Name="BillAddress" ColumnName="BillAddress" />
+                <ScalarProperty Name="FechaVencimiento" ColumnName="FechaVencimiento" />
+                <ScalarProperty Name="CondicionVencimiento" ColumnName="CondicionVencimiento" />
+                <ScalarProperty Name="TerminosPago" ColumnName="TerminosPago" />
+                <ScalarProperty Name="ShipAddress" ColumnName="ShipAddress" />
+                <ScalarProperty Name="FechaRecepcionCliente" ColumnName="FechaRecepcionCliente" />
+                <ScalarProperty Name="Paqueteria" ColumnName="Paqueteria" />
+                <ScalarProperty Name="ShippingWay" ColumnName="ShippingWay" />
+                <ScalarProperty Name="createdfrom" ColumnName="createdfrom" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="OrdenCompra" ColumnName="OrdenCompra" />
+                <ScalarProperty Name="UUID" ColumnName="UUID" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="ClienteContado" ColumnName="ClienteContado" />
+                <ScalarProperty Name="TipoPedido" ColumnName="TipoPedido" />
+                <ScalarProperty Name="DepartamentoCliente" ColumnName="DepartamentoCliente" />
+                <ScalarProperty Name="LeadSource" ColumnName="LeadSource" />
+                <ScalarProperty Name="SaleDate" ColumnName="SaleDate" />
+                <ScalarProperty Name="AmountDue" ColumnName="AmountDue" />
+                <ScalarProperty Name="AutorizacionEspecial" ColumnName="AutorizacionEspecial" />
+                <ScalarProperty Name="DescuentoEvento" ColumnName="DescuentoEvento" />
+                <ScalarProperty Name="DescuentoEspecial" ColumnName="DescuentoEspecial" />
+                <ScalarProperty Name="DescuentoTotalPP" ColumnName="DescuentoTotalPP" />
+                <ScalarProperty Name="DescuentoTotalImporte" ColumnName="DescuentoTotalImporte" />
+                <ScalarProperty Name="Total" ColumnName="Total" />
+                <ScalarProperty Name="TaxTotal" ColumnName="TaxTotal" />
+                <ScalarProperty Name="DiscountTotal" ColumnName="DiscountTotal" />
+                <ScalarProperty Name="SubTotal" ColumnName="SubTotal" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="TranDate" ColumnName="TranDate" />
+                <ScalarProperty Name="Entity" ColumnName="Entity" />
+                <ScalarProperty Name="TranType" ColumnName="TranType" />
+                <ScalarProperty Name="TranId" ColumnName="TranId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Entity">
+            <EntityTypeMapping TypeName="IWSModel.Entity">
+              <MappingFragment StoreEntitySet="Entity">
+                <ScalarProperty Name="PAQUETERIA_DISTRIBUCION_ID" ColumnName="PAQUETERIA_DISTRIBUCION_ID" />
+                <ScalarProperty Name="ZONA_ID" ColumnName="ZONA_ID" />
+                <ScalarProperty Name="ZIPCODE" ColumnName="ZIPCODE" />
+                <ScalarProperty Name="VAT_REGISTRATION_NO" ColumnName="VAT_REGISTRATION_NO" />
+                <ScalarProperty Name="USO_DEL_CFDI_ID" ColumnName="USO_DEL_CFDI_ID" />
+                <ScalarProperty Name="UNSUBSCRIBED" ColumnName="UNSUBSCRIBED" />
+                <ScalarProperty Name="TRMINOS_DE_PAGO_3_ID" ColumnName="TRMINOS_DE_PAGO_3_ID" />
+                <ScalarProperty Name="TRMINOS_DE_PAGO_2_ID" ColumnName="TRMINOS_DE_PAGO_2_ID" />
+                <ScalarProperty Name="TRMINOS_DE_PAGO_1_ID" ColumnName="TRMINOS_DE_PAGO_1_ID" />
+                <ScalarProperty Name="TIPO_DE_PROVEEDOR_DIOT_ID" ColumnName="TIPO_DE_PROVEEDOR_DIOT_ID" />
+                <ScalarProperty Name="TIPO_DE_OPERACIN_DIOT_ID" ColumnName="TIPO_DE_OPERACIN_DIOT_ID" />
+                <ScalarProperty Name="TIPO_DE_ENTIDAD_ID" ColumnName="TIPO_DE_ENTIDAD_ID" />
+                <ScalarProperty Name="TIPO_DE_ADDENDA_ID" ColumnName="TIPO_DE_ADDENDA_ID" />
+                <ScalarProperty Name="TAX_IDENTIFICATION_NUMBER" ColumnName="TAX_IDENTIFICATION_NUMBER" />
+                <ScalarProperty Name="TAX_CONTACT_MIDDLE_NAME" ColumnName="TAX_CONTACT_MIDDLE_NAME" />
+                <ScalarProperty Name="TAX_CONTACT_LAST_NAME" ColumnName="TAX_CONTACT_LAST_NAME" />
+                <ScalarProperty Name="TAX_CONTACT_ID" ColumnName="TAX_CONTACT_ID" />
+                <ScalarProperty Name="TAX_CONTACT_FIRST_NAME" ColumnName="TAX_CONTACT_FIRST_NAME" />
+                <ScalarProperty Name="SUPPORT_EMAIL_MVZ" ColumnName="SUPPORT_EMAIL_MVZ" />
+                <ScalarProperty Name="SUBSIDIARY" ColumnName="SUBSIDIARY" />
+                <ScalarProperty Name="STATE" ColumnName="STATE" />
+                <ScalarProperty Name="SOLICITUD_CREDITO_NUEVO" ColumnName="SOLICITUD_CREDITO_NUEVO" />
+                <ScalarProperty Name="SALUTATION" ColumnName="SALUTATION" />
+                <ScalarProperty Name="R_F_C_" ColumnName="R_F_C_" />
+                <ScalarProperty Name="RUTA_ID" ColumnName="RUTA_ID" />
+                <ScalarProperty Name="RFC" ColumnName="RFC" />
+                <ScalarProperty Name="REPRESENTANTE_VTAS" ColumnName="REPRESENTANTE_VTAS" />
+                <ScalarProperty Name="REGIMEN_FISCAL_ID" ColumnName="REGIMEN_FISCAL_ID" />
+                <ScalarProperty Name="REFERENCIA_BANCARIA" ColumnName="REFERENCIA_BANCARIA" />
+                <ScalarProperty Name="RECORRER_VENCIMIENTO_ID" ColumnName="RECORRER_VENCIMIENTO_ID" />
+                <ScalarProperty Name="POLTICA_DE_DEPURACIN_BO" ColumnName="POLTICA_DE_DEPURACIN_BO" />
+                <ScalarProperty Name="PHONE" ColumnName="PHONE" />
+                <ScalarProperty Name="PEDIDOS_PARCIALES" ColumnName="PEDIDOS_PARCIALES" />
+                <ScalarProperty Name="PAS_DE_RESIDENCIA_EXTRANJER_ID" ColumnName="PAS_DE_RESIDENCIA_EXTRANJER_ID" />
+                <ScalarProperty Name="PARENT_ID" ColumnName="PARENT_ID" />
+                <ScalarProperty Name="PAQUETERIA_ID" ColumnName="PAQUETERIA_ID" />
+                <ScalarProperty Name="PAGARE_NUEVO" ColumnName="PAGARE_NUEVO" />
+                <ScalarProperty Name="ORIGINATOR_ID" ColumnName="ORIGINATOR_ID" />
+                <ScalarProperty Name="N__DESCUENTO_PRONTO_PAGO" ColumnName="N__DESCUENTO_PRONTO_PAGO" />
+                <ScalarProperty Name="N__DESCUENTO_FINANCIERO" ColumnName="N__DESCUENTO_FINANCIERO" />
+                <ScalarProperty Name="N__DESCUENTO_ADICIONAL" ColumnName="N__DESCUENTO_ADICIONAL" />
+                <ScalarProperty Name="NUM__CLIENTE_INDAR" ColumnName="NUM__CLIENTE_INDAR" />
+                <ScalarProperty Name="NUM_DE_PROVEEDOR" ColumnName="NUM_DE_PROVEEDOR" />
+                <ScalarProperty Name="NUM_CUENTA_PAGO" ColumnName="NUM_CUENTA_PAGO" />
+                <ScalarProperty Name="NUMREGIDTRIB" ColumnName="NUMREGIDTRIB" />
+                <ScalarProperty Name="NUMERO_ID_FISCAL_EXTRANJERO" ColumnName="NUMERO_ID_FISCAL_EXTRANJERO" />
+                <ScalarProperty Name="NO_PROSPECTO" ColumnName="NO_PROSPECTO" />
+                <ScalarProperty Name="NO_BORRAR" ColumnName="NO_BORRAR" />
+                <ScalarProperty Name="NOTES" ColumnName="NOTES" />
+                <ScalarProperty Name="NOMBRE_EXTRANJERO_DIOT" ColumnName="NOMBRE_EXTRANJERO_DIOT" />
+                <ScalarProperty Name="NOMBRE_COMERCIAL" ColumnName="NOMBRE_COMERCIAL" />
+                <ScalarProperty Name="NAME" ColumnName="NAME" />
+                <ScalarProperty Name="NACIONALIDAD_EXTRANJERO" ColumnName="NACIONALIDAD_EXTRANJERO" />
+                <ScalarProperty Name="MTODO_DE_PAGO_SATC_ID" ColumnName="MTODO_DE_PAGO_SATC_ID" />
+                <ScalarProperty Name="MTODO_DE_PAGO_ID" ColumnName="MTODO_DE_PAGO_ID" />
+                <ScalarProperty Name="MONTO_PAGARE" ColumnName="MONTO_PAGARE" />
+                <ScalarProperty Name="MODIFICAR_VENCIMIENTO" ColumnName="MODIFICAR_VENCIMIENTO" />
+                <ScalarProperty Name="MNIMO_DE_PEDIDO" ColumnName="MNIMO_DE_PEDIDO" />
+                <ScalarProperty Name="MIDDLE_NAME" ColumnName="MIDDLE_NAME" />
+                <ScalarProperty Name="METODO_DE_PAGOSAT_ID" ColumnName="METODO_DE_PAGOSAT_ID" />
+                <ScalarProperty Name="LSA_LINK_NAME" ColumnName="LSA_LINK_NAME" />
+                <ScalarProperty Name="LSA_LINK" ColumnName="LSA_LINK" />
+                <ScalarProperty Name="LOGIN_ACCESS" ColumnName="LOGIN_ACCESS" />
+                <ScalarProperty Name="LIMITE_PEDIDOS" ColumnName="LIMITE_PEDIDOS" />
+                <ScalarProperty Name="LAST_SALES_ACTIVITY" ColumnName="LAST_SALES_ACTIVITY" />
+                <ScalarProperty Name="LAST_NAME" ColumnName="LAST_NAME" />
+                <ScalarProperty Name="LAST_MODIFIED_DATE" ColumnName="LAST_MODIFIED_DATE" />
+                <ScalarProperty Name="IS_UNAVAILABLE" ColumnName="IS_UNAVAILABLE" />
+                <ScalarProperty Name="IS_ONLINE_BILL_PAY" ColumnName="IS_ONLINE_BILL_PAY" />
+                <ScalarProperty Name="IS_INACTIVE" ColumnName="IS_INACTIVE" />
+                <ScalarProperty Name="INDAR_RUTA_VENTA_ID" ColumnName="INDAR_RUTA_VENTA_ID" />
+                <ScalarProperty Name="INDAR_BONO_CLIENTE_NUEVO" ColumnName="INDAR_BONO_CLIENTE_NUEVO" />
+                <ScalarProperty Name="INCOTERM_ID" ColumnName="INCOTERM_ID" />
+                <ScalarProperty Name="ID_NET" ColumnName="ID_NET" />
+                <ScalarProperty Name="ICO" ColumnName="ICO" />
+                <ScalarProperty Name="GRUPO_ID" ColumnName="GRUPO_ID" />
+                <ScalarProperty Name="GLOBAL_SUBSCRIPTION_STATUS" ColumnName="GLOBAL_SUBSCRIPTION_STATUS" />
+                <ScalarProperty Name="GIRO_ID" ColumnName="GIRO_ID" />
+                <ScalarProperty Name="FULL_NAME" ColumnName="FULL_NAME" />
+                <ScalarProperty Name="FORMA_DE_PAGO_ID" ColumnName="FORMA_DE_PAGO_ID" />
+                <ScalarProperty Name="FORMA_DE_ENVIO_ID" ColumnName="FORMA_DE_ENVIO_ID" />
+                <ScalarProperty Name="FORMAS_DE_PAGO_ID" ColumnName="FORMAS_DE_PAGO_ID" />
+                <ScalarProperty Name="FIRST_NAME" ColumnName="FIRST_NAME" />
+                <ScalarProperty Name="FECHA_DE_CUMPLEAOS" ColumnName="FECHA_DE_CUMPLEAOS" />
+                <ScalarProperty Name="FAMILIA_ID" ColumnName="FAMILIA_ID" />
+                <ScalarProperty Name="ES_AGENTE" ColumnName="ES_AGENTE" />
+                <ScalarProperty Name="ESTATUS_CLIENTE_INDAR_ID" ColumnName="ESTATUS_CLIENTE_INDAR_ID" />
+                <ScalarProperty Name="ENTITY_TYPE" ColumnName="ENTITY_TYPE" />
+                <ScalarProperty Name="ENTITY_ID" ColumnName="ENTITY_ID" />
+                <ScalarProperty Name="ENTITY_EXTID" ColumnName="ENTITY_EXTID" />
+                <ScalarProperty Name="EMAIL" ColumnName="EMAIL" />
+                <ScalarProperty Name="DIC" ColumnName="DIC" />
+                <ScalarProperty Name="DIA_INHABIL_ID" ColumnName="DIA_INHABIL_ID" />
+                <ScalarProperty Name="DESCUENTO_RECARGOS" ColumnName="DESCUENTO_RECARGOS" />
+                <ScalarProperty Name="DESCUENTO_FINANCIERO" ColumnName="DESCUENTO_FINANCIERO" />
+                <ScalarProperty Name="DESCUENTOS_POR_TEMPORADA" ColumnName="DESCUENTOS_POR_TEMPORADA" />
+                <ScalarProperty Name="DESCUENTOS_POR_CONVENIOS" ColumnName="DESCUENTOS_POR_CONVENIOS" />
+                <ScalarProperty Name="DEPARTAMENTO_ID" ColumnName="DEPARTAMENTO_ID" />
+                <ScalarProperty Name="DEF_MONEDA_CREDITO_MONEDA" ColumnName="DEF_MONEDA_CREDITO_MONEDA" />
+                <ScalarProperty Name="DATE_LAST_MODIFIED" ColumnName="DATE_LAST_MODIFIED" />
+                <ScalarProperty Name="CURP" ColumnName="CURP" />
+                <ScalarProperty Name="CRM_MOV_VENTA" ColumnName="CRM_MOV_VENTA" />
+                <ScalarProperty Name="CRM_INFLUENCIA_ID" ColumnName="CRM_INFLUENCIA_ID" />
+                <ScalarProperty Name="CREDITO_ESPECIAL" ColumnName="CREDITO_ESPECIAL" />
+                <ScalarProperty Name="CREDITO_CON_LIMITE" ColumnName="CREDITO_CON_LIMITE" />
+                <ScalarProperty Name="CREDITO_CON_DIAS" ColumnName="CREDITO_CON_DIAS" />
+                <ScalarProperty Name="CREDITO_CON_CONDICIONES" ColumnName="CREDITO_CON_CONDICIONES" />
+                <ScalarProperty Name="CREATE_DATE" ColumnName="CREATE_DATE" />
+                <ScalarProperty Name="COUNTRY" ColumnName="COUNTRY" />
+                <ScalarProperty Name="CORREO_ELECTRNICO_AGENTE" ColumnName="CORREO_ELECTRNICO_AGENTE" />
+                <ScalarProperty Name="CONSERVA_BO_ID" ColumnName="CONSERVA_BO_ID" />
+                <ScalarProperty Name="CONDICION_ID" ColumnName="CONDICION_ID" />
+                <ScalarProperty Name="CONDICIONES_DE_VENCIMIENTO_ID" ColumnName="CONDICIONES_DE_VENCIMIENTO_ID" />
+                <ScalarProperty Name="CONDICIONES_COMERCIALES_ID" ColumnName="CONDICIONES_COMERCIALES_ID" />
+                <ScalarProperty Name="COMPROMISO_DE_COMPRA" ColumnName="COMPROMISO_DE_COMPRA" />
+                <ScalarProperty Name="CLIENTE_CONTADO_ID" ColumnName="CLIENTE_CONTADO_ID" />
+                <ScalarProperty Name="CLAVE" ColumnName="CLAVE" />
+                <ScalarProperty Name="CLABE" ColumnName="CLABE" />
+                <ScalarProperty Name="CITY" ColumnName="CITY" />
+                <ScalarProperty Name="CHECAR_CREDITO" ColumnName="CHECAR_CREDITO" />
+                <ScalarProperty Name="CATEGORA_DE_CLIENTE_ID" ColumnName="CATEGORA_DE_CLIENTE_ID" />
+                <ScalarProperty Name="BLOQUEAR_MOROSOS_ID" ColumnName="BLOQUEAR_MOROSOS_ID" />
+                <ScalarProperty Name="BANCO_ORIGEN_ID" ColumnName="BANCO_ORIGEN_ID" />
+                <ScalarProperty Name="BANCO_DESTINO_ID" ColumnName="BANCO_DESTINO_ID" />
+                <ScalarProperty Name="AUXILIAR_DE_COBRANZA" ColumnName="AUXILIAR_DE_COBRANZA" />
+                <ScalarProperty Name="APOYO_VENTAS" ColumnName="APOYO_VENTAS" />
+                <ScalarProperty Name="APOYOS_A_MERCADOTECNIA" ColumnName="APOYOS_A_MERCADOTECNIA" />
+                <ScalarProperty Name="APLICA_PARA_BONO" ColumnName="APLICA_PARA_BONO" />
+                <ScalarProperty Name="AGENTE_ID" ColumnName="AGENTE_ID" />
+                <ScalarProperty Name="ADDRESS_TWO" ColumnName="ADDRESS_TWO" />
+                <ScalarProperty Name="ADDRESS_THREE" ColumnName="ADDRESS_THREE" />
+                <ScalarProperty Name="ADDRESS_ONE" ColumnName="ADDRESS_ONE" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

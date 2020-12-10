@@ -48,5 +48,6 @@ namespace SAI_NETSUITE
     
         public virtual OrdenEmbarque OrdenEmbarque { get; set; }
         public virtual Estilo Estilo { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

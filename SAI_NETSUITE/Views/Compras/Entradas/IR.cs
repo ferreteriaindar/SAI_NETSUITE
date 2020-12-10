@@ -61,7 +61,7 @@ namespace SAI_NETSUITE.Views.Compras.Entradas
                     SAI_NETSUITE.IR ir = new SAI_NETSUITE.IR()
                     {
                         date = DateTime.Now,
-                        mov = "IR",
+                        mov = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[1], colCategoria).ToString().Equals("INSUMOS")?"IRS":"IR",
                         vendor = proveedores.FirstOrDefault()
                     };
                     ctx.IR.Add(ir);

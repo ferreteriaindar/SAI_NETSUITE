@@ -45,18 +45,25 @@ namespace SAI_NETSUITE.Controllers.Ventas
 		                                    END
 		                                    ELSE
 			                                    BEGIN
-				                                    if exists(select tranId from iws.dbo.SaleOrders where   syncWMS is null and  tranId=@Pedido )
+				                                   IF exists(select tranId from iws.dbo.SaleOrders where    tranId=@Pedido )
 					                                         BEGIN
-															if exists(select  tranid from iws.dbo.SaleOrders where CONVERT(DATE,trandate)=CONVERT(Date,GETDATE()) AND tranId=@Pedido)
-															begin
-																	set @EstatusIWS='Espera 5 min a que ingrese a WMS'
-																	select @EstatusIWS
-															end
-															else 
-																begin
-																   set @EstatusWMS='ES_BO'
-																   SELECT @EstatusWMS
-															   end
+															if exists(select  tranid from iws.dbo.SaleOrders where CONVERT(DATE,trandate)=CONVERT(Date,GETDATE()) AND tranId=@Pedido and unificado is null)
+																	begin
+																			set @EstatusIWS='Espera 5 min a que ingrese a WMS'
+																			select @EstatusIWS
+																	end
+															else IF EXISTS(SELECT TRANID FROM IWS.dbo.SaleOrders WHERE tranId=@Pedido AND unificado=1)
+																		begin
+																					 select @EstatusWMS=EOE.Nombre from INDAR_INACTIONWMS.dbo.OrdenEmbarque OE 
+																					INNER JOIN INDAR_INACTIONWMS.DBO.EstatusOrdenEmbarque EOE on OE.IdEstatusOrdenEmbarque=EOE.IdEstatusOrdenEmbarque
+																					WHERE   Mov='cotizacion' and  OE.NumPedido=(SELECT cotizacion FROM IWS.dbo.SaleOrders WHERE tranId=@Pedido AND unificado=1) collate  Modern_Spanish_CI_AI 
+																					select @EstatusWMS
+																		end 	
+															else		
+																		begin
+																			  set @EstatusWMS='ES_BO'
+																	   SELECT @EstatusWMS
+																	 end
 															 END
 				                                    ELSE 
 					                                    Begin
@@ -100,7 +107,7 @@ namespace SAI_NETSUITE.Controllers.Ventas
 			                                    BEGIN
 														if exists(select tranId from iws.dbo.SaleOrders where   syncWMS is null and  tranId=@Pedido )
 																 BEGIN
-																if exists(select  tranid from iws.dbo.SaleOrders where CONVERT(DATE,trandate)=CONVERT(Date,GETDATE()) AND tranId=@Pedido)
+																if exists(select  tranid from iws.dbo.SaleOrders where CONVERT(DATE,trandate)=CONVERT(Date,GETDATE()) AND tranId=@Pedido and unificado is null)
 																begin
 																		set @EstatusIWS='No esta ingresado a WMS'
 																		select @EstatusIWS

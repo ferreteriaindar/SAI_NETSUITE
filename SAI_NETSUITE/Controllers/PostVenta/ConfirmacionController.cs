@@ -105,7 +105,7 @@ namespace SAI_NETSUITE.Controllers.PostVenta
                     {
                         int idembarque = Convert.ToInt32(embarque);
                         var totalLineas = (from ed in ctx.EmbarquesD where (ed.idEmbarque == idembarque) select ed).Count();
-                        var entregados= (from ed in ctx.EmbarquesD where (ed.idEmbarque == idembarque && ed.estado.Equals("ENTREGADO")) select ed).Count();
+                        var entregados= (from ed in ctx.EmbarquesD where (ed.idEmbarque == idembarque && !ed.estado.Equals("TRANSITO")) select ed).Count();
                         if(totalLineas==entregados)
                         {
                             SqlCommand cmd2 = new SqlCommand("", myConnection);

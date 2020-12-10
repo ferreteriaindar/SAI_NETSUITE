@@ -44,5 +44,6 @@ namespace SAI_NETSUITE.Models.Transaccion
         public string trandate { get; set; }
         public string quantity { get; set; }
         public string quantitycommitted { get; set; }
+        public string  closed { get; set; }
     }
 }

@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Drawing.Printing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DevExpress.LookAndFeel;
+using DevExpress.Pdf;
 using DevExpress.XtraReports.UI;
 using Newtonsoft.Json;
 using SAI_NETSUITE.Controllers.IWS;
@@ -23,6 +26,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
             {
                 string query = @"exec  indarneg.dbo.spEmpaquePantallaNetsuiteV2";
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
+                da.SelectCommand.CommandTimeout = 0;
                 DataSet ds = new DataSet();
                 da.Fill(ds);
                 return ds;
@@ -253,24 +257,28 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
                         {
                             int cantidad = pedidoSurtido.listaArt.Where(x => x.id.Equals(pedidoInd.itemId)).Select(x => x.cantidad).First();
                             int pide = pedidoInd.quantity.Value;
-                            if (cantidad >= pide)
-                            {
+                          /*  if (cantidad >= pide)
+                            {*/
                                 Line line = new Line()
                                 {
                                     itemId = pedidoInd.itemId,
                                     location = "1",
-                                    quantity = pide.ToString()
+                                    quantity =   cantidad>=pide? pide.ToString():cantidad.ToString()
                                 };
                                 lineas.Add(line);
-                                /* var pedidoSurtido. = pedidoSurtido.listaArt.Where(x => x.itemid == pedidoInd.itemId).
-                                  Select(x => { x.cantidad = x.cantidad - pide; return x; }).ToList();*/
-                               var x2= pedidoSurtido.listaArt.Select(x => {
+                            //}
+                           /* else { 
+                                
+                             /*  var x2= pedidoSurtido.listaArt.Select(x => {
                                     x.cantidad = x.id == pedidoInd.itemId ? x.cantidad - pide : x.cantidad;
                                     return x;
                                 }).ToList();
+                                */
 
-                                                                
-                            }
+                              
+
+
+                           // }
                         }
                     }
                     pf.lines.AddRange(lineas);
@@ -319,35 +327,50 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
         {
             try
             {
-                int tranid = 0;
-                if (!porTranID)
+                //PRIMERO BUSCA LA FACTURA TIMBRADA SI NO  SE VA POR LA IMPRESION DEL SAI
+               /* byte[] pdf = new empaquePantallaController().GetPDF(Convert.ToInt32(error));
+                if (pdf != null)
                 {
-                    using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+                    MemoryStream ms = new MemoryStream(pdf);
+                    var pdfViewer2 = new DevExpress.XtraPdfViewer.PdfViewer();
+                    pdfViewer2.LoadDocument(ms);
+                    PrinterSettings printerSettings = new PrinterSettings();
+                    printerSettings.Copies = (short)copias;
+                    PdfPrinterSettings pdfPrinterSettings = new PdfPrinterSettings(printerSettings);                
+                    pdfViewer2.Print(pdfPrinterSettings);
+                }
+                else
+                {   */
+                    int tranid = 0;
+                    if (!porTranID)
                     {
-                        myConnection.Open();
-                        string query = @"select tranid from iws.dbo.Invoices where internalid=" + error;// -- where createdfrom =(select internalId from iws.dbo.SaleOrders where tranid=" + error + @") --and (status='Open' or status is null)";
-                        SqlCommand cmd = new SqlCommand(query, myConnection);
-                        tranid = Convert.ToInt32(cmd.ExecuteScalar().ToString());
-                    };
-                }
-                else tranid = Convert.ToInt32(error);
+                        using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
+                        {
+                            myConnection.Open();
+                            string query = @"select tranid from iws.dbo.Invoices where internalid=" + error;// -- where createdfrom =(select internalId from iws.dbo.SaleOrders where tranid=" + error + @") --and (status='Open' or status is null)";
+                            SqlCommand cmd = new SqlCommand(query, myConnection);
+                            tranid = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                        };
+                    }
+                    else tranid = Convert.ToInt32(error);
 
-                Controllers.Logistica.Empaque.FacturaIndarController fic = new Controllers.Logistica.Empaque.FacturaIndarController();
-                DataSet ds = fic.regresaDatosCabecera(tranid);
-                // ds.WriteXmlSchema(@"S:\XML\Almacen\FacturaIndarSinTimbrar.xml");
-                Views.Logistica.Empaque.FacturaIndar fi = new FacturaIndar();
-                fi.DataSource = ds;
-                using (ReportPrintTool printTool = new ReportPrintTool(fi))
-                {
+                    Controllers.Logistica.Empaque.FacturaIndarController fic = new Controllers.Logistica.Empaque.FacturaIndarController();
+                    DataSet ds = fic.regresaDatosCabecera(tranid);
+                    // ds.WriteXmlSchema(@"S:\XML\Almacen\FacturaIndarSinTimbrar.xml");
+                    Views.Logistica.Empaque.FacturaIndar fi = new FacturaIndar();
+                    fi.DataSource = ds;
+                    using (ReportPrintTool printTool = new ReportPrintTool(fi))
+                    {
 
 
-                    //                    printTool.ShowRibbonPreviewDialog();
-                    printTool.PrinterSettings.Copies =(short) copias;
-                    printTool.Print();
+                        //                    printTool.ShowRibbonPreviewDialog();
+                        printTool.PrinterSettings.Copies = (short)copias;
+                        printTool.Print();
 
-                
 
-                }
+
+                    }
+                //}
             }
             catch (Exception ex)
             {

@@ -58,5 +58,6 @@ namespace SAI_NETSUITE
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PedidoRenglon> PedidoRenglon { get; set; }
+        public virtual Usuario Usuario { get; set; }
     }
 }

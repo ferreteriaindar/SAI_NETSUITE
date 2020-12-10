@@ -156,8 +156,10 @@ namespace SAI_NETSUITE.Views.Ventas.Apoyos
             SaleOrderCancelSearchModel scsm = (SaleOrderCancelSearchModel)argumentList[2];
             string usuario = (string)argumentList[3];
             string wmsEstatus = (string)argumentList[4];
-            var resultado = cpc.CancelarPedido(tranid, status, scsm, usuario,wmsEstatus);
-            e.Result = resultado.ToString();
+            //se deshabilita para detectar por que no lo cancela en wms
+             var resultado = cpc.CancelarPedido(tranid, status, scsm, usuario,wmsEstatus);
+             e.Result = resultado.ToString();
+            //e.Result = "Hubo un problema ya no se pudo cancelar en WMS";
         }
 
         private void backgroundWorkerCancelar_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -173,7 +175,11 @@ namespace SAI_NETSUITE.Views.Ventas.Apoyos
 
 
             }
-            else MessageBox.Show(resultado);
+            else
+            {
+                MessageBox.Show(resultado);
+                btnCancelar.ImageOptions.Image = null;
+            }
         }
 
         private void richTextBox1_TextChanged(object sender, EventArgs e)

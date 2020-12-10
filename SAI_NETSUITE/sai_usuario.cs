@@ -26,5 +26,7 @@ namespace SAI_NETSUITE
         public string estatus { get; set; }
         public string sucursal { get; set; }
         public string area { get; set; }
+        public string password { get; set; }
+        public Nullable<System.DateTime> ultimoInicioSesion { get; set; }
     }
 }

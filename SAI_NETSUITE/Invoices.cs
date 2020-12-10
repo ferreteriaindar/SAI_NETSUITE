@@ -29,7 +29,7 @@ namespace SAI_NETSUITE
         public Nullable<decimal> TaxTotal { get; set; }
         public Nullable<decimal> Total { get; set; }
         public Nullable<decimal> DescuentoTotalImporte { get; set; }
-        public Nullable<int> DescuentoTotalPP { get; set; }
+        public Nullable<decimal> DescuentoTotalPP { get; set; }
         public string DescuentoEspecial { get; set; }
         public string DescuentoEvento { get; set; }
         public string AutorizacionEspecial { get; set; }

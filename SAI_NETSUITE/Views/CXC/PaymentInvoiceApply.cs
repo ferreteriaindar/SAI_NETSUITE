@@ -19,14 +19,17 @@ namespace SAI_NETSUITE.Views.CXC
     {
         List<string> listaTimbrar = new List<string>();
         DataTable dt;
-        public PaymentInvoiceApply()
+        string usuario;
+        public PaymentInvoiceApply(string usr)
         {
+            usuario = usr;
             InitializeComponent();
         }
 
         private void PaymentInvoiceApply_Load(object sender, EventArgs e)
         {
             cargaZonas();
+           
            dt= InicializaTabla();
             cargaFormaPagoSAT();
         }
@@ -307,8 +310,9 @@ namespace SAI_NETSUITE.Views.CXC
 
                 if (gridView1.SelectedRowsCount > 0 && !comboSAT.Text.Contains("99"))
             {
-                StringBuilder sb = new StringBuilder();
-                sb.Append("ExternalId,Pago,PagoMonto,Facturaid,ImporteFactura,sat");
+                string nombreNetSuite =new PaymentInvoiceApplyController().regresaNombreNetsuite(usuario);
+                StringBuilder sb = new StringBuilder(); //////
+                sb.Append("ExternalId,Pago,PagoMonto,Facturaid,ImporteFactura,sat,sai");
                 sb.Append("\r\n");
                 string ExternalId = DateTime.Now.ToFileTime().ToString();
                 List<listaFacturasPorEnviarPago> lista = new List<listaFacturasPorEnviarPago>();
@@ -328,7 +332,8 @@ namespace SAI_NETSUITE.Views.CXC
                         pagoMonyo = Convert.ToDecimal(layoutPago.Control.Text.ToString()),
                         FacturaID = gridViewFinalFactura.GetRowCellValue(i, colFinalFacturaID).ToString(), //gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colinternalId).ToString(),
                         FacturaMonto = Convert.ToDecimal(gridViewFinalFactura.GetRowCellValue(i, colFinalFacturaMontoFix).ToString()),
-                        sat = comboSAT.Text
+                        sat = comboSAT.Text,
+                        sai = nombreNetSuite
                        
                     };
                     lista.Add(aux);
@@ -342,7 +347,7 @@ namespace SAI_NETSUITE.Views.CXC
 
                 foreach (var item in lista)
                 {
-                    sb.Append(ExternalId + "," + item.pagoID + "," + item.pagoMonyo.ToString() + "," + item.FacturaID + "," + item.FacturaMonto.ToString()+","+item.sat);
+                    sb.Append(ExternalId + "," + item.pagoID + "," + item.pagoMonyo.ToString() + "," + item.FacturaID + "," + item.FacturaMonto.ToString()+","+item.sat+","+item.sai);
                     sb.Append("\r\n");
                 }
 
@@ -376,6 +381,8 @@ namespace SAI_NETSUITE.Views.CXC
 
 
         }
+
+        
 
         private void btnMagic_Click(object sender, EventArgs e)
         {
@@ -475,7 +482,7 @@ namespace SAI_NETSUITE.Views.CXC
         public string FacturaID { get; set; }
         public decimal? FacturaMonto { get; set; }
         public string sat { get; set; }
-
+        public string sai { get; set; }
 
     }
 }

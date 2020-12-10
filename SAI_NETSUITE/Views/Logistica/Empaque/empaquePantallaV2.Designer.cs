@@ -97,7 +97,7 @@
             this.gridControl1.Location = new System.Drawing.Point(0, 73);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(1282, 461);
+            this.gridControl1.Size = new System.Drawing.Size(1357, 524);
             this.gridControl1.TabIndex = 0;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -238,7 +238,7 @@
             this.btnFacturar.AppearanceHovered.Options.UseBorderColor = true;
             this.btnFacturar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.btnFacturar.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.gear;
-            this.btnFacturar.Location = new System.Drawing.Point(1136, 23);
+            this.btnFacturar.Location = new System.Drawing.Point(1222, 23);
             this.btnFacturar.Name = "btnFacturar";
             this.btnFacturar.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
             this.btnFacturar.Size = new System.Drawing.Size(135, 32);
@@ -256,7 +256,7 @@
             // labelAvance
             // 
             this.labelAvance.AutoSize = true;
-            this.labelAvance.Location = new System.Drawing.Point(1092, 31);
+            this.labelAvance.Location = new System.Drawing.Point(1148, 31);
             this.labelAvance.Name = "labelAvance";
             this.labelAvance.Size = new System.Drawing.Size(28, 17);
             this.labelAvance.TabIndex = 4;
@@ -344,7 +344,7 @@
             // 
             // toggleSwitch1
             // 
-            this.toggleSwitch1.Location = new System.Drawing.Point(913, 29);
+            this.toggleSwitch1.Location = new System.Drawing.Point(1000, 31);
             this.toggleSwitch1.Name = "toggleSwitch1";
             this.toggleSwitch1.Properties.LookAndFeel.SkinName = "Office 2016 Colorful";
             this.toggleSwitch1.Properties.OffText = "Apagado";
@@ -357,7 +357,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(910, 9);
+            this.label1.Location = new System.Drawing.Point(997, 11);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(78, 17);
             this.label1.TabIndex = 9;
@@ -373,7 +373,7 @@
             // 
             this.btnPedidoFactura.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
             this.btnPedidoFactura.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnPedidoFactura.ImageOptions.Image")));
-            this.btnPedidoFactura.Location = new System.Drawing.Point(769, 23);
+            this.btnPedidoFactura.Location = new System.Drawing.Point(856, 23);
             this.btnPedidoFactura.Name = "btnPedidoFactura";
             this.btnPedidoFactura.Size = new System.Drawing.Size(135, 37);
             this.btnPedidoFactura.TabIndex = 10;
@@ -395,7 +395,7 @@
             this.Controls.Add(this.btnActualizar);
             this.Controls.Add(this.gridControl1);
             this.Name = "empaquePantallaV2";
-            this.Size = new System.Drawing.Size(1285, 537);
+            this.Size = new System.Drawing.Size(1360, 600);
             this.Load += new System.EventHandler(this.empaquePantallaV2_Load);
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
