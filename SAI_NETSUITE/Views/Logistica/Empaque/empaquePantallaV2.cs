@@ -213,7 +213,8 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
               empaquePantallaControllerV2 epcv2 = new empaquePantallaControllerV2();
               for (int i = 0; i <lista.Count; i++)
               {
-                  string resultado = epcv2.fulfillmentToInvoice(lista[i]);
+
+                string resultado = epcv2.fulfillmentToInvoice(lista[i]);
                   respuestaIWScs res = JsonConvert.DeserializeObject<respuestaIWScs>(resultado);
                   //responseJson rs = JsonConvert.DeserializeObject<responseJson>(res.result);
                   if (res.result.responseStructure.codeStatus.Equals("NOK"))
@@ -506,6 +507,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
         private void backgroundWorkerEventos_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             btnFacturar.ImageOptions.Image = null;
+            btnFacturar.StopAnimation();
             MessageBox.Show("¡Terminado! \n Espera a que vuelva a carga la pantalla");
             labelAvance.Text = "0/0";
             cargaDatos();

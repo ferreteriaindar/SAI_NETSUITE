@@ -125,6 +125,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             searchEmpleadoCambiar.Properties.DataSource = lista;
             List<RutaListCombo> listaRuta = Llenaruta();
             searchPaqueteria.Properties.DataSource = listaRuta;
+            searchNewFletera.Properties.DataSource = listaRuta;
             pictureEdit1.Visible = false;
 
         }
@@ -462,6 +463,29 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
         private void btnCambiarFormaEnvio_Click(object sender, EventArgs e)
         {
            
+        }
+
+        private void btnCambiarFormaEnvio_Click_1(object sender, EventArgs e)
+        {
+            if(dxValidationProvider3.Validate())
+            {
+                int n;
+                if (int.TryParse(txtEmbarqueFormaEnvio.Text, out n))
+                {
+                    if (existeEmbarque(n))
+                    {
+                        using (IndarnegEntities ctx = new IndarnegEntities())
+                        {
+                            Embarques emb = (from i in ctx.Embarques
+                                             where i.idEmbarque.Equals(n)
+                                             select i).FirstOrDefault();
+                            emb.idPaqueteria = Convert.ToInt32(searchNewFletera.EditValue.ToString());
+                            ctx.SaveChanges();
+                            MessageBox.Show("Embarque " + n.ToString() + " actualizado");
+                        }
+                    }
+                }
+            }
         }
     }
 }

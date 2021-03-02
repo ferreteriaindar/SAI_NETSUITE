@@ -18,6 +18,7 @@ namespace SAI_NETSUITE.Controllers.Ventas
        public List<Models.Catalogos.FormaEnvioListCombo> listaFormaEnvio;
        public List<Models.Catalogos.RutaListCombo> listaRuta;
        public List<Models.Catalogos.EventosListCombo> listaEvento;
+        public List<Models.Catalogos.ListaPaqueteria> listaPaqueterias;
        public string listaPrecio;
         public SaleOrderSentController()
         { 
@@ -41,8 +42,10 @@ namespace SAI_NETSUITE.Controllers.Ventas
                 listaRuta= rl.ToList();
                 var evento = from x in ctx.Eventos select new Models.Catalogos.EventosListCombo() { LIST_ID = x.LIST_ID, LIST_ITEM_NAME = x.LIST_ITEM_NAME };
                 listaEvento = evento.ToList();
-                
-              
+
+                var pa = from x in ctx.Paqueteria.Where(s => s.isInactive == false) select new Models.Catalogos.ListaPaqueteria() { LIST_ID = x.LIST_ID, LIST_ITEM_NAME = x.LIST_ITEM_NAME };
+                listaPaqueterias = pa.ToList();
+
             }
         }
 

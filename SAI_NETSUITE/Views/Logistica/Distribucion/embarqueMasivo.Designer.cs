@@ -33,6 +33,9 @@
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule2 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule3 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule4 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule5 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule6 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
+            DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule conditionValidationRule7 = new DevExpress.XtraEditors.DXErrorProvider.ConditionValidationRule();
             this.groupControl1 = new DevExpress.XtraEditors.GroupControl();
             this.pictureEdit1 = new DevExpress.XtraEditors.PictureEdit();
             this.btnConsultaFactura = new DevExpress.XtraEditors.SimpleButton();
@@ -74,7 +77,13 @@
             this.label6 = new System.Windows.Forms.Label();
             this.txtEmbarqueCambiar = new DevExpress.XtraEditors.TextEdit();
             this.dxValidationProvider2 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
+            this.txtEmbarqueFormaEnvio = new DevExpress.XtraEditors.TextEdit();
             this.groupControl5 = new DevExpress.XtraEditors.GroupControl();
+            this.btnCambiarFormaEnvio = new DevExpress.XtraEditors.SimpleButton();
+            this.label7 = new System.Windows.Forms.Label();
+            this.dxValidationProvider3 = new DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider(this.components);
+            this.searchNewFletera = new DevExpress.XtraEditors.SearchLookUpEdit();
+            this.gridView4 = new DevExpress.XtraGrid.Views.Grid.GridView();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).BeginInit();
             this.groupControl1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureEdit1.Properties)).BeginInit();
@@ -97,7 +106,12 @@
             this.groupControl4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmbarqueCambiar.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEmbarqueFormaEnvio.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).BeginInit();
+            this.groupControl5.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchNewFletera.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).BeginInit();
             this.SuspendLayout();
             // 
             // groupControl1
@@ -163,7 +177,7 @@
             this.gridControl1.Location = new System.Drawing.Point(299, 3);
             this.gridControl1.MainView = this.GridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(828, 720);
+            this.gridControl1.Size = new System.Drawing.Size(828, 781);
             this.gridControl1.TabIndex = 1;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.GridView1});
@@ -494,13 +508,74 @@
             conditionValidationRule4.ErrorText = "This value is not valid";
             this.dxValidationProvider2.SetValidationRule(this.txtEmbarqueCambiar, conditionValidationRule4);
             // 
+            // txtEmbarqueFormaEnvio
+            // 
+            this.txtEmbarqueFormaEnvio.Location = new System.Drawing.Point(4, 28);
+            this.txtEmbarqueFormaEnvio.Name = "txtEmbarqueFormaEnvio";
+            this.txtEmbarqueFormaEnvio.Properties.NullText = "Num. Embarque";
+            this.txtEmbarqueFormaEnvio.Size = new System.Drawing.Size(280, 22);
+            this.txtEmbarqueFormaEnvio.TabIndex = 8;
+            conditionValidationRule5.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule5.ErrorText = "This value is not valid";
+            this.dxValidationProvider2.SetValidationRule(this.txtEmbarqueFormaEnvio, conditionValidationRule5);
+            conditionValidationRule6.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule6.ErrorText = "This value is not valid";
+            this.dxValidationProvider3.SetValidationRule(this.txtEmbarqueFormaEnvio, conditionValidationRule6);
+            // 
             // groupControl5
             // 
+            this.groupControl5.Controls.Add(this.searchNewFletera);
+            this.groupControl5.Controls.Add(this.btnCambiarFormaEnvio);
+            this.groupControl5.Controls.Add(this.label7);
+            this.groupControl5.Controls.Add(this.txtEmbarqueFormaEnvio);
             this.groupControl5.Location = new System.Drawing.Point(3, 649);
             this.groupControl5.Name = "groupControl5";
-            this.groupControl5.Size = new System.Drawing.Size(290, 60);
+            this.groupControl5.Size = new System.Drawing.Size(290, 135);
             this.groupControl5.TabIndex = 6;
             this.groupControl5.Text = "CambiarFormaEnvio";
+            // 
+            // btnCambiarFormaEnvio
+            // 
+            this.btnCambiarFormaEnvio.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.UltraFlat;
+            this.btnCambiarFormaEnvio.ImageOptions.Image = global::SAI_NETSUITE.Properties.Resources.recurrence_16x16;
+            this.btnCambiarFormaEnvio.Location = new System.Drawing.Point(102, 107);
+            this.btnCambiarFormaEnvio.Name = "btnCambiarFormaEnvio";
+            this.btnCambiarFormaEnvio.Size = new System.Drawing.Size(86, 23);
+            this.btnCambiarFormaEnvio.TabIndex = 11;
+            this.btnCambiarFormaEnvio.Text = "Cambiar";
+            this.btnCambiarFormaEnvio.Click += new System.EventHandler(this.btnCambiarFormaEnvio_Click_1);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label7.Location = new System.Drawing.Point(6, 57);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(56, 19);
+            this.label7.TabIndex = 10;
+            this.label7.Text = "Fletera";
+            // 
+            // searchNewFletera
+            // 
+            this.searchNewFletera.Location = new System.Drawing.Point(6, 79);
+            this.searchNewFletera.Name = "searchNewFletera";
+            this.searchNewFletera.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo)});
+            this.searchNewFletera.Properties.DisplayMember = "LIST_ITEM_NAME";
+            this.searchNewFletera.Properties.PopupView = this.gridView4;
+            this.searchNewFletera.Properties.ValueMember = "LIST_ID";
+            this.searchNewFletera.Size = new System.Drawing.Size(275, 22);
+            this.searchNewFletera.TabIndex = 12;
+            conditionValidationRule7.ConditionOperator = DevExpress.XtraEditors.DXErrorProvider.ConditionOperator.IsNotBlank;
+            conditionValidationRule7.ErrorText = "This value is not valid";
+            this.dxValidationProvider1.SetValidationRule(this.searchNewFletera, conditionValidationRule7);
+            // 
+            // gridView4
+            // 
+            this.gridView4.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
+            this.gridView4.Name = "gridView4";
+            this.gridView4.OptionsSelection.EnableAppearanceFocusedCell = false;
+            this.gridView4.OptionsView.ShowGroupPanel = false;
             // 
             // embarqueMasivo
             // 
@@ -513,7 +588,7 @@
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.groupControl1);
             this.Name = "embarqueMasivo";
-            this.Size = new System.Drawing.Size(1130, 726);
+            this.Size = new System.Drawing.Size(1130, 787);
             this.Load += new System.EventHandler(this.embarqueMasivo_Load);
             ((System.ComponentModel.ISupportInitialize)(this.groupControl1)).EndInit();
             this.groupControl1.ResumeLayout(false);
@@ -541,7 +616,13 @@
             this.groupControl4.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.txtEmbarqueCambiar.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtEmbarqueFormaEnvio.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.groupControl5)).EndInit();
+            this.groupControl5.ResumeLayout(false);
+            this.groupControl5.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dxValidationProvider3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.searchNewFletera.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView4)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -590,5 +671,11 @@
         private DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider dxValidationProvider2;
         private DevExpress.XtraEditors.GroupControl groupControl5;
         private DevExpress.XtraGrid.Columns.GridColumn colCliente;
+        private DevExpress.XtraEditors.SimpleButton btnCambiarFormaEnvio;
+        private System.Windows.Forms.Label label7;
+        private DevExpress.XtraEditors.TextEdit txtEmbarqueFormaEnvio;
+        private DevExpress.XtraEditors.DXErrorProvider.DXValidationProvider dxValidationProvider3;
+        private DevExpress.XtraEditors.SearchLookUpEdit searchNewFletera;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView4;
     }
 }

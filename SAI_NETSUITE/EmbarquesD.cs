@@ -28,6 +28,8 @@ namespace SAI_NETSUITE
         public Nullable<int> idNetsuite { get; set; }
         public string UsuarioConfirma { get; set; }
         public Nullable<System.DateTime> fechaConfirmaPostventa { get; set; }
+        public string UsuarioFleteXConfirmar { get; set; }
+        public Nullable<System.DateTime> FechaFleteXConfirmar { get; set; }
     
         public virtual Embarques Embarques { get; set; }
     }

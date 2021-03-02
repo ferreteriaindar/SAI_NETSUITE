@@ -458,13 +458,13 @@ namespace SAI_NETSUITE
                         pia.BringToFront();
                         break;
                     case "btnTimbrado":
-                        panelControl1.Controls.Clear();
+                       /* panelControl1.Controls.Clear();
                         Views.Contabilidad.TimbradoPrueba tb = new Views.Contabilidad.TimbradoPrueba()
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill
                         };
-                        tb.BringToFront();
+                        tb.BringToFront();*/
                         break;
                     case "btnTimbrarPagos":
                        /*  panelControl1.Controls.Clear();
@@ -565,13 +565,22 @@ namespace SAI_NETSUITE
                         luwms.BringToFront();
                         break;
                     case "btnCapturaGastoFletera":
-                        panelControl1.Controls.Clear();
-                        Views.Logistica.Distribucion.GastoFleteras gf = new Views.Logistica.Distribucion.GastoFleteras()
+                      /*  panelControl1.Controls.Clear();
+                        Views.Logistica.Distribucion.GastoFleteras gf = new Views.Logistica.Distribucion.GastoFleteras(usuario)
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill
                         };
-                        gf.BringToFront();
+                        gf.BringToFront();*/
+                        break;
+                    case "btnEditarGuia":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Distribucion.EditarNumGuia eng = new Views.Logistica.Distribucion.EditarNumGuia()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        eng.BringToFront();
                         break;
 
 

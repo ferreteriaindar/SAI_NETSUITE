@@ -35,9 +35,8 @@
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
             this.COLENTITY = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPaqueteria = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colOficinaNameFletara = new DevExpress.XtraGrid.Columns.GridColumn();
             this.label1 = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.textEdit1 = new DevExpress.XtraEditors.TextEdit();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colidNumeroGuia = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -48,23 +47,47 @@
             this.label3 = new System.Windows.Forms.Label();
             this.txtImporteGuia = new DevExpress.XtraEditors.TextEdit();
             this.label2 = new System.Windows.Forms.Label();
-            this.txtFactura = new DevExpress.XtraEditors.TextEdit();
+            this.txtFacturaImporte = new DevExpress.XtraEditors.TextEdit();
             this.label5 = new System.Windows.Forms.Label();
-            this.textEdit3 = new DevExpress.XtraEditors.TextEdit();
+            this.txtNumFactura = new DevExpress.XtraEditors.TextEdit();
             this.btnRegistra = new DevExpress.XtraEditors.SimpleButton();
             this.btnCargaXml = new DevExpress.XtraEditors.SimpleButton();
             this.labelPath = new DevExpress.XtraEditors.LabelControl();
             this.behaviorManager1 = new DevExpress.Utils.Behaviors.BehaviorManager(this.components);
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
+            this.label4 = new System.Windows.Forms.Label();
+            this.txtUUID = new DevExpress.XtraEditors.TextEdit();
+            this.checkEdit1 = new DevExpress.XtraEditors.CheckEdit();
+            this.gridFinal = new DevExpress.XtraGrid.GridControl();
+            this.gridView2 = new DevExpress.XtraGrid.Views.Grid.GridView();
+            this.colFinalidNumeroGuia = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalimporte = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalNumeroGuia = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalCAJAS = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalBULTOS = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalATADO = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalTARIMA = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalFacturas = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalMETODO = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalcomentario = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalPaqueteria = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.btnAutorizar = new DevExpress.XtraEditors.SimpleButton();
+            this.checkAutorizado = new DevExpress.XtraEditors.CheckEdit();
+            this.txtSubtotal = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)(this.searchVendor.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtImporteGuia.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFactura.Properties)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFacturaImporte.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtNumFactura.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUUID.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridFinal)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkAutorizado.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSubtotal.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // searchVendor
@@ -83,7 +106,8 @@
             this.searchLookUpEdit1View.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colName,
             this.COLENTITY,
-            this.colPaqueteria});
+            this.colPaqueteria,
+            this.colOficinaNameFletara});
             this.searchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.searchLookUpEdit1View.Name = "searchLookUpEdit1View";
             this.searchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -111,6 +135,12 @@
             this.colPaqueteria.FieldName = "PAQUETERIA_DISTRIBUCION_ID";
             this.colPaqueteria.Name = "colPaqueteria";
             // 
+            // colOficinaNameFletara
+            // 
+            this.colOficinaNameFletara.Caption = "OficinaNameFletara";
+            this.colOficinaNameFletara.FieldName = "OficinaNameFletara";
+            this.colOficinaNameFletara.Name = "colOficinaNameFletara";
+            // 
             // label1
             // 
             this.label1.AutoSize = true;
@@ -120,23 +150,6 @@
             this.label1.TabIndex = 2;
             this.label1.Text = "Acreedor";
             // 
-            // label4
-            // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 166);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(126, 19);
-            this.label4.TabIndex = 7;
-            this.label4.Text = "CENTRO COSTOS:";
-            // 
-            // textEdit1
-            // 
-            this.textEdit1.Location = new System.Drawing.Point(150, 162);
-            this.textEdit1.Name = "textEdit1";
-            this.textEdit1.Properties.ReadOnly = true;
-            this.textEdit1.Size = new System.Drawing.Size(224, 22);
-            this.textEdit1.TabIndex = 8;
-            // 
             // gridControl1
             // 
             this.gridControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -145,7 +158,7 @@
             this.gridControl1.Location = new System.Drawing.Point(399, 3);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(567, 557);
+            this.gridControl1.Size = new System.Drawing.Size(819, 283);
             this.gridControl1.TabIndex = 9;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -189,7 +202,7 @@
             this.colImporteTotal.Caption = "ImporteTotal";
             this.colImporteTotal.DisplayFormat.FormatString = "c";
             this.colImporteTotal.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colImporteTotal.FieldName = "ImporteTotal";
+            this.colImporteTotal.FieldName = "CostoTotal";
             this.colImporteTotal.Name = "colImporteTotal";
             this.colImporteTotal.Visible = true;
             this.colImporteTotal.VisibleIndex = 2;
@@ -206,7 +219,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(3, 345);
+            this.label3.Location = new System.Drawing.Point(3, 344);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(144, 22);
             this.label3.TabIndex = 13;
@@ -214,12 +227,12 @@
             // 
             // txtImporteGuia
             // 
-            this.txtImporteGuia.Location = new System.Drawing.Point(172, 342);
+            this.txtImporteGuia.Location = new System.Drawing.Point(173, 338);
             this.txtImporteGuia.Name = "txtImporteGuia";
             this.txtImporteGuia.Properties.Appearance.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtImporteGuia.Properties.Appearance.Options.UseFont = true;
             this.txtImporteGuia.Properties.ReadOnly = true;
-            this.txtImporteGuia.Size = new System.Drawing.Size(205, 28);
+            this.txtImporteGuia.Size = new System.Drawing.Size(203, 28);
             this.txtImporteGuia.TabIndex = 12;
             // 
             // label2
@@ -228,40 +241,43 @@
             this.label2.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(2, 281);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(164, 22);
+            this.label2.Size = new System.Drawing.Size(152, 22);
             this.label2.TabIndex = 15;
-            this.label2.Text = "Importe Factura:";
+            this.label2.Text = "Importe Sin Iva:";
             // 
-            // txtFactura
+            // txtFacturaImporte
             // 
-            this.txtFactura.Location = new System.Drawing.Point(172, 278);
-            this.txtFactura.Name = "txtFactura";
-            this.txtFactura.Properties.Appearance.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtFactura.Properties.Appearance.Options.UseFont = true;
-            this.txtFactura.Properties.Mask.EditMask = "c";
-            this.txtFactura.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
-            this.txtFactura.Size = new System.Drawing.Size(204, 28);
-            this.txtFactura.TabIndex = 14;
+            this.txtFacturaImporte.Location = new System.Drawing.Point(173, 307);
+            this.txtFacturaImporte.Name = "txtFacturaImporte";
+            this.txtFacturaImporte.Properties.Appearance.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtFacturaImporte.Properties.Appearance.Options.UseFont = true;
+            this.txtFacturaImporte.Properties.Mask.EditMask = "c";
+            this.txtFacturaImporte.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.txtFacturaImporte.Properties.ReadOnly = true;
+            this.txtFacturaImporte.Size = new System.Drawing.Size(203, 28);
+            this.txtFacturaImporte.TabIndex = 14;
+            this.txtFacturaImporte.Visible = false;
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(3, 225);
+            this.label5.Location = new System.Drawing.Point(7, 224);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(140, 22);
             this.label5.TabIndex = 17;
             this.label5.Text = "Num. Factura:";
             // 
-            // textEdit3
+            // txtNumFactura
             // 
-            this.textEdit3.Location = new System.Drawing.Point(173, 222);
-            this.textEdit3.Name = "textEdit3";
-            this.textEdit3.Properties.Appearance.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textEdit3.Properties.Appearance.Options.UseFont = true;
-            this.textEdit3.Properties.Mask.EditMask = "c";
-            this.textEdit3.Size = new System.Drawing.Size(204, 28);
-            this.textEdit3.TabIndex = 16;
+            this.txtNumFactura.Location = new System.Drawing.Point(177, 221);
+            this.txtNumFactura.Name = "txtNumFactura";
+            this.txtNumFactura.Properties.Appearance.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtNumFactura.Properties.Appearance.Options.UseFont = true;
+            this.txtNumFactura.Properties.Mask.EditMask = "c";
+            this.txtNumFactura.Properties.ReadOnly = true;
+            this.txtNumFactura.Size = new System.Drawing.Size(203, 28);
+            this.txtNumFactura.TabIndex = 16;
             // 
             // btnRegistra
             // 
@@ -276,12 +292,12 @@
             this.btnRegistra.AppearanceHovered.Options.UseBackColor = true;
             this.btnRegistra.AppearanceHovered.Options.UseForeColor = true;
             this.btnRegistra.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.btnRegistra.Enabled = false;
             this.btnRegistra.Location = new System.Drawing.Point(7, 428);
             this.btnRegistra.Name = "btnRegistra";
             this.btnRegistra.Size = new System.Drawing.Size(370, 43);
             this.btnRegistra.TabIndex = 18;
             this.btnRegistra.Text = "Registrar en Netsuite";
+            this.btnRegistra.Visible = false;
             this.btnRegistra.Click += new System.EventHandler(this.btnRegistra_Click);
             // 
             // btnCargaXml
@@ -297,11 +313,12 @@
             // 
             // labelPath
             // 
+            this.labelPath.AutoSizeMode = DevExpress.XtraEditors.LabelAutoSizeMode.None;
             this.behaviorManager1.SetBehaviors(this.labelPath, new DevExpress.Utils.Behaviors.Behavior[] {
             ((DevExpress.Utils.Behaviors.Behavior)(DevExpress.Utils.Behaviors.Common.FileIconBehavior.Create(typeof(DevExpress.XtraEditors.Behaviors.FileIconBehaviorSourceForLabelControl), DevExpress.Utils.Behaviors.Common.FileIconSize.Small, ((System.Drawing.Image)(resources.GetObject("labelPath.Behaviors"))), global::SAI_NETSUITE.Properties.Resources.Error_icon)))});
             this.labelPath.Location = new System.Drawing.Point(16, 97);
             this.labelPath.Name = "labelPath";
-            this.labelPath.Size = new System.Drawing.Size(28, 16);
+            this.labelPath.Size = new System.Drawing.Size(361, 16);
             this.labelPath.TabIndex = 20;
             this.labelPath.Text = "ruta:";
             // 
@@ -309,37 +326,238 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label4.Location = new System.Drawing.Point(7, 173);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(58, 22);
+            this.label4.TabIndex = 22;
+            this.label4.Text = "UUID:";
+            // 
+            // txtUUID
+            // 
+            this.txtUUID.Location = new System.Drawing.Point(71, 170);
+            this.txtUUID.Name = "txtUUID";
+            this.txtUUID.Properties.Appearance.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtUUID.Properties.Appearance.Options.UseFont = true;
+            this.txtUUID.Properties.Mask.EditMask = "c";
+            this.txtUUID.Properties.ReadOnly = true;
+            this.txtUUID.Size = new System.Drawing.Size(305, 28);
+            this.txtUUID.TabIndex = 21;
+            // 
+            // checkEdit1
+            // 
+            this.checkEdit1.Location = new System.Drawing.Point(173, 384);
+            this.checkEdit1.Name = "checkEdit1";
+            this.checkEdit1.Properties.Caption = "Retención IVA";
+            this.checkEdit1.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Default;
+            this.checkEdit1.Size = new System.Drawing.Size(204, 20);
+            this.checkEdit1.TabIndex = 23;
+            this.checkEdit1.CheckedChanged += new System.EventHandler(this.checkEdit1_CheckedChanged);
+            // 
+            // gridFinal
+            // 
+            this.gridFinal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.gridFinal.Location = new System.Drawing.Point(399, 310);
+            this.gridFinal.MainView = this.gridView2;
+            this.gridFinal.Name = "gridFinal";
+            this.gridFinal.Size = new System.Drawing.Size(819, 272);
+            this.gridFinal.TabIndex = 24;
+            this.gridFinal.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
+            this.gridView2});
+            // 
+            // gridView2
+            // 
+            this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
+            this.colFinalidNumeroGuia,
+            this.colFinalimporte,
+            this.colFinalNumeroGuia,
+            this.colFinalCAJAS,
+            this.colFinalBULTOS,
+            this.colFinalATADO,
+            this.colFinalTARIMA,
+            this.colFinalFacturas,
+            this.colFinalMETODO,
+            this.colFinalcomentario,
+            this.colFinalPaqueteria});
+            this.gridView2.GridControl = this.gridFinal;
+            this.gridView2.Name = "gridView2";
+            this.gridView2.OptionsSelection.MultiSelect = true;
+            this.gridView2.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridView2.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView2_CellValueChanged);
+            this.gridView2.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridView2_RowUpdated);
+            // 
+            // colFinalidNumeroGuia
+            // 
+            this.colFinalidNumeroGuia.Caption = "idNumeroGuia";
+            this.colFinalidNumeroGuia.FieldName = "idNumeroGuia";
+            this.colFinalidNumeroGuia.Name = "colFinalidNumeroGuia";
+            // 
+            // colFinalimporte
+            // 
+            this.colFinalimporte.Caption = "Importe";
+            this.colFinalimporte.DisplayFormat.FormatString = "c2";
+            this.colFinalimporte.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
+            this.colFinalimporte.FieldName = "importe";
+            this.colFinalimporte.Name = "colFinalimporte";
+            this.colFinalimporte.OptionsColumn.ReadOnly = true;
+            this.colFinalimporte.Visible = true;
+            this.colFinalimporte.VisibleIndex = 2;
+            // 
+            // colFinalNumeroGuia
+            // 
+            this.colFinalNumeroGuia.Caption = "NumeroGuia";
+            this.colFinalNumeroGuia.FieldName = "NumeroGuia";
+            this.colFinalNumeroGuia.Name = "colFinalNumeroGuia";
+            this.colFinalNumeroGuia.Visible = true;
+            this.colFinalNumeroGuia.VisibleIndex = 1;
+            // 
+            // colFinalCAJAS
+            // 
+            this.colFinalCAJAS.Caption = "CAJAS";
+            this.colFinalCAJAS.FieldName = "CAJAS";
+            this.colFinalCAJAS.Name = "colFinalCAJAS";
+            this.colFinalCAJAS.OptionsColumn.ReadOnly = true;
+            this.colFinalCAJAS.Visible = true;
+            this.colFinalCAJAS.VisibleIndex = 4;
+            // 
+            // colFinalBULTOS
+            // 
+            this.colFinalBULTOS.Caption = "BULTOS";
+            this.colFinalBULTOS.FieldName = "BULTOS";
+            this.colFinalBULTOS.Name = "colFinalBULTOS";
+            this.colFinalBULTOS.OptionsColumn.ReadOnly = true;
+            this.colFinalBULTOS.Visible = true;
+            this.colFinalBULTOS.VisibleIndex = 3;
+            // 
+            // colFinalATADO
+            // 
+            this.colFinalATADO.Caption = "ATADO";
+            this.colFinalATADO.FieldName = "ATADO";
+            this.colFinalATADO.Name = "colFinalATADO";
+            this.colFinalATADO.OptionsColumn.ReadOnly = true;
+            this.colFinalATADO.Visible = true;
+            this.colFinalATADO.VisibleIndex = 5;
+            // 
+            // colFinalTARIMA
+            // 
+            this.colFinalTARIMA.Caption = "TARIMA";
+            this.colFinalTARIMA.FieldName = "TARIMA";
+            this.colFinalTARIMA.Name = "colFinalTARIMA";
+            this.colFinalTARIMA.OptionsColumn.ReadOnly = true;
+            this.colFinalTARIMA.Visible = true;
+            this.colFinalTARIMA.VisibleIndex = 6;
+            // 
+            // colFinalFacturas
+            // 
+            this.colFinalFacturas.Caption = "Facturas";
+            this.colFinalFacturas.FieldName = "Facturas";
+            this.colFinalFacturas.Name = "colFinalFacturas";
+            // 
+            // colFinalMETODO
+            // 
+            this.colFinalMETODO.Caption = "METODO";
+            this.colFinalMETODO.FieldName = "METODO";
+            this.colFinalMETODO.Name = "colFinalMETODO";
+            // 
+            // colFinalcomentario
+            // 
+            this.colFinalcomentario.Caption = "Comentario";
+            this.colFinalcomentario.FieldName = "comentario";
+            this.colFinalcomentario.Name = "colFinalcomentario";
+            this.colFinalcomentario.OptionsColumn.ReadOnly = true;
+            this.colFinalcomentario.Visible = true;
+            this.colFinalcomentario.VisibleIndex = 7;
+            // 
+            // colFinalPaqueteria
+            // 
+            this.colFinalPaqueteria.Caption = "paqueteria";
+            this.colFinalPaqueteria.FieldName = "paqueteria";
+            this.colFinalPaqueteria.Name = "colFinalPaqueteria";
+            // 
+            // btnAutorizar
+            // 
+            this.btnAutorizar.Appearance.BackColor = System.Drawing.Color.Gold;
+            this.btnAutorizar.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAutorizar.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.btnAutorizar.Appearance.Options.UseBackColor = true;
+            this.btnAutorizar.Appearance.Options.UseFont = true;
+            this.btnAutorizar.Appearance.Options.UseForeColor = true;
+            this.btnAutorizar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
+            this.btnAutorizar.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnAutorizar.ImageOptions.Image")));
+            this.btnAutorizar.Location = new System.Drawing.Point(7, 488);
+            this.btnAutorizar.Name = "btnAutorizar";
+            this.btnAutorizar.Size = new System.Drawing.Size(369, 42);
+            this.btnAutorizar.TabIndex = 26;
+            this.btnAutorizar.Text = "Autorizacion";
+            this.btnAutorizar.Click += new System.EventHandler(this.btnAutorizar_Click);
+            // 
+            // checkAutorizado
+            // 
+            this.checkAutorizado.Location = new System.Drawing.Point(7, 384);
+            this.checkAutorizado.Name = "checkAutorizado";
+            this.checkAutorizado.Properties.Caption = "Autorizado";
+            this.checkAutorizado.Properties.GlyphAlignment = DevExpress.Utils.HorzAlignment.Default;
+            this.checkAutorizado.Properties.ReadOnly = true;
+            this.checkAutorizado.Size = new System.Drawing.Size(110, 20);
+            this.checkAutorizado.TabIndex = 27;
+            // 
+            // txtSubtotal
+            // 
+            this.txtSubtotal.Location = new System.Drawing.Point(173, 278);
+            this.txtSubtotal.Name = "txtSubtotal";
+            this.txtSubtotal.Properties.Appearance.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtSubtotal.Properties.Appearance.Options.UseFont = true;
+            this.txtSubtotal.Properties.Mask.EditMask = "c";
+            this.txtSubtotal.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.txtSubtotal.Properties.ReadOnly = true;
+            this.txtSubtotal.Size = new System.Drawing.Size(203, 28);
+            this.txtSubtotal.TabIndex = 28;
+            // 
             // GastoFleteras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.txtSubtotal);
+            this.Controls.Add(this.checkAutorizado);
+            this.Controls.Add(this.btnAutorizar);
+            this.Controls.Add(this.gridFinal);
+            this.Controls.Add(this.checkEdit1);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.txtUUID);
             this.Controls.Add(this.labelPath);
             this.Controls.Add(this.btnCargaXml);
             this.Controls.Add(this.btnRegistra);
             this.Controls.Add(this.label5);
-            this.Controls.Add(this.textEdit3);
+            this.Controls.Add(this.txtNumFactura);
             this.Controls.Add(this.label2);
-            this.Controls.Add(this.txtFactura);
+            this.Controls.Add(this.txtFacturaImporte);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.txtImporteGuia);
             this.Controls.Add(this.gridControl1);
-            this.Controls.Add(this.textEdit1);
-            this.Controls.Add(this.label4);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.searchVendor);
             this.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "GastoFleteras";
-            this.Size = new System.Drawing.Size(969, 563);
+            this.Size = new System.Drawing.Size(1221, 585);
             this.Load += new System.EventHandler(this.GastoFleteras_Load);
             ((System.ComponentModel.ISupportInitialize)(this.searchVendor.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit1.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtImporteGuia.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.txtFactura.Properties)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.textEdit3.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtFacturaImporte.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtNumFactura.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.behaviorManager1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtUUID.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkEdit1.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridFinal)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.checkAutorizado.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtSubtotal.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,8 +567,6 @@
         private DevExpress.XtraEditors.SearchLookUpEdit searchVendor;
         private DevExpress.XtraGrid.Views.Grid.GridView searchLookUpEdit1View;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label4;
-        private DevExpress.XtraEditors.TextEdit textEdit1;
         private DevExpress.XtraGrid.GridControl gridControl1;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         private DevExpress.XtraGrid.Columns.GridColumn colName;
@@ -364,13 +580,33 @@
         private System.Windows.Forms.Label label3;
         private DevExpress.XtraEditors.TextEdit txtImporteGuia;
         private System.Windows.Forms.Label label2;
-        private DevExpress.XtraEditors.TextEdit txtFactura;
+        private DevExpress.XtraEditors.TextEdit txtFacturaImporte;
         private System.Windows.Forms.Label label5;
-        private DevExpress.XtraEditors.TextEdit textEdit3;
+        private DevExpress.XtraEditors.TextEdit txtNumFactura;
         private DevExpress.XtraEditors.SimpleButton btnRegistra;
         private DevExpress.XtraEditors.SimpleButton btnCargaXml;
         private DevExpress.XtraEditors.LabelControl labelPath;
         private DevExpress.Utils.Behaviors.BehaviorManager behaviorManager1;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
+        private System.Windows.Forms.Label label4;
+        private DevExpress.XtraEditors.TextEdit txtUUID;
+        private DevExpress.XtraEditors.CheckEdit checkEdit1;
+        private DevExpress.XtraGrid.GridControl gridFinal;
+        private DevExpress.XtraGrid.Views.Grid.GridView gridView2;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalidNumeroGuia;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalNumeroGuia;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalCAJAS;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalBULTOS;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalATADO;
+        private DevExpress.XtraEditors.SimpleButton btnAutorizar;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalTARIMA;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalFacturas;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalMETODO;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalimporte;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalcomentario;
+        private DevExpress.XtraEditors.CheckEdit checkAutorizado;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalPaqueteria;
+        private DevExpress.XtraGrid.Columns.GridColumn colOficinaNameFletara;
+        private DevExpress.XtraEditors.TextEdit txtSubtotal;
     }
 }

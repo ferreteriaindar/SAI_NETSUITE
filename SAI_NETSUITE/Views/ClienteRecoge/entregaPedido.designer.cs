@@ -156,13 +156,13 @@
             // 
             this.gridFacturas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridFacturas.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
-            this.gridFacturas.Location = new System.Drawing.Point(2, 27);
+            this.gridFacturas.Location = new System.Drawing.Point(2, 25);
             this.gridFacturas.MainView = this.gridView1;
             this.gridFacturas.Margin = new System.Windows.Forms.Padding(4);
             this.gridFacturas.Name = "gridFacturas";
             this.gridFacturas.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] {
             this.repositoryItemCheckEdit1});
-            this.gridFacturas.Size = new System.Drawing.Size(757, 162);
+            this.gridFacturas.Size = new System.Drawing.Size(757, 164);
             this.gridFacturas.TabIndex = 0;
             this.gridFacturas.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -231,11 +231,11 @@
             // 
             this.gridpedido.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridpedido.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
-            this.gridpedido.Location = new System.Drawing.Point(2, 27);
+            this.gridpedido.Location = new System.Drawing.Point(2, 25);
             this.gridpedido.MainView = this.gridView3;
             this.gridpedido.Margin = new System.Windows.Forms.Padding(4);
             this.gridpedido.Name = "gridpedido";
-            this.gridpedido.Size = new System.Drawing.Size(1137, 351);
+            this.gridpedido.Size = new System.Drawing.Size(1137, 353);
             this.gridpedido.TabIndex = 0;
             this.gridpedido.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView3});
@@ -638,11 +638,11 @@
             // 
             this.gridFacturaXllegar.Dock = System.Windows.Forms.DockStyle.Fill;
             this.gridFacturaXllegar.EmbeddedNavigator.Margin = new System.Windows.Forms.Padding(4);
-            this.gridFacturaXllegar.Location = new System.Drawing.Point(2, 27);
+            this.gridFacturaXllegar.Location = new System.Drawing.Point(2, 25);
             this.gridFacturaXllegar.MainView = this.gridView5;
             this.gridFacturaXllegar.Margin = new System.Windows.Forms.Padding(4);
             this.gridFacturaXllegar.Name = "gridFacturaXllegar";
-            this.gridFacturaXllegar.Size = new System.Drawing.Size(356, 161);
+            this.gridFacturaXllegar.Size = new System.Drawing.Size(356, 163);
             this.gridFacturaXllegar.TabIndex = 0;
             this.gridFacturaXllegar.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView5});

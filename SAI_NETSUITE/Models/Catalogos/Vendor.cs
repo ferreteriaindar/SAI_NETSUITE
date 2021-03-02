@@ -12,6 +12,8 @@ namespace SAI_NETSUITE.Models.Catalogos
         public string NAME { get; set; }
         public int? PAQUETERIA_DISTRIBUCION_ID { get; set; }
 
+        public string  OficinaNameFletara { get; set; }
+
 
 
 

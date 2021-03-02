@@ -49,7 +49,7 @@ namespace SAI_NETSUITE.IWS
                 string header = "Authorization: Bearer " + head;
                 request.Headers.Add(header);
             }
-            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+           HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             using (var streamReader = new StreamReader(response.GetResponseStream()))
             {
                 string responseText = streamReader.ReadToEnd();

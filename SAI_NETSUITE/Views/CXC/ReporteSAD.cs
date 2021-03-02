@@ -37,7 +37,7 @@ namespace SAI_NETSUITE.Views.CXC
                                  INNER JOIN IWS.DBO.Customers C ON SO.idCustomer=C.internalid
                                  INNER JOIN IWS.DBO.ZonasIndar ZI on C.customerZone=ZI.NSO___ZONAS_CLIENTES_ID
                                  INNER JOIN IWS.DBO.Entity E on zi.AGENTE_COBRADOR_ID=e.ENTITY_ID";*/
-                string query = @"SELECT e.NAME, C.companyId,ZI.NSO___ZONAS_CLIENTES_NAME AS Zona, S.pedido,S.usuario,S.fecha,S.excepcion,S.comentario,Factura=ISNULL((SELECT tranId FROM IWS.dbo.Invoices WHERE createdfrom=S.pedidoID),NULL),
+                string query = @"SELECT e.NAME, C.companyId,ZI.NSO___ZONAS_CLIENTES_NAME AS Zona, S.pedido,S.usuario,S.fecha,S.excepcion,S.comentario,Factura=ISNULL((SELECT top 1 tranId FROM IWS.dbo.Invoices WHERE createdfrom=S.pedidoID order by internalid desc),NULL),
                                 S.cxcMonto,S.cxcAgente,S.cxcFecha,S.cxcComentario,S.validaAgente,S.validadFecha
                                 FROM Indarneg.dbo.SAD  S
                              ---   left   JOIN IWS.dbo.Invoices I ON S.pedidoID=I.createdfrom

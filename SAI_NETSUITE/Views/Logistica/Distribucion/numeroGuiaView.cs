@@ -47,7 +47,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
             SaleOrderSentController sosc = new SaleOrderSentController();
             sosc.getCustomersList();
-            searchFletera.Properties.DataSource = sosc.listaRuta;
+            searchFletera.Properties.DataSource = sosc.listaPaqueterias;
             searchFletera.Properties.ValueMember = "LIST_ID";
             searchFletera.Properties.DisplayMember = "LIST_ITEM_NAME";
 
@@ -185,11 +185,16 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 if (guardaNumeroGuia())
                 {
                     MessageBox.Show("Proceso Existoso");
-                    Views.Logistica.Distribucion.numeroGuiaView ng2 = new Views.Logistica.Distribucion.numeroGuiaView();
-                    ng2.Parent = this.Parent;
-                    ng2.Dock = DockStyle.Fill;
-                    Parent.Controls.Add(ng2);
-                    ng2.BringToFront();
+              gridfinal.DataSource = null;
+                    dtFacturas.Rows.Clear();
+                    if (gridView3.RowCount == gridView4.RowCount)
+                    {
+                        Views.Logistica.Distribucion.numeroGuiaView ng2 = new Views.Logistica.Distribucion.numeroGuiaView();
+                        ng2.Parent = this.Parent;
+                        ng2.Dock = DockStyle.Fill;
+                        Parent.Controls.Add(ng2);
+                        ng2.BringToFront();
+                    }
                 }
                 else MessageBox.Show("Error al guardar el  numero de guía");
 
