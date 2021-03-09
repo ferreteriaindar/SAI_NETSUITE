@@ -187,6 +187,9 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     MessageBox.Show("Proceso Existoso");
               gridfinal.DataSource = null;
                     dtFacturas.Rows.Clear();
+               
+                    txtNumGuia.Text = "";
+                    txtImporteTotal.Text = "";
                     if (gridView3.RowCount == gridView4.RowCount)
                     {
                         Views.Logistica.Distribucion.numeroGuiaView ng2 = new Views.Logistica.Distribucion.numeroGuiaView();

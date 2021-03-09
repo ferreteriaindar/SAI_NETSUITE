@@ -1442,6 +1442,7 @@
       <LastGenOutput>IWS.cs</LastGenOutput>
     </Content>
     <Content Include="rayo.ico" />
+    <None Include="Resources\56-document-outline.gif" />
     <None Include="Resources\WedgesT.gif" />
     <None Include="Resources\magic_Wand.png" />
     <None Include="Resources\magicWand.png" />

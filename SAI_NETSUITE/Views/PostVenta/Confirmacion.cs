@@ -206,7 +206,7 @@ namespace SAI_NETSUITE.Views.PostVenta
             }
             bool resultado=true;
             if (tipoPrincipal == 0)
-            { } //resultado = new Controllers.PostVenta.ConfirmacionController().confirmaEmbarque(usuario, data, txtEmbarque.Text);
+            resultado = new Controllers.PostVenta.ConfirmacionController().confirmaEmbarque(usuario, data, txtEmbarque.Text);
             else resultado = new Controllers.PostVenta.ConfirmacionController().registraEmbarqueConcluido(usuario, data);
             if (resultado)
             {

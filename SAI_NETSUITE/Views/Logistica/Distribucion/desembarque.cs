@@ -54,7 +54,8 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     break;
                 case "apoyoventas": labelUbicacion.Text = regresaUbicacion(usuario);
                     break;
-                
+                default: labelUbicacion.Text = regresaUbicacion(usuario);
+                    break;
             }
 
         }
@@ -75,8 +76,12 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 gridControl1.RepositoryItems.Add(combo);
                 //gridView1.Columns["coltransito"].ColumnEdit = combo;
                 coltransito.ColumnEdit = combo;
-              
 
+
+            }
+            else
+            {
+                coltransito.Visible = false;
             }
            
         }
@@ -127,7 +132,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 {
                     data.Rows.Add(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colfactura).ToString(), gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colcomentario).ToString(),gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], coltransito).ToString());
                 }
-                if (new Controllers.Logistica.Distribucion.desembarqueController().desembarcarEmbarque(Convert.ToInt32(txtEmbarque.Text), labelUbicacion.Text, data,perfil,todo))
+                if (new Controllers.Logistica.Distribucion.desembarqueController().desembarcarEmbarque(Convert.ToInt32(txtEmbarque.Text), labelUbicacion.Text, data,perfil,todo,usuario))
                 {
                     gridControl1.DataSource = null;
                     MessageBox.Show("Desembarcado Exitoso");

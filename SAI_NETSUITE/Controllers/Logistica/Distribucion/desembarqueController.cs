@@ -31,7 +31,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
 
         }
 
-        public bool desembarcarEmbarque(int idembarque,string destino,DataTable data,string perfil,bool todoElEmbarque)
+        public bool desembarcarEmbarque(int idembarque,string destino,DataTable data,string perfil,bool todoElEmbarque,string usuario)
         {
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
@@ -39,9 +39,18 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
                 SqlCommand cmd = new SqlCommand("",myConnection);
                 for (int i = 0; i < data.Rows.Count; i++)
                 {
-                    if(!perfil.Equals("POSTVENTA"))
-                    cmd.CommandText = "update  indarneg.dbo.embarquesD set estado='DESEMBARQUE " + destino + "', comentarios='" + data.Rows[i][1].ToString() + "' WHERE IDEMBARQUE=" + idembarque.ToString() + " and factura='" + data.Rows[i][0].ToString()+"'";
-                    else cmd.CommandText = "update  indarneg.dbo.embarquesD set estado='"+data.Rows[i][2].ToString()+ "', comentarios='" + data.Rows[i][1].ToString() + "' WHERE IDEMBARQUE=" + idembarque.ToString() + " and factura='" + data.Rows[i][0].ToString() + "'";
+                    if (!perfil.Equals("POSTVENTA"))
+                        cmd.CommandText = "update  indarneg.dbo.embarquesD set estado='DESEMBARQUE " + destino + "', comentarios='" + data.Rows[i][1].ToString() + "' WHERE IDEMBARQUE=" + idembarque.ToString() + " and factura='" + data.Rows[i][0].ToString() + "'";
+
+                    else
+                    {
+                        string UsuarioFleteXConfirmar = data.Rows[i][2].ToString().Equals("Flete X Confirmar") ? usuario : "";
+                        string FechaFleteXConfirmar = data.Rows[i][2].ToString().Equals("Flete X Confirmar") ? DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss") : "01/01/1900 12:00:00";
+                        cmd.CommandText = "update  indarneg.dbo.embarquesD set estado='" + data.Rows[i][2].ToString() + "', comentarios='" + data.Rows[i][1].ToString() + "' WHERE IDEMBARQUE=" + idembarque.ToString() + " and factura='" + data.Rows[i][0].ToString() + "'";
+                        if (data.Rows[i][2].ToString().Equals("Flete X Confirmar"))
+                        cmd.CommandText = "update  indarneg.dbo.embarquesD set estado='" + data.Rows[i][2].ToString() + "', comentarios='" + data.Rows[i][1].ToString() + "', UsuarioFleteXConfirmar='" + UsuarioFleteXConfirmar + "',FechaFleteXConfirmar='" + FechaFleteXConfirmar + "'   WHERE IDEMBARQUE=" + idembarque.ToString() + " and factura='" + data.Rows[i][0].ToString() + "'";
+
+                    }
                     cmd.ExecuteNonQuery();
                 }
                 if (todoElEmbarque)

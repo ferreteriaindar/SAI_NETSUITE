@@ -103,5 +103,21 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     MessageBox.Show("Error al Actualizar");
             }
         }
+
+        private void btnAbrirReporte_Click(object sender, EventArgs e)
+        {
+            DateTime meses6 = DateTime.Now.AddMonths(-6);
+            using (IndarnegEntities neg = new IndarnegEntities())
+            {
+
+                var numguias = (from ng in neg.NumeroGuiaNetsuite
+                                join ngd in neg.NumeroGuiaNetsuiteD on ng.idNumeroGuia equals ngd.idNumeroGuia
+                                where ng.Fecha>=meses6
+                                select new { ng.NumeroGuia, ng.Fecha, ng.ImporteTotal, ngd.Factura, ngd.embarque }).ToList();
+
+                gridControl1.DataSource = numguias.ToList();
+                             
+            }
+        }
     }
 }

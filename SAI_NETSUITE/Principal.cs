@@ -25,6 +25,11 @@ namespace SAI_NETSUITE
             InitializeComponent();
         }
 
+        private void tileNavPane1_MouseHover(object sender, EventArgs e)
+        {
+            
+        }
+
         private void Principal_Load(object sender, EventArgs e)
         {
             token = new Token();
@@ -100,6 +105,7 @@ namespace SAI_NETSUITE
                       //  userControl= new Views.Ventas.SaleOrderSentVista(token);
                         break;
                     case "btnEmbarqueMasivo":   case "btnApoyosEmbarcar":
+                    case "btnEmbarqueMasivoCteRec":
                         panelControl1.Controls.Clear();
                         Views.Logistica.Distribucion.embarqueMasivo em = new Views.Logistica.Distribucion.embarqueMasivo(usuario);
                         em.Parent = panelControl1;
@@ -137,6 +143,7 @@ namespace SAI_NETSUITE
                         ep.BringToFront();
                         break;
                     case "btnPostVentaDesembarcar":case "btnLogisticaDesembarcar":case "btnApoyosDesembarcar":
+                    case "btnDesembarcarCterec":
                         panelControl1.Controls.Clear();
                         Views.Logistica.Distribucion.desembarque des = new Views.Logistica.Distribucion.desembarque(perfil, usuario)
                         {
@@ -147,6 +154,7 @@ namespace SAI_NETSUITE
                         des.BringToFront();
                         break;
                     case "btnConfirmarDistribucion": case "btnConfirmarApoyos": case "btnConfirmarPostVenta":
+                    case "btnConfirmarCteRec":
                             panelControl1.Controls.Clear();
                         Views.PostVenta.Confirmacion c = new Views.PostVenta.Confirmacion(perfil, usuario,token)
                         {
@@ -165,6 +173,7 @@ namespace SAI_NETSUITE
                         c2.BringToFront();
                         break;
                     case "btnreportevtas":
+                    case "btnRepVentasCliente":
                         panelControl1.Controls.Clear();
                         Views.Ventas.Reportes.ventasCte c3 = new Views.Ventas.Reportes.ventasCte()
                         {
@@ -225,7 +234,8 @@ namespace SAI_NETSUITE
                         };
                         epCTE.BringToFront();
                         break;
-                    case "btnAlmacenCteRecoge": ///borrar pruebas anyelo
+                    case "btnAlmacenCteRecoge":
+                    case "btnAlmacenCteRecRegistra":///borrar pruebas anyelo
                         panelControl1.Controls.Clear();
                         Views.ClienteRecoge.almacenCteRecoge acr = new Views.ClienteRecoge.almacenCteRecoge(usuario, perfil, sucursal);
                         acr.Show();
@@ -340,6 +350,7 @@ namespace SAI_NETSUITE
                         };
                         break;
                     case "btndistribubcionEmbarque":
+                    case "btnReporteEmbarqueCteRec":
                         panelControl1.Controls.Clear();
                         Views.Logistica.Distribucion.reporteEmbarques reD = new Views.Logistica.Distribucion.reporteEmbarques()
                         {

@@ -63,6 +63,16 @@ namespace SAI_NETSUITE.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _56_document_outline {
+            get {
+                object obj = ResourceManager.GetObject("56-document-outline", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _835 {
             get {
                 object obj = ResourceManager.GetObject("835", resourceCulture);

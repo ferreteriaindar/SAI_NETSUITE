@@ -35,6 +35,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
         {
             labelAvance.Text = "0/0";
             btnFacturar.ImageOptions.Image = null;
+        
             cargaDatos();
 
         }
@@ -116,6 +117,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
             if (toggleSwitch1.IsOn)
                 btnFacturar.ImageOptions.Image = SAI_NETSUITE.Properties.Resources.WedgesT;
             else btnFacturar.ImageOptions.Image = SAI_NETSUITE.Properties.Resources.gear;
+           
             gridControl1.Enabled = false;
             bool banderaTraspaso = false;
             if (gridView1.SelectedRowsCount < 1) //POR SI NO SELECCIONAN NADA
@@ -202,7 +204,8 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
         }
         private void empaquePantallaV2_Load(object sender, EventArgs e)
         {
-            btnFacturar.ImageOptions.Image = null;
+             btnFacturar.ImageOptions.Image = null;
+          
 
         }
 
@@ -336,7 +339,8 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
 
         private void backgroundWorker1_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            btnFacturar.ImageOptions.Image = null;
+              btnFacturar.ImageOptions.Image = null;
+           
             if(FinProceso==true)
             MessageBox.Show("¡Terminado! \n Espera a que vuelva a carga la pantalla");
             labelAvance.Text = "0/0";
@@ -507,7 +511,7 @@ namespace SAI_NETSUITE.Views.Logistica.Empaque
         private void backgroundWorkerEventos_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
             btnFacturar.ImageOptions.Image = null;
-            btnFacturar.StopAnimation();
+         
             MessageBox.Show("¡Terminado! \n Espera a que vuelva a carga la pantalla");
             labelAvance.Text = "0/0";
             cargaDatos();
