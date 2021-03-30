@@ -188,6 +188,7 @@
     <Compile Include="Controllers\Logistica\Empaque\empaquePantallaControllerV2.cs" />
     <Compile Include="Controllers\Logistica\Empaque\FacturaIndarController.cs" />
     <Compile Include="Controllers\Logistica\Empaque\pdfController.cs" />
+    <Compile Include="Controllers\Logistica\Reportes\FacturasXEmbarcarController.cs" />
     <Compile Include="Controllers\Moneda.cs" />
     <Compile Include="Controllers\PostVenta\ConfirmacionController.cs" />
     <Compile Include="Controllers\PostVenta\RegresarEventosController.cs" />
@@ -204,6 +205,9 @@
     </Compile>
     <Compile Include="Departments.cs">
       <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DiasReporteXEmbarcar.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
     </Compile>
     <Compile Include="Embarques.cs">
       <DependentUpon>Indarneg.tt</DependentUpon>
@@ -341,6 +345,7 @@
     <Compile Include="Models\Transaccion\corrigePago.cs" />
     <Compile Include="Models\Transaccion\CreditMemoApplySearchModel.cs" />
     <Compile Include="Models\Transaccion\EmbarqueCSV.cs" />
+    <Compile Include="Models\Transaccion\FacturasXEmbarcarModel.cs" />
     <Compile Include="Models\Transaccion\GastoFleteraCSVModel.cs" />
     <Compile Include="Models\Transaccion\GastoFleteraModel.cs" />
     <Compile Include="Models\Transaccion\GetSalesInvoiceWMSModel.cs" />
@@ -435,6 +440,9 @@
     </Compile>
     <Compile Include="Usuario.cs">
       <DependentUpon>InActionWMS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UsuarioReporteXEmbarcar.cs">
+      <DependentUpon>Indarneg.tt</DependentUpon>
     </Compile>
     <Compile Include="Views\ClienteRecoge\administraAlmacen.cs">
       <SubType>Form</SubType>
@@ -755,6 +763,24 @@
     </Compile>
     <Compile Include="Views\Logistica\Empaque\ResumenEmpaqueCliente.Designer.cs">
       <DependentUpon>ResumenEmpaqueCliente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Reportes\DetalleNumeroDeEmbaques.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Reportes\DetalleNumeroDeEmbaques.Designer.cs">
+      <DependentUpon>DetalleNumeroDeEmbaques.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Reportes\FacturasXEmbarcar.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Reportes\FacturasXEmbarcar.Designer.cs">
+      <DependentUpon>FacturasXEmbarcar.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Reportes\ParametrosFacturasXEmbarcar.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Reportes\ParametrosFacturasXEmbarcar.Designer.cs">
+      <DependentUpon>ParametrosFacturasXEmbarcar.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PostVenta\Confirmacion.cs">
       <SubType>UserControl</SubType>
@@ -1180,6 +1206,15 @@
     <EmbeddedResource Include="Views\Logistica\Empaque\ResumenEmpaqueCliente.resx">
       <DependentUpon>ResumenEmpaqueCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Reportes\DetalleNumeroDeEmbaques.resx">
+      <DependentUpon>DetalleNumeroDeEmbaques.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Reportes\FacturasXEmbarcar.resx">
+      <DependentUpon>FacturasXEmbarcar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Reportes\ParametrosFacturasXEmbarcar.resx">
+      <DependentUpon>ParametrosFacturasXEmbarcar.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\PostVenta\Confirmacion.resx">
       <DependentUpon>Confirmacion.cs</DependentUpon>
     </EmbeddedResource>
@@ -1442,6 +1477,7 @@
       <LastGenOutput>IWS.cs</LastGenOutput>
     </Content>
     <Content Include="rayo.ico" />
+    <None Include="Resources\settings.png" />
     <None Include="Resources\56-document-outline.gif" />
     <None Include="Resources\WedgesT.gif" />
     <None Include="Resources\magic_Wand.png" />

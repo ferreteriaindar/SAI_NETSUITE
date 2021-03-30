@@ -19,10 +19,10 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
             {
                 var z = (from i in ctx.Entity
                          where (i.ENTITY_TYPE.Equals("Vendor") && i.PAQUETERIA_DISTRIBUCION_ID != null)
-                         select new Models.Catalogos.Vendor { ENTITY_ID = i.ENTITY_ID, NAME = i.NAME, PAQUETERIA_DISTRIBUCION_ID = i.PAQUETERIA_DISTRIBUCION_ID , OficinaNameFletara = i.NAME}).ToList();
+                         select new Models.Catalogos.Vendor { ENTITY_ID = i.ENTITY_ID, NAME = i.NAME, PAQUETERIA_DISTRIBUCION_ID = i.PAQUETERIA_DISTRIBUCION_ID , OficinaNameFletara = i.NAME,EsOficina="NO"}).ToList();
 
                 //AGREGAR LAS OFICINAS QUE  APUNTAN A UN PROVEEDOR REPETIDO
-                Models.Catalogos.Vendor OfLeon = new Models.Catalogos.Vendor() { ENTITY_ID = 25102, NAME = "OF LEON", PAQUETERIA_DISTRIBUCION_ID = 44, OficinaNameFletara = "A2710 PAQUETERIA Y MENSAJERIA EL GRAN CAÑON SA DE CV" };
+                Models.Catalogos.Vendor OfLeon = new Models.Catalogos.Vendor() { ENTITY_ID = 25102, NAME = "OF LEON", PAQUETERIA_DISTRIBUCION_ID = 44, OficinaNameFletara = "A2710 PAQUETERIA Y MENSAJERIA EL GRAN CAÑON SA DE CV" ,EsOficina="SI"};
                 z.Add(OfLeon);
                 return z;
             }
@@ -44,8 +44,9 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
             {
                 var Oficinas= new[] { "24", "25", "26", "27", "28", "29", "44", "51" };
                 string query = "EXECUTE IndarWms.dbo.[spCostoGuiasFletera] " + v;
-                if (Oficinas.Any(x=>v.Contains(x)))
-                    query = "EXECUTE IndarWms.dbo.spCostoGuiaXEmbarque "+v;
+                //SE QUITA POR QUE  EL PAILAS YA REGISTRA BIEN SUS NUMEROS DE GUIAS PARA OFICINAS-FLETERA
+              //  if (Oficinas.Any(x=>v.Contains(x)))
+               //     query = "EXECUTE IndarWms.dbo.spCostoGuiaXEmbarque "+v;
                 SqlCommand cmd = new SqlCommand(query, myConnection);
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 DataSet ds = new DataSet();
@@ -85,6 +86,7 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
         {
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1))
             {
+                var resultado="";
                 myConnection.Open();
                 SqlCommand cmd = new SqlCommand("", myConnection);
                 cmd.CommandText = @"select TOP 1  DEPA.DEPARTMENT_ID from IWS.dbo.Invoices I INNER JOIN (
@@ -93,9 +95,26 @@ INNER JOIN IWS.dbo.Departments D2 ON D1.PARENT_ID=D2.DEPARTMENT_ID
 INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
 INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
 ) DEPA ON I.DepartamentoCliente=DEPA.DEPARTAMENTO
-
                                     where I.TranId=" + factura;
-                var resultado = cmd.ExecuteScalar().ToString();
+
+                try
+                {
+                     resultado = cmd.ExecuteScalar().ToString();
+                }
+                catch (Exception ex)
+                {
+                    cmd.CommandText = @"select TOP 1  DEPA.DEPARTMENT_ID from IWS.dbo.Invoices I INNER JOIN (
+SELECT  D4.NAME+' : '+D2.NAME+' : '+D1.NAME   AS DEPARTAMENTO,D1.DEPARTMENT_ID FROM IWS.dbo.Departments D1  
+INNER JOIN IWS.dbo.Departments D2 ON D1.PARENT_ID=D2.DEPARTMENT_ID
+INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
+INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
+) DEPA ON I.DepartamentoCliente=DEPA.DEPARTAMENTO
+                                    where I.TranId=" + factura;
+                    resultado = cmd.ExecuteScalar().ToString();
+                }
+
+
+
                 return resultado != null ? resultado.ToString() : "";
             }
 
@@ -121,7 +140,7 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
                         gfm.idNumeroGuia = item.idNumeroGuia;
                         gfm.NumeroGuia = item.NumeroGuia;                       
                         gfm.CAJAS = sdr.GetInt32(1);
-                       // gfm.importe = item.importe;
+                        gfm.importe = item.importe;
                         gfm.Facturas = sdr.GetString(2);
                         gfm.METODO = "EMBARQUE";
                         gfm.cliente = sdr.GetString(0);
@@ -135,7 +154,7 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
 
                 foreach (var item in lista)
                 {
-                    item.importe = item.CAJAS *  (Convert.ToDecimal(importeEmbarque) / Convert.ToInt32(SUMA.ToString()));
+                    item.importe = item.CAJAS *  (item.importe / Convert.ToInt32(SUMA.ToString()));
                 }
 
                 return lista;
@@ -161,7 +180,7 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
 
                         gfm.idNumeroGuia = item.idNumeroGuia;
                             gfm.NumeroGuia = item.NumeroGuia;
-                        gfm.importe = item.importe;
+                      //  gfm.importe = item.importe;
                         gfm.CAJAS = sdr.GetInt32(0);
                         gfm.BULTOS = sdr.GetInt32(1);
                         gfm.ATADO = sdr.GetInt32(2);
@@ -170,7 +189,8 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
                         gfm.METODO = sdr.GetString(5);
                         gfm.paqueteria = sdr.GetString(6);
                         gfm.comentario = " ";
-
+                        gfm.importeSinIVA = item.importeSinIVA;
+                        gfm.retencion = item.retencion;
 
                       
                         lista.Add(gfm);
@@ -216,7 +236,8 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
                 suma = suma + dic.Value;
             }
 
-            decimal iva = retencion ? (decimal)1.12 :(decimal) 1.16;
+          //  decimal iva = retencion ? (decimal)1.12 :(decimal) 1.16;
+          decimal iva= item.retencion.ToString().Equals("1.12")? (decimal)1.12M : (decimal)1.16M;
             decimal? subtotal = item.importe / iva;
 
             foreach (var factura in listaFacturas)
@@ -236,7 +257,8 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
                 };
                 listaRegresar.Add(aux);
             }
-
+            Console.WriteLine("SUM");
+            Console.WriteLine(listaRegresar.Select(x => x.Rate).Sum());
             return listaRegresar;
         }
 
@@ -245,9 +267,34 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
             throw new NotImplementedException();
         }
 
-        public bool validarContrasena(string pass)
+        public bool validarContrasena(string usuario,string pass)
         {
-            return true;
+
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1))
+            {
+                string query = @"declare @usuario nvarchar(50)
+
+                                set @usuario='"+usuario+@"'
+
+                                if (@usuario='administrador' or @usuario='julio.romo' or @usuario='azuniga')
+                                begin
+	                                if exists (select * from Indarneg.dbo.sai_usuario where usuario=@usuario and pass='"+pass+@"')
+	                                 select 'SI'
+	                                else select 'NO'
+
+                                end
+                                else select 'NO'";
+                SqlCommand cmd = new SqlCommand(query, myConnection);
+                myConnection.Open();
+                var resultado = cmd.ExecuteScalar().ToString();
+                if (resultado == null)
+                    return false;
+                else if (resultado.ToString().Equals("SI"))
+                    return true;
+                else return false;
+            }
+
+                
         }
     }
 }

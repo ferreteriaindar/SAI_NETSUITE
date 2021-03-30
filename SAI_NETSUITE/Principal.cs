@@ -576,13 +576,13 @@ namespace SAI_NETSUITE
                         luwms.BringToFront();
                         break;
                     case "btnCapturaGastoFletera":
-                      /*  panelControl1.Controls.Clear();
+                        panelControl1.Controls.Clear();
                         Views.Logistica.Distribucion.GastoFleteras gf = new Views.Logistica.Distribucion.GastoFleteras(usuario)
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill
                         };
-                        gf.BringToFront();*/
+                        gf.BringToFront();
                         break;
                     case "btnEditarGuia":
                         panelControl1.Controls.Clear();
@@ -593,8 +593,17 @@ namespace SAI_NETSUITE
                         };
                         eng.BringToFront();
                         break;
-
-
+                    case "btnLogisticaRepFacturasXEmb":
+                    case "btnPostVentaFacturasXEmbarcar":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Reportes.FacturasXEmbarcar fxe = new Views.Logistica.Reportes.FacturasXEmbarcar()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        fxe.BringToFront();
+                        break;
+                    
 
                     default:
                     

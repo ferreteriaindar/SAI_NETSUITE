@@ -17,11 +17,13 @@
         <EntityTypeShape EntityType="IndarnegModel.EventosSurtidos" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuiteC" Width="1.5" PointX="3.375" PointY="4.75" />
         <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" />
-        <EntityTypeShape EntityType="IndarnegModel.GastoFletera" Width="1.5" PointX="5.375" PointY="10.125" />
-        <EntityTypeShape EntityType="IndarnegModel.GastoFleteraD" Width="1.5" PointX="7.625" PointY="10" />
-        <AssociationConnector Association="IndarnegModel.FK_GastoFleteraD_GastoFletera" />
+        <EntityTypeShape EntityType="IndarnegModel.GastoFleteraD" Width="1.5" PointX="7.875" PointY="10" />
         <EntityTypeShape EntityType="IndarnegModel.EmbarquesD" Width="1.5" PointX="3" PointY="11.625" />
         <AssociationConnector Association="IndarnegModel.FK_EmbarquesD_Embarques" />
+        <EntityTypeShape EntityType="IndarnegModel.UsuarioReporteXEmbarcar" Width="1.5" PointX="9.375" PointY="3.75" />
+        <EntityTypeShape EntityType="IndarnegModel.DiasReporteXEmbarcar" Width="1.5" PointX="10.375" PointY="6.75" />
+        <EntityTypeShape EntityType="IndarnegModel.GastoFletera" Width="1.5" PointX="5.625" PointY="9.875" />
+        <AssociationConnector Association="IndarnegModel.FK_GastoFleteraD_GastoFletera" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

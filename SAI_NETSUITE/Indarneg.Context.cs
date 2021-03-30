@@ -36,9 +36,11 @@ namespace SAI_NETSUITE
         public virtual DbSet<SAD> SAD { get; set; }
         public virtual DbSet<EventosSurtidos> EventosSurtidos { get; set; }
         public virtual DbSet<NumeroGuiaNetsuiteC> NumeroGuiaNetsuiteC { get; set; }
-        public virtual DbSet<GastoFletera> GastoFletera { get; set; }
         public virtual DbSet<GastoFleteraD> GastoFleteraD { get; set; }
         public virtual DbSet<EmbarquesD> EmbarquesD { get; set; }
+        public virtual DbSet<UsuarioReporteXEmbarcar> UsuarioReporteXEmbarcar { get; set; }
+        public virtual DbSet<DiasReporteXEmbarcar> DiasReporteXEmbarcar { get; set; }
+        public virtual DbSet<GastoFletera> GastoFletera { get; set; }
     
         public virtual ObjectResult<spWMS_InsertaIR_Result> spWMS_InsertaIR(Nullable<int> iD)
         {

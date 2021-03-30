@@ -36,6 +36,7 @@
             this.COLENTITY = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colPaqueteria = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colOficinaNameFletara = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colEsOficina = new DevExpress.XtraGrid.Columns.GridColumn();
             this.label1 = new System.Windows.Forms.Label();
             this.gridControl1 = new DevExpress.XtraGrid.GridControl();
             this.gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -71,6 +72,8 @@
             this.colFinalMETODO = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFinalcomentario = new DevExpress.XtraGrid.Columns.GridColumn();
             this.colFinalPaqueteria = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalimporteSinIVA = new DevExpress.XtraGrid.Columns.GridColumn();
+            this.colFinalretencion = new DevExpress.XtraGrid.Columns.GridColumn();
             this.btnAutorizar = new DevExpress.XtraEditors.SimpleButton();
             this.checkAutorizado = new DevExpress.XtraEditors.CheckEdit();
             this.txtSubtotal = new DevExpress.XtraEditors.TextEdit();
@@ -107,7 +110,8 @@
             this.colName,
             this.COLENTITY,
             this.colPaqueteria,
-            this.colOficinaNameFletara});
+            this.colOficinaNameFletara,
+            this.colEsOficina});
             this.searchLookUpEdit1View.FocusRectStyle = DevExpress.XtraGrid.Views.Grid.DrawFocusRectStyle.RowFocus;
             this.searchLookUpEdit1View.Name = "searchLookUpEdit1View";
             this.searchLookUpEdit1View.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -140,6 +144,14 @@
             this.colOficinaNameFletara.Caption = "OficinaNameFletara";
             this.colOficinaNameFletara.FieldName = "OficinaNameFletara";
             this.colOficinaNameFletara.Name = "colOficinaNameFletara";
+            // 
+            // colEsOficina
+            // 
+            this.colEsOficina.Caption = "EsOficina";
+            this.colEsOficina.FieldName = "EsOficina";
+            this.colEsOficina.Name = "colEsOficina";
+            this.colEsOficina.Visible = true;
+            this.colEsOficina.VisibleIndex = 2;
             // 
             // label1
             // 
@@ -256,7 +268,6 @@
             this.txtFacturaImporte.Properties.ReadOnly = true;
             this.txtFacturaImporte.Size = new System.Drawing.Size(203, 28);
             this.txtFacturaImporte.TabIndex = 14;
-            this.txtFacturaImporte.Visible = false;
             // 
             // label5
             // 
@@ -292,7 +303,7 @@
             this.btnRegistra.AppearanceHovered.Options.UseBackColor = true;
             this.btnRegistra.AppearanceHovered.Options.UseForeColor = true;
             this.btnRegistra.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.Office2003;
-            this.btnRegistra.Location = new System.Drawing.Point(7, 428);
+            this.btnRegistra.Location = new System.Drawing.Point(3, 463);
             this.btnRegistra.Name = "btnRegistra";
             this.btnRegistra.Size = new System.Drawing.Size(370, 43);
             this.btnRegistra.TabIndex = 18;
@@ -382,7 +393,9 @@
             this.colFinalFacturas,
             this.colFinalMETODO,
             this.colFinalcomentario,
-            this.colFinalPaqueteria});
+            this.colFinalPaqueteria,
+            this.colFinalimporteSinIVA,
+            this.colFinalretencion});
             this.gridView2.GridControl = this.gridFinal;
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsSelection.MultiSelect = true;
@@ -401,9 +414,11 @@
             this.colFinalimporte.Caption = "Importe";
             this.colFinalimporte.DisplayFormat.FormatString = "c2";
             this.colFinalimporte.DisplayFormat.FormatType = DevExpress.Utils.FormatType.Numeric;
-            this.colFinalimporte.FieldName = "importe";
+            this.colFinalimporte.FieldName = "colFinalimporte";
             this.colFinalimporte.Name = "colFinalimporte";
             this.colFinalimporte.OptionsColumn.ReadOnly = true;
+            this.colFinalimporte.UnboundExpression = "[importeSinIVA] * [retencion]";
+            this.colFinalimporte.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             this.colFinalimporte.Visible = true;
             this.colFinalimporte.VisibleIndex = 2;
             // 
@@ -478,6 +493,23 @@
             this.colFinalPaqueteria.FieldName = "paqueteria";
             this.colFinalPaqueteria.Name = "colFinalPaqueteria";
             // 
+            // colFinalimporteSinIVA
+            // 
+            this.colFinalimporteSinIVA.Caption = "importeSinIVA";
+            this.colFinalimporteSinIVA.FieldName = "importeSinIVA";
+            this.colFinalimporteSinIVA.Name = "colFinalimporteSinIVA";
+            this.colFinalimporteSinIVA.OptionsColumn.ReadOnly = true;
+            this.colFinalimporteSinIVA.Visible = true;
+            this.colFinalimporteSinIVA.VisibleIndex = 8;
+            // 
+            // colFinalretencion
+            // 
+            this.colFinalretencion.Caption = "retencion";
+            this.colFinalretencion.FieldName = "retencion";
+            this.colFinalretencion.Name = "colFinalretencion";
+            this.colFinalretencion.Visible = true;
+            this.colFinalretencion.VisibleIndex = 9;
+            // 
             // btnAutorizar
             // 
             this.btnAutorizar.Appearance.BackColor = System.Drawing.Color.Gold;
@@ -488,7 +520,7 @@
             this.btnAutorizar.Appearance.Options.UseForeColor = true;
             this.btnAutorizar.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
             this.btnAutorizar.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnAutorizar.ImageOptions.Image")));
-            this.btnAutorizar.Location = new System.Drawing.Point(7, 488);
+            this.btnAutorizar.Location = new System.Drawing.Point(3, 512);
             this.btnAutorizar.Name = "btnAutorizar";
             this.btnAutorizar.Size = new System.Drawing.Size(369, 42);
             this.btnAutorizar.TabIndex = 26;
@@ -608,5 +640,8 @@
         private DevExpress.XtraGrid.Columns.GridColumn colFinalPaqueteria;
         private DevExpress.XtraGrid.Columns.GridColumn colOficinaNameFletara;
         private DevExpress.XtraEditors.TextEdit txtSubtotal;
+        private DevExpress.XtraGrid.Columns.GridColumn colEsOficina;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalimporteSinIVA;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalretencion;
     }
 }

@@ -5,6 +5,15 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="IndarnegModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="DiasReporteXEmbarcar">
+          <Key>
+            <PropertyRef Name="idReporteXEmbarcar" />
+          </Key>
+          <Property Name="idReporteXEmbarcar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Estado" Type="nvarchar" MaxLength="50" />
+          <Property Name="Responsable" Type="nvarchar" MaxLength="50" />
+          <Property Name="Dias" Type="int" />
+        </EntityType>
         <EntityType Name="Embarques">
           <Key>
             <PropertyRef Name="idEmbarque" />
@@ -62,6 +71,8 @@
           <Property Name="usuario" Type="nvarchar" MaxLength="50" />
           <Property Name="comentario" Type="nvarchar" MaxLength="150" />
           <Property Name="autorizado" Type="bit" />
+          <Property Name="autorizadoUsuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="NumDoc" Type="int" />
         </EntityType>
         <EntityType Name="GastoFleteraD">
           <Key>
@@ -172,6 +183,16 @@
           <Property Name="password" Type="nvarchar" MaxLength="200" />
           <Property Name="ultimoInicioSesion" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="UsuarioReporteXEmbarcar">
+          <Key>
+            <PropertyRef Name="IdUsuarioReporteXEmbarcar" />
+          </Key>
+          <Property Name="IdUsuarioReporteXEmbarcar" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="area" Type="nvarchar" MaxLength="50" />
+        </EntityType>
         <Association Name="FK_EmbarquesD_Embarques">
           <End Role="Embarques" Type="Self.Embarques" Multiplicity="1" />
           <End Role="EmbarquesD" Type="Self.EmbarquesD" Multiplicity="*" />
@@ -243,6 +264,7 @@
           <Parameter Name="ID" Type="int" Mode="In" />
         </Function>
         <EntityContainer Name="IndarnegModelStoreContainer">
+          <EntitySet Name="DiasReporteXEmbarcar" EntityType="Self.DiasReporteXEmbarcar" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Embarques" EntityType="Self.Embarques" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EmbarquesD" EntityType="Self.EmbarquesD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EventosSurtidos" EntityType="Self.EventosSurtidos" Schema="dbo" store:Type="Tables" />
@@ -255,6 +277,13 @@
           <EntitySet Name="OrdenCobroD" EntityType="Self.OrdenCobroD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="SAD" EntityType="Self.SAD" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sai_usuario" EntityType="Self.sai_usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsuarioReporteXEmbarcar" EntityType="Self.UsuarioReporteXEmbarcar" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [UsuarioReporteXEmbarcar].[IdUsuarioReporteXEmbarcar] AS [IdUsuarioReporteXEmbarcar], 
+    [UsuarioReporteXEmbarcar].[usuario] AS [usuario], 
+    [UsuarioReporteXEmbarcar].[area] AS [area]
+    FROM [dbo].[UsuarioReporteXEmbarcar] AS [UsuarioReporteXEmbarcar]</DefiningQuery>
+          </EntitySet>
           <AssociationSet Name="FK_EmbarquesD_Embarques" Association="Self.FK_EmbarquesD_Embarques">
             <End Role="Embarques" EntitySet="Embarques" />
             <End Role="EmbarquesD" EntitySet="EmbarquesD" />
@@ -312,16 +341,18 @@
           <FunctionImport Name="spLiberaUsuarioWMS" ReturnType="Collection(String)">
           <Parameter Name="usuario" Mode="In" Type="String" />
           </FunctionImport>
-          <EntitySet Name="GastoFletera" EntityType="IndarnegModel.GastoFletera" />
           <EntitySet Name="GastoFleteraD" EntityType="IndarnegModel.GastoFleteraD" />
-          <AssociationSet Name="FK_GastoFleteraD_GastoFletera" Association="IndarnegModel.FK_GastoFleteraD_GastoFletera">
-            <End Role="GastoFletera" EntitySet="GastoFletera" />
-            <End Role="GastoFleteraD" EntitySet="GastoFleteraD" />
-          </AssociationSet>
           <EntitySet Name="EmbarquesD" EntityType="IndarnegModel.EmbarquesD" />
           <AssociationSet Name="FK_EmbarquesD_Embarques" Association="IndarnegModel.FK_EmbarquesD_Embarques">
             <End Role="Embarques" EntitySet="Embarques" />
             <End Role="EmbarquesD" EntitySet="EmbarquesD" />
+          </AssociationSet>
+          <EntitySet Name="UsuarioReporteXEmbarcar" EntityType="IndarnegModel.UsuarioReporteXEmbarcar" />
+          <EntitySet Name="DiasReporteXEmbarcar" EntityType="IndarnegModel.DiasReporteXEmbarcar" />
+          <EntitySet Name="GastoFletera" EntityType="IndarnegModel.GastoFletera" />
+          <AssociationSet Name="FK_GastoFleteraD_GastoFletera" Association="IndarnegModel.FK_GastoFleteraD_GastoFletera">
+            <End Role="GastoFletera" EntitySet="GastoFletera" />
+            <End Role="GastoFleteraD" EntitySet="GastoFleteraD" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="NumeroGuiaNetsuite">
@@ -510,23 +541,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="GastoFletera">
-          <Key>
-            <PropertyRef Name="idGastoFletera" />
-          </Key>
-          <Property Name="idGastoFletera" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="fecha" Type="DateTime" Precision="3" />
-          <Property Name="idVendor" Type="Int32" />
-          <Property Name="Vendor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="numFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="importeFactura" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="checkRetencion" Type="Boolean" />
-          <Property Name="uuid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="comentario" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
-          <Property Name="autorizado" Type="Boolean" />
-          <NavigationProperty Name="GastoFleteraD" Relationship="IndarnegModel.FK_GastoFleteraD_GastoFletera" FromRole="GastoFletera" ToRole="GastoFleteraD" />
-        </EntityType>
         <EntityType Name="GastoFleteraD">
           <Key>
             <PropertyRef Name="idGastoFleteraD" />
@@ -545,18 +559,6 @@
           <Property Name="comentario" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="GastoFletera" Relationship="IndarnegModel.FK_GastoFleteraD_GastoFletera" FromRole="GastoFleteraD" ToRole="GastoFletera" />
         </EntityType>
-        <Association Name="FK_GastoFleteraD_GastoFletera">
-          <End Type="IndarnegModel.GastoFletera" Role="GastoFletera" Multiplicity="1" />
-          <End Type="IndarnegModel.GastoFleteraD" Role="GastoFleteraD" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="GastoFletera">
-              <PropertyRef Name="idGastoFletera" />
-            </Principal>
-            <Dependent Role="GastoFleteraD">
-              <PropertyRef Name="idGastoFletera" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="EmbarquesD">
           <Key>
             <PropertyRef Name="IdEmbarqueD" />
@@ -588,6 +590,54 @@
             </Principal>
             <Dependent Role="EmbarquesD">
               <PropertyRef Name="idEmbarque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="UsuarioReporteXEmbarcar">
+          <Key>
+            <PropertyRef Name="IdUsuarioReporteXEmbarcar" />
+          </Key>
+          <Property Name="IdUsuarioReporteXEmbarcar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="DiasReporteXEmbarcar">
+          <Key>
+            <PropertyRef Name="idReporteXEmbarcar" />
+          </Key>
+          <Property Name="idReporteXEmbarcar" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Responsable" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Dias" Type="Int32" />
+        </EntityType>
+        <EntityType Name="GastoFletera">
+          <Key>
+            <PropertyRef Name="idGastoFletera" />
+          </Key>
+          <Property Name="idGastoFletera" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="fecha" Type="DateTime" Precision="3" />
+          <Property Name="idVendor" Type="Int32" />
+          <Property Name="Vendor" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="numFactura" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="importeFactura" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="checkRetencion" Type="Boolean" />
+          <Property Name="uuid" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="comentario" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="autorizado" Type="Boolean" />
+          <Property Name="autorizadoUsuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="NumDoc" Type="Int32" />
+          <NavigationProperty Name="GastoFleteraD" Relationship="IndarnegModel.FK_GastoFleteraD_GastoFletera" FromRole="GastoFletera" ToRole="GastoFleteraD" />
+        </EntityType>
+        <Association Name="FK_GastoFleteraD_GastoFletera">
+          <End Type="IndarnegModel.GastoFletera" Role="GastoFletera" Multiplicity="1" />
+          <End Type="IndarnegModel.GastoFleteraD" Role="GastoFleteraD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="GastoFletera">
+              <PropertyRef Name="idGastoFletera" />
+            </Principal>
+            <Dependent Role="GastoFleteraD">
+              <PropertyRef Name="idGastoFletera" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -746,23 +796,6 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spLiberaUsuarioWMS" FunctionName="IndarnegModel.Store.spLiberaUsuarioWMS" />
-          <EntitySetMapping Name="GastoFletera">
-            <EntityTypeMapping TypeName="IndarnegModel.GastoFletera">
-              <MappingFragment StoreEntitySet="GastoFletera">
-                <ScalarProperty Name="autorizado" ColumnName="autorizado" />
-                <ScalarProperty Name="comentario" ColumnName="comentario" />
-                <ScalarProperty Name="usuario" ColumnName="usuario" />
-                <ScalarProperty Name="uuid" ColumnName="uuid" />
-                <ScalarProperty Name="checkRetencion" ColumnName="checkRetencion" />
-                <ScalarProperty Name="importeFactura" ColumnName="importeFactura" />
-                <ScalarProperty Name="numFactura" ColumnName="numFactura" />
-                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
-                <ScalarProperty Name="idVendor" ColumnName="idVendor" />
-                <ScalarProperty Name="fecha" ColumnName="fecha" />
-                <ScalarProperty Name="idGastoFletera" ColumnName="idGastoFletera" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="GastoFleteraD">
             <EntityTypeMapping TypeName="IndarnegModel.GastoFleteraD">
               <MappingFragment StoreEntitySet="GastoFleteraD">
@@ -800,6 +833,44 @@
                 <ScalarProperty Name="entity_id" ColumnName="entity_id" />
                 <ScalarProperty Name="factura" ColumnName="factura" />
                 <ScalarProperty Name="idEmbarque" ColumnName="idEmbarque" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UsuarioReporteXEmbarcar">
+            <EntityTypeMapping TypeName="IndarnegModel.UsuarioReporteXEmbarcar">
+              <MappingFragment StoreEntitySet="UsuarioReporteXEmbarcar">
+                <ScalarProperty Name="area" ColumnName="area" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="IdUsuarioReporteXEmbarcar" ColumnName="IdUsuarioReporteXEmbarcar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="DiasReporteXEmbarcar">
+            <EntityTypeMapping TypeName="IndarnegModel.DiasReporteXEmbarcar">
+              <MappingFragment StoreEntitySet="DiasReporteXEmbarcar">
+                <ScalarProperty Name="Dias" ColumnName="Dias" />
+                <ScalarProperty Name="Responsable" ColumnName="Responsable" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="idReporteXEmbarcar" ColumnName="idReporteXEmbarcar" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="GastoFletera">
+            <EntityTypeMapping TypeName="IndarnegModel.GastoFletera">
+              <MappingFragment StoreEntitySet="GastoFletera">
+                <ScalarProperty Name="NumDoc" ColumnName="NumDoc" />
+                <ScalarProperty Name="autorizadoUsuario" ColumnName="autorizadoUsuario" />
+                <ScalarProperty Name="autorizado" ColumnName="autorizado" />
+                <ScalarProperty Name="comentario" ColumnName="comentario" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="uuid" ColumnName="uuid" />
+                <ScalarProperty Name="checkRetencion" ColumnName="checkRetencion" />
+                <ScalarProperty Name="importeFactura" ColumnName="importeFactura" />
+                <ScalarProperty Name="numFactura" ColumnName="numFactura" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+                <ScalarProperty Name="idVendor" ColumnName="idVendor" />
+                <ScalarProperty Name="fecha" ColumnName="fecha" />
+                <ScalarProperty Name="idGastoFletera" ColumnName="idGastoFletera" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

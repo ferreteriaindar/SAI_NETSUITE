@@ -16,8 +16,8 @@ namespace SAI_NETSUITE.Controllers.IWS
             // ServiceReference1.WebService1Soap indar = new ServiceReference1.WebService1Soap();
             try
             {
-                //  HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.70.102:63333/" + url);
+                  HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
+             //   HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.70.102:63333/" + url);
                 request.ContentType = "application/json";
                 request.Method = type ? "POST" : "PUT";
 
@@ -52,8 +52,8 @@ namespace SAI_NETSUITE.Controllers.IWS
             // ServiceReference1.WebService1Soap indar = new ServiceReference1.WebService1Soap();
             try
             {
-                 // HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
-                HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.70.102:63333/" + url);
+                  HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
+              //  HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.70.102:63333/" + url);
                 request.ContentType = "application/json";
                 request.Method = "GET";
 

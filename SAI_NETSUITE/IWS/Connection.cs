@@ -13,7 +13,8 @@ namespace SAI_NETSUITE.IWS
         public string POST(string url, string json, string head)
         {
             // ServiceReference1.WebService1Soap indar = new ServiceReference1.WebService1Soap();
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
+             HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
+           // HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.70.102:63333/" + url);
             request.ContentType = "application/json";
             request.Method = "POST";
 
@@ -40,7 +41,8 @@ namespace SAI_NETSUITE.IWS
         public string GET(string url,  string head)
         {
             // ServiceReference1.WebService1Soap indar = new ServiceReference1.WebService1Soap();
-            HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
+              HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
+         //   HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.70.102:63333/" + url);
             request.ContentType = "application/json";
             request.Method = "GET";
 
@@ -49,6 +51,7 @@ namespace SAI_NETSUITE.IWS
                 string header = "Authorization: Bearer " + head;
                 request.Headers.Add(header);
             }
+            request.Timeout = 120000;
            HttpWebResponse response = (HttpWebResponse)request.GetResponse();
             using (var streamReader = new StreamReader(response.GetResponseStream()))
             {

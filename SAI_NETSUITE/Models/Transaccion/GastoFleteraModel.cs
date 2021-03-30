@@ -11,6 +11,7 @@ namespace SAI_NETSUITE.Models.Transaccion
         public int idNumeroGuia { get; set; }
         public string NumeroGuia { get; set; }
         public decimal importe { get; set; }
+        public decimal importeSinIVA { get; set; }
         public int  CAJAS { get; set; }
         public int BULTOS { get; set; }
         public int ATADO { get; set; }
@@ -21,5 +22,6 @@ namespace SAI_NETSUITE.Models.Transaccion
         
         public string  paqueteria { get; set; }
         public string cliente { get; set; }
+        public decimal retencion { get; set; }
     }
 }

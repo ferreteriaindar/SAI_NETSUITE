@@ -18,11 +18,12 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 {
     public partial class GastoFleteras : UserControl
     {
-        string xmlString, usuario,importeEmbarque;
+        string xmlString, usuario,importeEmbarque,autorizadoNombre;
 
         public GastoFleteras(string usr)
         {
             usuario = usr;
+            autorizadoNombre = "";
             InitializeComponent();
         }
 
@@ -50,7 +51,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             Controllers.Logistica.Distribucion.GastoFleterasController gfc = new Controllers.Logistica.Distribucion.GastoFleterasController();
          
             gridControl1.DataSource = gfc.regresaGuias(searchVendor.Properties.View.GetFocusedRowCellValue("PAQUETERIA_DISTRIBUCION_ID").ToString()).Tables[0];
-            if (searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString().Contains("OF "))
+           /* if (searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString().Contains("OF "))
             {
                 XtraInputBoxArgs args = new XtraInputBoxArgs();
                 TextEdit txt = new TextEdit();
@@ -71,7 +72,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     txtImporteGuia.Text = importeEmbarque;
                         }
 
-            }
+            }*/
         }
 
         private void gridView1_SelectionChanged(object sender, DevExpress.Data.SelectionChangedEventArgs e)
@@ -95,14 +96,18 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 {
                     idNumeroGuia = Convert.ToInt32(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colidNumeroGuia).ToString()),
                     NumeroGuia = gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colNumeroGuia).ToString(),
-                    importe = Convert.ToDecimal(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colImporteTotal).ToString())
+                   // importe = Convert.ToDecimal(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colImporteTotal).ToString()),
+                    retencion = checkEdit1.Checked ? 1.12M : 1.16M,
+                    importeSinIVA= Convert.ToDecimal(gridView1.GetRowCellValue(gridView1.GetSelectedRows()[i], colImporteTotal).ToString())
+
                 };
                 listaGuias.Add(gfm);
             }
 
             if (listaGuias.Count > 0)
             {
-                if (listaGuias[0].NumeroGuia.Contains("EMBARQUE"))
+                //if (listaGuias[0].NumeroGuia.Contains("EMBARQUE"))
+                if(searchVendor.Properties.View.GetFocusedRowCellValue("EsOficina").ToString().Equals("SI"))
                     gridFinal.DataSource = new GastoFleterasController().RegresaGridFinalXEmbarque(listaGuias, importeEmbarque);
                 else
                     gridFinal.DataSource = new GastoFleterasController().RegresaGridFinal(listaGuias);
@@ -114,7 +119,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 {
 
 
-                    importe += Convert.ToDecimal(gridView2.GetRowCellValue(i, colFinalimporte).ToString());
+                    importe += Convert.ToDecimal(gridView2.GetRowCellValue(i, colFinalimporteSinIVA).ToString());
 
                 }
                 txtImporteGuia.Text =Math.Round( importe,2).ToString();
@@ -152,6 +157,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
             using (IndarnegEntities ctx = new IndarnegEntities())
             {
+                int? NumDocUltimo = ctx.GastoFletera.Max(u => (int?)u.NumDoc);
 
                 GastoFletera gf = new GastoFletera()
                 {
@@ -163,12 +169,15 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     uuid = txtUUID.Text,
                     Vendor = searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString(),
                     usuario = usuario,
-                    autorizado=checkAutorizado.Checked?true:false,
-                    
-                    
-                    
-               
-            };
+                    autorizado = checkAutorizado.Checked ? true : false,
+                    autorizadoUsuario = checkAutorizado.Checked ? autorizadoNombre : null,
+                    NumDoc = NumDocUltimo == null ? 1 : NumDocUltimo + 1
+
+
+
+
+
+                };
                 ctx.GastoFletera.Add(gf);
                 for (int i = 0; i < gridView2.RowCount; i++)
                 {
@@ -200,6 +209,16 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 string ExternalId = DateTime.Now.ToFileTime().ToString();
 
                 List<GastoFleteraModel> listaGridFinal = (List<GastoFleteraModel>)gridView2.DataSource;
+                for (int i = 0; i < gridView2.RowCount; i++)
+                {
+                    foreach (var item in listaGridFinal)
+                    {
+                        if (gridView2.GetRowCellValue(i, colFinalNumeroGuia).Equals(item.NumeroGuia))
+                        {
+                            item.importe = Convert.ToDecimal(gridView2.GetRowCellValue(i, colFinalimporte).ToString());
+                        }
+                    }
+                }
                 List<GastoFleteraCSVModel> lista = new List<GastoFleteraCSVModel>();
 
                 foreach (var item in listaGridFinal)
@@ -208,7 +227,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                       
                         listaAux=   new GastoFleterasController().regresaLineaBill(item, checkEdit1.Checked);                 
                    
-                    listaAux[0].Reference = "FLETERA "+gf.idGastoFletera.ToString();
+                    listaAux[0].Reference = "FLETERA "+gf.NumDoc.ToString();
                     listaAux[0].xml = txtUUID.Text + ".xml"; //"test.xml";//xmlString.Replace("\"", "\\\""),   //es el UUID DEL xml
                     //Para el vendor, si detect que dice "OF LEON" ETC ETC,   Pone la columna  OficinaNameFletara,   si no  pone  el verdadero que es NAME
                     listaAux[0].Vendor = searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString().Contains("OF ")? searchVendor.Properties.View.GetFocusedRowCellValue("OficinaNameFletara").ToString(): searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString();
@@ -247,6 +266,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     if (gfc.enviarBill(sb, xmlString, txtUUID.Text,gf.idGastoFletera))
                     {
                         MessageBox.Show("Enviado Exitosamente");
+                        autorizadoNombre = "";
                     }
                     else
                     {
@@ -349,34 +369,48 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             XtraInputBoxArgs args = new XtraInputBoxArgs();
             TextEdit txt = new TextEdit();
             TextEdit txtuser = new TextEdit();
-            txt.Properties.UseSystemPasswordChar = true;            
-            args.Prompt = "Ingresa Contraseña";
-            args.Prompt = "Contraseña";
+            txt.Properties.UseSystemPasswordChar = false;            
+            args.Prompt = "Ingresa Usuario";
+            args.Prompt = "Usuario SAI";
             args.Caption= "Autorizar Cambio de Importe";
             args.Editor = txt;
            
-            var result = XtraInputBox.Show(args);
+            var usuario = XtraInputBox.Show(args);
+            txt.Properties.UseSystemPasswordChar = true;
+            args.Prompt = "Contraseña";
+            var pass= XtraInputBox.Show(args);
             //Console.WriteLine(result.ToString());
-            if (validarContrasena(result.ToString()))
+            if (validarContrasena(usuario==null?"": usuario.ToString(),pass==null?"":pass.ToString()))
             {
                
-                colFinalimporte.OptionsColumn.ReadOnly = false;
+              //  colFinalimporte.OptionsColumn.ReadOnly = false;
                 colFinalcomentario.OptionsColumn.ReadOnly = false;
+                colFinalimporteSinIVA.OptionsColumn.ReadOnly = false;
                 checkAutorizado.Checked = true;
+                autorizadoNombre = usuario.ToString();
+
             }
             else MessageBox.Show("No Autorizado");
         }
 
-        public bool validarContrasena(string pass)
+        public bool validarContrasena(string usuario,string pass)
         {
             GastoFleterasController gfc = new GastoFleterasController();
-            bool resultado = gfc.validarContrasena(pass);
+            bool resultado = gfc.validarContrasena(usuario,pass);
             return resultado;
         }
 
         private void checkEdit1_CheckedChanged(object sender, EventArgs e)
         {
             txtFacturaImporte.Text = (Math.Round( Convert.ToDecimal(txtSubtotal.Text) * (checkEdit1.Checked ? 1.12M : 1.16M),2)).ToString();
+            /* for (int i = 0; i < gridView2.RowCount; i++)
+             {
+                 gridView2.SetRowCellValue(i, colFinalretencion, checkEdit1.Checked ? 1.12M : 1.16M);
+             }*/
+            for (int i = 0; i < gridView2.SelectedRowsCount; i++)
+            {
+                gridView2.SetRowCellValue(gridView2.GetSelectedRows()[i], colFinalretencion, checkEdit1.Checked ? 1.12M : 1.16M);
+            }
         }
 
         private void gridView2_RowUpdated(object sender, DevExpress.XtraGrid.Views.Base.RowObjectEventArgs e)
@@ -386,8 +420,8 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
         private void gridView2_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)
         {
-            if (e.Column.Caption.Equals("Importe")&&  gridView2.RowCount>0)
-            {
+           // if (e.Column.Caption.Equals("Importe")&&  gridView2.RowCount>0)
+            //{
 
                  decimal importe = 0;
                  txtImporteGuia.Text = "";
@@ -395,12 +429,12 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                  {
 
 
-                     importe += Convert.ToDecimal(gridView2.GetRowCellValue(i, colFinalimporte).ToString());
+                     importe += Convert.ToDecimal(gridView2.GetRowCellValue(i, colFinalimporteSinIVA).ToString());
 
                  }  
                   txtImporteGuia.Text = importe.ToString();
                 validadImportes();
-            }
+           // }
 
         }
 

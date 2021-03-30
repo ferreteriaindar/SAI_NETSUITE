@@ -31,6 +31,8 @@ namespace SAI_NETSUITE
         public string usuario { get; set; }
         public string comentario { get; set; }
         public Nullable<bool> autorizado { get; set; }
+        public string autorizadoUsuario { get; set; }
+        public Nullable<int> NumDoc { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<GastoFleteraD> GastoFleteraD { get; set; }

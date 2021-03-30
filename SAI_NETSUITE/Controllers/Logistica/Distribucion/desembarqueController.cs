@@ -45,7 +45,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
                     else
                     {
                         string UsuarioFleteXConfirmar = data.Rows[i][2].ToString().Equals("Flete X Confirmar") ? usuario : "";
-                        string FechaFleteXConfirmar = data.Rows[i][2].ToString().Equals("Flete X Confirmar") ? DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss") : "01/01/1900 12:00:00";
+                        string FechaFleteXConfirmar = data.Rows[i][2].ToString().Equals("Flete X Confirmar") ? DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") : "01/01/1900 12:00:00";
                         cmd.CommandText = "update  indarneg.dbo.embarquesD set estado='" + data.Rows[i][2].ToString() + "', comentarios='" + data.Rows[i][1].ToString() + "' WHERE IDEMBARQUE=" + idembarque.ToString() + " and factura='" + data.Rows[i][0].ToString() + "'";
                         if (data.Rows[i][2].ToString().Equals("Flete X Confirmar"))
                         cmd.CommandText = "update  indarneg.dbo.embarquesD set estado='" + data.Rows[i][2].ToString() + "', comentarios='" + data.Rows[i][1].ToString() + "', UsuarioFleteXConfirmar='" + UsuarioFleteXConfirmar + "',FechaFleteXConfirmar='" + FechaFleteXConfirmar + "'   WHERE IDEMBARQUE=" + idembarque.ToString() + " and factura='" + data.Rows[i][0].ToString() + "'";
