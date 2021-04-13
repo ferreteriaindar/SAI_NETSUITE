@@ -80,8 +80,9 @@ namespace SAI_NETSUITE.Controllers.Logistica.Reportes
                  */
 
                 fxem.Dias = fechaEntrega == null ? (DateTime.Now- (FechaFleteXConfirmar == null ? (FechaEmbarque == null ? FechaFactura : FechaEmbarque) : FechaFleteXConfirmar) ).Value.Days : ( DateTime.Now- fechaEntrega ).Value.Days;
-                
-                
+                fxem.Dias = NumberOfWorkDays(DateTime.Now,(int) fxem.Dias);
+
+
                 lista.Add(fxem);
                                                
             };
@@ -138,7 +139,33 @@ namespace SAI_NETSUITE.Controllers.Logistica.Reportes
         }
 
 
+        private int NumberOfWorkDays(DateTime start, int numberOfDays)
+        {
+            try
+            {
+                int workDays = 0;
 
+                DateTime end = start.AddDays(numberOfDays);
+
+
+                while (start != end)
+                {
+                    if (start.DayOfWeek != DayOfWeek.Saturday && start.DayOfWeek != DayOfWeek.Sunday)
+                    {
+                        workDays++;
+                    }
+
+                    start = start.AddDays(1);
+                }
+
+                return workDays;
+            }
+            catch (Exception ex)
+            {
+                return numberOfDays;
+            }
+            
+        }
 
 
 

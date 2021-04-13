@@ -85,7 +85,9 @@ namespace SAI_NETSUITE.Views.Ventas.Apoyos
                 }
                 if (soBO.result.Sum(x => x.quantitycommitted) == 0)
                     BtnEnviarWMS.Enabled = false;
-                if (soBO.result.Where(x => x.itemdescription.Equals("S/PEDIDO")).Count() > 0 & soBO.result[0].fecha < DateTime.Now)
+                Console.WriteLine(((DateTime)soBO.result[0].fecha - DateTime.Now).TotalDays);
+                Console.WriteLine(soBO.result.Where(x => x.itemdescription2.Equals("S/PEDIDO")).Count());
+                if (soBO.result.Where(x => x.itemdescription2.Equals("S/PEDIDO")).Count() > 0 &((DateTime) soBO.result[0].fecha - DateTime.Now).TotalDays<1)
                     btnConsultar.Enabled = false;
                    
             }

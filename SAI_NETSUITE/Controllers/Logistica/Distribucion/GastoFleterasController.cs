@@ -24,6 +24,18 @@ namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
                 //AGREGAR LAS OFICINAS QUE  APUNTAN A UN PROVEEDOR REPETIDO
                 Models.Catalogos.Vendor OfLeon = new Models.Catalogos.Vendor() { ENTITY_ID = 25102, NAME = "OF LEON", PAQUETERIA_DISTRIBUCION_ID = 44, OficinaNameFletara = "A2710 PAQUETERIA Y MENSAJERIA EL GRAN CAÑON SA DE CV" ,EsOficina="SI"};
                 z.Add(OfLeon);
+                Models.Catalogos.Vendor OfAGS = new Models.Catalogos.Vendor() { ENTITY_ID = 25102, NAME = "OF AGS", PAQUETERIA_DISTRIBUCION_ID = 24, OficinaNameFletara = "A2710 PAQUETERIA Y MENSAJERIA EL GRAN CAÑON SA DE CV", EsOficina = "SI" };
+                z.Add(OfAGS);
+                Models.Catalogos.Vendor OfMorelia = new Models.Catalogos.Vendor() { ENTITY_ID = 224582, NAME = "OF Morelia", PAQUETERIA_DISTRIBUCION_ID = 27, OficinaNameFletara = "A3900 VALMER PAQUETERIA Y MENSAJERIA S DE RL", EsOficina = "SI" };
+                z.Add(OfMorelia);
+                Models.Catalogos.Vendor OfCuliacan = new Models.Catalogos.Vendor() { ENTITY_ID = 43485, NAME = "OF Culiacan", PAQUETERIA_DISTRIBUCION_ID = 25, OficinaNameFletara = "A5948 OPERADORA DE SERVICIOS PAQUETEXPRESS SA DE CV", EsOficina = "SI" };
+                z.Add(OfCuliacan);
+                Models.Catalogos.Vendor OfTorreon = new Models.Catalogos.Vendor() { ENTITY_ID = 25102, NAME = "OF Torreon", PAQUETERIA_DISTRIBUCION_ID = 29, OficinaNameFletara = "A2710 PAQUETERIA Y MENSAJERIA EL GRAN CAÑON SA DE CV", EsOficina = "SI" };
+                z.Add(OfTorreon);
+                Models.Catalogos.Vendor OfMTy = new Models.Catalogos.Vendor() { ENTITY_ID = 158870, NAME = "OF MTY", PAQUETERIA_DISTRIBUCION_ID = 51, OficinaNameFletara = "A6018 SOLUCIONES LOGISTICAS EXXPREZO, SA DE CV", EsOficina = "SI" };
+                z.Add(OfMTy);
+                Models.Catalogos.Vendor ofQRO = new Models.Catalogos.Vendor() { ENTITY_ID = 25102, NAME = "OF QRO", PAQUETERIA_DISTRIBUCION_ID = 28, OficinaNameFletara = "A2710 PAQUETERIA Y MENSAJERIA EL GRAN CAÑON SA DE CV", EsOficina = "SI" };
+                z.Add(ofQRO);
                 return z;
             }
             
@@ -222,9 +234,11 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
         {
             List<GastoFleteraCSVModel> listaRegresar = new List<GastoFleteraCSVModel>();
             var listaFacturas = new Dictionary<string, decimal?>();
-            string[] array = item.Facturas.Split(',');
+            string[] array2 = item.Facturas.Split(',');
+            string[] array = array2.Distinct().ToArray();
+            array = array.Where(x => !string.IsNullOrEmpty(x)).ToArray();
             IWSEntities ctx = new IWSEntities();
-            foreach (var factura in array)
+            foreach (var factura in array.Distinct())
             {
                 decimal tranid = Convert.ToInt32(factura);
                 decimal? importe = ctx.Invoices.Where(x => x.TranId==(tranid)).Select(x => x.Total).FirstOrDefault().Value;
@@ -238,7 +252,7 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
 
           //  decimal iva = retencion ? (decimal)1.12 :(decimal) 1.16;
           decimal iva= item.retencion.ToString().Equals("1.12")? (decimal)1.12M : (decimal)1.16M;
-            decimal? subtotal = item.importe / iva;
+            decimal? subtotal = decimal.Round(item.importe / iva, 2);
 
             foreach (var factura in listaFacturas)
             {
@@ -252,9 +266,12 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
                     Item = retencion ? "FLETES CON RETENCION" : "FLETES SIN RETENCION",
                     Rate = subtotal / suma * factura.Value,
                     Tax = retencion ? "RET IVA FLETES:GPO RET FLETE" : "IVA 16%:IVA 16%",
-                    Relacion= "Invoice #"+factura.Key.ToString()
+                    Relacion= "Invoice #"+factura.Key.ToString(),
+                    NumGuia=item.NumeroGuia
+                    
 
                 };
+                aux.Rate = decimal.Round((decimal)aux.Rate, 2);
                 listaRegresar.Add(aux);
             }
             Console.WriteLine("SUM");
@@ -295,6 +312,17 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
             }
 
                 
+        }
+
+        public void aplicarCheckGuias(List<GastoFleteraModel> listaGridFinal)
+        {
+            var NumerosGuia = listaGridFinal.Select(x => x.NumeroGuia).ToList();
+            using (IndarnegEntities ctx = new IndarnegEntities())
+            {
+                var guias = ctx.NumeroGuiaNetsuite.Where(f => NumerosGuia.Contains(f.NumeroGuia)).ToList();
+                guias.ForEach(a => a.EnviadoGastoFletera = true);
+                ctx.SaveChanges();
+            }
         }
     }
 }

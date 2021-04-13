@@ -101,6 +101,7 @@
           <Property Name="ImporteTotal" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Fecha" Type="datetime" />
           <Property Name="Usuario" Type="nvarchar" MaxLength="50" />
+          <Property Name="EnviadoGastoFletera" Type="bit" />
         </EntityType>
         <EntityType Name="NumeroGuiaNetsuiteC">
           <Key>
@@ -310,7 +311,6 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
     <edmx:ConceptualModels>
       <Schema Namespace="IndarnegModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityContainer Name="IndarnegEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="NumeroGuiaNetsuite" EntityType="IndarnegModel.NumeroGuiaNetsuite" />
           <FunctionImport Name="spWMS_InsertaIR" ReturnType="Collection(IndarnegModel.spWMS_InsertaIR_Result)">
           <Parameter Name="ID" Mode="In" Type="Int32" />
           </FunctionImport>
@@ -318,10 +318,6 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
           <EntitySet Name="sai_usuario" EntityType="IndarnegModel.sai_usuario" />
           <EntitySet Name="Embarques" EntityType="IndarnegModel.Embarques" />
           <EntitySet Name="NumeroGuiaNetsuiteD" EntityType="IndarnegModel.NumeroGuiaNetsuiteD" />
-          <AssociationSet Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
-            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
-            <End Role="NumeroGuiaNetsuiteD" EntitySet="NumeroGuiaNetsuiteD" />
-          </AssociationSet>
           <EntitySet Name="OrdenCobro" EntityType="IndarnegModel.OrdenCobro" />
           <EntitySet Name="OrdenCobroD" EntityType="IndarnegModel.OrdenCobroD" />
           <AssociationSet Name="FK_OrdenCorbroD_Ordencobro" Association="IndarnegModel.FK_OrdenCorbroD_Ordencobro">
@@ -334,10 +330,6 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
           <EntitySet Name="SAD" EntityType="IndarnegModel.SAD" />
           <EntitySet Name="EventosSurtidos" EntityType="IndarnegModel.EventosSurtidos" />
           <EntitySet Name="NumeroGuiaNetsuiteC" EntityType="IndarnegModel.NumeroGuiaNetsuiteC" />
-          <AssociationSet Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
-            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
-            <End Role="NumeroGuiaNetsuiteC" EntitySet="NumeroGuiaNetsuiteC" />
-          </AssociationSet>
           <FunctionImport Name="spLiberaUsuarioWMS" ReturnType="Collection(String)">
           <Parameter Name="usuario" Mode="In" Type="String" />
           </FunctionImport>
@@ -354,20 +346,16 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
             <End Role="GastoFletera" EntitySet="GastoFletera" />
             <End Role="GastoFleteraD" EntitySet="GastoFleteraD" />
           </AssociationSet>
+          <EntitySet Name="NumeroGuiaNetsuite" EntityType="IndarnegModel.NumeroGuiaNetsuite" />
+          <AssociationSet Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
+            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
+            <End Role="NumeroGuiaNetsuiteC" EntitySet="NumeroGuiaNetsuiteC" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
+            <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
+            <End Role="NumeroGuiaNetsuiteD" EntitySet="NumeroGuiaNetsuiteD" />
+          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="NumeroGuiaNetsuite">
-          <Key>
-            <PropertyRef Name="idNumeroGuia" />
-          </Key>
-          <Property Name="idNumeroGuia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NumeroGuia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="idPaqueteria" Type="Int32" />
-          <Property Name="ImporteTotal" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Fecha" Type="DateTime" Precision="3" />
-          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="NumeroGuiaNetsuiteD" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteD" />
-          <NavigationProperty Name="NumeroGuiaNetsuiteC" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteC" />
-        </EntityType>
         <ComplexType Name="spWMS_InsertaIR_Result">
           <Property Type="Int32" Name="rows" Nullable="false" />
         </ComplexType>
@@ -418,18 +406,6 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
           <Property Name="embarque" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="NumeroGuiaNetsuite" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuiteD" ToRole="NumeroGuiaNetsuite" />
         </EntityType>
-        <Association Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
-          <End Type="IndarnegModel.NumeroGuiaNetsuite" Role="NumeroGuiaNetsuite" Multiplicity="1" />
-          <End Type="IndarnegModel.NumeroGuiaNetsuiteD" Role="NumeroGuiaNetsuiteD" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NumeroGuiaNetsuite">
-              <PropertyRef Name="idNumeroGuia" />
-            </Principal>
-            <Dependent Role="NumeroGuiaNetsuiteD">
-              <PropertyRef Name="idNumeroGuia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="OrdenCobro">
           <Key>
             <PropertyRef Name="idOrdenCobro" />
@@ -529,18 +505,6 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
           <Property Name="idNumeroGuiaC" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="NumeroGuiaNetsuite" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuiteC" ToRole="NumeroGuiaNetsuite" />
         </EntityType>
-        <Association Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
-          <End Type="IndarnegModel.NumeroGuiaNetsuite" Role="NumeroGuiaNetsuite" Multiplicity="1" />
-          <End Type="IndarnegModel.NumeroGuiaNetsuiteC" Role="NumeroGuiaNetsuiteC" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="NumeroGuiaNetsuite">
-              <PropertyRef Name="idNumeroGuia" />
-            </Principal>
-            <Dependent Role="NumeroGuiaNetsuiteC">
-              <PropertyRef Name="idNumeroGuia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="GastoFleteraD">
           <Key>
             <PropertyRef Name="idGastoFleteraD" />
@@ -641,24 +605,50 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="NumeroGuiaNetsuite">
+          <Key>
+            <PropertyRef Name="idNumeroGuia" />
+          </Key>
+          <Property Name="idNumeroGuia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NumeroGuia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idPaqueteria" Type="Int32" />
+          <Property Name="ImporteTotal" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="EnviadoGastoFletera" Type="Boolean" />
+          <NavigationProperty Name="NumeroGuiaNetsuiteC" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteC" />
+          <NavigationProperty Name="NumeroGuiaNetsuiteD" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteD" />
+        </EntityType>
+        <Association Name="FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite">
+          <End Type="IndarnegModel.NumeroGuiaNetsuite" Role="NumeroGuiaNetsuite" Multiplicity="1" />
+          <End Type="IndarnegModel.NumeroGuiaNetsuiteC" Role="NumeroGuiaNetsuiteC" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NumeroGuiaNetsuite">
+              <PropertyRef Name="idNumeroGuia" />
+            </Principal>
+            <Dependent Role="NumeroGuiaNetsuiteC">
+              <PropertyRef Name="idNumeroGuia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite">
+          <End Type="IndarnegModel.NumeroGuiaNetsuite" Role="NumeroGuiaNetsuite" Multiplicity="1" />
+          <End Type="IndarnegModel.NumeroGuiaNetsuiteD" Role="NumeroGuiaNetsuiteD" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NumeroGuiaNetsuite">
+              <PropertyRef Name="idNumeroGuia" />
+            </Principal>
+            <Dependent Role="NumeroGuiaNetsuiteD">
+              <PropertyRef Name="idNumeroGuia" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="IndarnegModelStoreContainer" CdmEntityContainer="IndarnegEntities">
-          <EntitySetMapping Name="NumeroGuiaNetsuite">
-            <EntityTypeMapping TypeName="IndarnegModel.NumeroGuiaNetsuite">
-              <MappingFragment StoreEntitySet="NumeroGuiaNetsuite">
-                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="ImporteTotal" ColumnName="ImporteTotal" />
-                <ScalarProperty Name="idPaqueteria" ColumnName="idPaqueteria" />
-                <ScalarProperty Name="NumeroGuia" ColumnName="NumeroGuia" />
-                <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="spWMS_InsertaIR" FunctionName="IndarnegModel.Store.spWMS_InsertaIR" >
             <ResultMapping>
               <ComplexTypeMapping TypeName="IndarnegModel.spWMS_InsertaIR_Result">
@@ -871,6 +861,19 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
                 <ScalarProperty Name="idVendor" ColumnName="idVendor" />
                 <ScalarProperty Name="fecha" ColumnName="fecha" />
                 <ScalarProperty Name="idGastoFletera" ColumnName="idGastoFletera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NumeroGuiaNetsuite">
+            <EntityTypeMapping TypeName="IndarnegModel.NumeroGuiaNetsuite">
+              <MappingFragment StoreEntitySet="NumeroGuiaNetsuite">
+                <ScalarProperty Name="EnviadoGastoFletera" ColumnName="EnviadoGastoFletera" />
+                <ScalarProperty Name="Usuario" ColumnName="Usuario" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="ImporteTotal" ColumnName="ImporteTotal" />
+                <ScalarProperty Name="idPaqueteria" ColumnName="idPaqueteria" />
+                <ScalarProperty Name="NumeroGuia" ColumnName="NumeroGuia" />
+                <ScalarProperty Name="idNumeroGuia" ColumnName="idNumeroGuia" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

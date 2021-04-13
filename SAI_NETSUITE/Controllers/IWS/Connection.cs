@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -16,8 +17,8 @@ namespace SAI_NETSUITE.Controllers.IWS
             // ServiceReference1.WebService1Soap indar = new ServiceReference1.WebService1Soap();
             try
             {
-                  HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
-             //   HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.70.102:63333/" + url);
+               //   HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(regresaIWSurl() + url);
                 request.ContentType = "application/json";
                 request.Method = type ? "POST" : "PUT";
 
@@ -52,8 +53,8 @@ namespace SAI_NETSUITE.Controllers.IWS
             // ServiceReference1.WebService1Soap indar = new ServiceReference1.WebService1Soap();
             try
             {
-                  HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
-              //  HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.70.102:63333/" + url);
+                 // HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://192.168.86.6:63333/" + url);
+                HttpWebRequest request = (HttpWebRequest)WebRequest.Create(regresaIWSurl() + url);
                 request.ContentType = "application/json";
                 request.Method = "GET";
 
@@ -82,7 +83,19 @@ namespace SAI_NETSUITE.Controllers.IWS
             }
         }
 
+        public string regresaIWSurl()
+        {
+            using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1))
+            {
+                string query = "select top 1 URL from iws.dbo.url_iws where app = 'SAI'";
+                myConnection.Open();
+                SqlCommand cmd = new SqlCommand(query, myConnection);
+                var resultado = cmd.ExecuteScalar().ToString();
+                myConnection.Close();
+                return resultado.ToString();
+            }
 
+        }
        
     }
 }

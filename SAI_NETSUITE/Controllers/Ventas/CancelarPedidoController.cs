@@ -63,23 +63,26 @@ namespace SAI_NETSUITE.Controllers.Ventas
             //{
                 SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString1);
                 string query =// @"if exists (select * from iws.dbo.SaleOrders where tranid="+tranid+@")
-		                        @"    update iws.dbo.SaleOrders set syncwms=1 where tranid="+tranid+@"
-                                if exists(select NumPedido from INDAR_INACTIONWMS.dbo.OrdenEmbarque where IdEstatusOrdenEmbarque=0  and consolidado is null and NumPedido=" + tranid + @")
+                                @"    update iws.dbo.SaleOrders set syncwms=1 where tranid="+tranid+@"
+                                if exists(select NumPedido from INDAR_INACTIONWMS.dbo.OrdenEmbarque where IdEstatusOrdenEmbarque=0   and NumPedido="+tranid+@")
 		                        BEGIN 
 			                        DECLARE  @idOrdenembarque int 
-			                        select @idOrdenembarque=IdOrdenEmbarque from INDAR_INACTIONWMS.dbo.OrdenEmbarque where  consolidado is null and  mov='salesorder' and NumPedido=" + tranid + @"
+			                        select @idOrdenembarque=IdOrdenEmbarque from INDAR_INACTIONWMS.dbo.OrdenEmbarque where    mov='salesorder' and NumPedido="+tranid+@"
+                                    update INDAR_INACTIONWMS.dbo.OrdenEmbarque set Consolidado=null where IdOrdenEmbarque=@idOrdenembarque
 			                        exec INDAR_INACTIONWMS.dbo.spOrdenEmbarqueCancelar @idOrdenembarque,2;
 			                        SELECT 'OK' AS resultado
 		                        END
                         ELSE
 		                        BEGIN 
-		                        SELECT 'ERROR YA NO SE PUEDE CANCELAR EN WMS' AS resultado
+								 if exists(select NumPedido from INDAR_INACTIONWMS.dbo.OrdenEmbarque where IdEstatusOrdenEmbarque<>0   and NumPedido="+tranid+@")
+								 SELECT 'ERROR YA NO SE PUEDE CANCELAR EN WMS' AS resultado
+								 else   SELECT 'OK' AS resultado
 		                        END";
                 myConnection.Open();
                 SqlCommand cmd = new SqlCommand(query, myConnection);
                 resultadoWMS = cmd.ExecuteScalar().ToString();
            /* }
-            else*/ resultadoWMS = "OK";
+            else*/// resultadoWMS = "OK";
             if (resultadoWMS.ToString().Equals("OK"))
             {
                 int spedido = scms.result.Resultados.Documentos.Where(y=> y.custitem_categoria_articulo.Equals("S/PEDIDO")). Select(x => x.custitem_categoria_articulo.Equals("S/PEDIDO")).Count();

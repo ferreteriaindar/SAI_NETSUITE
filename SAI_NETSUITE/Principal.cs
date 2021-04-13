@@ -603,7 +603,17 @@ namespace SAI_NETSUITE
                         };
                         fxe.BringToFront();
                         break;
-                    
+                    case "btnReporteGastoFletera":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Reportes.ReporteGastoFletera rgf = new Views.Logistica.Reportes.ReporteGastoFletera()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill                        
+                        };
+                        rgf.BringToFront();
+                        break;
+
+
 
                     default:
                     

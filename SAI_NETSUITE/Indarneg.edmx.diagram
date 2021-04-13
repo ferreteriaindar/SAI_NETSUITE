@@ -5,18 +5,15 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ea8eb532ae734a189aa37aedc724dbb7" Name="Diagram1" ZoomLevel="67">
-        <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuite" Width="1.5" PointX="0.75" PointY="5" />
         <EntityTypeShape EntityType="IndarnegModel.sai_usuario" Width="1.5" PointX="5.375" PointY="0.75" />
         <EntityTypeShape EntityType="IndarnegModel.Embarques" Width="1.5" PointX="0.75" PointY="1.125" />
         <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuiteD" Width="1.5" PointX="3" PointY="8" />
-        <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" />
         <EntityTypeShape EntityType="IndarnegModel.OrdenCobro" Width="1.5" PointX="5.375" PointY="6" />
         <EntityTypeShape EntityType="IndarnegModel.OrdenCobroD" Width="1.5" PointX="7.625" PointY="6.125" />
         <AssociationConnector Association="IndarnegModel.FK_OrdenCorbroD_Ordencobro" />
         <EntityTypeShape EntityType="IndarnegModel.SAD" Width="1.5" PointX="7.375" PointY="0.75" />
         <EntityTypeShape EntityType="IndarnegModel.EventosSurtidos" Width="1.5" PointX="9.375" PointY="0.75" />
         <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuiteC" Width="1.5" PointX="3.375" PointY="4.75" />
-        <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" />
         <EntityTypeShape EntityType="IndarnegModel.GastoFleteraD" Width="1.5" PointX="7.875" PointY="10" />
         <EntityTypeShape EntityType="IndarnegModel.EmbarquesD" Width="1.5" PointX="3" PointY="11.625" />
         <AssociationConnector Association="IndarnegModel.FK_EmbarquesD_Embarques" />
@@ -24,6 +21,9 @@
         <EntityTypeShape EntityType="IndarnegModel.DiasReporteXEmbarcar" Width="1.5" PointX="10.375" PointY="6.75" />
         <EntityTypeShape EntityType="IndarnegModel.GastoFletera" Width="1.5" PointX="5.625" PointY="9.875" />
         <AssociationConnector Association="IndarnegModel.FK_GastoFleteraD_GastoFletera" />
+        <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuite" Width="1.5" PointX="0.75" PointY="6.25" />
+        <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" />
+        <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

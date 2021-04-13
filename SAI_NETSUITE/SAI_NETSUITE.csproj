@@ -782,6 +782,12 @@
     <Compile Include="Views\Logistica\Reportes\ParametrosFacturasXEmbarcar.Designer.cs">
       <DependentUpon>ParametrosFacturasXEmbarcar.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Logistica\Reportes\ReporteGastoFletera.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Reportes\ReporteGastoFletera.Designer.cs">
+      <DependentUpon>ReporteGastoFletera.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\PostVenta\Confirmacion.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -1214,6 +1220,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Reportes\ParametrosFacturasXEmbarcar.resx">
       <DependentUpon>ParametrosFacturasXEmbarcar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Reportes\ReporteGastoFletera.resx">
+      <DependentUpon>ReporteGastoFletera.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PostVenta\Confirmacion.resx">
       <DependentUpon>Confirmacion.cs</DependentUpon>

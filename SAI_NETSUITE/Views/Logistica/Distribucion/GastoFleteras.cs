@@ -204,7 +204,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
 
                 StringBuilder sb = new StringBuilder(); //////
-                sb.Append("ExternalId,xml,DepartmentHead,Vendor,Location,Date,Reference,Item,Rate,Quantity,Tax,Department,Relacion");
+                sb.Append("ExternalId,xml,DepartmentHead,Vendor,Location,Date,Reference,Item,Rate,Quantity,Tax,Department,Relacion,NumGuia");
                 sb.Append("\r\n");
                 string ExternalId = DateTime.Now.ToFileTime().ToString();
 
@@ -227,7 +227,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                       
                         listaAux=   new GastoFleterasController().regresaLineaBill(item, checkEdit1.Checked);                 
                    
-                    listaAux[0].Reference = "FLETERA "+gf.NumDoc.ToString();
+                    listaAux[0].Reference = "FLETERA "+gf.NumDoc.ToString()+" F"+txtNumFactura.Text;
                     listaAux[0].xml = txtUUID.Text + ".xml"; //"test.xml";//xmlString.Replace("\"", "\\\""),   //es el UUID DEL xml
                     //Para el vendor, si detect que dice "OF LEON" ETC ETC,   Pone la columna  OficinaNameFletara,   si no  pone  el verdadero que es NAME
                     listaAux[0].Vendor = searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString().Contains("OF ")? searchVendor.Properties.View.GetFocusedRowCellValue("OficinaNameFletara").ToString(): searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString();
@@ -256,7 +256,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
                 foreach (var item in lista)
                 {
-                    sb.Append(ExternalId + "," + item.xml + "," + item.DepartmentHead + "," + item.Vendor + "," + item.Location + "," + item.Date + "," + item.Reference + "," + item.Item + "," + item.Rate.ToString() + "," + item.Quantity + "," + item.Tax + "," + item.Department+","+item.Relacion);
+                    sb.Append(ExternalId + "," + item.xml + "," + item.DepartmentHead + "," + item.Vendor + "," + item.Location + "," + item.Date + "," + item.Reference + "," + item.Item + "," + item.Rate.ToString() + "," + item.Quantity + "," + item.Tax + "," + item.Department+","+item.Relacion+","+item.NumGuia);
                     sb.Append("\r\n");
                 }
 
@@ -265,6 +265,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     GastoFleterasController gfc = new GastoFleterasController();
                     if (gfc.enviarBill(sb, xmlString, txtUUID.Text,gf.idGastoFletera))
                     {
+                        aplicarCheckGuias(listaGridFinal);
                         MessageBox.Show("Enviado Exitosamente");
                         autorizadoNombre = "";
                     }
@@ -283,6 +284,13 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 }
             }
 
+        }
+
+        public void aplicarCheckGuias(List<GastoFleteraModel> listaGridFinal)
+        {
+            GastoFleterasController gfc = new GastoFleterasController();
+
+            gfc.aplicarCheckGuias(listaGridFinal);
         }
 
         private void btnCargaXml_Click(object sender, EventArgs e)

@@ -27,7 +27,6 @@ namespace SAI_NETSUITE
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<NumeroGuiaNetsuite> NumeroGuiaNetsuite { get; set; }
         public virtual DbSet<sai_usuario> sai_usuario { get; set; }
         public virtual DbSet<Embarques> Embarques { get; set; }
         public virtual DbSet<NumeroGuiaNetsuiteD> NumeroGuiaNetsuiteD { get; set; }
@@ -41,6 +40,7 @@ namespace SAI_NETSUITE
         public virtual DbSet<UsuarioReporteXEmbarcar> UsuarioReporteXEmbarcar { get; set; }
         public virtual DbSet<DiasReporteXEmbarcar> DiasReporteXEmbarcar { get; set; }
         public virtual DbSet<GastoFletera> GastoFletera { get; set; }
+        public virtual DbSet<NumeroGuiaNetsuite> NumeroGuiaNetsuite { get; set; }
     
         public virtual ObjectResult<spWMS_InsertaIR_Result> spWMS_InsertaIR(Nullable<int> iD)
         {

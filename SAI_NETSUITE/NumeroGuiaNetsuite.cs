@@ -17,8 +17,8 @@ namespace SAI_NETSUITE
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public NumeroGuiaNetsuite()
         {
-            this.NumeroGuiaNetsuiteD = new HashSet<NumeroGuiaNetsuiteD>();
             this.NumeroGuiaNetsuiteC = new HashSet<NumeroGuiaNetsuiteC>();
+            this.NumeroGuiaNetsuiteD = new HashSet<NumeroGuiaNetsuiteD>();
         }
     
         public int idNumeroGuia { get; set; }
@@ -27,10 +27,11 @@ namespace SAI_NETSUITE
         public Nullable<decimal> ImporteTotal { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public string Usuario { get; set; }
+        public Nullable<bool> EnviadoGastoFletera { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<NumeroGuiaNetsuiteD> NumeroGuiaNetsuiteD { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NumeroGuiaNetsuiteC> NumeroGuiaNetsuiteC { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<NumeroGuiaNetsuiteD> NumeroGuiaNetsuiteD { get; set; }
     }
 }
