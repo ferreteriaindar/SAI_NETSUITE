@@ -577,7 +577,7 @@ namespace SAI_NETSUITE
                         break;
                     case "btnCapturaGastoFletera":
                         panelControl1.Controls.Clear();
-                        Views.Logistica.Distribucion.GastoFleteras gf = new Views.Logistica.Distribucion.GastoFleteras(usuario)
+                        Views.Logistica.Distribucion.GastoFleteras gf = new Views.Logistica.Distribucion.GastoFleteras(usuario,token)
                         {
                             Parent = panelControl1,
                             Dock = DockStyle.Fill

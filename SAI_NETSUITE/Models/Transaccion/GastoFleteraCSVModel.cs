@@ -22,6 +22,7 @@ namespace SAI_NETSUITE.Models.Transaccion
 
         public string Relacion { get; set; }
         public string NumGuia { get; set; }
+        public string Comentario { get; set; }
     }
 
     public class GastoFleteraSend

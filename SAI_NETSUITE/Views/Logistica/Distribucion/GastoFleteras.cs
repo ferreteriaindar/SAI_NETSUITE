@@ -13,17 +13,20 @@ using SAI_NETSUITE.Controllers.Logistica.Distribucion;
 using System.IO;
 using DevExpress.XtraEditors;
 using DevExpress.XtraLayout;
+using SAI_NETSUITE.IWS;
 
 namespace SAI_NETSUITE.Views.Logistica.Distribucion
 {
     public partial class GastoFleteras : UserControl
     {
         string xmlString, usuario,importeEmbarque,autorizadoNombre;
+        Token token;
 
-        public GastoFleteras(string usr)
+        public GastoFleteras(string usr,Token token)
         {
             usuario = usr;
             autorizadoNombre = "";
+            this.token = token;
             InitializeComponent();
         }
 
@@ -191,8 +194,8 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     gfd.bultos = importeEmbarque.Equals("0") ? Convert.ToInt32(gridView2.GetRowCellValue(i, colFinalBULTOS).ToString()):0;
                     gfd.cajas = Convert.ToInt32(gridView2.GetRowCellValue(i, colFinalCAJAS).ToString());
                     gfd.tarimas = importeEmbarque.Equals("0") ? Convert.ToInt32(gridView2.GetRowCellValue(i, colFinalTARIMA).ToString()):0;
-                    gfd.facturas = gridView2.GetRowCellValue(i, colFinalFacturas).ToString();
-                    gfd.metodo = gridView2.GetRowCellValue(i, colFinalMETODO).ToString();
+                    gfd.facturas = gridView2.GetRowCellValue(i, colFinalFacturas)==null?String.Empty: gridView2.GetRowCellValue(i, colFinalFacturas).ToString();
+                    gfd.metodo = gridView2.GetRowCellValue(i, colFinalMETODO)==null?String.Empty : gridView2.GetRowCellValue(i, colFinalMETODO).ToString();
                     gfd.comentario = gridView2.GetRowCellValue(i, colFinalcomentario).ToString();
 
 
@@ -204,7 +207,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
 
                 StringBuilder sb = new StringBuilder(); //////
-                sb.Append("ExternalId,xml,DepartmentHead,Vendor,Location,Date,Reference,Item,Rate,Quantity,Tax,Department,Relacion,NumGuia");
+                sb.Append("ExternalId,xml,DepartmentHead,Vendor,Location,Date,Reference,Item,Rate,Quantity,Tax,Department,Relacion,NumGuia,Comentario");
                 sb.Append("\r\n");
                 string ExternalId = DateTime.Now.ToFileTime().ToString();
 
@@ -231,6 +234,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     listaAux[0].xml = txtUUID.Text + ".xml"; //"test.xml";//xmlString.Replace("\"", "\\\""),   //es el UUID DEL xml
                     //Para el vendor, si detect que dice "OF LEON" ETC ETC,   Pone la columna  OficinaNameFletara,   si no  pone  el verdadero que es NAME
                     listaAux[0].Vendor = searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString().Contains("OF ")? searchVendor.Properties.View.GetFocusedRowCellValue("OficinaNameFletara").ToString(): searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString();
+              
                     lista.AddRange(listaAux);
                 }
                 /*
@@ -256,14 +260,14 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
                 foreach (var item in lista)
                 {
-                    sb.Append(ExternalId + "," + item.xml + "," + item.DepartmentHead + "," + item.Vendor + "," + item.Location + "," + item.Date + "," + item.Reference + "," + item.Item + "," + item.Rate.ToString() + "," + item.Quantity + "," + item.Tax + "," + item.Department+","+item.Relacion+","+item.NumGuia);
+                    sb.Append(ExternalId + "," + item.xml + "," + item.DepartmentHead + "," + item.Vendor + "," + item.Location + "," + item.Date + "," + item.Reference + "," + item.Item + "," + item.Rate.ToString() + "," + item.Quantity + "," + item.Tax + "," + item.Department+","+item.Relacion+","+item.NumGuia+","+item.Comentario);
                     sb.Append("\r\n");
                 }
 
                 try
                 {
                     GastoFleterasController gfc = new GastoFleterasController();
-                    if (gfc.enviarBill(sb, xmlString, txtUUID.Text,gf.idGastoFletera))
+                    if (gfc.enviarBill(sb, xmlString, txtUUID.Text,gf.idGastoFletera, token))
                     {
                         aplicarCheckGuias(listaGridFinal);
                         MessageBox.Show("Enviado Exitosamente");
@@ -406,6 +410,42 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             GastoFleterasController gfc = new GastoFleterasController();
             bool resultado = gfc.validarContrasena(usuario,pass);
             return resultado;
+        }
+
+        private void BtnAddGuia_Click(object sender, EventArgs e)
+        {
+            List<GastoFleteraModel> listaGridFinal = (List<GastoFleteraModel>)gridView2.DataSource;
+            XtraInputBoxArgs args = new XtraInputBoxArgs();
+            TextEdit txt = new TextEdit();
+            TextEdit txtuser = new TextEdit();
+            txt.Properties.UseSystemPasswordChar = false;
+            args.Prompt = "Ingresa La Nueva Guia";
+           
+            args.Caption = "Número de GUIA";
+            args.Editor = txt;
+
+            var NumGuia = XtraInputBox.Show(args);
+            args.Caption = "Importe de GUIA";
+            args.Prompt = "Importe";
+            var Importe= XtraInputBox.Show(args);
+            if(NumGuia!=null && Importe!=null)
+            listaGridFinal.Add(new GastoFleteraModel() { NumeroGuia = NumGuia.ToString(), importeSinIVA = Convert.ToDecimal(Importe.ToString()),retencion=checkEdit1.Checked?1.12M:1.16M });
+
+           gridFinal.DataSource = listaGridFinal.ToList();
+            decimal importe = 0;
+            txtImporteGuia.Text = "";
+            for (int i = 0; i < gridView2.RowCount; i++)
+            {
+
+
+                importe += Convert.ToDecimal(gridView2.GetRowCellValue(i, colFinalimporteSinIVA).ToString());
+
+            }
+            txtImporteGuia.Text = Math.Round(importe, 2).ToString();
+            validadImportes();
+            
+
+
         }
 
         private void checkEdit1_CheckedChanged(object sender, EventArgs e)

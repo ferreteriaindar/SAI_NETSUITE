@@ -140,10 +140,10 @@ namespace SAI_NETSUITE.Views.Compras.Reportes
                                     LEFT JOIN VENTA V  with(NoLock) ON V.ID = VD.ID AND V.ERP = VD.ERP
                                     LEFT JOIN CTE   CT with(NoLock) ON CT.CLIENTE = V.CLIENTE
                                     LEFT JOIN ART   A  with(NoLock) ON A.ARTICULO = VD.ARTICULO
-                                    LEFT JOIN INDGDLSQL01.Indar.dbo.ArtDescontinuadosHistorico   AD with(NoLock) ON AD.Articulo = VD.ARTICULO AND AD.Ejercicio = YEAR(V.FechaEmision) AND AD.Periodo = MONTH(V.FechaEmision)
-                                    LEFT JOIN INDGDLSQL01.Indar.dbo.avFabBonosyDescxLinea        FA with(NoLock) ON FA.EJERCICIO = YEAR(V.FechaEmision) AND FA.PERIODO = MONTH(V.FechaEmision) AND FA.LINEA = A.LINEA
+                                    LEFT JOIN SERVER5.Indar.dbo.ArtDescontinuadosHistorico   AD with(NoLock) ON AD.Articulo = VD.ARTICULO AND AD.Ejercicio = YEAR(V.FechaEmision) AND AD.Periodo = MONTH(V.FechaEmision)
+                                    LEFT JOIN SERVER5.Indar.dbo.avFabBonosyDescxLinea        FA with(NoLock) ON FA.EJERCICIO = YEAR(V.FechaEmision) AND FA.PERIODO = MONTH(V.FechaEmision) AND FA.LINEA = A.LINEA
                                     LEFT JOIN (SELECT Mov,MovId,Articulo,CostoCorregir=SUM(CostoCorregir)
-                                                     FROM INDGDLSQL01.Indar.dbo.ArtCostoCorregir with(NoLock)
+                                                     FROM SERVER5.Indar.dbo.ArtCostoCorregir with(NoLock)
                                                      GROUP BY Mov,MovId,Articulo
                                                      ) AC ON AC.MOV = V.MOV AND AC.MOVID = V.MOVID AND AC.ARTICULO = VD.ARTICULO
                                     WHERE V.FECHAEMISION >= '" + inicio.ToShortDateString() + @"' AND V.FECHAEMISION <= '" + fin.ToShortDateString() + @"'

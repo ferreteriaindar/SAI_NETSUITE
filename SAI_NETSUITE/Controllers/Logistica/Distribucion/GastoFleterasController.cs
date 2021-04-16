@@ -7,6 +7,8 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SAI_NETSUITE.IWS;
+using SAI_NETSUITE.Models.Catalogos;
 
 namespace SAI_NETSUITE.Controllers.Logistica.Distribucion
 {
@@ -116,10 +118,10 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
                 catch (Exception ex)
                 {
                     cmd.CommandText = @"select TOP 1  DEPA.DEPARTMENT_ID from IWS.dbo.Invoices I INNER JOIN (
-SELECT  D4.NAME+' : '+D2.NAME+' : '+D1.NAME   AS DEPARTAMENTO,D1.DEPARTMENT_ID FROM IWS.dbo.Departments D1  
+SELECT  D3.NAME+' : '+D2.NAME+' : '+D1.NAME   AS DEPARTAMENTO,D1.DEPARTMENT_ID FROM IWS.dbo.Departments D1  
 INNER JOIN IWS.dbo.Departments D2 ON D1.PARENT_ID=D2.DEPARTMENT_ID
 INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
-INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
+--INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
 ) DEPA ON I.DepartamentoCliente=DEPA.DEPARTAMENTO
                                     where I.TranId=" + factura;
                     resultado = cmd.ExecuteScalar().ToString();
@@ -215,7 +217,7 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
             }
         }
 
-        public bool enviarBill(StringBuilder sb, string xmlString, string name,int csvName)
+        public bool enviarBill(StringBuilder sb, string xmlString, string name,int csvName,Token token)
         {
 
             GastoFleteraSend gfs = new GastoFleteraSend
@@ -226,14 +228,25 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
                 csvName=csvName.ToString()
             };
             string json = JsonConvert.SerializeObject(gfs);
-            Console.WriteLine(json);
-            return true;
+            IWS.Connection conn = new IWS.Connection();
+            var resultado = conn.POST("api/Embarque/SendBillFleteras", json, SAI_NETSUITE.Properties.Resources.token, true);
+            respuesta res = JsonConvert.DeserializeObject<respuesta>(resultado);
+            if (res.result.Equals("true"))
+                return true;
+            else return false;
+           
+           
         }
 
         public List<GastoFleteraCSVModel> regresaLineaBill(GastoFleteraModel item,bool retencion)
         {
             List<GastoFleteraCSVModel> listaRegresar = new List<GastoFleteraCSVModel>();
             var listaFacturas = new Dictionary<string, decimal?>();
+            if (item.Facturas == null)
+            {
+                item.Facturas = "452411";  //AGREGO Cualquier factura para que no de error de busqueda, solo necesito cualquier numero que si exista
+                                            //para cuando se agrega un numero de guia sin factura
+            }
             string[] array2 = item.Facturas.Split(',');
             string[] array = array2.Distinct().ToArray();
             array = array.Where(x => !string.IsNullOrEmpty(x)).ToArray();
@@ -266,8 +279,10 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
                     Item = retencion ? "FLETES CON RETENCION" : "FLETES SIN RETENCION",
                     Rate = subtotal / suma * factura.Value,
                     Tax = retencion ? "RET IVA FLETES:GPO RET FLETE" : "IVA 16%:IVA 16%",
-                    Relacion= "Invoice #"+factura.Key.ToString(),
-                    NumGuia=item.NumeroGuia
+                    Relacion=item.Facturas.Equals("452411")?"": "Invoice #"+factura.Key.ToString(),
+                    NumGuia=item.NumeroGuia,
+                    Comentario=item.NumeroGuia+" "+ item.comentario
+                    
                     
 
                 };

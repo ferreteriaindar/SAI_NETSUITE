@@ -77,6 +77,7 @@
             this.btnAutorizar = new DevExpress.XtraEditors.SimpleButton();
             this.checkAutorizado = new DevExpress.XtraEditors.CheckEdit();
             this.txtSubtotal = new DevExpress.XtraEditors.TextEdit();
+            this.BtnAddGuia = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)(this.searchVendor.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -170,7 +171,7 @@
             this.gridControl1.Location = new System.Drawing.Point(399, 3);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(819, 283);
+            this.gridControl1.Size = new System.Drawing.Size(819, 327);
             this.gridControl1.TabIndex = 9;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -372,7 +373,7 @@
             // 
             this.gridFinal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridFinal.Location = new System.Drawing.Point(399, 310);
+            this.gridFinal.Location = new System.Drawing.Point(399, 354);
             this.gridFinal.MainView = this.gridView2;
             this.gridFinal.Name = "gridFinal";
             this.gridFinal.Size = new System.Drawing.Size(819, 272);
@@ -549,10 +550,28 @@
             this.txtSubtotal.Size = new System.Drawing.Size(203, 28);
             this.txtSubtotal.TabIndex = 28;
             // 
+            // BtnAddGuia
+            // 
+            this.BtnAddGuia.Appearance.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.BtnAddGuia.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAddGuia.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.BtnAddGuia.Appearance.Options.UseBackColor = true;
+            this.BtnAddGuia.Appearance.Options.UseFont = true;
+            this.BtnAddGuia.Appearance.Options.UseForeColor = true;
+            this.BtnAddGuia.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
+            this.BtnAddGuia.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.BtnAddGuia.Location = new System.Drawing.Point(3, 570);
+            this.BtnAddGuia.Name = "BtnAddGuia";
+            this.BtnAddGuia.Size = new System.Drawing.Size(369, 42);
+            this.BtnAddGuia.TabIndex = 29;
+            this.BtnAddGuia.Text = "Agregar Guía";
+            this.BtnAddGuia.Click += new System.EventHandler(this.BtnAddGuia_Click);
+            // 
             // GastoFleteras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.BtnAddGuia);
             this.Controls.Add(this.txtSubtotal);
             this.Controls.Add(this.checkAutorizado);
             this.Controls.Add(this.btnAutorizar);
@@ -574,7 +593,7 @@
             this.Controls.Add(this.searchVendor);
             this.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "GastoFleteras";
-            this.Size = new System.Drawing.Size(1221, 585);
+            this.Size = new System.Drawing.Size(1221, 629);
             this.Load += new System.EventHandler(this.GastoFleteras_Load);
             ((System.ComponentModel.ISupportInitialize)(this.searchVendor.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
@@ -643,5 +662,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colEsOficina;
         private DevExpress.XtraGrid.Columns.GridColumn colFinalimporteSinIVA;
         private DevExpress.XtraGrid.Columns.GridColumn colFinalretencion;
+        private DevExpress.XtraEditors.SimpleButton BtnAddGuia;
     }
 }

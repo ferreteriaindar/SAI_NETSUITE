@@ -35,8 +35,8 @@ namespace SAI_NETSUITE.Views.CXC
             {
                 if (gridView1.GetRowCellValue(i, "type").ToString().Contains("Invoice"))
                     gridView1.SetRowCellValue(i, "cobro", ac.regresaOrdenCobroId(gridView1.GetRowCellValue(i, "numero").ToString()));
-                if(gridView1.GetRowCellValue(i, "numero").ToString().Contains("SI"))
-                gridView1.SetRowCellValue(i, "cobro", ac.regresaOrdenCobroIntelisis(gridView1.GetRowCellValue(i, "numero").ToString()));
+             //   if(gridView1.GetRowCellValue(i, "numero").ToString().Contains("SI"))
+              //  gridView1.SetRowCellValue(i, "cobro", ac.regresaOrdenCobroIntelisis(gridView1.GetRowCellValue(i, "numero").ToString()));
             }
         }
 
