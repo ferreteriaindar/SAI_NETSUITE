@@ -30,6 +30,7 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GastoFleteras));
+            DevExpress.XtraGrid.GridFormatRule gridFormatRule1 = new DevExpress.XtraGrid.GridFormatRule();
             this.searchVendor = new DevExpress.XtraEditors.SearchLookUpEdit();
             this.searchLookUpEdit1View = new DevExpress.XtraGrid.Views.Grid.GridView();
             this.colName = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -383,6 +384,8 @@
             // 
             // gridView2
             // 
+            this.gridView2.Appearance.SelectedRow.BackColor = System.Drawing.Color.Lime;
+            this.gridView2.Appearance.SelectedRow.Options.UseBackColor = true;
             this.gridView2.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] {
             this.colFinalidNumeroGuia,
             this.colFinalimporte,
@@ -397,6 +400,10 @@
             this.colFinalPaqueteria,
             this.colFinalimporteSinIVA,
             this.colFinalretencion});
+            gridFormatRule1.ApplyToRow = true;
+            gridFormatRule1.Name = "Format0";
+            gridFormatRule1.Rule = null;
+            this.gridView2.FormatRules.Add(gridFormatRule1);
             this.gridView2.GridControl = this.gridFinal;
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsSelection.MultiSelect = true;
@@ -559,12 +566,13 @@
             this.BtnAddGuia.Appearance.Options.UseFont = true;
             this.BtnAddGuia.Appearance.Options.UseForeColor = true;
             this.BtnAddGuia.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
-            this.BtnAddGuia.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("simpleButton1.ImageOptions.Image")));
+            this.BtnAddGuia.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("BtnAddGuia.ImageOptions.Image")));
             this.BtnAddGuia.Location = new System.Drawing.Point(3, 570);
             this.BtnAddGuia.Name = "BtnAddGuia";
             this.BtnAddGuia.Size = new System.Drawing.Size(369, 42);
             this.BtnAddGuia.TabIndex = 29;
             this.BtnAddGuia.Text = "Agregar Guía";
+            this.BtnAddGuia.Visible = false;
             this.BtnAddGuia.Click += new System.EventHandler(this.BtnAddGuia_Click);
             // 
             // GastoFleteras

@@ -612,6 +612,26 @@ namespace SAI_NETSUITE
                         };
                         rgf.BringToFront();
                         break;
+                    case "btnNumeroGuiaPostventa":
+                        panelControl1.Controls.Clear();
+                        Views.PostVenta.RegistrodeGuias rdg = new Views.PostVenta.RegistrodeGuias(usuario)
+                        {
+
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        rdg.BringToFront();
+                        break;
+                    case "btnPlaneador":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.MesaControl.Planeador P = new Views.Logistica.MesaControl.Planeador()
+                        {
+
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        P.BringToFront();
+                        break;
 
 
 

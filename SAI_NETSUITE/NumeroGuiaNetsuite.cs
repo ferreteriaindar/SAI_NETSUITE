@@ -28,6 +28,10 @@ namespace SAI_NETSUITE
         public Nullable<System.DateTime> Fecha { get; set; }
         public string Usuario { get; set; }
         public Nullable<bool> EnviadoGastoFletera { get; set; }
+        public string municipio { get; set; }
+        public string estado { get; set; }
+        public string clasificador { get; set; }
+        public Nullable<int> department_id { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<NumeroGuiaNetsuiteC> NumeroGuiaNetsuiteC { get; set; }

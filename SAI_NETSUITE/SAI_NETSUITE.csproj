@@ -53,6 +53,7 @@
     <Reference Include="Accessibility" />
     <Reference Include="DevExpress.BonusSkins.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Charts.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
+    <Reference Include="DevExpress.CodeParser.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
     <Reference Include="DevExpress.Dashboard.v17.2.Core, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Dashboard.v17.2.Win, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a, processorArchitecture=MSIL" />
     <Reference Include="DevExpress.Data.v17.2, Version=17.2.4.0, Culture=neutral, PublicKeyToken=b88d1754d700e49a" />
@@ -188,9 +189,17 @@
     <Compile Include="Controllers\Logistica\Empaque\empaquePantallaControllerV2.cs" />
     <Compile Include="Controllers\Logistica\Empaque\FacturaIndarController.cs" />
     <Compile Include="Controllers\Logistica\Empaque\pdfController.cs" />
+    <Compile Include="Controllers\Logistica\MesaControl\CajasPendientes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Controllers\Logistica\MesaControl\CajasPendientes.Designer.cs">
+      <DependentUpon>CajasPendientes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\Logistica\MesaControl\PlaneadorController.cs" />
     <Compile Include="Controllers\Logistica\Reportes\FacturasXEmbarcarController.cs" />
     <Compile Include="Controllers\Moneda.cs" />
     <Compile Include="Controllers\PostVenta\ConfirmacionController.cs" />
+    <Compile Include="Controllers\PostVenta\RegistroGuiasController.cs" />
     <Compile Include="Controllers\PostVenta\RegresarEventosController.cs" />
     <Compile Include="Controllers\PostVenta\SurtirEventosController.cs" />
     <Compile Include="Controllers\Ventas\CancelarPedidoController.cs" />
@@ -360,6 +369,7 @@
     <Compile Include="Models\Transaccion\PaymentInvoiceApplyModel.cs" />
     <Compile Include="Models\Transaccion\Payment_CreditMemo_certifiedModel.cs" />
     <Compile Include="Models\Transaccion\pedidoFulfill.cs" />
+    <Compile Include="Models\Transaccion\PlaneadorModel.cs" />
     <Compile Include="Models\Transaccion\responseStructure.cs" />
     <Compile Include="Models\Transaccion\ResultadosInventoryEvents.cs" />
     <Compile Include="Models\Transaccion\SaleOrder.cs" />
@@ -764,6 +774,12 @@
     <Compile Include="Views\Logistica\Empaque\ResumenEmpaqueCliente.Designer.cs">
       <DependentUpon>ResumenEmpaqueCliente.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Logistica\MesaControl\Planeador.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\MesaControl\Planeador.Designer.cs">
+      <DependentUpon>Planeador.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Logistica\Reportes\DetalleNumeroDeEmbaques.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -799,6 +815,12 @@
     </Compile>
     <Compile Include="Views\PostVenta\HojaTOR.Designer.cs">
       <DependentUpon>HojaTOR.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\PostVenta\RegistrodeGuias.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\PostVenta\RegistrodeGuias.Designer.cs">
+      <DependentUpon>RegistrodeGuias.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PostVenta\RegresarEventos.cs">
       <SubType>UserControl</SubType>
@@ -1039,6 +1061,9 @@
     <Compile Include="ZonasIndar.cs">
       <DependentUpon>IWS.tt</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="Controllers\Logistica\MesaControl\CajasPendientes.resx">
+      <DependentUpon>CajasPendientes.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Login.resx">
       <DependentUpon>Login.cs</DependentUpon>
     </EmbeddedResource>
@@ -1212,6 +1237,9 @@
     <EmbeddedResource Include="Views\Logistica\Empaque\ResumenEmpaqueCliente.resx">
       <DependentUpon>ResumenEmpaqueCliente.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\MesaControl\Planeador.resx">
+      <DependentUpon>Planeador.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Reportes\DetalleNumeroDeEmbaques.resx">
       <DependentUpon>DetalleNumeroDeEmbaques.cs</DependentUpon>
     </EmbeddedResource>
@@ -1229,6 +1257,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PostVenta\HojaTOR.resx">
       <DependentUpon>HojaTOR.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\PostVenta\RegistrodeGuias.resx">
+      <DependentUpon>RegistrodeGuias.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PostVenta\RegresarEventos.resx">
       <DependentUpon>RegresarEventos.cs</DependentUpon>

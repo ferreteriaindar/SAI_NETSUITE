@@ -22,7 +22,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
 
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"exec iws.[dbo].[sp_ResumenEmpaqueWMS] " + id + "," + tipo;
+                string query = @"exec iws.[dbo].[sp_ResumenEmpaqueWMS_PRUEBA2] " + id + "," + tipo;
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 DataSet ds = new DataSet();
                 da.Fill(ds);
@@ -74,7 +74,7 @@ namespace SAI_NETSUITE.Controllers.Logistica.Empaque
 
             using (SqlConnection myConnection = new SqlConnection(SAI_NETSUITE.Properties.Settings.Default.INDAR_INACTIONWMSConnectionString))
             {
-                string query = @"exec iws.[dbo].[sp_ResumenEmpaqueWMSCons] " + cons + "," + tipo;
+                string query = @"exec iws.[dbo].[sp_ResumenEmpaqueWMSConspPRUEBAS] " + cons + "," + tipo;
                 SqlDataAdapter da = new SqlDataAdapter(query, myConnection);
                 DataSet ds = new DataSet();
                 da.Fill(ds);

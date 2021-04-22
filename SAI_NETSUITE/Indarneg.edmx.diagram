@@ -21,10 +21,10 @@
         <EntityTypeShape EntityType="IndarnegModel.DiasReporteXEmbarcar" Width="1.5" PointX="10.375" PointY="6.75" />
         <EntityTypeShape EntityType="IndarnegModel.GastoFletera" Width="1.5" PointX="5.625" PointY="9.875" />
         <AssociationConnector Association="IndarnegModel.FK_GastoFleteraD_GastoFletera" />
-        <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuite" Width="1.5" PointX="0.75" PointY="6.25" />
+        <EntityTypeShape EntityType="IndarnegModel.NumeroGuiaNetsuite" Width="1.5" PointX="0.75" PointY="5.875" />
         <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" />
         <AssociationConnector Association="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

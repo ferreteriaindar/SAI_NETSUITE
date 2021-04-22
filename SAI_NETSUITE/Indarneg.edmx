@@ -102,6 +102,10 @@
           <Property Name="Fecha" Type="datetime" />
           <Property Name="Usuario" Type="nvarchar" MaxLength="50" />
           <Property Name="EnviadoGastoFletera" Type="bit" />
+          <Property Name="municipio" Type="nvarchar" MaxLength="60" />
+          <Property Name="estado" Type="nvarchar" MaxLength="50" />
+          <Property Name="clasificador" Type="nvarchar" MaxLength="20" />
+          <Property Name="department_id" Type="int" />
         </EntityType>
         <EntityType Name="NumeroGuiaNetsuiteC">
           <Key>
@@ -355,7 +359,7 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
             <End Role="NumeroGuiaNetsuite" EntitySet="NumeroGuiaNetsuite" />
             <End Role="NumeroGuiaNetsuiteD" EntitySet="NumeroGuiaNetsuiteD" />
           </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
         <ComplexType Name="spWMS_InsertaIR_Result">
           <Property Type="Int32" Name="rows" Nullable="false" />
         </ComplexType>
@@ -616,6 +620,10 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
           <Property Name="Fecha" Type="DateTime" Precision="3" />
           <Property Name="Usuario" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="EnviadoGastoFletera" Type="Boolean" />
+          <Property Name="municipio" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+          <Property Name="estado" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="clasificador" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Name="department_id" Type="Int32" />
           <NavigationProperty Name="NumeroGuiaNetsuiteC" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteC_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteC" />
           <NavigationProperty Name="NumeroGuiaNetsuiteD" Relationship="IndarnegModel.FK_NumeroGuiaNetsuiteD_NumeroGuiaNetsuite" FromRole="NumeroGuiaNetsuite" ToRole="NumeroGuiaNetsuiteD" />
         </EntityType>
@@ -643,7 +651,7 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
             </Dependent>
           </ReferentialConstraint>
         </Association>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -867,6 +875,10 @@ warning 6002: The table/view 'Indarneg.dbo.UsuarioReporteXEmbarcar' does not hav
           <EntitySetMapping Name="NumeroGuiaNetsuite">
             <EntityTypeMapping TypeName="IndarnegModel.NumeroGuiaNetsuite">
               <MappingFragment StoreEntitySet="NumeroGuiaNetsuite">
+                <ScalarProperty Name="department_id" ColumnName="department_id" />
+                <ScalarProperty Name="clasificador" ColumnName="clasificador" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="municipio" ColumnName="municipio" />
                 <ScalarProperty Name="EnviadoGastoFletera" ColumnName="EnviadoGastoFletera" />
                 <ScalarProperty Name="Usuario" ColumnName="Usuario" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />

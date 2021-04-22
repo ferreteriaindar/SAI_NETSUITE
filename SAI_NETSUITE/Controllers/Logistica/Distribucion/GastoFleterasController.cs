@@ -242,7 +242,7 @@ INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
         {
             List<GastoFleteraCSVModel> listaRegresar = new List<GastoFleteraCSVModel>();
             var listaFacturas = new Dictionary<string, decimal?>();
-            if (item.Facturas == null)
+            if (item.Facturas == null || item.Facturas.Equals(""))
             {
                 item.Facturas = "452411";  //AGREGO Cualquier factura para que no de error de busqueda, solo necesito cualquier numero que si exista
                                             //para cuando se agrega un numero de guia sin factura
@@ -275,7 +275,7 @@ INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
                     DepartmentHead = "180", // "20000-DIRECCIÓN COMERCIAL : 25100-GERENCIA VTAS TELEFONICAS : 25100-ZONA 100",
                     Location = "LOGISTICA",
                     Quantity = "1",
-                    Department = regresaDepartmentFactura(factura.Key),
+                    Department = !item.Facturas.Equals("452411")? regresaDepartmentFactura(factura.Key):regresaDeparmentSinFactura(item.NumeroGuia),
                     Item = retencion ? "FLETES CON RETENCION" : "FLETES SIN RETENCION",
                     Rate = subtotal / suma * factura.Value,
                     Tax = retencion ? "RET IVA FLETES:GPO RET FLETE" : "IVA 16%:IVA 16%",
@@ -292,6 +292,18 @@ INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
             Console.WriteLine("SUM");
             Console.WriteLine(listaRegresar.Select(x => x.Rate).Sum());
             return listaRegresar;
+        }
+
+        private string regresaDeparmentSinFactura(string numeroGuia)
+        {
+            using (IndarnegEntities ctx = new IndarnegEntities())
+            {
+                var resultado = (from i in ctx.NumeroGuiaNetsuite
+                                 where i.NumeroGuia.Equals(numeroGuia)
+                                 select i.department_id.Value).FirstOrDefault();
+                return resultado.ToString();
+                               
+            }
         }
 
         public List<GastoFleteraCSVModel> regresaLineaBillporEtiquetas(GastoFleteraModel item, bool retencion)
