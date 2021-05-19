@@ -87,8 +87,11 @@ namespace SAI_NETSUITE.Views.Ventas.Apoyos
                     BtnEnviarWMS.Enabled = false;
                 Console.WriteLine(((DateTime)soBO.result[0].fecha - DateTime.Now).TotalDays);
                 Console.WriteLine(soBO.result.Where(x => x.itemdescription2.Equals("S/PEDIDO")).Count());
-                if (soBO.result.Where(x => x.itemdescription2.Equals("S/PEDIDO")).Count() > 0 &((DateTime) soBO.result[0].fecha - DateTime.Now).TotalDays<1)
-                    btnConsultar.Enabled = false;
+                if (soBO.result.Where(x => x.itemdescription2.Equals("S/PEDIDO") & x.quantitycommitted!=x.quantity).Count() > 0   & ((DateTime)soBO.result[0].fecha - DateTime.Now).TotalDays < 1)
+                {
+                    BtnEnviarWMS.Enabled = false;
+                    MessageBox.Show("Hay Mercancia S/Pedido");
+                }
                    
             }
             catch (Exception ex)

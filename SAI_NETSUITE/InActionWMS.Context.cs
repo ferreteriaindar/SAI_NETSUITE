@@ -29,5 +29,6 @@ namespace SAI_NETSUITE
         public virtual DbSet<PedidoRenglon> PedidoRenglon { get; set; }
         public virtual DbSet<Estilo> Estilo { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<EntradaCompraEstatus_Out> EntradaCompraEstatus_Out { get; set; }
     }
 }

@@ -32,6 +32,9 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
         private void GastoFleteras_Load(object sender, EventArgs e)
         {
+
+            if (usuario.Equals("administrador"))
+                gridView1.OptionsBehavior.ReadOnly = false;
             importeEmbarque = "0";
             cargaVendors();
         }
@@ -207,7 +210,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
 
                 StringBuilder sb = new StringBuilder(); //////
-                sb.Append("ExternalId,xml,DepartmentHead,Vendor,Location,Date,Reference,Item,Rate,Quantity,Tax,Department,Relacion,NumGuia,Comentario");
+                sb.Append("ExternalId,xml,DepartmentHead,Vendor,Location,Date,Reference,Item,Rate,Quantity,Tax,Department,Relacion,NumGuia,Comentario,ClasificadorGuia,CiudadEstado");
                 sb.Append("\r\n");
                 string ExternalId = DateTime.Now.ToFileTime().ToString();
 
@@ -216,7 +219,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                 {
                     foreach (var item in listaGridFinal)
                     {
-                        if (gridView2.GetRowCellValue(i, colFinalNumeroGuia).Equals(item.NumeroGuia))
+                        if (gridView2.GetRowCellValue(i, colFinalNumeroGuia).Equals(item.NumeroGuia) && gridView2.GetRowCellValue(i, colFinalimporteSinIVA).Equals(item.importeSinIVA))
                         {
                             item.importe = Convert.ToDecimal(gridView2.GetRowCellValue(i, colFinalimporte).ToString());
                         }
@@ -233,8 +236,8 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     listaAux[0].Reference = "FLETERA "+gf.NumDoc.ToString()+" F"+txtNumFactura.Text;
                     listaAux[0].xml = txtUUID.Text + ".xml"; //"test.xml";//xmlString.Replace("\"", "\\\""),   //es el UUID DEL xml
                     //Para el vendor, si detect que dice "OF LEON" ETC ETC,   Pone la columna  OficinaNameFletara,   si no  pone  el verdadero que es NAME
-                    listaAux[0].Vendor = searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString().Contains("OF ")? searchVendor.Properties.View.GetFocusedRowCellValue("OficinaNameFletara").ToString(): searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString();
-              
+                    listaAux[0].Vendor = searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString().Contains("OF ")? string.Format("\"{0}\"", searchVendor.Properties.View.GetFocusedRowCellValue("OficinaNameFletara").ToString()): string.Format("\"{0}\"", searchVendor.Properties.View.GetFocusedRowCellValue("NAME").ToString());
+                
                     lista.AddRange(listaAux);
                 }
                 /*
@@ -260,7 +263,7 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
 
                 foreach (var item in lista)
                 {
-                    sb.Append(ExternalId + "," + item.xml + "," + item.DepartmentHead + "," + item.Vendor + "," + item.Location + "," + item.Date + "," + item.Reference + "," + item.Item + "," + item.Rate.ToString() + "," + item.Quantity + "," + item.Tax + "," + item.Department+","+item.Relacion+","+item.NumGuia+","+item.Comentario);
+                    sb.Append(ExternalId + "," + item.xml + "," + item.DepartmentHead + "," + item.Vendor + "," + item.Location + "," + item.Date + "," + item.Reference + "," + item.Item + "," + item.Rate.ToString() + "," + item.Quantity + "," + item.Tax + "," + item.Department+","+item.Relacion+","+item.NumGuia+","+item.Comentario+","+item.ClasificadorGuia+","+item.CiudadEstado);
                     sb.Append("\r\n");
                 }
 
@@ -270,8 +273,10 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     if (gfc.enviarBill(sb, xmlString, txtUUID.Text,gf.idGastoFletera, token))
                     {
                         aplicarCheckGuias(listaGridFinal);
-                        MessageBox.Show("Enviado Exitosamente");
+                        MessageBox.Show("Enviado Exitosamente FOLIO: FLETERA"+ gf.NumDoc.ToString());
                         autorizadoNombre = "";
+                        limpiarPantalla();
+                        
                     }
                     else
                     {
@@ -284,10 +289,24 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
                     ctx.GastoFleteraD.RemoveRange(borrarGFD);
                     ctx.GastoFletera.Remove(gf);
                     ctx.SaveChanges();
+
                     MessageBox.Show(ex.ToString());
                 }
             }
 
+        }
+
+        private void limpiarPantalla()
+        {
+            gridControl1.DataSource = null;
+            gridFinal.DataSource = null;
+            txtFacturaImporte.Text = "";
+            txtImporteGuia.Text = "";
+            txtNumFactura.Text = "";
+            txtProntoPago.Text = "";
+            txtSubtotal.Text = "";
+            txtUUID.Text = "";
+            labelPath.Text = "ruta:";
         }
 
         public void aplicarCheckGuias(List<GastoFleteraModel> listaGridFinal)
@@ -446,6 +465,85 @@ namespace SAI_NETSUITE.Views.Logistica.Distribucion
             
 
 
+        }
+
+        private void btnAgregarGuiaPostventa_Click(object sender, EventArgs e)
+        {
+            string guia;
+           using ( AgregarGuiaTipoPostventa agregarGuiaTipoPostventa = new AgregarGuiaTipoPostventa(usuario))
+            {
+                agregarGuiaTipoPostventa.ShowDialog();
+
+                guia = agregarGuiaTipoPostventa.resultado;
+
+            }
+            List<GastoFleteraModel> listaGridFinal = (List<GastoFleteraModel>)gridView2.DataSource;
+
+            using (IndarnegEntities ctx = new IndarnegEntities())
+            {
+                /* var guiaIndarneg = (from i in ctx.NumeroGuiaNetsuite
+                                     where i.NumeroGuia.Equals(guia)
+
+                                     select (i)).First();*/
+                var guiaIndarneg = ctx.NumeroGuiaNetsuite
+                                    .Where(x => x.NumeroGuia.Equals(guia))
+                                    .OrderByDescending(x => x.idNumeroGuia).First();
+                                   
+
+                GastoFleteraModel gfm = new GastoFleteraModel()
+                {
+                    idNumeroGuia = guiaIndarneg.idNumeroGuia,
+                    NumeroGuia = guiaIndarneg.NumeroGuia,
+                    retencion = checkEdit1.Checked ? 1.12M : 1.16M,
+                    importeSinIVA =Convert.ToDecimal(guiaIndarneg.ImporteTotal)
+                };
+                List<GastoFleteraModel> lista = new List<GastoFleteraModel>();
+                lista.Add(gfm);
+                List<GastoFleteraModel> aux = new GastoFleterasController().RegresaGridFinal(lista);
+                listaGridFinal.AddRange(aux);
+                gridFinal.DataSource = listaGridFinal.ToList();
+
+            };
+            decimal importe = 0;
+            txtImporteGuia.Text = "";
+            for (int i = 0; i < gridView2.RowCount; i++)
+            {
+
+
+                importe += Convert.ToDecimal(gridView2.GetRowCellValue(i, colFinalimporteSinIVA).ToString());
+
+            }
+            txtImporteGuia.Text = Math.Round(importe, 2).ToString();
+            validadImportes();
+
+
+
+
+
+
+
+
+
+        }
+
+        private void gridView1_CustomRowFilter(object sender, DevExpress.XtraGrid.Views.Base.RowFilterEventArgs e)
+        {
+            e.Handled = true;
+            e.Visible = true;
+        }
+
+        private void txtProntoPago_ButtonClick(object sender, DevExpress.XtraEditors.Controls.ButtonPressedEventArgs e)
+        {
+            decimal descuento = Convert.ToDecimal(txtProntoPago.EditValue.ToString());
+
+            for (int i = 0; i < gridView2.RowCount; i++)
+            {
+                decimal aux = Convert.ToDecimal(gridView2.GetRowCellValue(i, colFinalimporteSinIVA).ToString());
+                //aux =aux-( aux * descuento);
+                gridView2.SetRowCellValue(i, colFinalpp,1- descuento);
+                string comentario = gridView2.GetRowCellValue(i, colFinalcomentario).ToString();
+                gridView2.SetRowCellValue(i, colFinalcomentario, comentario+"PP "+txtProntoPago.Text);
+            }
         }
 
         private void checkEdit1_CheckedChanged(object sender, EventArgs e)

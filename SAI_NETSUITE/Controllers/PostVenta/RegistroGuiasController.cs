@@ -59,9 +59,9 @@ namespace SAI_NETSUITE.Controllers.PostVenta
             public string NAME { get; set; }
         }
 
-        public bool guiaRepetida(string guia)
+        public bool guiaRepetida(string guia,bool desdAlmacen)
         {
-
+            if (desdAlmacen) return false;
             using (IndarnegEntities ctx = new IndarnegEntities())
             {
                 if (ctx.NumeroGuiaNetsuite.Any(x => x.NumeroGuia == guia))

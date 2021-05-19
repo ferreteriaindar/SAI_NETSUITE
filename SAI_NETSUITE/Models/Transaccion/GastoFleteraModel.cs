@@ -8,6 +8,11 @@ namespace SAI_NETSUITE.Models.Transaccion
 {
    public class GastoFleteraModel
     {
+        public GastoFleteraModel()
+        {
+            this.pp = 1;
+        }
+
         public int idNumeroGuia { get; set; }
         public string NumeroGuia { get; set; }
         public decimal importe { get; set; }
@@ -23,5 +28,6 @@ namespace SAI_NETSUITE.Models.Transaccion
         public string  paqueteria { get; set; }
         public string cliente { get; set; }
         public decimal retencion { get; set; }
+        public decimal pp { get; set; }
     }
 }

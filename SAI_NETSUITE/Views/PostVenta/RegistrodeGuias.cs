@@ -14,9 +14,12 @@ namespace SAI_NETSUITE.Views.PostVenta
     public partial class RegistrodeGuias : UserControl
     {
         string usuario;
-        public RegistrodeGuias(string user)
+        bool desdAlmacen;
+        public TextBox TextBoxRegresa;
+        public RegistrodeGuias(string user,bool desdAlmacen)
         {
             usuario = user;
+            this.desdAlmacen = desdAlmacen;
             InitializeComponent();
         }
 
@@ -26,6 +29,7 @@ namespace SAI_NETSUITE.Views.PostVenta
             cargaMunicipios();
             cargaDepartments();
             cargaClasificadores();
+            TextBoxRegresa = new TextBox();
         }
 
 
@@ -64,6 +68,7 @@ namespace SAI_NETSUITE.Views.PostVenta
             lista.Add("Devolucion");
             lista.Add("Compras");
             lista.Add("Documentos");
+            lista.Add("Venta");
 
             comboBoxEdit1.Properties.Items.AddRange(lista);
 
@@ -74,15 +79,18 @@ namespace SAI_NETSUITE.Views.PostVenta
             if (dxValidationProvider1.Validate())
             {
                 Controllers.PostVenta.RegistroGuiasController rgc = new Controllers.PostVenta.RegistroGuiasController();
-                if (!rgc.guiaRepetida(txtGuia.Text))
+                if (!rgc.guiaRepetida(txtGuia.Text,desdAlmacen))
                 {
                     GridView view = searchVendor.Properties.View;
                     int rowHandle = view.FocusedRowHandle;
                     string fieldName = "PAQUETERIA_DISTRIBUCION_ID"; // or other field name  
                     object value = view.GetRowCellValue(rowHandle, fieldName);
 
-                    if (rgc.registrGuia(txtGuia.Text, txtImporte.Text, searchDepartment.EditValue.ToString(), searchDepartment.EditValue.ToString(), searchMunicipio.EditValue.ToString(), searchMunicipio.Properties.View.GetFocusedRowCellValue("estado").ToString(), comboBoxEdit1.Text, value.ToString(),usuario))
+                    if (rgc.registrGuia(txtGuia.Text, txtImporte.Text, searchDepartment.EditValue.ToString(), searchDepartment.EditValue.ToString(), searchMunicipio.EditValue.ToString(), searchMunicipio.Properties.View.GetFocusedRowCellValue("estado").ToString(), comboBoxEdit1.Text, value.ToString(), usuario))
+                    {
+                        TextBoxRegresa.Text = txtGuia.Text;
                         MessageBox.Show("Registrado con Exito");
+                    }
                     else MessageBox.Show("Hubo un problema al registrar el numero de guia");
                 }
                 else

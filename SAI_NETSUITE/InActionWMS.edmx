@@ -54,6 +54,7 @@
           <Property Name="MultiploVenta" Type="int" />
           <Property Name="CaoticaPick" Type="bit" />
           <Property Name="DemandaDiaria" Type="float" />
+          <Property Name="ProcesarTarima" Type="int" />
         </EntityType>
         <EntityType Name="OrdenEmbarque">
           <Key>
@@ -145,6 +146,23 @@
           <Property Name="IdUsuarioActualiza" Type="int" Nullable="false" />
           <Property Name="IDTIPOUSUARIO" Type="tinyint" />
         </EntityType>
+        <EntityType Name="EntradaCompraEstatus_Out">
+          <Key>
+            <PropertyRef Name="IdEntradaCompraEstatus" />
+          </Key>
+          <Property Name="IdEntradaCompraEstatus" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Mov" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="MovId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Articulo" Type="varchar" MaxLength="20" />
+          <Property Name="Estatus" Type="varchar" MaxLength="20" />
+          <Property Name="CantidadRecibida" Type="float" />
+          <Property Name="CantidadNoRecibida" Type="float" />
+          <Property Name="IdUsuario_modifica" Type="varchar" MaxLength="10" />
+          <Property Name="FechaModificacion" Type="datetime" />
+          <Property Name="EstatusSincronizacion" Type="tinyint" />
+          <Property Name="Origen" Type="varchar" MaxLength="100" />
+          <Property Name="Destino" Type="varchar" MaxLength="100" />
+        </EntityType>
         <Association Name="FK_Estilo_Usuario">
           <End Role="Usuario" Type="Self.Usuario" Multiplicity="1" />
           <End Role="Estilo" Type="Self.Estilo" Multiplicity="*" />
@@ -210,6 +228,7 @@
           <EntitySet Name="OrdenEmbarque" EntityType="Self.OrdenEmbarque" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="PedidoRenglon" EntityType="Self.PedidoRenglon" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EntradaCompraEstatus_Out" EntityType="Self.EntradaCompraEstatus_Out" Schema="int" store:Type="Tables" />
           <AssociationSet Name="FK_Estilo_Usuario" Association="Self.FK_Estilo_Usuario">
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="Estilo" EntitySet="Estilo" />
@@ -353,6 +372,7 @@
             <End Role="Usuario" EntitySet="Usuario" />
             <End Role="PedidoRenglon" EntitySet="PedidoRenglon" />
           </AssociationSet>
+          <EntitySet Name="EntradaCompraEstatus_Out" EntityType="INDAR_INACTIONWMSModel.EntradaCompraEstatus_Out" />
         </EntityContainer>
         <EntityType Name="Estilo">
           <Key>
@@ -405,6 +425,7 @@
           <NavigationProperty Name="PedidoRenglon" Relationship="INDAR_INACTIONWMSModel.FK_PedidoRenglon_Estilo" FromRole="Estilo" ToRole="PedidoRenglon" />
           <Property Name="DemandaDiaria" Type="Double" />
           <NavigationProperty Name="Usuario" Relationship="INDAR_INACTIONWMSModel.FK_Estilo_Usuario" FromRole="Estilo" ToRole="Usuario" />
+          <Property Name="ProcesarTarima" Type="Int32" />
         </EntityType>
         <Association Name="FK_PedidoRenglon_Estilo">
           <End Type="INDAR_INACTIONWMSModel.Estilo" Role="Estilo" Multiplicity="0..1" />
@@ -471,6 +492,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="EntradaCompraEstatus_Out">
+          <Key>
+            <PropertyRef Name="IdEntradaCompraEstatus" />
+          </Key>
+          <Property Name="IdEntradaCompraEstatus" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Mov" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="MovId" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Articulo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Estatus" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CantidadRecibida" Type="Double" />
+          <Property Name="CantidadNoRecibida" Type="Double" />
+          <Property Name="IdUsuario_modifica" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="FechaModificacion" Type="DateTime" Precision="3" />
+          <Property Name="EstatusSincronizacion" Type="Byte" />
+          <Property Name="Origen" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Destino" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -558,6 +596,7 @@
           <EntitySetMapping Name="Estilo">
             <EntityTypeMapping TypeName="INDAR_INACTIONWMSModel.Estilo">
               <MappingFragment StoreEntitySet="Estilo">
+                <ScalarProperty Name="ProcesarTarima" ColumnName="ProcesarTarima" />
                 <ScalarProperty Name="DemandaDiaria" ColumnName="DemandaDiaria" />
                 <ScalarProperty Name="CaoticaPick" ColumnName="CaoticaPick" />
                 <ScalarProperty Name="MultiploVenta" ColumnName="MultiploVenta" />
@@ -618,6 +657,24 @@
                 <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
                 <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EntradaCompraEstatus_Out">
+            <EntityTypeMapping TypeName="INDAR_INACTIONWMSModel.EntradaCompraEstatus_Out">
+              <MappingFragment StoreEntitySet="EntradaCompraEstatus_Out">
+                <ScalarProperty Name="Destino" ColumnName="Destino" />
+                <ScalarProperty Name="Origen" ColumnName="Origen" />
+                <ScalarProperty Name="EstatusSincronizacion" ColumnName="EstatusSincronizacion" />
+                <ScalarProperty Name="FechaModificacion" ColumnName="FechaModificacion" />
+                <ScalarProperty Name="IdUsuario_modifica" ColumnName="IdUsuario_modifica" />
+                <ScalarProperty Name="CantidadNoRecibida" ColumnName="CantidadNoRecibida" />
+                <ScalarProperty Name="CantidadRecibida" ColumnName="CantidadRecibida" />
+                <ScalarProperty Name="Estatus" ColumnName="Estatus" />
+                <ScalarProperty Name="Articulo" ColumnName="Articulo" />
+                <ScalarProperty Name="MovId" ColumnName="MovId" />
+                <ScalarProperty Name="Mov" ColumnName="Mov" />
+                <ScalarProperty Name="IdEntradaCompraEstatus" ColumnName="IdEntradaCompraEstatus" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

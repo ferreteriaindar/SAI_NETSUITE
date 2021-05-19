@@ -117,13 +117,14 @@ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
                 }
                 catch (Exception ex)
                 {
-                    cmd.CommandText = @"select TOP 1  DEPA.DEPARTMENT_ID from IWS.dbo.Invoices I INNER JOIN (
-SELECT  D3.NAME+' : '+D2.NAME+' : '+D1.NAME   AS DEPARTAMENTO,D1.DEPARTMENT_ID FROM IWS.dbo.Departments D1  
-INNER JOIN IWS.dbo.Departments D2 ON D1.PARENT_ID=D2.DEPARTMENT_ID
-INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
---INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
-) DEPA ON I.DepartamentoCliente=DEPA.DEPARTAMENTO
-                                    where I.TranId=" + factura;
+                    /* cmd.CommandText = @"select TOP 1  DEPA.DEPARTMENT_ID from IWS.dbo.Invoices I INNER JOIN (
+ SELECT  D4.NAME+' : '+D2.NAME+' : '+D1.NAME   AS DEPARTAMENTO,D1.DEPARTMENT_ID FROM IWS.dbo.Departments D1  
+ INNER JOIN IWS.dbo.Departments D2 ON D1.PARENT_ID=D2.DEPARTMENT_ID
+ INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
+ INNER JOIN IWS.dbo.Departments D4 ON D3.PARENT_ID=D4.DEPARTMENT_ID
+ ) DEPA ON I.DepartamentoCliente=DEPA.DEPARTAMENTO
+                                     where I.TranId=" + factura;*/
+                    cmd.CommandText = @"SELECT TOP 1 DEPARTMENT_ID FROM  IWS.DBO.Departments  WHERE  NAME LIKE '%'+(SELECT  RIGHT(DepartamentoCliente,3) FROM IWS.DBO.Invoices WHERE TranId=" + factura + ")+'%'";
                     resultado = cmd.ExecuteScalar().ToString();
                 }
 
@@ -227,6 +228,11 @@ INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
                 name = name ,
                 csvName=csvName.ToString()
             };
+            if (gfs.csv.Contains("�")) //cuanto   el CSV    a las  ñ y acentos los poner como caracteres raros
+            {
+                Encoding win1252 = Encoding.GetEncoding(1252);
+                gfs.csv = win1252.GetString(Encoding.Default.GetBytes(sb.ToString()));
+            }
             string json = JsonConvert.SerializeObject(gfs);
             IWS.Connection conn = new IWS.Connection();
             var resultado = conn.POST("api/Embarque/SendBillFleteras", json, SAI_NETSUITE.Properties.Resources.token, true);
@@ -275,15 +281,19 @@ INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
                     DepartmentHead = "180", // "20000-DIRECCIÓN COMERCIAL : 25100-GERENCIA VTAS TELEFONICAS : 25100-ZONA 100",
                     Location = "LOGISTICA",
                     Quantity = "1",
-                    Department = !item.Facturas.Equals("452411")? regresaDepartmentFactura(factura.Key):regresaDeparmentSinFactura(item.NumeroGuia),
+                    Department = !item.Facturas.Equals("452411") ? regresaDepartmentFactura(factura.Key) : regresaDeparmentSinFactura(item.NumeroGuia),
                     Item = retencion ? "FLETES CON RETENCION" : "FLETES SIN RETENCION",
                     Rate = subtotal / suma * factura.Value,
-                    Tax = retencion ? "RET IVA FLETES:GPO RET FLETE" : "IVA 16%:IVA 16%",
-                    Relacion=item.Facturas.Equals("452411")?"": "Invoice #"+factura.Key.ToString(),
-                    NumGuia=item.NumeroGuia,
-                    Comentario=item.NumeroGuia+" "+ item.comentario
-                    
-                    
+                    Tax = item.retencion.ToString().Equals("1.12") ? "RET IVA FLETES:GPO RET FLETE" : "IVA 16%:IVA 16%",  // retencion ? "RET IVA FLETES:GPO RET FLETE" : "IVA 16%:IVA 16%",
+                    Relacion = item.Facturas.Equals("452411") ? "" : "Invoice #" + factura.Key.ToString(),
+                    NumGuia = item.NumeroGuia,
+                    Comentario = item.NumeroGuia + " " + item.comentario,
+                    ClasificadorGuia = !item.Facturas.Equals("452411") ? "" : regresaClasificador(item.NumeroGuia),
+                    CiudadEstado = !item.Facturas.Equals("452411") ? "Venta" : regresaCiudadEstado(item.NumeroGuia)
+
+
+
+
 
                 };
                 aux.Rate = decimal.Round((decimal)aux.Rate, 2);
@@ -294,12 +304,36 @@ INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
             return listaRegresar;
         }
 
-        private string regresaDeparmentSinFactura(string numeroGuia)
+        private string regresaCiudadEstado(string numeroGuia)
         {
             using (IndarnegEntities ctx = new IndarnegEntities())
             {
                 var resultado = (from i in ctx.NumeroGuiaNetsuite
                                  where i.NumeroGuia.Equals(numeroGuia)
+                                 select i.municipio+","+i.estado).FirstOrDefault();
+                return string.Format("\"{0}\"", resultado.ToString());
+
+            }
+        }
+
+        private string regresaClasificador(string numeroGuia)
+        {
+            using (IndarnegEntities ctx = new IndarnegEntities())
+            {
+                var resultado = (from i in ctx.NumeroGuiaNetsuite
+                                 where i.NumeroGuia.Equals(numeroGuia) && i.clasificador != null
+                                 select i.clasificador).FirstOrDefault();
+                return resultado.ToString();
+
+            }
+        }
+
+        private string regresaDeparmentSinFactura(string numeroGuia)
+        {
+            using (IndarnegEntities ctx = new IndarnegEntities())
+            {
+                var resultado = (from i in ctx.NumeroGuiaNetsuite
+                                 where i.NumeroGuia.Equals(numeroGuia) && i.department_id!=null
                                  select i.department_id.Value).FirstOrDefault();
                 return resultado.ToString();
                                
@@ -320,7 +354,7 @@ INNER JOIN IWS.dbo.Departments D3 ON D2.PARENT_ID=D3.DEPARTMENT_ID
 
                                 set @usuario='"+usuario+@"'
 
-                                if (@usuario='administrador' or @usuario='julio.romo' or @usuario='azuniga')
+                                if (@usuario='administrador' or @usuario='julio.romo' or @usuario='azuniga' or @usuario='ocampos')
                                 begin
 	                                if exists (select * from Indarneg.dbo.sai_usuario where usuario=@usuario and pass='"+pass+@"')
 	                                 select 'SI'

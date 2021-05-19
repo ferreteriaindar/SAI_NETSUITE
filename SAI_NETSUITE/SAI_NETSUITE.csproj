@@ -197,6 +197,7 @@
     </Compile>
     <Compile Include="Controllers\Logistica\MesaControl\PlaneadorController.cs" />
     <Compile Include="Controllers\Logistica\Reportes\FacturasXEmbarcarController.cs" />
+    <Compile Include="Controllers\Logistica\Reportes\ReporteInterfazReciboController.cs" />
     <Compile Include="Controllers\Moneda.cs" />
     <Compile Include="Controllers\PostVenta\ConfirmacionController.cs" />
     <Compile Include="Controllers\PostVenta\RegistroGuiasController.cs" />
@@ -226,6 +227,9 @@
     </Compile>
     <Compile Include="Entity.cs">
       <DependentUpon>IWS.tt</DependentUpon>
+    </Compile>
+    <Compile Include="EntradaCompraEstatus_Out.cs">
+      <DependentUpon>InActionWMS.tt</DependentUpon>
     </Compile>
     <Compile Include="errorTimbradoPago.cs">
       <DependentUpon>IWS.tt</DependentUpon>
@@ -370,6 +374,7 @@
     <Compile Include="Models\Transaccion\Payment_CreditMemo_certifiedModel.cs" />
     <Compile Include="Models\Transaccion\pedidoFulfill.cs" />
     <Compile Include="Models\Transaccion\PlaneadorModel.cs" />
+    <Compile Include="Models\Transaccion\ReporteInterfazReciboModel.cs" />
     <Compile Include="Models\Transaccion\responseStructure.cs" />
     <Compile Include="Models\Transaccion\ResultadosInventoryEvents.cs" />
     <Compile Include="Models\Transaccion\SaleOrder.cs" />
@@ -654,6 +659,12 @@
     <Compile Include="Views\CXC\TimbradoPago.Designer.cs">
       <DependentUpon>TimbradoPago.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\Logistica\Distribucion\AgregarGuiaTipoPostventa.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Distribucion\AgregarGuiaTipoPostventa.Designer.cs">
+      <DependentUpon>AgregarGuiaTipoPostventa.cs</DependentUpon>
+    </Compile>
     <Compile Include="Views\Logistica\Distribucion\AutorizacionJefe.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -803,6 +814,12 @@
     </Compile>
     <Compile Include="Views\Logistica\Reportes\ReporteGastoFletera.Designer.cs">
       <DependentUpon>ReporteGastoFletera.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Logistica\Reportes\ReporteInterfazRecibo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Views\Logistica\Reportes\ReporteInterfazRecibo.Designer.cs">
+      <DependentUpon>ReporteInterfazRecibo.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PostVenta\Confirmacion.cs">
       <SubType>UserControl</SubType>
@@ -1177,6 +1194,9 @@
     <EmbeddedResource Include="Views\CXC\TimbradoPago.resx">
       <DependentUpon>TimbradoPago.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Distribucion\AgregarGuiaTipoPostventa.resx">
+      <DependentUpon>AgregarGuiaTipoPostventa.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Distribucion\AutorizacionJefe.resx">
       <DependentUpon>AutorizacionJefe.cs</DependentUpon>
     </EmbeddedResource>
@@ -1251,6 +1271,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\Logistica\Reportes\ReporteGastoFletera.resx">
       <DependentUpon>ReporteGastoFletera.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\Logistica\Reportes\ReporteInterfazRecibo.resx">
+      <DependentUpon>ReporteInterfazRecibo.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Views\PostVenta\Confirmacion.resx">
       <DependentUpon>Confirmacion.cs</DependentUpon>

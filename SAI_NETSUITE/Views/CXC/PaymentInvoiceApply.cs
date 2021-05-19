@@ -29,11 +29,20 @@ namespace SAI_NETSUITE.Views.CXC
         private void PaymentInvoiceApply_Load(object sender, EventArgs e)
         {
             cargaZonas();
-           
+            cargaListaClientes();
            dt= InicializaTabla();
             cargaFormaPagoSAT();
         }
 
+
+        public void cargaListaClientes()
+        {
+            Controllers.CXC.PaymentInvoiceApplyController piac = new PaymentInvoiceApplyController();
+            List<Customers> lista = piac.cargaListaClientes();
+            searchCliente.Properties.DataSource = lista.Select(i => new { i.internalid, i.companyId }).ToList();
+            searchCliente.Properties.DisplayMember = "companyId";
+            searchCliente.Properties.ValueMember = "internalid";
+        }
 
         public void cargaFormaPagoSAT()
         {
@@ -55,13 +64,13 @@ namespace SAI_NETSUITE.Views.CXC
           //  btnEnviarNetsuite.Enabled = false;
             gridView1.ActiveFilterString = "";
             layoutSuma.Control.BackColor = Color.White;
-            if (dxValidationProvider1.Validate())
+            if (toggleSwitch1.IsOn ? dxValidationProviderCliente.Validate(): dxValidationProvider1.Validate())
             {
                 btnCargarInfo.ImageOptions.Image = SAI_NETSUITE.Properties.Resources.gear;
                 if (!backgroundWorkerCarga.IsBusy)
-                    backgroundWorkerCarga.RunWorkerAsync(argument: searchLookUpEdit1.EditValue.ToString());
+                    backgroundWorkerCarga.RunWorkerAsync(argument:toggleSwitch1.IsOn?"C"+searchCliente.EditValue.ToString():searchLookUpEdit1.EditValue.ToString());
             }
-            else MessageBox.Show("Selecciona una Zona");
+            else MessageBox.Show("Selecciona una Zona/Cliente");
 
         }
 
@@ -363,7 +372,7 @@ namespace SAI_NETSUITE.Views.CXC
                 {
                   
                         listaTimbrar.Add(gridPago.GetFocusedRowCellValue(colPayment).ToString());
-                    gridTimbrar.DataSource = listaTimbrar.ToArray();
+                  //  gridTimbrar.DataSource = listaTimbrar.ToArray();
                     MessageBox.Show("PAGO ENVIADO CON EXITO!! \n No olvides borrar el archivo el viernes");
                 }
                 else
@@ -457,11 +466,12 @@ namespace SAI_NETSUITE.Views.CXC
             pdfexport.StartInfo.Arguments = carpeta + "\\Payments.xlsx";
             pdfexport.Start();
 
-            gridTimbrar.ExportToXlsx(carpeta + "\\Timbrar.xlsx");
+         /*   gridTimbrar.ExportToXlsx(carpeta + "\\Timbrar.xlsx");
             Process pdfexport2 = new Process();
             pdfexport2.StartInfo.FileName = "EXCEL.exe";
             pdfexport2.StartInfo.Arguments = carpeta + "\\Timbrar.xlsx";
             pdfexport2.Start();
+            */
         }
 
         private void gridViewFinalFactura_CellValueChanged(object sender, DevExpress.XtraGrid.Views.Base.CellValueChangedEventArgs e)

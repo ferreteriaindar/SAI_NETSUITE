@@ -30,6 +30,17 @@ namespace SAI_NETSUITE.Controllers.CXC
             Payment_CreditMemo_certifiedModel piam = JsonConvert.DeserializeObject<Payment_CreditMemo_certifiedModel>(json);
             return piam;
         }
+
+        internal List<Customers> cargaListaClientes()
+        {
+            using (IWSEntities ctx = new IWSEntities())
+            {
+                var sat = from i in ctx.Customers select i;
+
+                return sat.ToList(); ;
+            }
+        }
+
         public List<FORMA_DE_PAGO_V3_3> regresaListaFormaPago()
         {
            /*  using (IWSEntities ctx = new IWSEntities())

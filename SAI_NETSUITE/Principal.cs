@@ -612,9 +612,9 @@ namespace SAI_NETSUITE
                         };
                         rgf.BringToFront();
                         break;
-                    case "btnNumeroGuiaPostventa":
+                    case "btnNumeroGuiaPostventa":   case "btnNumguiaPostventaLogistica":
                         panelControl1.Controls.Clear();
-                        Views.PostVenta.RegistrodeGuias rdg = new Views.PostVenta.RegistrodeGuias(usuario)
+                        Views.PostVenta.RegistrodeGuias rdg = new Views.PostVenta.RegistrodeGuias(usuario,false)
                         {
 
                             Parent = panelControl1,
@@ -632,7 +632,15 @@ namespace SAI_NETSUITE
                         };
                         P.BringToFront();
                         break;
-
+                    case "btnReporteInterfazRecibo":
+                        panelControl1.Controls.Clear();
+                        Views.Logistica.Reportes.ReporteInterfazRecibo rir = new Views.Logistica.Reportes.ReporteInterfazRecibo()
+                        {
+                            Parent = panelControl1,
+                            Dock = DockStyle.Fill
+                        };
+                        rir.BringToFront();
+                        break;
 
 
                     default:

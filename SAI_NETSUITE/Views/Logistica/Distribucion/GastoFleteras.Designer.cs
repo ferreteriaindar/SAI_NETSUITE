@@ -79,6 +79,10 @@
             this.checkAutorizado = new DevExpress.XtraEditors.CheckEdit();
             this.txtSubtotal = new DevExpress.XtraEditors.TextEdit();
             this.BtnAddGuia = new DevExpress.XtraEditors.SimpleButton();
+            this.btnAgregarGuiaPostventa = new DevExpress.XtraEditors.SimpleButton();
+            this.txtProntoPago = new DevExpress.XtraEditors.ButtonEdit();
+            this.label6 = new System.Windows.Forms.Label();
+            this.colFinalpp = new DevExpress.XtraGrid.Columns.GridColumn();
             ((System.ComponentModel.ISupportInitialize)(this.searchVendor.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.gridControl1)).BeginInit();
@@ -93,6 +97,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkAutorizado.Properties)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSubtotal.Properties)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtProntoPago.Properties)).BeginInit();
             this.SuspendLayout();
             // 
             // searchVendor
@@ -172,7 +177,7 @@
             this.gridControl1.Location = new System.Drawing.Point(399, 3);
             this.gridControl1.MainView = this.gridView1;
             this.gridControl1.Name = "gridControl1";
-            this.gridControl1.Size = new System.Drawing.Size(819, 327);
+            this.gridControl1.Size = new System.Drawing.Size(819, 332);
             this.gridControl1.TabIndex = 9;
             this.gridControl1.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView1});
@@ -187,9 +192,12 @@
             this.colFecha});
             this.gridView1.GridControl = this.gridControl1;
             this.gridView1.Name = "gridView1";
+            this.gridView1.OptionsBehavior.ReadOnly = true;
+            this.gridView1.OptionsFilter.AllowFilterIncrementalSearch = false;
             this.gridView1.OptionsSelection.MultiSelect = true;
             this.gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             this.gridView1.SelectionChanged += new DevExpress.Data.SelectionChangedEventHandler(this.gridView1_SelectionChanged);
+            this.gridView1.CustomRowFilter += new DevExpress.XtraGrid.Views.Base.RowFilterEventHandler(this.gridView1_CustomRowFilter);
             // 
             // colidNumeroGuia
             // 
@@ -374,10 +382,10 @@
             // 
             this.gridFinal.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.gridFinal.Location = new System.Drawing.Point(399, 354);
+            this.gridFinal.Location = new System.Drawing.Point(399, 341);
             this.gridFinal.MainView = this.gridView2;
             this.gridFinal.Name = "gridFinal";
-            this.gridFinal.Size = new System.Drawing.Size(819, 272);
+            this.gridFinal.Size = new System.Drawing.Size(819, 349);
             this.gridFinal.TabIndex = 24;
             this.gridFinal.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] {
             this.gridView2});
@@ -399,7 +407,8 @@
             this.colFinalcomentario,
             this.colFinalPaqueteria,
             this.colFinalimporteSinIVA,
-            this.colFinalretencion});
+            this.colFinalretencion,
+            this.colFinalpp});
             gridFormatRule1.ApplyToRow = true;
             gridFormatRule1.Name = "Format0";
             gridFormatRule1.Rule = null;
@@ -408,6 +417,7 @@
             this.gridView2.Name = "gridView2";
             this.gridView2.OptionsSelection.MultiSelect = true;
             this.gridView2.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
+            this.gridView2.OptionsView.ShowFooter = true;
             this.gridView2.CellValueChanged += new DevExpress.XtraGrid.Views.Base.CellValueChangedEventHandler(this.gridView2_CellValueChanged);
             this.gridView2.RowUpdated += new DevExpress.XtraGrid.Views.Base.RowObjectEventHandler(this.gridView2_RowUpdated);
             // 
@@ -425,7 +435,9 @@
             this.colFinalimporte.FieldName = "colFinalimporte";
             this.colFinalimporte.Name = "colFinalimporte";
             this.colFinalimporte.OptionsColumn.ReadOnly = true;
-            this.colFinalimporte.UnboundExpression = "[importeSinIVA] * [retencion]";
+            this.colFinalimporte.Summary.AddRange(new DevExpress.XtraGrid.GridSummaryItem[] {
+            new DevExpress.XtraGrid.GridColumnSummaryItem(DevExpress.Data.SummaryItemType.Sum, "colFinalimporte", "{0:c2}")});
+            this.colFinalimporte.UnboundExpression = "[importeSinIVA] * [retencion] * [pp]";
             this.colFinalimporte.UnboundType = DevExpress.Data.UnboundColumnType.Decimal;
             this.colFinalimporte.Visible = true;
             this.colFinalimporte.VisibleIndex = 2;
@@ -567,7 +579,7 @@
             this.BtnAddGuia.Appearance.Options.UseForeColor = true;
             this.BtnAddGuia.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
             this.BtnAddGuia.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("BtnAddGuia.ImageOptions.Image")));
-            this.BtnAddGuia.Location = new System.Drawing.Point(3, 570);
+            this.BtnAddGuia.Location = new System.Drawing.Point(3, 616);
             this.BtnAddGuia.Name = "BtnAddGuia";
             this.BtnAddGuia.Size = new System.Drawing.Size(369, 42);
             this.BtnAddGuia.TabIndex = 29;
@@ -575,10 +587,58 @@
             this.BtnAddGuia.Visible = false;
             this.BtnAddGuia.Click += new System.EventHandler(this.BtnAddGuia_Click);
             // 
+            // btnAgregarGuiaPostventa
+            // 
+            this.btnAgregarGuiaPostventa.Appearance.BackColor = System.Drawing.Color.CornflowerBlue;
+            this.btnAgregarGuiaPostventa.Appearance.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnAgregarGuiaPostventa.Appearance.ForeColor = System.Drawing.Color.Black;
+            this.btnAgregarGuiaPostventa.Appearance.Options.UseBackColor = true;
+            this.btnAgregarGuiaPostventa.Appearance.Options.UseFont = true;
+            this.btnAgregarGuiaPostventa.Appearance.Options.UseForeColor = true;
+            this.btnAgregarGuiaPostventa.ButtonStyle = DevExpress.XtraEditors.Controls.BorderStyles.HotFlat;
+            this.btnAgregarGuiaPostventa.ImageOptions.Image = ((System.Drawing.Image)(resources.GetObject("btnAgregarGuiaPostventa.ImageOptions.Image")));
+            this.btnAgregarGuiaPostventa.Location = new System.Drawing.Point(3, 564);
+            this.btnAgregarGuiaPostventa.Name = "btnAgregarGuiaPostventa";
+            this.btnAgregarGuiaPostventa.Size = new System.Drawing.Size(369, 42);
+            this.btnAgregarGuiaPostventa.TabIndex = 30;
+            this.btnAgregarGuiaPostventa.Text = "Agregar Guía";
+            this.btnAgregarGuiaPostventa.Click += new System.EventHandler(this.btnAgregarGuiaPostventa_Click);
+            // 
+            // txtProntoPago
+            // 
+            this.txtProntoPago.Location = new System.Drawing.Point(6, 435);
+            this.txtProntoPago.Name = "txtProntoPago";
+            this.txtProntoPago.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] {
+            new DevExpress.XtraEditors.Controls.EditorButton()});
+            this.txtProntoPago.Properties.Mask.EditMask = "p";
+            this.txtProntoPago.Properties.Mask.MaskType = DevExpress.XtraEditors.Mask.MaskType.Numeric;
+            this.txtProntoPago.Size = new System.Drawing.Size(156, 22);
+            this.txtProntoPago.TabIndex = 31;
+            this.txtProntoPago.ButtonClick += new DevExpress.XtraEditors.Controls.ButtonPressedEventHandler(this.txtProntoPago_ButtonClick);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(3, 413);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(89, 19);
+            this.label6.TabIndex = 32;
+            this.label6.Text = "ProntoPago";
+            // 
+            // colFinalpp
+            // 
+            this.colFinalpp.Caption = "PP";
+            this.colFinalpp.FieldName = "pp";
+            this.colFinalpp.Name = "colFinalpp";
+            this.colFinalpp.Visible = true;
+            this.colFinalpp.VisibleIndex = 10;
+            // 
             // GastoFleteras
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.Controls.Add(this.label6);
+            this.Controls.Add(this.btnAgregarGuiaPostventa);
             this.Controls.Add(this.BtnAddGuia);
             this.Controls.Add(this.txtSubtotal);
             this.Controls.Add(this.checkAutorizado);
@@ -599,9 +659,10 @@
             this.Controls.Add(this.gridControl1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.searchVendor);
+            this.Controls.Add(this.txtProntoPago);
             this.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Name = "GastoFleteras";
-            this.Size = new System.Drawing.Size(1221, 629);
+            this.Size = new System.Drawing.Size(1221, 693);
             this.Load += new System.EventHandler(this.GastoFleteras_Load);
             ((System.ComponentModel.ISupportInitialize)(this.searchVendor.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.searchLookUpEdit1View)).EndInit();
@@ -617,6 +678,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.gridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.checkAutorizado.Properties)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.txtSubtotal.Properties)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.txtProntoPago.Properties)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -671,5 +733,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn colFinalimporteSinIVA;
         private DevExpress.XtraGrid.Columns.GridColumn colFinalretencion;
         private DevExpress.XtraEditors.SimpleButton BtnAddGuia;
+        private DevExpress.XtraEditors.SimpleButton btnAgregarGuiaPostventa;
+        private DevExpress.XtraEditors.ButtonEdit txtProntoPago;
+        private System.Windows.Forms.Label label6;
+        private DevExpress.XtraGrid.Columns.GridColumn colFinalpp;
     }
 }

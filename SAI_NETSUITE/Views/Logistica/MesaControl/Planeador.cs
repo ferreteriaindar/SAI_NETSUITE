@@ -10,6 +10,9 @@ using System.Windows.Forms;
 using SAI_NETSUITE.Models.Transaccion;
 using DevExpress.XtraGrid;
 using DevExpress.XtraEditors;
+using DevExpress.XtraPivotGrid;
+using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.DashboardCommon;
 
 namespace SAI_NETSUITE.Views.Logistica.MesaControl
 {
@@ -59,7 +62,25 @@ namespace SAI_NETSUITE.Views.Logistica.MesaControl
         {
               List<PlaneadorModel> lista =(List<PlaneadorModel>) e.Result;
               pivotGridControl1.DataSource = lista;
-           
+
+
+            //ESTO ES PARA PONER BOLITAS AL FINAL DEL PIVOT  SE PUEDE QUITAR
+                    PivotGridFormatRule newRule = new PivotGridFormatRule();
+                    newRule.Measure = porSurtirField;         
+                    newRule = pivotGridControl1.FormatRules[2];
+                  /*  FormatRuleSettings settins = newRule.Settings;
+                    Console.WriteLine(settins.ToString());*/
+                    //   settins{ "Format cells where Column field is fieldAREA1 and Row field is Grand Total"};
+                    newRule.Settings = new FormatRuleFieldIntersectionSettings
+                    {
+                        Column = fieldAREA1,
+                        Row= pivotGridControl1.Fields["Grand Total"]
+                };
+                    pivotGridControl1.FormatRules[2].Settings = newRule.Settings;
+            //ESTO ES PARA PONER BOLITAS AL FINAL DEL PIVOT  SE PUEDE QUITAR
+
+
+
             // sqlDataSource1.Fill();
             btnActualizar.ImageOptions.Image = null;
             labelControl1.Text = DateTime.Now.ToShortTimeString();
@@ -74,6 +95,41 @@ namespace SAI_NETSUITE.Views.Logistica.MesaControl
         {
             Controllers.Logistica.MesaControl.CajasPendientes cp = new Controllers.Logistica.MesaControl.CajasPendientes();
             cp.Show();
+        }
+
+        private void pivotGridControl1_CellDoubleClick(object sender, DevExpress.XtraPivotGrid.PivotCellEventArgs e)
+        {
+            PivotDrillDownDataSource drillDownDataSource;
+
+            drillDownDataSource = e.CreateDrillDownDataSource();
+
+            Console.WriteLine("");
+            if (drillDownDataSource.RowCount > 0)
+            {
+                XtraForm dataform = CreateDrillDownForm(drillDownDataSource);
+                dataform.ShowDialog();
+                dataform.Dispose();
+            }
+        }
+
+
+
+
+
+        private XtraForm CreateDrillDownForm(PivotDrillDownDataSource dataSource)
+        {
+            XtraForm form = new XtraForm();
+            GridControl grid = new GridControl();
+            grid.Parent = form;
+            grid.Dock = DockStyle.Fill;
+            grid.DataSource = dataSource;
+            grid.DataSource =
+            form.Bounds = new Rectangle(100, 100, 800, 400);
+            GridView gridView1 = new GridView();
+            grid.MainView = gridView1;
+        //    gridView1.Columns["OrderDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
+            form.Text = string.Format("Underlying Data - {0} Records", dataSource.RowCount);
+            return form;
         }
     }
 }

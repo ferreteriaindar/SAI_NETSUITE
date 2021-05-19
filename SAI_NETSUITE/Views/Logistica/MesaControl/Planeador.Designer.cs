@@ -41,7 +41,6 @@
             DevExpress.XtraEditors.FormatConditionIconSetIcon formatConditionIconSetIcon1 = new DevExpress.XtraEditors.FormatConditionIconSetIcon();
             DevExpress.XtraEditors.FormatConditionIconSetIcon formatConditionIconSetIcon2 = new DevExpress.XtraEditors.FormatConditionIconSetIcon();
             DevExpress.XtraEditors.FormatConditionIconSetIcon formatConditionIconSetIcon3 = new DevExpress.XtraEditors.FormatConditionIconSetIcon();
-            DevExpress.XtraEditors.FormatConditionIconSetIcon formatConditionIconSetIcon4 = new DevExpress.XtraEditors.FormatConditionIconSetIcon();
             DevExpress.XtraPivotGrid.FormatRuleTotalTypeSettings formatRuleTotalTypeSettings3 = new DevExpress.XtraPivotGrid.FormatRuleTotalTypeSettings();
             DevExpress.DataAccess.Sql.StoredProcQuery storedProcQuery1 = new DevExpress.DataAccess.Sql.StoredProcQuery();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Planeador));
@@ -122,11 +121,11 @@
             // 
             // labelControl1
             // 
-            this.labelControl1.Appearance.Font = new System.Drawing.Font("Century Gothic", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelControl1.Appearance.Font = new System.Drawing.Font("Century Gothic", 16.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.labelControl1.Appearance.Options.UseFont = true;
             this.labelControl1.Location = new System.Drawing.Point(162, 43);
             this.labelControl1.Name = "labelControl1";
-            this.labelControl1.Size = new System.Drawing.Size(117, 21);
+            this.labelControl1.Size = new System.Drawing.Size(179, 33);
             this.labelControl1.TabIndex = 1;
             this.labelControl1.Text = "labelControl1";
             // 
@@ -194,29 +193,21 @@
             formatConditionIconSetIcon1.ValueComparison = DevExpress.XtraEditors.FormatConditionComparisonType.GreaterOrEqual;
             formatConditionIconSetIcon2.PredefinedName = "TrafficLights4_2.png";
             formatConditionIconSetIcon2.Value = new decimal(new int[] {
-            3,
+            12,
             0,
             0,
             0});
             formatConditionIconSetIcon2.ValueComparison = DevExpress.XtraEditors.FormatConditionComparisonType.GreaterOrEqual;
             formatConditionIconSetIcon3.PredefinedName = "TrafficLights4_3.png";
             formatConditionIconSetIcon3.Value = new decimal(new int[] {
-            15,
+            25,
             0,
             0,
             0});
             formatConditionIconSetIcon3.ValueComparison = DevExpress.XtraEditors.FormatConditionComparisonType.GreaterOrEqual;
-            formatConditionIconSetIcon4.PredefinedName = "TrafficLights4_4.png";
-            formatConditionIconSetIcon4.Value = new decimal(new int[] {
-            16,
-            0,
-            0,
-            0});
-            formatConditionIconSetIcon4.ValueComparison = DevExpress.XtraEditors.FormatConditionComparisonType.GreaterOrEqual;
             formatConditionIconSet1.Icons.Add(formatConditionIconSetIcon1);
             formatConditionIconSet1.Icons.Add(formatConditionIconSetIcon2);
             formatConditionIconSet1.Icons.Add(formatConditionIconSetIcon3);
-            formatConditionIconSet1.Icons.Add(formatConditionIconSetIcon4);
             formatConditionIconSet1.Name = "TrafficLights4";
             formatConditionIconSet1.ValueType = DevExpress.XtraEditors.FormatConditionValueType.Percent;
             formatConditionRuleIconSet1.IconSet = formatConditionIconSet1;
@@ -238,6 +229,7 @@
             this.pivotGridControl1.OptionsView.ShowRowTotals = false;
             this.pivotGridControl1.Size = new System.Drawing.Size(1342, 401);
             this.pivotGridControl1.TabIndex = 1;
+            this.pivotGridControl1.CellDoubleClick += new DevExpress.XtraPivotGrid.PivotCellEventHandler(this.pivotGridControl1_CellDoubleClick);
             // 
             // sqlDataSource1
             // 
